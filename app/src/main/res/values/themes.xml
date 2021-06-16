@@ -13,4 +13,53 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="regular_font" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">@font/iransans_regular</item>
+        <item name="fontFamily">@font/iransans_regular</item>
+    </style>
+
+    <style name="light_font" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">@font/iransans_light</item>
+        <item name="fontFamily">@font/iransans_light</item>
+    </style>
+
+    <style name="bold_font" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">@font/iransans_bold</item>
+        <item name="fontFamily">@font/iransans_bold</item>
+    </style>
+
+    <style name="medium_font" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">@font/iransans_medium</item>
+        <item name="fontFamily">@font/iransans_medium</item>
+    </style>
+
+    <style name="title1" parent="regular_font">
+        <item name="android:textSize">@dimen/title1_text </item>
+    </style>
+
+    <style name="title2" parent="regular_font">
+        <item name="android:textSize">@dimen/title2_text </item>
+    </style>
+
+    <style name="title3" parent="regular_font">
+        <item name="android:textSize">@dimen/title3_text </item>
+    </style>
+
+    <style name="title4" parent="regular_font">
+        <item name="android:textSize">@dimen/title4_text </item>
+    </style>
+
+    <style name="body" parent="regular_font">
+        <item name="android:textSize">@dimen/body_text </item>
+    </style>
+
+    <style name="description" parent="regular_font">
+        <item name="android:textSize">@dimen/description_text </item>
+    </style>
+
+    <style name="caption" parent="light_font">
+        <item name="android:textSize">@dimen/caption_text </item>
+    </style>
+
 </resources>
