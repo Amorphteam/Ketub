@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Ketub</string>
+    <string name="app_caption">best android epub reader</string>
+    <string name="open_epub">open epub activity</string>
+    <string name="title_activity_epub_viewer">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="search">search</string>
 </resources>
