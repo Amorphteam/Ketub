@@ -1,32 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ketub" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Ketub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/orange_normal</item>
+        <item name="colorPrimaryVariant">@color/orange_light</item>
+        <item name="colorOnPrimary">@color/cyan_dark</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/reddish_orange_normal</item>
+        <item name="colorSecondaryVariant">@color/reddish_orange_light</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="regular_font" parent="@android:style/Widget.TextView">
         <item name="android:fontFamily">@font/iransans_regular</item>
         <item name="fontFamily">@font/iransans_regular</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="light_font" parent="@android:style/Widget.TextView">
         <item name="android:fontFamily">@font/iransans_light</item>
         <item name="fontFamily">@font/iransans_light</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="bold_font" parent="@android:style/Widget.TextView">
         <item name="android:fontFamily">@font/iransans_bold</item>
         <item name="fontFamily">@font/iransans_bold</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="medium_font" parent="@android:style/Widget.TextView">
@@ -35,31 +39,33 @@
     </style>
 
     <style name="title1" parent="regular_font">
-        <item name="android:textSize">@dimen/title1_text </item>
+        <item name="android:textSize">@dimen/title1_text</item>
     </style>
 
     <style name="title2" parent="regular_font">
-        <item name="android:textSize">@dimen/title2_text </item>
+        <item name="android:textSize">@dimen/title2_text</item>
     </style>
 
     <style name="title3" parent="regular_font">
-        <item name="android:textSize">@dimen/title3_text </item>
+        <item name="android:textSize">@dimen/title3_text</item>
     </style>
 
     <style name="title4" parent="regular_font">
-        <item name="android:textSize">@dimen/title4_text </item>
+        <item name="android:textSize">@dimen/title4_text</item>
     </style>
 
     <style name="body" parent="regular_font">
-        <item name="android:textSize">@dimen/body_text </item>
+        <item name="android:textSize">@dimen/body_text</item>
     </style>
 
     <style name="description" parent="regular_font">
-        <item name="android:textSize">@dimen/description_text </item>
+        <item name="android:textSize">@dimen/description_text</item>
     </style>
 
     <style name="caption" parent="light_font">
-        <item name="android:textSize">@dimen/caption_text </item>
+        <item name="android:textSize">@dimen/caption_text</item>
     </style>
+
+
 
 </resources>
