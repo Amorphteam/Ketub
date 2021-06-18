@@ -21,6 +21,8 @@ class EpubViewerViewModel : ViewModel() {
         Log.i(LOG_NAME, "cleared epub viewer view model")
     }
 
+
+
     companion object {
         @JvmStatic
         @BindingAdapter("loadUrl")

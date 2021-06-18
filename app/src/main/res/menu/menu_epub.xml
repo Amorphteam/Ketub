@@ -11,18 +11,18 @@
         android:id="@+id/setting"
         android:icon="@drawable/ic_setting"
         app:showAsAction="always"
-        android:title="@string/search">
+        android:title="@string/style_setting">
     </item>
     <item
         android:id="@+id/bookmark"
         android:icon="@drawable/ic_bookmark"
         app:showAsAction="always"
-        android:title="@string/search">
+        android:title="@string/bookmark">
     </item>
     <item
         android:id="@+id/toc"
         android:icon="@drawable/ic_toc"
         app:showAsAction="always"
-        android:title="@string/search">
+        android:title="@string/toc">
     </item>
 </menu>

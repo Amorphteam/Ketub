@@ -9,7 +9,11 @@
             type="com.amorphteam.ketub.ui.epub.EpubViewerViewModel" />
     </data>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
+        android:id="@+id/main_epub_countiner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
@@ -25,7 +29,17 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize" />
+                android:layout_height="?actionBarSize" >
+
+                <TextView
+                    android:id="@+id/book_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    style="@style/caption"
+                    android:gravity="center"
+                    />
+            </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
         <FrameLayout
@@ -36,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
+                android:id="@+id/slider_countiner"
                 android:layout_marginBottom="?attr/actionBarSize"
                 android:translationZ="90dp">
 
@@ -45,6 +60,7 @@
                     android:layout_height="0dp"
                     app:popupAlwaysShown="false"
                     app:popupDraggable="false"
+                    style="@style/SeekerBar"
                     app:popupLayout="@layout/seekbar_layout"
                     app:popupStyle="follow"
                     app:seekBarRotation="CW90" />
@@ -53,10 +69,11 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/webView_countiner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="?attr/actionBarSize"
-                app:cardBackgroundColor="@color/orange_light"
+                app:cardBackgroundColor="@color/background1"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
 
@@ -75,9 +92,20 @@
                 android:layout_marginBottom="@dimen/large_margin"
                 android:gravity="center"
                 android:text="٣٤٥ / ١٢"
-                android:textColor="?attr/colorOnPrimary" />
+                android:id="@+id/page_number"
+                android:textColor="?attr/colorSecondaryVariant" />
 
         </FrameLayout>
 
     </LinearLayout>
+        <View
+            android:visibility="gone"
+            android:id="@+id/bg"
+            android:background="#99000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <include layout="@layout/style_sheet"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

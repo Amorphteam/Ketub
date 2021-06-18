@@ -6,4 +6,26 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="search">search</string>
+    <string name="fast_setting_style">Quick text settings</string>
+    <string name="default_setting">Default</string>
+    <string name="more_readability">More readability</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="high_contrast">High contrast</string>
+    <string name="advanced_setting_style">Advanced text settings</string>
+    <string name="font">Font</string>
+    <string name="font_size">Font size</string>
+    <string name="line_height">Line height</string>
+    <string name="status">Status</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="base_phone">Base phone</string>
+    <string name="font_dubai">Dubai</string>
+    <string name="font_vazir">Vazir</string>
+    <string name="font_nazanin">Nazanin</string>
+    <string name="font_lotus">Lotus</string>
+    <string name="iran_sans">Iran sans</string>
+    <string name="style_setting">Style setting</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="toc">Toc</string>
+    <string name="book_name">Three cats which one of them is clever</string>
 </resources>

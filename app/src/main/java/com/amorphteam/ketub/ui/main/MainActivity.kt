@@ -14,10 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val gameBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        gameBinding.viewModle = viewModel
-        gameBinding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewModel.startEpubAct.observe(this, {
             if (it) startActivity(Intent(this, EpubViewer::class.java))
