@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
             name="epubViewerViewModel"
             type="com.amorphteam.ketub.ui.epub.EpubViewerViewModel" />
     </data>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,15 +32,43 @@
         android:layout_height="match_parent"
         >
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="@dimen/card_corner_radius_epub"
-        android:layout_marginBottom="?actionBarSize"
-        android:layout_gravity="top"
-        />
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:translationZ="90dp">
 
-    <TextView
+            <io.techery.progresshint.addition.widget.VerticalSeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:popupAlwaysShown="false"
+                app:popupDraggable="false"
+                app:popupLayout="@layout/seekbar_layout"
+                app:popupStyle="follow"
+                app:seekBarRotation="CW90" />
+            <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
+            app:cardBackgroundColor="@color/orange_light"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <WebView
+                android:id="@+id/webView"
+                app:loadUrl="@{epubViewerViewModel.webViewUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:layout_gravity="bottom"
