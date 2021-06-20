@@ -84,17 +84,20 @@
                     android:layout_height="match_parent" />
             </androidx.cardview.widget.CardView>
 
-            <TextView
+            <EditText
                 style="@style/body"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_gravity="bottom|center"
+                android:inputType="number"
+                android:background="@android:color/transparent"
+                android:layout_marginBottom="@dimen/normal_margin"
                 android:gravity="center"
-                android:text="٣٤٥ / ١٢"
+                android:text="666"
+                android:paddingRight="@dimen/large_margin"
+                android:paddingLeft="@dimen/large_margin"
                 android:id="@+id/page_number"
                 android:textColor="?attr/colorSecondaryVariant" />
-
         </FrameLayout>
 
     </LinearLayout>
