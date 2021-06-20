@@ -1,16 +1,14 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
+import android.view.*
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityEpubViewerBinding
-import com.amorphteam.ketub.databinding.ActivityMainBinding
-import com.amorphteam.ketub.ui.main.MainViewModel
 import kotlinx.android.synthetic.main.activity_epub_viewer.*
 
 
@@ -39,6 +37,7 @@ class EpubViewer : AppCompatActivity() {
         seekBar.hintDelegate
             .setHintAdapter { _, progress -> "Progress: $progress" }
 
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -46,5 +45,34 @@ class EpubViewer : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_epub, menu)
         return true
     }
-    
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.search -> {
+            true
+        }
+
+        R.id.setting -> {
+
+            true
+        }
+
+        R.id.bookmark -> {
+
+            true
+        }
+
+        R.id.toc -> {
+
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
 }
