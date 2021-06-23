@@ -1,13 +1,16 @@
 package com.amorphteam.ketub.ui.main
 
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityMainBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel:MainViewModel

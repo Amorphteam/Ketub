@@ -1,13 +1,14 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
-import android.webkit.WebView
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -15,13 +16,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityEpubViewerBinding
-import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_epub_viewer.*
-import kotlinx.android.synthetic.main.style_sheet.*
 
 
 class EpubViewer : AppCompatActivity() {
@@ -60,7 +59,9 @@ class EpubViewer : AppCompatActivity() {
         })
 
         webView.setBackgroundColor(Color.parseColor(resources.getString(R.color.background2)))
-        webView.setOnTouchListener { v, event -> gestureDetector.onTouchEvent(event) }
+        webView.setOnTouchListener { v, event ->
+            gestureDetector.onTouchEvent(event)
+        }
     }
 
     private fun handleChipsGroup() {
@@ -85,21 +86,48 @@ class EpubViewer : AppCompatActivity() {
 
     }
 
+    @SuppressLint("ResourceType")
     private fun handleStyleSheet() {
+
         val bottomSheet = findViewById<LinearLayout>(R.id.bottom_sheet)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.peekHeight = 440
+        handleIconBaseOnTheme(bottomSheet)
         bg.visibility = View.VISIBLE;
         bg.alpha = 0.3f
+
     }
+
+    @SuppressLint("ResourceType")
+    private fun handleIconBaseOnTheme(bottomSheet: LinearLayout?) {
+        when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                bottomSheet!!.findViewById<ImageButton>(R.id.dark)
+                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
+                bottomSheet.findViewById<TextView>(R.id.dark_text)
+                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                bottomSheet!!.findViewById<ImageButton>(R.id.light)
+                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
+                bottomSheet.findViewById<TextView>(R.id.light_text)
+                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                bottomSheet!!.findViewById<ImageButton>(R.id.basetheme)
+                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
+                bottomSheet.findViewById<TextView>(R.id.basetheme_text)
+                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+            }
+        }
+    }
+
 
     private fun openStyleSheet() {
         handleStyleSheet()
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(view: View, i: Int) {
                 bottomSheetBehavior.peekHeight = 0
-
-                Log.i(LOG_NAME, i.toString())
                 if (i == STATE_COLLAPSED)
                     bg.visibility = View.GONE;
 
@@ -108,8 +136,6 @@ class EpubViewer : AppCompatActivity() {
             override fun onSlide(view: View, v: Float) {
                 bg.visibility = View.VISIBLE;
                 bg.alpha = v;
-                Log.i(LOG_NAME, v.toString())
-
             }
         })
 
@@ -146,7 +172,6 @@ class EpubViewer : AppCompatActivity() {
             book_name.visibility = View.VISIBLE
             toolbar.navigationIcon = null
             window.statusBarColor = ContextCompat.getColor(this, R.color.background2)
-
             toggle = false
         } else {
             page_number.setTextColor(resources.getColor(R.color.primary2))
@@ -159,7 +184,6 @@ class EpubViewer : AppCompatActivity() {
             toggle = true
         }
         invalidateOptionsMenu()
-
     }
 
 

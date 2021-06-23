@@ -3,6 +3,7 @@ package com.amorphteam.ketub.ui.epub
 import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,17 @@ class EpubViewerViewModel : ViewModel() {
         Log.i(LOG_NAME, "cleared epub viewer view model")
     }
 
+    fun onClickBaseTheme() {
+       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
 
+    fun onClickDarkTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+    }
+
+    fun onClickLightTheme() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
 
     companion object {
         @JvmStatic
