@@ -10,6 +10,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -41,15 +42,6 @@ class EpubViewer : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-//        viewModel.styleStatus.observe(this, {
-//            when(it!!){
-//                StyleStatus.HighContrast -> {}
-//                StyleStatus.DarkMode -> {}
-//                StyleStatus.MoreReadability -> {}
-//                StyleStatus.Default -> {}
-//            }
-//
-//        })
 
         toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         toolbar.title = ""

@@ -1,17 +1,18 @@
 package com.amorphteam.ketub.ui.epub
 
+
 import android.util.Log
 import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
-import kotlinx.android.synthetic.main.activity_epub_viewer.*
 
 
 class EpubViewerViewModel : ViewModel() {
+
     val webViewUrl = MutableLiveData<String>().apply { value = "file:///android_asset/sample.html" }
     val defaultStyleStatus = MutableLiveData<Boolean>().apply { value = true }
     val moreReadabilityStyleStatus = MutableLiveData<Boolean>().apply { value = false }
@@ -23,7 +24,7 @@ class EpubViewerViewModel : ViewModel() {
 
     val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 20 }
     val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 20 }
-    
+
     init {
         Log.i(LOG_NAME, "load epub viewer view model")
     }
@@ -80,6 +81,16 @@ class EpubViewerViewModel : ViewModel() {
         fontSizeProgress.value = 0
         lineHightProgress.value = 0
         onClickDarkTheme()
+    }
+
+    fun updateFontSizeSeekerBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        fontSizeProgress.value = progress
+        Log.i(LOG_NAME, "fontSize$progress")
+    }
+
+    fun updateLineHightSeekerBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        lineHightProgress.value = progress
+        Log.i(LOG_NAME, "lineHeight$progress")
     }
 
     fun onClickOnHighContrast() {

@@ -316,6 +316,7 @@
                         android:max="100"
                         android:layout_height="wrap_content"
                         android:progress="@{viewModel.fontSizeProgress}"
+                        android:onProgressChanged="@{viewModel.updateFontSizeSeekerBar}"
                         android:layout_weight="1" />
 
                     <ImageView
@@ -344,6 +345,7 @@
                         android:layout_gravity="center_vertical"
                         style="@style/SeekerBar"
                         android:progress="@{viewModel.lineHightProgress}"
+                        android:onProgressChanged="@{viewModel.updateLineHightSeekerBar}"
                         android:layout_weight="1" />
 
                     <ImageView
