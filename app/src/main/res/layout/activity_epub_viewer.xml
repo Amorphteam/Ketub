@@ -140,19 +140,23 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@android:color/transparent"
                         android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{()-> viewModel.onClickOnDefaultStyle()}"
                         android:padding="@dimen/half_margin"
-                        android:src="@drawable/ic_resource_default" />
+                        android:src="@drawable/ic_resource_default"
+                        android:tint="@{viewModel.defaultStyleStatus == true ? @color/primary2 : @color/onbackground2}" />
 
                     <TextView
                         style="@style/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/default_setting" />
+                        android:onClick="@{()-> viewModel.onClickOnDefaultStyle()}"
+                        android:text="@string/default_setting"
+                        android:textColor="@{viewModel.defaultStyleStatus == true ? @color/primary2 : @color/onbackground2}" />
+
 
                 </LinearLayout>
 
@@ -166,16 +170,20 @@
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{()-> viewModel.onClickOnMoreReadabilityStyle()}"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="@dimen/half_margin"
                         android:backgroundTint="@android:color/transparent"
+                        android:tint="@{viewModel.moreReadabilityStyleStatus == true ? @color/primary2 : @color/onbackground2}"
                         android:src="@drawable/ic_legibility" />
 
                     <TextView
                         style="@style/description"
                         android:layout_width="wrap_content"
+                        android:onClick="@{()-> viewModel.onClickOnMoreReadabilityStyle()}"
                         android:layout_height="wrap_content"
-                        android:text="@string/more_readability" />
+                        android:text="@string/more_readability"
+                        android:textColor="@{viewModel.moreReadabilityStyleStatus == true ? @color/primary2 : @color/onbackground2}"/>
 
                 </LinearLayout>
 
@@ -191,14 +199,18 @@
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="@dimen/half_margin"
+                        android:onClick="@{()-> viewModel.onClickOnDarkModeStyle()}"
                         android:backgroundTint="@android:color/transparent"
+                        android:tint="@{viewModel.darkModeStyleStatus == true ? @color/primary2 : @color/onbackground2}"
                         android:src="@drawable/ic_dark" />
 
                     <TextView
                         style="@style/description"
+                        android:onClick="@{()-> viewModel.onClickOnDarkModeStyle()}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dark_mode" />
+                        android:text="@string/dark_mode"
+                        android:textColor="@{viewModel.darkModeStyleStatus == true ? @color/primary2 : @color/onbackground2}"/>
 
                 </LinearLayout>
 
@@ -213,15 +225,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@android:color/transparent"
+                        android:onClick="@{()-> viewModel.onClickOnHighContrast()}"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="@dimen/half_margin"
+                        android:tint="@{viewModel.highContrastStyleStatus == true ? @color/primary2 : @color/onbackground2}"
                         android:src="@drawable/ic_contrast" />
 
                     <TextView
                         style="@style/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/high_contrast" />
+                        android:onClick="@{()-> viewModel.onClickOnHighContrast()}"
+                        android:text="@string/high_contrast"
+                        android:textColor="@{viewModel.highContrastStyleStatus == true ? @color/primary2 : @color/onbackground2}"/>
 
                 </LinearLayout>
 
@@ -297,7 +313,9 @@
                         android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
                         style="@style/SeekerBar"
+                        android:max="100"
                         android:layout_height="wrap_content"
+                        android:progress="@{viewModel.fontSizeProgress}"
                         android:layout_weight="1" />
 
                     <ImageView
@@ -325,6 +343,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         style="@style/SeekerBar"
+                        android:progress="@{viewModel.lineHightProgress}"
                         android:layout_weight="1" />
 
                     <ImageView
@@ -371,14 +390,18 @@
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:padding="@dimen/half_margin"
                         android:backgroundTint="@android:color/transparent"
-                        android:src="@drawable/ic_light" />
+                        android:src="@drawable/ic_light"
+                        android:tint="@{viewModel.lightTheme == true ? @color/primary2 : @color/onbackground2}" />
+
 
                     <TextView
                         android:id="@+id/light_text"
                         style="@style/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/light" />
+                        android:onClick="@{()-> viewModel.onClickLightTheme()}"
+                        android:textColor="@{viewModel.lightTheme == true ? @color/primary2 : @color/onbackground2}"
+                        android:text="@string/light"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -395,14 +418,19 @@
                         android:layout_height="wrap_content"
                         android:onClick="@{()-> viewModel.onClickDarkTheme()}"
                         android:backgroundTint="@android:color/transparent"
-                        android:src="@drawable/ic_dark" />
+                        android:src="@drawable/ic_dark"
+                        android:tint="@{viewModel.darkTheme == true ? @color/primary2 : @color/onbackground2}" />
+
 
                     <TextView
                         android:id="@+id/dark_text"
                         style="@style/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/dark" />
+                        android:onClick="@{()-> viewModel.onClickDarkTheme()}"
+                        android:text="@string/dark"
+                        android:textColor="@{viewModel.darkTheme == true ? @color/primary2 : @color/onbackground2}" />
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="0dp"
@@ -419,14 +447,19 @@
                         android:padding="@dimen/half_margin"
                         android:onClick="@{()-> viewModel.onClickBaseTheme()}"
                         android:backgroundTint="@android:color/transparent"
-                        android:src="@drawable/ic_phone" />
+                        android:src="@drawable/ic_phone"
+                        android:tint="@{viewModel.basetTheme == true ? @color/primary2 : @color/onbackground2}" />
+
 
                     <TextView
                         android:id="@+id/basetheme_text"
                         style="@style/description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/base_phone" />
+                        android:onClick="@{()-> viewModel.onClickBaseTheme()}"
+                        android:text="@string/base_phone"
+                        android:textColor="@{viewModel.basetTheme == true ? @color/primary2 : @color/onbackground2}" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

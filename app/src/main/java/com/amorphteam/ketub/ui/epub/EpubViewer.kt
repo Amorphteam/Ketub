@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.ImageButton
@@ -40,6 +41,15 @@ class EpubViewer : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+//        viewModel.styleStatus.observe(this, {
+//            when(it!!){
+//                StyleStatus.HighContrast -> {}
+//                StyleStatus.DarkMode -> {}
+//                StyleStatus.MoreReadability -> {}
+//                StyleStatus.Default -> {}
+//            }
+//
+//        })
 
         toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         toolbar.title = ""
@@ -92,32 +102,28 @@ class EpubViewer : AppCompatActivity() {
         val bottomSheet = findViewById<LinearLayout>(R.id.bottom_sheet)
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.peekHeight = 440
-        handleIconBaseOnTheme(bottomSheet)
+        handleIconBaseOnTheme()
         bg.visibility = View.VISIBLE;
         bg.alpha = 0.3f
 
     }
 
-    @SuppressLint("ResourceType")
-    private fun handleIconBaseOnTheme(bottomSheet: LinearLayout?) {
+    private fun handleIconBaseOnTheme() {
         when (resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
             Configuration.UI_MODE_NIGHT_YES -> {
-                bottomSheet!!.findViewById<ImageButton>(R.id.dark)
-                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
-                bottomSheet.findViewById<TextView>(R.id.dark_text)
-                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+                viewModel.darkTheme.value = true
+                viewModel.lightTheme.value = false
+                viewModel.basetTheme.value = false
             }
             Configuration.UI_MODE_NIGHT_NO -> {
-                bottomSheet!!.findViewById<ImageButton>(R.id.light)
-                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
-                bottomSheet.findViewById<TextView>(R.id.light_text)
-                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+                viewModel.darkTheme.value = false
+                viewModel.lightTheme.value = true
+                viewModel.basetTheme.value = false
             }
             Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                bottomSheet!!.findViewById<ImageButton>(R.id.basetheme)
-                    .setColorFilter(ContextCompat.getColor(this, R.color.primary2))
-                bottomSheet.findViewById<TextView>(R.id.basetheme_text)
-                    .setTextColor(Color.parseColor(resources.getString(R.color.primary2)))
+                viewModel.darkTheme.value = false
+                viewModel.lightTheme.value = false
+                viewModel.basetTheme.value = true
             }
         }
     }
