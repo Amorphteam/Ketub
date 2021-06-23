@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
@@ -11,21 +11,21 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="8dp"
         android:layout_margin="@dimen/large_margin"
-        app:cardBackgroundColor="@color/white">
+        app:cardBackgroundColor="@color/background3">
 
 
-        <TextView
-            android:id="@android:id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:padding="8dp"
-            android:singleLine="true"
-            android:textSize="16sp"
-            tools:text="Progress: 1000"
-            />
+    <TextView
+        android:id="@android:id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textSize="16sp"
+        tools:text="Progress: 1000"
+        />
 
     </androidx.cardview.widget.CardView>
 

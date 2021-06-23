@@ -1,25 +1,22 @@
 package com.amorphteam.ketub.ui.main
 
-import androidx.lifecycle.LiveData
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
 
 class MainViewModel: ViewModel() {
-
-    var text =  "saman"
-    var startEpubViewer = MutableLiveData<Boolean>()
-
+    var startEpubAct = MutableLiveData<Boolean>()
+    init {
+        Log.i(LOG_NAME, "main view model created")
+    }
 
     override fun onCleared() {
         super.onCleared()
+        Log.i(LOG_NAME, "main view model was cleared")
     }
 
-    init {
-
+    fun openEpubAct(){
+        startEpubAct.value = true
     }
-
-    fun startEpubViewer (){
-        startEpubViewer.value = true
-    }
-
 }
