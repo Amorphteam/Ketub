@@ -22,8 +22,8 @@ class EpubViewerViewModel : ViewModel() {
     val darkTheme = MutableLiveData<Boolean>().apply { value = false }
     val lightTheme = MutableLiveData<Boolean>().apply { value = false }
 
-    val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 20 }
-    val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 20 }
+    val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
+    val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
 
     init {
         Log.i(LOG_NAME, "load epub viewer view model")
@@ -60,8 +60,8 @@ class EpubViewerViewModel : ViewModel() {
         highContrastStyleStatus.value = false
         moreReadabilityStyleStatus.value = false
         darkModeStyleStatus.value = false
-        fontSizeProgress.value = 20
-        lineHightProgress.value = 20
+        fontSizeProgress.value = 2
+        lineHightProgress.value = 2
     }
 
     fun onClickOnMoreReadabilityStyle() {
@@ -69,8 +69,8 @@ class EpubViewerViewModel : ViewModel() {
         highContrastStyleStatus.value = false
         moreReadabilityStyleStatus.value = true
         darkModeStyleStatus.value = false
-        fontSizeProgress.value = 100
-        lineHightProgress.value = 100
+        fontSizeProgress.value = 6
+        lineHightProgress.value = 6
     }
 
     fun onClickOnDarkModeStyle() {
@@ -98,8 +98,8 @@ class EpubViewerViewModel : ViewModel() {
         highContrastStyleStatus.value = true
         moreReadabilityStyleStatus.value = false
         darkModeStyleStatus.value = false
-        fontSizeProgress.value = 50
-        lineHightProgress.value = 20
+        fontSizeProgress.value = 3
+        lineHightProgress.value = 2
     }
 
 

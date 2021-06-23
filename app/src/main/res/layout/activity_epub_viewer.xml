@@ -60,7 +60,7 @@
                     android:layout_height="0dp"
                     app:popupAlwaysShown="false"
                     app:popupDraggable="false"
-                    style="@style/SeekerBar"
+                    style="@style/SeekBar"
                     app:popupLayout="@layout/seekbar_layout"
                     app:popupStyle="follow"
                     app:seekBarRotation="CW90" />
@@ -312,8 +312,8 @@
                     <SeekBar
                         android:layout_width="0dp"
                         android:layout_gravity="center_vertical"
-                        style="@style/SeekerBar"
-                        android:max="100"
+                        style="@style/SeekBar"
+                        android:max="6"
                         android:layout_height="wrap_content"
                         android:progress="@{viewModel.fontSizeProgress}"
                         android:onProgressChanged="@{viewModel.updateFontSizeSeekerBar}"
@@ -343,7 +343,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        style="@style/SeekerBar"
+                        style="@style/SeekBar"
+                        android:max="6"
                         android:progress="@{viewModel.lineHightProgress}"
                         android:onProgressChanged="@{viewModel.updateLineHightSeekerBar}"
                         android:layout_weight="1" />
