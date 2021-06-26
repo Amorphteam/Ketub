@@ -88,6 +88,10 @@ class EpubViewerViewModel : ViewModel() {
         Log.i(LOG_NAME, "fontSize$progress")
     }
 
+    fun updateVerticalSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        Log.i(LOG_NAME, "mainSeekBar$progress")
+    }
+
     fun updateLineHightSeekerBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
         lineHightProgress.value = progress
         Log.i(LOG_NAME, "lineHeight$progress")

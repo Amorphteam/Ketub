@@ -62,6 +62,7 @@
                     app:popupDraggable="false"
                     style="@style/SeekBar"
                     app:popupLayout="@layout/seekbar_layout"
+                    android:onProgressChanged="@{viewModel.updateVerticalSeekBar}"
                     app:popupStyle="follow"
                     app:seekBarRotation="CW90" />
                 <!-- Rotation: CW90 or CW270 -->

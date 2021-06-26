@@ -46,9 +46,7 @@ class EpubViewer : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         handleChipsGroup()
-        //TODO: NEED TO MOVE IT TO VIEWMODEL
-        seekBar.hintDelegate
-            .setHintAdapter { _, progress -> "Progress: $progress" }
+
 
         val gestureDetector = GestureDetector(this, object : SimpleOnGestureListener() {
             override fun onDoubleTap(event: MotionEvent): Boolean {
