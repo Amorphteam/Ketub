@@ -28,4 +28,6 @@
     <string name="bookmark">Bookmark</string>
     <string name="toc">Toc</string>
     <string name="book_name">Three cats which one of them is clever</string>
+    <style name="visible">visible</style>
+    <style name="gone">gone</style>
 </resources>

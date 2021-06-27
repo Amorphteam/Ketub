@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.amorphteam.ketub.ui.epub.EpubViewerViewModel" />
@@ -16,7 +17,7 @@
         android:id="@+id/main_epub_countiner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
+        android:background="@{viewModel.hideToolbar == true ? @color/background2 : @color/background1}"
         android:orientation="vertical"
         tools:context=".ui.epub.EpubViewer">
 
@@ -28,14 +29,16 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:navigationIcon="@{viewModel.hideToolbar == true ? null : @drawable/ic_back}"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize" >
 
                 <TextView
                     android:id="@+id/book_name"
                     android:layout_width="match_parent"
+                    android:text="@string/book_name"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="@{viewModel.hideToolbar == true ? View.VISIBLE : View.GONE}"
                     style="@style/caption"
                     android:gravity="center"
                     />
@@ -49,6 +52,7 @@
             <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:visibility="@{viewModel.hideToolbar == true ? View.GONE : View.VISIBLE}"
                 android:layout_gravity="end"
                 android:id="@+id/slider_countiner"
                 android:layout_marginBottom="?attr/actionBarSize"
@@ -76,7 +80,7 @@
                 android:layout_marginBottom="?attr/actionBarSize"
                 app:cardBackgroundColor="@color/background1"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                app:cardElevation="@{viewModel.hideToolbar == true ? 0f : 4f}">
 
                 <WebView
                     android:id="@+id/webView"
@@ -94,11 +98,12 @@
                 android:background="@android:color/transparent"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:gravity="center"
-                android:text="666"
+                android:text="@{viewModel.pageNumber}"
                 android:paddingRight="@dimen/large_margin"
                 android:paddingLeft="@dimen/large_margin"
                 android:id="@+id/page_number"
-                android:textColor="?attr/colorSecondaryVariant" />
+                android:textColor="@{viewModel.hideToolbar == true ? @color/primary2 : @color/onbackground2}"
+                 />
         </FrameLayout>
 
     </LinearLayout>

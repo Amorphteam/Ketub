@@ -22,9 +22,12 @@ class EpubViewerViewModel : ViewModel() {
     val darkTheme = MutableLiveData<Boolean>().apply { value = false }
     val lightTheme = MutableLiveData<Boolean>().apply { value = false }
 
+    val hideToolbar = MutableLiveData<Boolean>().apply { value = false }
+
     val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
     val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
 
+    val pageNumber = MutableLiveData<String>().apply { value = "1" }
     init {
         Log.i(LOG_NAME, "load epub viewer view model")
     }
@@ -89,6 +92,7 @@ class EpubViewerViewModel : ViewModel() {
     }
 
     fun updateVerticalSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        pageNumber.value = progress.toString()
         Log.i(LOG_NAME, "mainSeekBar$progress")
     }
 

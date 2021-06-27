@@ -183,24 +183,13 @@ class EpubViewer : AppCompatActivity() {
 
     private fun toggleToolbar(status: Boolean) {
         if (status) {
-            page_number.setTextColor(resources.getColor(R.color.onbackground2))
-            webView_countiner.cardElevation = 0f
-            main_epub_countiner.setBackgroundColor(resources.getColor(R.color.background2))
-            slider_countiner.visibility = View.GONE
-            book_name.text = resources.getText(R.string.book_name)
-            book_name.visibility = View.VISIBLE
-            toolbar.navigationIcon = null
-            window.statusBarColor = ContextCompat.getColor(this, R.color.background2)
+            viewModel.hideToolbar.value = true
             toggle = false
+            window.statusBarColor = ContextCompat.getColor(this, R.color.background2)
         } else {
-            page_number.setTextColor(resources.getColor(R.color.primary2))
-            webView_countiner.cardElevation = 4f
-            main_epub_countiner.setBackgroundColor(resources.getColor(R.color.background1))
-            slider_countiner.visibility = View.VISIBLE
-            book_name.visibility = View.GONE
-            toolbar.setNavigationIcon(R.drawable.ic_back)
-            window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
+            viewModel.hideToolbar.value = false
             toggle = true
+            window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
         }
         invalidateOptionsMenu()
     }
