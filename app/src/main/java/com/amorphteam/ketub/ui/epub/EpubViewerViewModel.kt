@@ -5,10 +5,12 @@ import android.util.Log
 import android.webkit.WebView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.BindingAdapter
+import androidx.databinding.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
+import com.google.android.material.chip.ChipGroup
 
 
 class EpubViewerViewModel : ViewModel() {
@@ -21,9 +23,10 @@ class EpubViewerViewModel : ViewModel() {
     val basetTheme = MutableLiveData<Boolean>().apply { value = true }
     val darkTheme = MutableLiveData<Boolean>().apply { value = false }
     val lightTheme = MutableLiveData<Boolean>().apply { value = false }
-
     val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
     val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
+    val checkedBtnObs = ObservableInt(R.id.chip_group)
+
 
     init {
         Log.i(LOG_NAME, "load epub viewer view model")
@@ -102,12 +105,46 @@ class EpubViewerViewModel : ViewModel() {
         lineHightProgress.value = 2
     }
 
+    fun onClickChipsView(){
+
+    }
 
     companion object {
         @JvmStatic
         @BindingAdapter("loadUrl")
         fun WebView.setUrl(url: String) {
             this.loadUrl(url)
+        }
+
+
+    }
+
+    @InverseBindingMethods(InverseBindingMethod(type = ChipGroup::class, attribute = "android:checkedButton", method = "getCheckedChipId"))
+    class ChipGroupBindingAdapter {
+        companion object {
+            @JvmStatic
+            @BindingAdapter("android:checkedButton")
+            fun setCheckedChip(view: ChipGroup?, id: Int) {
+                if (id != view?.checkedChipId) {
+                    view?.check(id)
+                    Log.i("samano","$id")
+                    Log.i("samano","$view?.checkedChipId")
+                }
+            }
+
+            @JvmStatic
+            @BindingAdapter(value = ["android:onCheckedChanged", "android:checkedButtonAttrChanged"], requireAll = false)
+            fun setChipsListeners(view: ChipGroup?, listener: ChipGroup.OnCheckedChangeListener?,
+                                  attrChange: InverseBindingListener?) {
+                if (attrChange == null) {
+                    view?.setOnCheckedChangeListener(listener)
+                } else {
+                    view?.setOnCheckedChangeListener { group, checkedId ->
+                        listener?.onCheckedChanged(group, checkedId)
+                        attrChange.onChange()
+                    }
+                }
+            }
         }
     }
 }
