@@ -2,13 +2,16 @@ package com.amorphteam.ketub.ui.epub
 
 
 import android.util.Log
+import android.view.View
 import android.webkit.WebView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.BindingAdapter
+import androidx.databinding.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
+import com.google.android.material.chip.ChipGroup
 
 
 class EpubViewerViewModel : ViewModel() {
@@ -110,6 +113,15 @@ class EpubViewerViewModel : ViewModel() {
         lineHightProgress.value = 2
     }
 
+    fun onClickChipsView(view: View){
+        when (view.id) {
+            R.id.font_vazir -> { Log.i(LOG_NAME, "font vazir")}
+            R.id.font_iran_sans -> { Log.i(LOG_NAME, "font iran sans")}
+            R.id.font_dubai -> { Log.i(LOG_NAME, "font dubai")}
+            R.id.font_lotus -> { Log.i(LOG_NAME, "font lotus")}
+            R.id.font_nazanin -> { Log.i(LOG_NAME, "font nazanin")}
+        }
+    }
 
     companion object {
         @JvmStatic
@@ -117,5 +129,6 @@ class EpubViewerViewModel : ViewModel() {
         fun WebView.setUrl(url: String) {
             this.loadUrl(url)
         }
+
     }
 }

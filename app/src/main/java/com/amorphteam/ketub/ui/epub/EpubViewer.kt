@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.activity_epub_viewer.*
 
 
@@ -45,7 +46,6 @@ class EpubViewer : AppCompatActivity() {
         toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar)
 
-        handleChipsGroup()
 
 
         val gestureDetector = GestureDetector(this, object : SimpleOnGestureListener() {
@@ -59,56 +59,9 @@ class EpubViewer : AppCompatActivity() {
         webView.setOnTouchListener { v, event ->
             gestureDetector.onTouchEvent(event)
         }
-    }
-
-    private fun handleChipsGroup() {
-        chip_group.isSingleSelection = true
-        chip_group.isSingleLine = true
-
-        var fontsArray = listOf(
-            resources.getString(R.string.font_dubai),
-            resources.getString(R.string.font_vazir),
-            resources.getString(R.string.font_nazanin),
-            resources.getString(R.string.font_lotus),
-            resources.getString(R.string.iran_sans)
-        )
-        for (font in fontsArray) {
-            val chip =
-                layoutInflater.inflate(R.layout.single_ship_layout, chip_group, false) as Chip
-            chip.chipStrokeWidth = 3.0f
-            chip.setChipStrokeColorResource(R.color.onbackground2)
-            chip.text = font
-
-            chip.setOnCheckedChangeListener { compoundButton: CompoundButton?, b: Boolean ->
-                if (b) {
-                    chip_group.clearCheck()
-                    if (font == resources.getString(R.string.font_dubai)) {
-                        Toast.makeText(applicationContext, "font is: dubai", Toast.LENGTH_SHORT).show()
-
-                    } else if (font == resources.getString(R.string.font_nazanin)) {
-                        Toast.makeText(applicationContext, "font is: nazanin", Toast.LENGTH_SHORT).show()
-
-                    } else if (font == resources.getString(R.string.font_lotus)) {
-                        Toast.makeText(applicationContext, "font is: lotus", Toast.LENGTH_SHORT).show()
-
-                    } else if (font == resources.getString(R.string.font_vazir)) {
-                        Toast.makeText(applicationContext, "font is: vazir", Toast.LENGTH_SHORT).show()
-
-                    } else if (font == resources.getString(R.string.iran_sans)) {
-                        Toast.makeText(applicationContext, "font is: iran_sans", Toast.LENGTH_SHORT).show()
-
-                    }
-                    chip.isChecked = true
-                    chip.setChipStrokeColorResource(R.color.primary2)
-                } else {
-                    chip.setChipStrokeColorResource(R.color.onbackground2)
-                }
-            }
-
-            chip_group.addView(chip)
-        }
 
     }
+
     @SuppressLint("ResourceType")
     private fun handleStyleSheet() {
 

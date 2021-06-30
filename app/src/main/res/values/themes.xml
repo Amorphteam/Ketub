@@ -81,13 +81,19 @@
         <item name="android:textColor">@color/onbackground2</item>
     </style>
     <style name="chipStyle" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="android:clickable">true</item>
         <item name="chipIconVisible">false</item>
         <item name="checkedIconVisible">false</item>
         <item name="closeIconVisible">false</item>
         <item name="android:textColor">@color/onbackground2</item>
         <item name="chipBackgroundColor">@color/background3</item>
         <item name="rippleColor">?attr/colorPrimary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeColor">@color/onbackground2</item>
+        <item name="android:clickable">true</item>
+        <item name="android:checkable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textAppearance">@style/caption</item>
+
     </style>
 
     <style name="SeekBar" parent="Base.Widget.AppCompat.SeekBar.Discrete">
