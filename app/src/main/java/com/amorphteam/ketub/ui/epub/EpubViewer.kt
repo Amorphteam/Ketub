@@ -61,47 +61,8 @@ class EpubViewer : AppCompatActivity() {
             gestureDetector.onTouchEvent(event)
         }
 
-
     }
 
-//    private fun handleChipsGroup() {
-//
-//        for (font in viewModel.fontArrayList.value!!) {
-//       val chip = layoutInflater.inflate(R.layout.single_ship_layout, chip_group, false) as Chip
-//            chip.chipStrokeWidth = 3.0f
-//            chip.setChipStrokeColorResource(R.color.onbackground2)
-//            chip.text = font
-//
-//            chip.setOnCheckedChangeListener { compoundButton: CompoundButton?, b: Boolean ->
-//                if (b) {
-//                    chip_group.clearCheck()
-//                    if (font == resources.getString(R.string.font_dubai)) {
-//                        Toast.makeText(applicationContext, "font is: dubai", Toast.LENGTH_SHORT).show()
-//
-//                    } else if (font == resources.getString(R.string.font_nazanin)) {
-//                        Toast.makeText(applicationContext, "font is: nazanin", Toast.LENGTH_SHORT).show()
-//
-//                    } else if (font == resources.getString(R.string.font_lotus)) {
-//                        Toast.makeText(applicationContext, "font is: lotus", Toast.LENGTH_SHORT).show()
-//
-//                    } else if (font == resources.getString(R.string.font_vazir)) {
-//                        Toast.makeText(applicationContext, "font is: vazir", Toast.LENGTH_SHORT).show()
-//
-//                    } else if (font == resources.getString(R.string.iran_sans)) {
-//                        Toast.makeText(applicationContext, "font is: iran_sans", Toast.LENGTH_SHORT).show()
-//
-//                    }
-//                    chip.isChecked = true
-//                    chip.setChipStrokeColorResource(R.color.primary2)
-//                } else {
-//                    chip.setChipStrokeColorResource(R.color.onbackground2)
-//                }
-//            }
-//
-//            chip_group.addView(chip)
-//        }
-
-//    }
     @SuppressLint("ResourceType")
     private fun handleStyleSheet() {
 

@@ -2,6 +2,7 @@ package com.amorphteam.ketub.ui.epub
 
 
 import android.util.Log
+import android.view.View
 import android.webkit.WebView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
@@ -25,7 +26,6 @@ class EpubViewerViewModel : ViewModel() {
     val lightTheme = MutableLiveData<Boolean>().apply { value = false }
     val fontSizeProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
     val lineHightProgress = MutableLiveData<Int>().apply { if (defaultStyleStatus.value!!) value = 2 }
-    val checkedBtnObs = ObservableInt(R.id.chip_group)
 
 
     init {
@@ -105,8 +105,14 @@ class EpubViewerViewModel : ViewModel() {
         lineHightProgress.value = 2
     }
 
-    fun onClickChipsView(){
-
+    fun onClickChipsView(view: View){
+        when (view.id) {
+            R.id.font_vazir -> { Log.i(LOG_NAME, "font vazir")}
+            R.id.font_iran_sans -> { Log.i(LOG_NAME, "font iran sans")}
+            R.id.font_dubai -> { Log.i(LOG_NAME, "font dubai")}
+            R.id.font_lotus -> { Log.i(LOG_NAME, "font lotus")}
+            R.id.font_nazanin -> { Log.i(LOG_NAME, "font nazanin")}
+        }
     }
 
     companion object {
@@ -116,35 +122,5 @@ class EpubViewerViewModel : ViewModel() {
             this.loadUrl(url)
         }
 
-
-    }
-
-    @InverseBindingMethods(InverseBindingMethod(type = ChipGroup::class, attribute = "android:checkedButton", method = "getCheckedChipId"))
-    class ChipGroupBindingAdapter {
-        companion object {
-            @JvmStatic
-            @BindingAdapter("android:checkedButton")
-            fun setCheckedChip(view: ChipGroup?, id: Int) {
-                if (id != view?.checkedChipId) {
-                    view?.check(id)
-                    Log.i("samano","$id")
-                    Log.i("samano","$view?.checkedChipId")
-                }
-            }
-
-            @JvmStatic
-            @BindingAdapter(value = ["android:onCheckedChanged", "android:checkedButtonAttrChanged"], requireAll = false)
-            fun setChipsListeners(view: ChipGroup?, listener: ChipGroup.OnCheckedChangeListener?,
-                                  attrChange: InverseBindingListener?) {
-                if (attrChange == null) {
-                    view?.setOnCheckedChangeListener(listener)
-                } else {
-                    view?.setOnCheckedChangeListener { group, checkedId ->
-                        listener?.onCheckedChanged(group, checkedId)
-                        attrChange.onChange()
-                    }
-                }
-            }
-        }
     }
 }
