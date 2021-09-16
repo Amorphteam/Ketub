@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
 
 class MainViewModel: ViewModel() {
-    var startEpubAct = MutableLiveData<Boolean>()
     init {
         Log.i(LOG_NAME, "main view model created")
     }
@@ -16,7 +15,5 @@ class MainViewModel: ViewModel() {
         Log.i(LOG_NAME, "main view model was cleared")
     }
 
-    fun openEpubAct(){
-        startEpubAct.value = true
-    }
+
 }

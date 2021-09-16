@@ -16,6 +16,7 @@
         <!-- Customize your theme here. -->
     </style>
 
+
     <style name="regular_font" parent="@android:style/Widget.TextView">
         <item name="android:fontFamily">@font/iransans_regular</item>
         <item name="fontFamily">@font/iransans_regular</item>
