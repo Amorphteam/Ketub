@@ -13,9 +13,37 @@
         android:id="@+id/myContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
         >
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            tools:ignore="MissingConstraints">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize" >
+
+
+                    <androidx.appcompat.widget.SearchView
+                        android:background="@drawable/card_border"
+                        android:layout_marginTop="@dimen/small_margin"
+                        android:layout_marginBottom="@dimen/small_margin"
+                        android:layout_marginEnd="@dimen/half_margin"
+                        android:layout_width="match_parent"
+                        android:theme="@style/AppSearchView"
+                        app:iconifiedByDefault="false"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/caption_text"
+                        app:queryHint="Search in title, words or page number"
+                        app:closeIcon="@drawable/ic_close"
+                        app:searchIcon="@drawable/ic_search_home"
+                        />
+
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav_view"
             android:layout_width="0dp"
@@ -32,6 +60,7 @@
 
 
         <fragment
+            android:layout_marginTop="?attr/actionBarSize"
             android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.amorphteam.ketub.ui.main.fragments.LibraryFragmentViewModel" />
+    </data>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragments.library">
+    android:background="@color/background1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.fragments.LibraryFragment">
 
-    <TextView
-        style="@style/title1"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/webView_countiner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/large_margin"
-        android:text="@string/library" />
+        app:cardCornerRadius="16dp">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/book_sample"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:onClick="@{()-> viewModel.openEpubAct()}"
+            />
+    </androidx.cardview.widget.CardView>
 
 </FrameLayout>
+</layout>

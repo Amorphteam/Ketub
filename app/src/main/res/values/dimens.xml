@@ -9,6 +9,8 @@
     <dimen name="caption_text">10sp</dimen>
     <dimen name="normal_margin">16dp</dimen>
     <dimen name="half_margin">15dp</dimen>
+    <dimen name="xsmall_margin">4dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
     <dimen name="large_margin">24dp</dimen>
     <dimen name="title_width_item">68dp</dimen>
     <dimen name="pick_height_sheet">160dp</dimen>
