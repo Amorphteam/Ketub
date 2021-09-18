@@ -5,22 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
+import com.google.android.material.tabs.TabLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager.widget.ViewPager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.main.VPAdapter
 
 
 class LibraryFragment : Fragment() {
-
+    private var tabLayout: TabLayout? = null
+    private var viewPager:ViewPager? = null
     private lateinit var viewModel: LibraryFragmentViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,4 +44,23 @@ class LibraryFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            tabLayout = view.findViewById(R.id.tablayout)
+            viewPager = view.findViewById(R.id.viewpager)
+            tabLayout!!.setupWithViewPager(viewPager)
+            val vpAdapter = VPAdapter(requireActivity().supportFragmentManager)
+            vpAdapter.addFragment(AllTabFragment(), getString(R.string.all_tab))
+            vpAdapter.addFragment(AuthorTabFragment(), getString(R.string.author_tab))
+            vpAdapter.addFragment(CatTabFragment(), getString(R.string.cat_tab))
+            viewPager!!.adapter = vpAdapter
+
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        tabLayout = null
+        viewPager!!.adapter = null
+        viewPager = null
+    }
 }

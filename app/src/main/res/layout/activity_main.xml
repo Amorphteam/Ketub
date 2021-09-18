@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewModel"
@@ -12,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/myContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,27 +23,25 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize" >
+                android:layout_height="?actionBarSize">
 
-
-                    <androidx.appcompat.widget.SearchView
-                        android:background="@drawable/card_border"
-                        android:layout_marginTop="@dimen/small_margin"
-                        android:layout_marginBottom="@dimen/small_margin"
-                        android:layout_marginEnd="@dimen/half_margin"
-                        android:layout_width="match_parent"
-                        android:theme="@style/AppSearchView"
-                        app:iconifiedByDefault="false"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/caption_text"
-                        app:queryHint="Search in title, words or page number"
-                        app:closeIcon="@drawable/ic_close"
-                        app:searchIcon="@drawable/ic_search_home"
-                        />
-
+                <androidx.appcompat.widget.SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:background="@drawable/card_border"
+                    android:textSize="@dimen/caption_text"
+                    android:theme="@style/AppSearchView"
+                    app:closeIcon="@drawable/ic_close"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Search in title, words or page number"
+                    app:searchIcon="@drawable/ic_search_home" />
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav_view"
             android:layout_width="0dp"
@@ -51,27 +49,24 @@
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             android:background="?android:attr/windowBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:itemIconTint="@drawable/bottom_navigation_selector"
             app:itemTextColor="@drawable/bottom_navigation_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu" />
 
-
         <fragment
-            android:layout_marginTop="?attr/actionBarSize"
             android:id="@+id/navHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomNav_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/nav_graph" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
