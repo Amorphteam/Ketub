@@ -17,6 +17,10 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.fragments.ToclistFragment">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
@@ -34,11 +38,17 @@
                 android:layout_height="wrap_content"
                 android:text="@string/bookmarks" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
         </com.google.android.material.tabs.TabLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="-1.5dp"
+            android:background="@color/onbackground2"
+            android:alpha="0.1"/>
+        </LinearLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 </layout>

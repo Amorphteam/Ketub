@@ -5,8 +5,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 class VPToclistAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    lateinit var fragmentArrayList: ArrayList<Fragment>
-    lateinit var fragmentTitle: ArrayList<String>
+     var fragmentArrayList = ArrayList<Fragment>()
+     var fragmentTitle = ArrayList<String>()
 
     override fun getCount(): Int {
         return fragmentArrayList.size

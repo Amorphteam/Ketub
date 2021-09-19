@@ -18,8 +18,8 @@ import kotlinx.android.synthetic.main.fragment_toclist.*
 
 class ToclistFragment : Fragment() {
     private lateinit var viewModel: ToclistFragmentViewModel
-    private lateinit var tabLayout: TabLayout
-    private lateinit var viewPager: ViewPager
+    private var tabLayout: TabLayout? = null
+    private var viewPager: ViewPager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,21 +33,28 @@ class ToclistFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        initTabLayout()
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    private fun initTabLayout() {
-        tabLayout = requireActivity().findViewById(R.id.tablayout)
-        viewPager = requireActivity().findViewById(R.id.viewpager)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        tabLayout = view.findViewById(R.id.tablayout)
+        viewPager = view.findViewById(R.id.viewpager)
 
-        tabLayout.setupWithViewPager(viewPager)
+        tabLayout!!.setupWithViewPager(viewPager)
         val adapter: VPToclistAdapter = VPToclistAdapter(requireActivity().supportFragmentManager)
         adapter.addFragment(TitleFragment(), getString(R.string.titles))
         adapter.addFragment(BookmarksFragment(), getString(R.string.bookmarks))
 
-        viewPager.adapter = adapter
+        viewPager!!.adapter = adapter
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        tabLayout = null
+        viewPager!!.adapter = null
+        viewPager = null
     }
 
 
