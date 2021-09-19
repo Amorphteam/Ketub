@@ -30,7 +30,12 @@
     <string name="book_name">Three cats which one of them is clever</string>
     <string name="toc_list">Toc list</string>
     <string name="library">Library</string>
+    <string name="titles">Titles</string>
+    <string name="bookmarks">Bookmarks</string>
 
     <style name="visible">visible</style>
+
     <style name="gone">gone</style>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
