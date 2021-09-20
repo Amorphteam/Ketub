@@ -9,13 +9,13 @@
 
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.fragments.ToclistFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.tocList.ToclistFragmentViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.fragments.ToclistFragment">
+        tools:context=".ui.main.tabs.tocList.ToclistFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/primary2"
-            app:tabSelectedTextColor="@color/primary2">
+            app:tabSelectedTextColor="@color/primary2"
+            app:tabTextAppearance="@style/body">
+
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

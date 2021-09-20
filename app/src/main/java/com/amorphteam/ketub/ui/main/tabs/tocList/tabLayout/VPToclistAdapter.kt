@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.tocList.tabLayout
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

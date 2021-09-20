@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.library.tabLayout
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentAllTabBinding
-import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
 
 

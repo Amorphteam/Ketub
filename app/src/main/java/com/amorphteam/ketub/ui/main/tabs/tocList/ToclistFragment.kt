@@ -1,6 +1,5 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.tocList
 
-import android.net.VpnService
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.databinding.ActivityEpubViewerBinding
 import com.amorphteam.ketub.databinding.FragmentToclistBinding
-import com.amorphteam.ketub.ui.epub.EpubViewerViewModel
+import com.amorphteam.ketub.ui.main.tabs.library.tabLayout.BookmarksFragment
+import com.amorphteam.ketub.ui.main.tabs.tocList.tabLayout.TitleFragment
+import com.amorphteam.ketub.ui.main.tabs.tocList.tabLayout.VPToclistAdapter
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_toclist.*
 
 class ToclistFragment : Fragment() {
     private lateinit var viewModel: ToclistFragmentViewModel

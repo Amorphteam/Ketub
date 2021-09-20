@@ -1,11 +1,10 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewParent
 import com.google.android.material.tabs.TabLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -14,7 +13,10 @@ import androidx.viewpager.widget.ViewPager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
-import com.amorphteam.ketub.ui.main.VPAdapter
+import com.amorphteam.ketub.ui.main.tabs.library.tabLayout.AllTabFragment
+import com.amorphteam.ketub.ui.main.tabs.library.tabLayout.AuthorTabFragment
+import com.amorphteam.ketub.ui.main.tabs.tocList.tabLayout.CatTabFragment
+import com.amorphteam.ketub.ui.main.tabs.library.tabLayout.VPLibraryAdapter
 
 
 class LibraryFragment : Fragment() {
@@ -48,7 +50,7 @@ class LibraryFragment : Fragment() {
             tabLayout = view.findViewById(R.id.tablayout)
             viewPager = view.findViewById(R.id.viewpager)
             tabLayout!!.setupWithViewPager(viewPager)
-            val vpAdapter = VPAdapter(requireActivity().supportFragmentManager)
+            val vpAdapter = VPLibraryAdapter(requireActivity().supportFragmentManager)
             vpAdapter.addFragment(AllTabFragment(), getString(R.string.all_tab))
             vpAdapter.addFragment(AuthorTabFragment(), getString(R.string.author_tab))
             vpAdapter.addFragment(CatTabFragment(), getString(R.string.cat_tab))

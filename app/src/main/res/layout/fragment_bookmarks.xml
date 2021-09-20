@@ -7,12 +7,12 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.fragments.BookmarksFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.library.tabLayout.BookmarksFragmentViewModel" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragments.BookmarksFragment">
+    tools:context=".ui.main.tabs.library.tabLayout.BookmarksFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

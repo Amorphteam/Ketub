@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.fragments.LibraryFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragmentViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background1"
-        tools:context=".ui.main.fragments.LibraryFragment">
+        tools:context=".ui.main.tabs.library.LibraryFragment">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.library.tabLayout
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_library"
-        android:name="com.amorphteam.ketub.ui.main.fragments.LibraryFragment"
+        android:name="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragment"
         android:label="@string/library"
         tools:layout="@layout/fragment_library" />
 
     <fragment
         android:id="@+id/navigation_toc_list"
-        android:name="com.amorphteam.ketub.ui.main.fragments.ToclistFragment"
+        android:name="com.amorphteam.ketub.ui.main.tabs.tocList.ToclistFragment"
         android:label="@string/toc_list"
         tools:layout="@layout/fragment_toclist" />
 

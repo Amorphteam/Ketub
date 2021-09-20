@@ -7,12 +7,12 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.fragments.TitleFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.tocList.tabLayout.TitleFragmentViewModel" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.fragments.TitleFragment">
+    tools:context=".ui.main.tabs.tocList.tabLayout.TitleFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

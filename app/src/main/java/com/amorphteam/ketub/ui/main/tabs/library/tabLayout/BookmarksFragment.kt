@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.fragments
+package com.amorphteam.ketub.ui.main.tabs.library.tabLayout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarksBinding
-import com.amorphteam.ketub.databinding.FragmentTitleBinding
 
 class BookmarksFragment : Fragment() {
     private lateinit var viewModel: BookmarksFragmentViewModel
