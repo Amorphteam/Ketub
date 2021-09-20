@@ -32,6 +32,8 @@
     <string name="library">Library</string>
     <string name="all_tab">All</string>
     <string name="cat_tab">Categories</string>
+    <string name="titles">Titles</string>
+    <string name="bookmarks">Bookmarks</string>
     <string name="author_tab">Authores</string>
 
     <style name="visible">visible</style>
