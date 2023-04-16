@@ -21,7 +21,9 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             tools:listitem="@layout/item_main_toc"
-            android:layout_height="wrap_content"
+            tools:orientation="vertical"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="match_parent"
             android:clipToPadding="false" />
     </LinearLayout>
 </layout>

@@ -41,25 +41,36 @@
         </FrameLayout>
 
 
-        <include
-            android:id="@+id/ejtehad_items"
-            layout="@layout/books_layout"
-            app:viewModel="@{viewModel}" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/nosos_items"
-            layout="@layout/books_layout"
-            app:viewModel="@{viewModel}" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <include
-            android:id="@+id/toc_read_more"
-            layout="@layout/main_toc_layout"
-            app:viewModel="@{viewModel}" />
+                <include
+                    android:id="@+id/ejtehad_items"
+                    layout="@layout/books_layout"
+                    app:viewModel="@{viewModel}" />
+
+                <include
+                    android:id="@+id/nosos_items"
+                    layout="@layout/books_layout"
+                    app:viewModel="@{viewModel}" />
+
+                <include
+                    android:id="@+id/toc_read_more"
+                    layout="@layout/main_toc_layout"
+                    app:viewModel="@{viewModel}" />
 
 
-        <include
-            android:id="@+id/toc_recomaded"
-            layout="@layout/main_toc_layout"
-            app:viewModel="@{viewModel}" />
+                <include
+                    android:id="@+id/toc_recommanded"
+                    layout="@layout/main_toc_layout"
+                    app:viewModel="@{viewModel}" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 </layout>

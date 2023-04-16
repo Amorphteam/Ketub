@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/vertical_category_image"
+                android:id="@+id/logo"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
                 android:src="@drawable/ejtehad_cover" />
@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/ejtehad_category" />
+                    android:text="@string/ejtehad_title" />
 
                 <TextView
                     android:id="@+id/caption"
