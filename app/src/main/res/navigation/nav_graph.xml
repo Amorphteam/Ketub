@@ -12,10 +12,20 @@
         tools:layout="@layout/fragment_library" />
 
     <fragment
-        android:id="@+id/navigation_toc_list"
-        android:name="com.amorphteam.ketub.ui.main.tabs.tocList.ToclistFragment"
-        android:label="@string/toc_list"
-        tools:layout="@layout/fragment_toclist" />
+        android:id="@+id/navigation_index"
+        android:name="com.amorphteam.nososejtehad.index.IndexFragment"
+        android:label="@string/index"
+        tools:layout="@layout/fragment_index" />
 
+    <fragment
+        android:id="@+id/navigation_bookmark"
+        android:name="com.amorphteam.nososejtehad.bookmark.BookmarkFragment"
+        android:label="@string/bookmark"
+        tools:layout="@layout/fragment_bookmark" />
 
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="com.amorphteam.nososejtehad.index.IndexFragment"
+        android:label="@string/info"
+        tools:layout="@layout/fragment_info" />
 </navigation>

@@ -6,41 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.MainViewModel" />
+            type="com.amorphteam.ketub.ui.main.TabbedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/myContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:elevation="0dp"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize">
-
-                <androidx.appcompat.widget.SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_margin"
-                    android:layout_marginEnd="@dimen/half_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:background="@drawable/card_border"
-                    android:textSize="@dimen/caption_text"
-                    android:theme="@style/AppSearchView"
-                    app:closeIcon="@drawable/ic_close"
-                    app:iconifiedByDefault="false"
-                    app:queryHint="Search in title, words or page number"
-                    app:searchIcon="@drawable/ic_search_home" />
-
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNav_view"
@@ -61,7 +33,6 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottomNav_view"
             app:layout_constraintLeft_toLeftOf="parent"

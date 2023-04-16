@@ -5,7 +5,15 @@
         android:icon="@drawable/ic_library"
         android:title="@string/library" />
     <item
-        android:id="@+id/navigation_toc_list"
+        android:id="@+id/navigation_index"
         android:icon="@drawable/ic_toc_list"
-        android:title="@string/toc_list" />
+        android:title="@string/index" />
+
+    <item android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bookmark"/>
+
+    <item android:id="@+id/navigation_info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/info"/>
 </menu>

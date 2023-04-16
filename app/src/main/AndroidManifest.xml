@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ketub">
         <activity android:name=".ui.epub.EpubViewer"></activity>
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.main.TabbedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

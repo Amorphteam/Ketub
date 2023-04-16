@@ -41,4 +41,11 @@
     <style name="gone">gone</style>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="query_hint_search">Searching for any word or sentences</string>
+    <string name="ejtehad_category">Ejtehad magazine</string>
+    <string name="ejtehad_caption">Its caption for title</string>
+    <string name="see_all">See all</string>
+    <string name="title">title</string>
+    <string name="index">index</string>
+    <string name="info">info</string>
 </resources>
