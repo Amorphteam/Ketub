@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <item
-        android:id="@+id/navigation_library"
-        android:icon="@drawable/ic_library"
-        android:title="@string/library" />
+        android:id="@+id/navigation_info"
+        android:icon="@drawable/ic_info"
+        android:title="@string/info" />
+    <item
+        android:id="@+id/navigation_bookmark"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/bookmark" />
     <item
         android:id="@+id/navigation_index"
         android:icon="@drawable/ic_toc_list"
         android:title="@string/index" />
-
-    <item android:id="@+id/navigation_bookmark"
-        android:icon="@drawable/ic_bookmark"
-        android:title="@string/bookmark"/>
-
-    <item android:id="@+id/navigation_info"
-        android:icon="@drawable/ic_info"
-        android:title="@string/info"/>
+    <item
+        android:id="@+id/navigation_library"
+        android:icon="@drawable/ic_library"
+        android:title="@string/library" />
 </menu>
