@@ -48,4 +48,5 @@
     <string name="title">عنوان</string>
     <string name="index">فهرست</string>
     <string name="info">حول التطبيق</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

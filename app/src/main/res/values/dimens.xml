@@ -21,5 +21,6 @@
     <dimen name="normal_image">28dp</dimen>
     <dimen name="book_width">100dp</dimen>
     <dimen name="book_height">150dp</dimen>
+    <dimen name="large_space">100dp</dimen>
     <dimen name="xlarge_margin">80dp</dimen>
 </resources>
