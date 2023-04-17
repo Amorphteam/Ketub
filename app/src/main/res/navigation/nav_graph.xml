@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="com.amorphteam.nososejtehad.index.IndexFragment"
+        android:name="com.amorphteam.nososejtehad.info.InfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
     <fragment
