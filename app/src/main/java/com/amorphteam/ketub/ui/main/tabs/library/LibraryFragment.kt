@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavAction
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
@@ -17,6 +19,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
+import com.amorphteam.ketub.ui.search.SearchActivity
 
 
 class LibraryFragment : Fragment() {
@@ -38,6 +41,14 @@ class LibraryFragment : Fragment() {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
         }
 
+        viewModel.startSearchAct.observe(viewLifecycleOwner) {
+            if (it) startActivity(Intent(activity, SearchActivity::class.java))
+        }
+
+        viewModel.startDetailFrag.observe(viewLifecycleOwner) {
+            if (it) Navigation.findNavController(requireView()).navigate(R.id.action_navigation_library_to_detailFragment)
+        }
+
         handleBooksRecyclerView()
         handleMainTocsRecyclerView()
         return binding.root
@@ -50,7 +61,7 @@ class LibraryFragment : Fragment() {
 
     private fun handleRecommanded() {
         val recommandedToc = MainTocAdapter(MainTocClickListener {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+            viewModel.openEpubAct()
         })
         recommandedToc.submitList(viewModel.getRecommandedToc().value)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -60,7 +71,7 @@ class LibraryFragment : Fragment() {
 
     private fun handleReadMore() {
         val readMoreToc = MainTocAdapter(MainTocClickListener {
-            Toast.makeText(context, "$it", Toast.LENGTH_SHORT).show()
+            viewModel.openEpubAct()
         })
         readMoreToc.submitList(viewModel.getReadMoreMainToc().value)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -75,7 +86,7 @@ class LibraryFragment : Fragment() {
 
     private fun handleNosos() {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
-            Toast.makeText(context, "$bookId", Toast.LENGTH_SHORT).show()
+            viewModel.openEpubAct()
         })
         nososAdapter.submitList(viewModel.getNososItem().value)
 
@@ -86,7 +97,7 @@ class LibraryFragment : Fragment() {
 
     private fun handleEjtihad() {
         val ejtihadAdapter = BookAdapter(BookClickListener { bookId ->
-            Toast.makeText(context, "$bookId", Toast.LENGTH_SHORT).show()
+            viewModel.openEpubAct()
         })
         ejtihadAdapter.submitList(viewModel.getEjtihadItem().value)
 

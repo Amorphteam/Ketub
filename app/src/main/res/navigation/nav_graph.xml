@@ -9,7 +9,11 @@
         android:id="@+id/navigation_library"
         android:name="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragment"
         android:label="@string/library"
-        tools:layout="@layout/fragment_library" />
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_navigation_library_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_index"
@@ -28,4 +32,12 @@
         android:name="com.amorphteam.nososejtehad.index.IndexFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.amorphteam.ketub.ui.main.tabs.library.DetailFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment_to_navigation_library"
+            app:destination="@id/navigation_library" />
+    </fragment>
 </navigation>

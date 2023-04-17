@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragmentViewModel" />
     </data>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,25 +19,40 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_height">
 
-            <View
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gradient_color" />
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:scaleType="centerCrop"
+                android:src="@drawable/header" />
 
-            <androidx.appcompat.widget.SearchView
-                style="@style/AppSearchView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:layout_margin="@dimen/small_margin"
-                android:layout_marginLeft="@dimen/normal_margin"
-                android:layout_marginRight="@dimen/normal_margin"
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
                 android:background="@drawable/card_border"
-                android:gravity="center"
-                app:closeIcon="@drawable/ic_close"
-                app:iconifiedByDefault="false"
-                app:queryHint="@string/query_hint_search"
-                app:searchIcon="@drawable/ic_search_home" />
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:onClick="@{()-> viewModel.openSearchAct()}"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="@string/query_hint_search"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/normal_margin"
+                    android:src="@drawable/ic_search" />
+            </LinearLayout>
+
         </FrameLayout>
 
 
@@ -45,32 +60,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
                 android:orientation="vertical">
 
                 <include
                     android:id="@+id/ejtehad_items"
                     layout="@layout/books_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
                     app:viewModel="@{viewModel}" />
 
                 <include
                     android:id="@+id/nosos_items"
                     layout="@layout/books_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ejtehad_items"
+                    android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
 
                 <include
                     android:id="@+id/toc_read_more"
                     layout="@layout/main_toc_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nosos_items"
+                    android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
 
 
                 <include
                     android:id="@+id/toc_recommanded"
                     layout="@layout/main_toc_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/toc_read_more"
+                    android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
-            </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
     </LinearLayout>
 </layout>

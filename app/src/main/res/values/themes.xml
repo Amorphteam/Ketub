@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ketub" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Ketub" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/background1</item>
-        <item name="colorPrimaryVariant">@color/background2</item>
-        <item name="colorOnPrimary">@color/primary1</item>
+        <item name="colorPrimary">@color/onbackground3</item>
+        <item name="colorPrimaryVariant">@color/secondary1</item>
+        <item name="colorOnPrimary">@color/secondary1</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/primary1</item>
-        <item name="colorSecondaryVariant">@color/primary2</item>
+        <item name="colorSecondaryVariant">@color/secondary2</item>
         <item name="colorOnSecondary">@color/onbackground2</item>
 
 
@@ -15,7 +15,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
-
+        <item name="android:textViewStyle">@style/medium_font</item>
+        <item name="android:buttonStyle">@style/bold_font</item>
+        <item name="buttonStyle">@style/bold_font</item>
     </style>
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
@@ -36,14 +38,13 @@
     </style>
 
     <style name="bold_font" parent="@android:style/Widget.TextView">
-        <item name="android:fontFamily">@font/iransans_bold</item>
-        <item name="fontFamily">@font/iransans_bold</item>
-        <item name="android:textColor">@color/onbackground2</item>
+        <item name="android:fontFamily">@font/ge_dinar_one_medium</item>
+        <item name="fontFamily">@font/ge_dinar_one_medium</item>
     </style>
 
     <style name="medium_font" parent="@android:style/Widget.TextView">
-        <item name="android:fontFamily">@font/iransans_medium</item>
-        <item name="fontFamily">@font/iransans_medium</item>
+        <item name="android:fontFamily">@font/ge_dinar_one_light</item>
+        <item name="fontFamily">@font/ge_dinar_one_light</item>
     </style>
 
     <style name="title1" parent="regular_font">

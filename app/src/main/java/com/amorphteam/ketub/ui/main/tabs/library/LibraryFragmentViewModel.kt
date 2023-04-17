@@ -10,6 +10,9 @@ import com.amorphteam.ketub.utility.TempData
 
 class LibraryFragmentViewModel: ViewModel() {
     var startEpubAct = MutableLiveData<Boolean>()
+    var startSearchAct = MutableLiveData<Boolean>()
+    var startDetailFrag = MutableLiveData<Boolean>()
+
     init {
         Log.i(Keys.LOG_NAME, "main view model created")
     }
@@ -45,5 +48,12 @@ class LibraryFragmentViewModel: ViewModel() {
     }
     fun openEpubAct(){
         startEpubAct.value = true
+    }
+
+    fun openDetailFrag(){
+        startDetailFrag.value = true
+    }
+    fun openSearchAct(){
+        startSearchAct.value = true
     }
 }
