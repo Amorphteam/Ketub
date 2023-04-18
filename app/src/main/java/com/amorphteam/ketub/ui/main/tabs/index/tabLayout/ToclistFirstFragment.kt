@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.databinding.FragmentIndexBinding
-import com.amorphteam.nososejtehad.index.IndexViewModel
+import com.amorphteam.ketub.databinding.FragmentToclistFirstBinding
 
 class ToclistFirstFragment : Fragment() {
 
@@ -21,7 +20,7 @@ class ToclistFirstFragment : Fragment() {
 
         var viewModel = ViewModelProvider(this)[ToclistFirstViewModel::class.java]
 
-        val binding = DataBindingUtil.inflate<FragmentIndexBinding>(
+        val binding = DataBindingUtil.inflate<FragmentToclistFirstBinding>(
             inflater,
             R.layout.fragment_toclist_first,
             container,
