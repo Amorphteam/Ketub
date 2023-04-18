@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
@@ -19,6 +20,7 @@ class IndexListFirstFragment : Fragment() {
 
     private lateinit var binding: FragmentIndexListFirstBinding
     private lateinit var viewModel: IndexListFirstViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,23 +39,45 @@ class IndexListFirstFragment : Fragment() {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
         }
 
-        handleIndexRecyclerView()
+        val adapter = RVIndexListAdapter(IndexClickListener {
+            viewModel.openEpubAct()
+        })
+
+        handleIndexRecyclerView(adapter)
+
+        handleSearchView(binding.searchView , adapter)
 
         return binding.root
 
     }
 
-    private fun handleIndexRecyclerView() {
 
-        val index = RVIndexListAdapter(IndexClickListener {
-            viewModel.openEpubAct()
-        })
-
+    private fun handleIndexRecyclerView(index: RVIndexListAdapter) {
         index.submitList(viewModel.getIndexList().value)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = index
     }
 
+    private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index: RVIndexListAdapter) {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                filterSearch(newText, index)
+
+                return true
+            }
+        })
+
+    }
+
+    private fun filterSearch(searchString: String, index: RVIndexListAdapter) {
+        index.filter.filter(searchString)
+    }
 
 }

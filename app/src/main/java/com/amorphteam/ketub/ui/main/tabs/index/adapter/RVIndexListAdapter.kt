@@ -2,14 +2,17 @@ package com.amorphteam.ketub.ui.main.tabs.index.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemIndexBinding
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexModel
+import com.amorphteam.ketub.utility.TempData
 
 class RVIndexListAdapter(val clickListener: IndexClickListener) :
-    ListAdapter<IndexModel, RVIndexListAdapter.ViewHolder>(DiffCallback()) {
+    ListAdapter<IndexModel, RVIndexListAdapter.ViewHolder>(DiffCallback()), Filterable {
 
     class ViewHolder private constructor(val binding: ItemIndexBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -43,6 +46,35 @@ class RVIndexListAdapter(val clickListener: IndexClickListener) :
         holder.bind(item, clickListener)
     }
 
+    override fun getFilter(): Filter {
+        return object : Filter() {
+
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                return FilterResults().apply {
+                    values = if (constraint.isNullOrEmpty())
+                    //TODO: IT MUST LOAD FROM VIEWMODEL
+
+                    TempData.bookIndex
+                    else
+                        onFilter(TempData.bookIndex, constraint.toString())
+                }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                submitList(results?.values as? List<IndexModel>)
+
+            }
+        }
+    }
+
+    fun onFilter(list: List<IndexModel>, constraint: String): List<IndexModel> {
+        val filteredList = list.filter {
+            it.bookTitle.lowercase().contains(constraint.lowercase())
+        }
+
+        return filteredList
+    }
 }
 
 class DiffCallback() : DiffUtil.ItemCallback<IndexModel>() {
