@@ -46,7 +46,7 @@ class IndexFragment : Fragment() {
     }
 
 
-    fun setAdapterVP(binding: FragmentIndexBinding) {
+    private fun setAdapterVP(binding: FragmentIndexBinding) {
         val adapter = VPToclistAdapter(activity)
         adapter.addFragment(ToclistFirstFragment(), getString(R.string.nosos_title))
         adapter.addFragment(ToclistSecondFragment(), getString(R.string.ejtehad_title))
