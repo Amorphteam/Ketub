@@ -14,7 +14,7 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexListFirstBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexClickListener
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.RVIndexListAdapter
+import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexListAdapter
 
 class IndexListFirstFragment : Fragment() {
 
@@ -39,7 +39,7 @@ class IndexListFirstFragment : Fragment() {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
         }
 
-        val adapter = RVIndexListAdapter(IndexClickListener {
+        val adapter = IndexListAdapter(IndexClickListener {
             viewModel.openEpubAct()
         })
 
@@ -52,14 +52,14 @@ class IndexListFirstFragment : Fragment() {
     }
 
 
-    private fun handleIndexRecyclerView(index: RVIndexListAdapter) {
+    private fun handleIndexRecyclerView(index: IndexListAdapter) {
         index.submitList(viewModel.getIndexList().value)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = index
     }
 
-    private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index: RVIndexListAdapter) {
+    private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index: IndexListAdapter) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -76,7 +76,7 @@ class IndexListFirstFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: RVIndexListAdapter) {
+    private fun filterSearch(searchString: String, index: IndexListAdapter) {
         index.filter.filter(searchString)
     }
 

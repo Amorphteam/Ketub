@@ -11,8 +11,8 @@ import com.amorphteam.ketub.databinding.ItemIndexBinding
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexModel
 import com.amorphteam.ketub.utility.TempData
 
-class RVIndexListAdapter(val clickListener: IndexClickListener) :
-    ListAdapter<IndexModel, RVIndexListAdapter.ViewHolder>(DiffCallback()), Filterable {
+class IndexListAdapter(val clickListener: IndexClickListener) :
+    ListAdapter<IndexModel, IndexListAdapter.ViewHolder>(DiffCallback()), Filterable {
 
     class ViewHolder private constructor(val binding: ItemIndexBinding) :
         RecyclerView.ViewHolder(binding.root) {
