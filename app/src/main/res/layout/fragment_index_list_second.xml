@@ -25,6 +25,8 @@
             android:layout_marginRight="@dimen/normal_margin"
             android:background="@drawable/card_border"
             app:closeIcon="@drawable/ic_close"
+            android:theme="@style/AppSearchView"
+            app:queryBackground="@android:color/transparent"
             app:iconifiedByDefault="false"
             app:queryHint="@string/query_hint_search_index"
             app:searchIcon="@drawable/ic_search_home" />

@@ -22,12 +22,17 @@
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
         <item name="android:textSize">@dimen/title4_text</item>
+        <item name="android:textColorHint">@color/onbackground2</item>
     </style>
 
+    <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabSelectedTextColor">@color/background3</item>
+        <item name="tabIndicatorColor">@color/secondary1</item>
+    </style>
 
-    <style name="regular_font" parent="@android:style/Widget.TextView">
-        <item name="android:fontFamily">@font/iransans_regular</item>
-        <item name="fontFamily">@font/iransans_regular</item>
+    <style name="ge_dinar_one" parent="@android:style/Widget.TextView">
+        <item name="android:fontFamily">@font/ge_dinar_one_medium</item>
+        <item name="fontFamily">@font/ge_dinar_one_medium</item>
         <item name="android:textColor">@color/onbackground2</item>
     </style>
 
@@ -47,27 +52,27 @@
         <item name="fontFamily">@font/ge_dinar_one_light</item>
     </style>
 
-    <style name="title1" parent="regular_font">
+    <style name="title1" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/title1_text</item>
     </style>
 
-    <style name="title2" parent="regular_font">
+    <style name="title2" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/title2_text</item>
     </style>
 
-    <style name="title3" parent="regular_font">
+    <style name="title3" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/title3_text</item>
     </style>
 
-    <style name="title4" parent="regular_font">
+    <style name="title4" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/title4_text</item>
     </style>
 
-    <style name="body" parent="regular_font">
+    <style name="body" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/body_text</item>
     </style>
 
-    <style name="description" parent="regular_font">
+    <style name="description" parent="ge_dinar_one">
         <item name="android:textSize">@dimen/description_text</item>
     </style>
 
