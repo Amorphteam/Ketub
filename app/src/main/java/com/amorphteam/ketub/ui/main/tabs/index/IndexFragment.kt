@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexBinding
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.VPIndexListAdapter
+import com.amorphteam.ketub.ui.main.tabs.index.adapter.ViewPagerIndexListAdapter
 import com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListFirstFragment
 import com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListSecondFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -36,7 +36,7 @@ class IndexFragment : Fragment() {
     }
 
     private fun handleTabViewPager(binding: FragmentIndexBinding) {
-        val adapter = VPIndexListAdapter(activity)
+        val adapter = ViewPagerIndexListAdapter(activity)
         adapter.addFragment(IndexListFirstFragment(), getString(R.string.nosos_title))
         adapter.addFragment(IndexListSecondFragment(), getString(R.string.ejtehad_title))
 

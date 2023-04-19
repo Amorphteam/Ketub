@@ -3,7 +3,7 @@ package com.amorphteam.ketub.ui.main.tabs.index.adapter
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class VPIndexListAdapter(activity: FragmentActivity?) : FragmentStateAdapter(activity!!) {
+class ViewPagerIndexListAdapter(activity: FragmentActivity?) : FragmentStateAdapter(activity!!) {
     private val mFragmentList: MutableList<Fragment> = ArrayList()
     private val mFragmentTitleList: MutableList<String> = ArrayList()
 
