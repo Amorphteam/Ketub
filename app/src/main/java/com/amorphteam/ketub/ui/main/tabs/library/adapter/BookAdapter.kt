@@ -57,7 +57,7 @@ class BookAdapter(private val clickListener: BookClickListener) :
     }
 
 class BookClickListener(val clickListener: (bookId: Int) -> Unit) {
-    fun onClick(viewModel: BookModel) = clickListener(viewModel.id)
+    fun onClick(viewModel: BookModel) = viewModel.id?.let { clickListener(it) }
 
 }
 

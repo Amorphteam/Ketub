@@ -1,21 +1,29 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class LibraryFragmentViewModel: ViewModel() {
+class LibraryFragmentViewModel(application: Application): AndroidViewModel(application) {
     var startEpubAct = MutableLiveData<Boolean>()
     var startSearchAct = MutableLiveData<Boolean>()
     var startDetailFrag = MutableLiveData<Boolean>()
+    val allBooks: LiveData<List<BookModel>>
+    val repository: BookRepository
 
     init {
         Log.i(Keys.LOG_NAME, "main view model created")
+        val dao = BookDatabase.getDatabase(application).getBookDao()
+        repository = BookRepository(dao)
+        allBooks = repository.getAllBooks()
     }
+
 
     override fun onCleared() {
         super.onCleared()
