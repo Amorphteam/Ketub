@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 
 @Database(entities = [BookModel::class], version = 1, exportSchema = false)
-
 abstract class BookDatabase: RoomDatabase() {
+
 
     abstract fun getBookDao(): Dao
 
@@ -17,9 +17,7 @@ abstract class BookDatabase: RoomDatabase() {
         private var INSTANCE: BookDatabase? = null
         private const val DB_NAME = "book_list.db"
 
-        fun getDatabase(
-            context: Context
-        ): BookDatabase {
+        fun getDatabase(context: Context): BookDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,

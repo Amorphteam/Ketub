@@ -1,16 +1,25 @@
 package com.amorphteam.ketub.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.AssetManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.Navigation
-import com.amorphteam.ketub.R
+import java.io.IOException
+import java.io.InputStream
+
 
 class TabbedActivity : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +29,10 @@ class TabbedActivity : AppCompatActivity() {
         val viewModel = ViewModelProvider(this).get(TabbedViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        initNavigationBar()
-    }
 
+        initNavigationBar()
+
+    }
 
 
     private fun initNavigationBar() {
@@ -34,4 +44,7 @@ class TabbedActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(navView, navController)
     }
 
+
 }
+
+

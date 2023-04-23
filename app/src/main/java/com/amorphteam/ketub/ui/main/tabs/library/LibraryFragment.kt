@@ -1,7 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
-import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
@@ -22,7 +21,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.search.SearchActivity
-
+import java.io.InputStream
 
 
 class LibraryFragment : Fragment() {
@@ -56,7 +55,10 @@ class LibraryFragment : Fragment() {
 
         viewModel.allBooks.observe(viewLifecycleOwner, Observer { it ->
             it?.let {
-                // updates the list.
+
+                Log.i("33333", it.toString())
+
+
             }
         })
 
@@ -120,3 +122,6 @@ class LibraryFragment : Fragment() {
 
 
 }
+
+
+

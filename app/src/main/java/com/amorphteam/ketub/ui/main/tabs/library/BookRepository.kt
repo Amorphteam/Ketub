@@ -7,4 +7,5 @@ class BookRepository(private val bookDao: Dao) {
 
     fun getAllBooks(): LiveData<List<BookModel>> = bookDao.getAllBooks()
 
+
 }

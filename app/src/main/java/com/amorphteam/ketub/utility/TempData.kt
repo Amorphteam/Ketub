@@ -7,11 +7,11 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 class TempData {
     companion object {
         var bookArray = arrayListOf(
-            BookModel(1, R.drawable.book_sample, "Ejtehad1"),
-            BookModel(2, R.drawable.book_sample, "Ejtehad1"),
-            BookModel(3, R.drawable.book_sample, "Ejtehad2"),
-            BookModel(4, R.drawable.book_sample, "Ejtehad3"),
-            BookModel(5, R.drawable.book_sample, "Ejtehad4")
+            BookModel(R.drawable.book_sample, 1, "Ejtehad1"),
+            BookModel(R.drawable.book_sample, 2, "Ejtehad1"),
+            BookModel(R.drawable.book_sample, 3, "Ejtehad2"),
+            BookModel(R.drawable.book_sample, 4, "Ejtehad3"),
+            BookModel(R.drawable.book_sample, 5, "Ejtehad4")
         )
 
         var mostRead = arrayListOf(

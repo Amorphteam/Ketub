@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "book")
 data class BookModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "Id") val id: Int?,
     @ColumnInfo(name = "Cover") val bookCover: Int,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "Id") val id: Int,
     @ColumnInfo(name = "Name") val bookName: String
     )
