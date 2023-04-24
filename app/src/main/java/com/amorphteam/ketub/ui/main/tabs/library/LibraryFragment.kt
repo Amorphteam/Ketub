@@ -2,15 +2,13 @@ package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavAction
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
@@ -22,6 +20,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.search.SearchActivity
+import com.amorphteam.ketub.utility.Keys
 
 
 class LibraryFragment : Fragment() {
@@ -58,6 +57,13 @@ class LibraryFragment : Fragment() {
 
         viewModel.startDetailFrag.observe(viewLifecycleOwner) {
             if (it) Navigation.findNavController(requireView()).navigate(R.id.action_navigation_library_to_detailFragment)
+        }
+
+        viewModel.allBooks.observe(viewLifecycleOwner) {
+            if(!it.isNullOrEmpty()){
+                Log.i("sssssss", it.toString())
+
+            }
         }
 
         handleBooksRecyclerView()

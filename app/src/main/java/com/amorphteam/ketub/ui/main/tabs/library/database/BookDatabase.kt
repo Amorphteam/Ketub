@@ -26,9 +26,10 @@ abstract class BookDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         BookDatabase::class.java,
-                        "database/book_list"
+                        "book_list.db"
                     )
                         .fallbackToDestructiveMigration()
+                        .createFromAsset("database/book_list.db")
                         .build()
                     INSTANCE = instance
                 }
