@@ -6,13 +6,13 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 
 class TempData {
     companion object {
-        var bookArray = arrayListOf(
-            BookModel(R.drawable.book_sample, 1, "Ejtehad1"),
-            BookModel(R.drawable.book_sample, 2, "Ejtehad1"),
-            BookModel(R.drawable.book_sample, 3, "Ejtehad2"),
-            BookModel(R.drawable.book_sample, 4, "Ejtehad3"),
-            BookModel(R.drawable.book_sample, 5, "Ejtehad4")
-        )
+//        var bookArray = arrayListOf(
+//            BookModel(R.drawable.book_sample, 1, "Ejtehad1"),
+//            BookModel(R.drawable.book_sample, 2, "Ejtehad1"),
+//            BookModel(R.drawable.book_sample, 3, "Ejtehad2"),
+//            BookModel(R.drawable.book_sample, 4, "Ejtehad3"),
+//            BookModel(R.drawable.book_sample, 5, "Ejtehad4")
+//        )
 
         var mostRead = arrayListOf(
             MainToc(1, "إشكالية اللغة في الخطاب الديني "),

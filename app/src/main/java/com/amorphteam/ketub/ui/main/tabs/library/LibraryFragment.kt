@@ -1,7 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,13 +20,17 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
+import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.search.SearchActivity
-import java.io.InputStream
+import com.amorphteam.ketub.utility.Keys
+import java.io.File
+import java.io.IOException
 
 
 class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
     private lateinit var viewModel: LibraryFragmentViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,15 +59,16 @@ class LibraryFragment : Fragment() {
 
         viewModel.allBooks.observe(viewLifecycleOwner, Observer { it ->
             it?.let {
+                addAssetsImages(requireActivity().application, "cover")
 
-                Log.i("33333", it.toString())
-
+                handleEjtihad(it)
+                handleNosos(it)
 
             }
         })
 
 
-        handleBooksRecyclerView()
+//        handleBooksRecyclerView()
         handleMainTocsRecyclerView()
         return binding.root
     }
@@ -93,33 +98,40 @@ class LibraryFragment : Fragment() {
         binding.tocReadMore.recyclerView.adapter = readMoreToc
     }
 
-    private fun handleBooksRecyclerView() {
-        handleEjtihad()
-        handleNosos()
-    }
 
-    private fun handleNosos() {
+    private fun handleNosos(bookArrayList : List<BookModel>) {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        nososAdapter.submitList(viewModel.getNososItem().value)
-
+        nososAdapter.submitList(bookArrayList)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.nososItems.recyclerView.layoutManager = layoutManager
         binding.nososItems.recyclerView.adapter = nososAdapter
     }
 
-    private fun handleEjtihad() {
+    private fun handleEjtihad(bookArrayList : List<BookModel>) {
         val ejtihadAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        ejtihadAdapter.submitList(viewModel.getEjtihadItem().value)
-
+        ejtihadAdapter.submitList(bookArrayList)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.ejtehadItems.recyclerView.layoutManager = layoutManager
         binding.ejtehadItems.recyclerView.adapter = ejtihadAdapter
     }
 
+    fun addAssetsImages(mContext: Context, folderPath: String): ArrayList<String>? {
+        val pathList: ArrayList<String> = ArrayList()
+        try {
+            val files: Array<String> = mContext.getAssets().list(folderPath) as Array<String>
+            for (name in files) {
+                pathList.add(folderPath + File.separator.toString() + name)
+                Log.e("pathList item", folderPath + File.separator.toString() + name)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return pathList
+    }
 
 }
 

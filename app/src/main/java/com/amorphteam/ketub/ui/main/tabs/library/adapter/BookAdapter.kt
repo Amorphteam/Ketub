@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.main.tabs.library.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemBookBinding
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.bumptech.glide.Glide
 
 class BookAdapter(private val clickListener: BookClickListener) :
         ListAdapter<BookModel, BookAdapter.ViewHolder>(CustomizeDiffCallback()) {
@@ -18,9 +20,9 @@ class BookAdapter(private val clickListener: BookClickListener) :
                 binding.item = item
                 binding.bookClickListener = clickListener
                 //TODO: IT MUST LOAD FROM VIEWMODEL
-                binding.itemImage.setImageResource(item.bookCover)
-
-                //
+                Glide.with(itemView.context)
+                    .load(Uri.parse("file:///android_asset/cover/${item.bookCover}"))
+                    .into(binding.itemImage)
                 binding.executePendingBindings()
             }
 
@@ -41,7 +43,7 @@ class BookAdapter(private val clickListener: BookClickListener) :
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = getItem(position)
-            holder.bind(item, clickListener)
+            holder.bind(item, clickListener )
         }
     }
 
@@ -61,4 +63,3 @@ class BookClickListener(val clickListener: (bookId: Int) -> Unit) {
     fun onClick(viewModel: BookModel) = viewModel.id?.let { clickListener(it) }
 
 }
-

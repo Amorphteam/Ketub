@@ -1,17 +1,12 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.app.Application
-import android.content.res.AssetManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
-import java.io.IOException
-import java.io.InputStream
 
 
 class LibraryFragmentViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,7 +25,6 @@ class LibraryFragmentViewModel(application: Application) : AndroidViewModel(appl
     }
 
 
-
     override fun onCleared() {
         super.onCleared()
         Log.i(Keys.LOG_NAME, "main view model was cleared")
@@ -38,13 +32,14 @@ class LibraryFragmentViewModel(application: Application) : AndroidViewModel(appl
 
     fun getEjtihadItem(): MutableLiveData<ArrayList<BookModel>> {
         val array = MutableLiveData<ArrayList<BookModel>>()
-        array.value = arrayListOf<BookModel>().apply { allBooks }
+        array.value = arrayListOf<BookModel>().apply { allBooks.value }
         return array
     }
 
     fun getNososItem(): MutableLiveData<ArrayList<BookModel>> {
         val array = MutableLiveData<ArrayList<BookModel>>()
-        array.value = TempData.bookArray
+        array.value = arrayListOf<BookModel>().apply { allBooks }
+
         return array
     }
 

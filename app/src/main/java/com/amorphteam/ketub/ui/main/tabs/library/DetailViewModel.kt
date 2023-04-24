@@ -11,7 +11,7 @@ class DetailViewModel : ViewModel() {
 
     fun getEjtihadItem(): MutableLiveData<ArrayList<BookModel>> {
         val array = MutableLiveData<ArrayList<BookModel>>()
-        array.value = TempData.bookArray
+//        array.value = TempData.bookArray
         return array
     }
 
