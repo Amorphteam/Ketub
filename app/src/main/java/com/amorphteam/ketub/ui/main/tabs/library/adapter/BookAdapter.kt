@@ -18,7 +18,7 @@ class BookAdapter(private val clickListener: BookClickListener) :
                 binding.item = item
                 binding.bookClickListener = clickListener
                 //TODO: IT MUST LOAD FROM VIEWMODEL
-                binding.itemImage.setImageResource(item.bookCover)
+//                binding.itemImage.setImageResource(item.bookCover)
                 //
                 binding.executePendingBindings()
             }

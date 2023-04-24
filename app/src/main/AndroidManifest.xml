@@ -15,7 +15,8 @@
             android:name=".ui.search.SearchActivity"
             android:exported="false" />
         <activity android:name=".ui.epub.EpubViewer" />
-        <activity android:name=".ui.main.TabbedActivity">
+        <activity android:name=".ui.main.TabbedActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

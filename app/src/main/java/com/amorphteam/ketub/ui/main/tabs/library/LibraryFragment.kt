@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavAction
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
+import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.search.SearchActivity
 
 
@@ -30,12 +32,21 @@ class LibraryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        viewModel = ViewModelProvider(this).get(LibraryFragmentViewModel::class.java)
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_library, container, false
         )
+
+        // Create an instance of the ViewModel Factory.
+        val application = requireNotNull(this.activity).application
+        val dataSource = BookDatabase.getInstance(application).sleepDatabaseDao
+        val viewModelFactory = LibraryFragmentViewModelFactory(dataSource, application)
+
+        // Get a reference to the ViewModel associated with this fragment.
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LibraryFragmentViewModel::class.java)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
