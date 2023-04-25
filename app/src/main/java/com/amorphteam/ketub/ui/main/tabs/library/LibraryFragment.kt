@@ -2,7 +2,6 @@ package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +20,6 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.search.SearchActivity
-import com.amorphteam.ketub.utility.Keys
 
 
 class LibraryFragment : Fragment() {
@@ -38,7 +36,7 @@ class LibraryFragment : Fragment() {
 
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
-        val dataSource = BookDatabase.getInstance(application).sleepDatabaseDao
+        val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
         val viewModelFactory = LibraryFragmentViewModelFactory(dataSource, application)
 
         // Get a reference to the ViewModel associated with this fragment.

@@ -11,7 +11,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 
 abstract class BookDatabase : RoomDatabase() {
 
-    abstract val sleepDatabaseDao: BookDatabaseDao
+    abstract val bookDatabaseDao: BookDatabaseDao
 
     companion object {
 
