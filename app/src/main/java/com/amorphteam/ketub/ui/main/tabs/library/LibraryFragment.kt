@@ -60,7 +60,7 @@ class LibraryFragment : Fragment() {
         viewModel.allBooks.observe(viewLifecycleOwner, Observer { it ->
             it?.let {
                 addAssetsImages(requireActivity().application, "cover")
-                handleNosos()
+                handleNosos(it)
 //                handleEjtihad(it)
                 Log.i("sssssss", it.toString())
 
@@ -99,11 +99,11 @@ class LibraryFragment : Fragment() {
     }
 
 
-    private fun handleNosos() {
+    private fun handleNosos(bookArrayList : List<BookModel>) {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        nososAdapter.submitList(viewModel.ejtihadItem().value)
+        nososAdapter.submitList(bookArrayList)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.nososItems.recyclerView.layoutManager = layoutManager
         binding.nososItems.recyclerView.adapter = nososAdapter

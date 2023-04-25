@@ -46,7 +46,7 @@ class LibraryFragmentViewModel(application: Application) : AndroidViewModel(appl
     private suspend fun getBookFromDatabase(): List<BookModel>? {
         return withContext(Dispatchers.IO) {
             val book = repository.getAllBooks()
-            book.value
+            book
         }
     }
 

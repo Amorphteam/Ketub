@@ -6,7 +6,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 
 class BookRepository(private val bookDao: Dao) {
 
-    fun getAllBooks(): LiveData<List<BookModel>> = bookDao.getAllBooks()
+    fun getAllBooks(): List<BookModel> = bookDao.getAllBooks()
 
 
 }
