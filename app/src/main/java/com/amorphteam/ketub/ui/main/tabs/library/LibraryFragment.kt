@@ -42,7 +42,8 @@ class LibraryFragment : Fragment() {
         val viewModelFactory = LibraryFragmentViewModelFactory(dataSource, application)
 
         // Get a reference to the ViewModel associated with this fragment.
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LibraryFragmentViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, viewModelFactory).get(LibraryFragmentViewModel::class.java)
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -57,11 +58,12 @@ class LibraryFragment : Fragment() {
         }
 
         viewModel.startDetailFrag.observe(viewLifecycleOwner) {
-            if (it) Navigation.findNavController(requireView()).navigate(R.id.action_navigation_library_to_detailFragment)
+            if (it) Navigation.findNavController(requireView())
+                .navigate(R.id.action_navigation_library_to_detailFragment)
         }
 
         viewModel.allBooks.observe(viewLifecycleOwner) {
-            if(!it.isNullOrEmpty()){
+            if (!it.isNullOrEmpty()) {
                 handleBooksRecyclerView(it)
             }
         }
@@ -95,12 +97,12 @@ class LibraryFragment : Fragment() {
         binding.tocReadMore.recyclerView.adapter = readMoreToc
     }
 
-    private fun handleBooksRecyclerView(bookArrayList : List<BookModel>) {
+    private fun handleBooksRecyclerView(bookArrayList: List<BookModel>) {
         handleEjtihad(bookArrayList)
         handleNosos(bookArrayList)
     }
 
-    private fun handleNosos(bookArrayList : List<BookModel>) {
+    private fun handleNosos(bookArrayList: List<BookModel>) {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
@@ -111,7 +113,7 @@ class LibraryFragment : Fragment() {
         binding.nososItems.recyclerView.adapter = nososAdapter
     }
 
-    private fun handleEjtihad(bookArrayList : List<BookModel>) {
+    private fun handleEjtihad(bookArrayList: List<BookModel>) {
         val ejtihadAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
@@ -121,6 +123,5 @@ class LibraryFragment : Fragment() {
         binding.ejtehadItems.recyclerView.layoutManager = layoutManager
         binding.ejtehadItems.recyclerView.adapter = ejtihadAdapter
     }
-
 
 }
