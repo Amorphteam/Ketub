@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
@@ -10,8 +9,7 @@ import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.*
 
-class LibraryFragmentViewModel(val database: BookDatabaseDao, application: Application) :
-    AndroidViewModel(application) {
+class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
 
     var startEpubAct = MutableLiveData<Boolean>()
     var startSearchAct = MutableLiveData<Boolean>()
@@ -21,10 +19,10 @@ class LibraryFragmentViewModel(val database: BookDatabaseDao, application: Appli
     val allBooks: LiveData<List<BookModel>>
         get() = _allBooks
 
+    private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
     var viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
 
     init {
         initializeBook()
@@ -41,7 +39,7 @@ class LibraryFragmentViewModel(val database: BookDatabaseDao, application: Appli
         Log.i(Keys.LOG_NAME, "getAllBookFromDatabase")
 
         return withContext(Dispatchers.IO) {
-            val book = database.getAllBooks()
+            val book = repository.getAllBooks()
             book
         }
     }

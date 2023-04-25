@@ -37,7 +37,7 @@ class LibraryFragment : Fragment() {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = LibraryFragmentViewModelFactory(dataSource, application)
+        val viewModelFactory = LibraryFragmentViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         viewModel =
