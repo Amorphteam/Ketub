@@ -27,17 +27,13 @@ class LibraryFragmentViewModel(val database: BookDatabaseDao, application: Appli
 
 
     init {
-
-
         initializeBook()
-
     }
 
     private fun initializeBook() {
         uiScope.launch {
             _allBooks.value = getAllBookFromDatabase()
             Log.i(Keys.LOG_NAME, "uiScope.launch")
-
         }
     }
 
@@ -46,29 +42,14 @@ class LibraryFragmentViewModel(val database: BookDatabaseDao, application: Appli
 
         return withContext(Dispatchers.IO) {
             val book = database.getAllBooks()
-            book.value
-
+            book
         }
-
     }
-
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
         Log.i(Keys.LOG_NAME, "main view model was cleared")
-    }
-
-    fun getEjtihadItem(): MutableLiveData<ArrayList<BookModel>> {
-        val array = MutableLiveData<ArrayList<BookModel>>()
-//        array.value = TempData.bookArray
-        return array
-    }
-
-    fun getNososItem(): MutableLiveData<ArrayList<BookModel>> {
-        val array = MutableLiveData<ArrayList<BookModel>>()
-//        array.value = TempData.bookArray
-        return array
     }
 
 

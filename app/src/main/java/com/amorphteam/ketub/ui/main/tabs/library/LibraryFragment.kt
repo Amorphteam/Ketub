@@ -19,6 +19,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
+import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 
@@ -61,12 +62,10 @@ class LibraryFragment : Fragment() {
 
         viewModel.allBooks.observe(viewLifecycleOwner) {
             if(!it.isNullOrEmpty()){
-                Log.i("sssssss", it.toString())
-
+                handleBooksRecyclerView(it)
             }
         }
 
-        handleBooksRecyclerView()
         handleMainTocsRecyclerView()
         return binding.root
     }
@@ -96,27 +95,27 @@ class LibraryFragment : Fragment() {
         binding.tocReadMore.recyclerView.adapter = readMoreToc
     }
 
-    private fun handleBooksRecyclerView() {
-        handleEjtihad()
-        handleNosos()
+    private fun handleBooksRecyclerView(bookArrayList : List<BookModel>) {
+        handleEjtihad(bookArrayList)
+        handleNosos(bookArrayList)
     }
 
-    private fun handleNosos() {
+    private fun handleNosos(bookArrayList : List<BookModel>) {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        nososAdapter.submitList(viewModel.getNososItem().value)
+        nososAdapter.submitList(bookArrayList)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.nososItems.recyclerView.layoutManager = layoutManager
         binding.nososItems.recyclerView.adapter = nososAdapter
     }
 
-    private fun handleEjtihad() {
+    private fun handleEjtihad(bookArrayList : List<BookModel>) {
         val ejtihadAdapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        ejtihadAdapter.submitList(viewModel.getEjtihadItem().value)
+        ejtihadAdapter.submitList(bookArrayList)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.ejtehadItems.recyclerView.layoutManager = layoutManager

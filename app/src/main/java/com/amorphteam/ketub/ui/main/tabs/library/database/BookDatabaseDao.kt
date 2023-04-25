@@ -11,6 +11,6 @@ import kotlinx.coroutines.selects.select
 interface BookDatabaseDao {
 
 @Query("select * from Book")
-fun getAllBooks(): LiveData<List<BookModel>>
+fun getAllBooks(): List<BookModel>
 
 }
