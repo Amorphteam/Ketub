@@ -1,9 +1,10 @@
-package com.amorphteam.ketub.ui.main.tabs.library
+package com.amorphteam.ketub.ui.main.tabs.library.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.amorphteam.ketub.ui.main.tabs.library.Dao
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 
 @Database(entities = [BookModel::class], version = 1, exportSchema = false)
