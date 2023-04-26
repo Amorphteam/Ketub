@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentDetailBinding
@@ -57,20 +56,19 @@ class DetailFragment : Fragment() {
                 .navigate(R.id.action_detailFragment_to_navigation_library)
         }
 
-        viewModel.nososBooks.observe(viewLifecycleOwner) {
+        viewModel.firstCatBooksAllItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "handleNosos")
-                handleNosos(it)
+                Log.i(Keys.LOG_NAME, "handleFirstCatBooks")
+                handleFirstCatBooks(it)
             }
         }
 
-        viewModel.ejtehadBooks.observe(viewLifecycleOwner) {
+        viewModel.secondCatBooksAllItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "handleEjtehad")
-                handleEjtihad(it)
+                Log.i(Keys.LOG_NAME, "handleSecondCatBooks")
+                handleSecondCatBooks(it)
             }
         }
-
 
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
@@ -84,27 +82,26 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-
-    private fun handleNosos(bookArrayList: List<BookModel>) {
-        val nososAdapter = BookAdapter(BookClickListener { bookId ->
+    private fun handleFirstCatBooks(bookArrayList: List<BookModel>) {
+        val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        nososAdapter.submitList(bookArrayList)
+        adapter.submitList(bookArrayList)
 
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = nososAdapter
+        binding.recyclerView.adapter = adapter
     }
 
-    private fun handleEjtihad(bookArrayList: List<BookModel>) {
-        val ejtihadAdapter = BookAdapter(BookClickListener { bookId ->
+    private fun handleSecondCatBooks(bookArrayList: List<BookModel>) {
+        val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
-        ejtihadAdapter.submitList(bookArrayList)
+        adapter.submitList(bookArrayList)
 
         val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = ejtihadAdapter
+        binding.recyclerView.adapter = adapter
     }
 
 }

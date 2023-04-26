@@ -25,14 +25,13 @@ class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : V
     val allBooks: LiveData<List<BookModel>>
         get() = _allBooks
 
-    private var _nososBooks = MutableLiveData<List<BookModel>>()
-    val nososBooks: LiveData<List<BookModel>>
-        get() = _nososBooks
+    private var _firstCatBooksNewItems = MutableLiveData<List<BookModel>>()
+    val firstCatBooksNewItems: LiveData<List<BookModel>>
+        get() = _firstCatBooksNewItems
 
-    private var _ejtehadBooks = MutableLiveData<List<BookModel>>()
-    val ejtehadBooks: LiveData<List<BookModel>>
-        get() = _ejtehadBooks
-
+    private var _secondCatBooksNewItems = MutableLiveData<List<BookModel>>()
+    val secondCatBooksNewItems: LiveData<List<BookModel>>
+        get() = _secondCatBooksNewItems
 
     init {
         initializeBooks()
@@ -41,8 +40,8 @@ class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : V
     private fun initializeBooks() {
         uiScope.launch {
             _allBooks.value = getAllBookFromDatabase()
-            _ejtehadBooks.value = getEjtehadBookFromDatabase()
-            _nososBooks.value = getNososBookFromDatabase()
+            _firstCatBooksNewItems.value = getNewItemsForFirstCatBooksFromDatabase()
+            _secondCatBooksNewItems.value = getNewItemsForSecondCatBooksFromDatabase()
             Log.i(Keys.LOG_NAME, "uiScope.launch")
         }
     }
@@ -56,20 +55,20 @@ class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : V
         }
     }
 
-    private suspend fun getNososBookFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getNososBookFromDatabase")
+    private suspend fun getNewItemsForFirstCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getNewItemsForFirstBooksFromDatabase")
 
         return withContext(Dispatchers.IO) {
-            val book = repository.getNososBooks()
+            val book = repository.getNewItemsForFirstCatBooks()
             book
         }
     }
 
-    private suspend fun getEjtehadBookFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getEjtehadBookFromDatabase")
+    private suspend fun getNewItemsForSecondCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getNewItemsForSecondBooksFromDatabase")
 
         return withContext(Dispatchers.IO) {
-            val book = repository.getEjtehadBooks()
+            val book = repository.getNewItemsForSecondCatBooks()
             book
         }
     }

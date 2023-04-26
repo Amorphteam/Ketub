@@ -8,7 +8,6 @@ import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.*
 
 class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
@@ -20,14 +19,13 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel(
     var viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _nososBooks = MutableLiveData<List<BookModel>>()
-    val nososBooks: LiveData<List<BookModel>>
-        get() = _nososBooks
+    private var _firstCatBooksAllItems = MutableLiveData<List<BookModel>>()
+    val firstCatBooksAllItems: LiveData<List<BookModel>>
+        get() = _firstCatBooksAllItems
 
-    private var _ejtehadBooks = MutableLiveData<List<BookModel>>()
-    val ejtehadBooks: LiveData<List<BookModel>>
-        get() = _ejtehadBooks
-
+    private var _secondCatBooksAllItems = MutableLiveData<List<BookModel>>()
+    val secondCatBooksAllItems: LiveData<List<BookModel>>
+        get() = _secondCatBooksAllItems
 
     init {
         initializeBooks()
@@ -35,26 +33,26 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel(
 
     private fun initializeBooks() {
         uiScope.launch {
-            _ejtehadBooks.value = getEjtehadBookFromDatabase()
-            _nososBooks.value = getNososBookFromDatabase()
+            _firstCatBooksAllItems.value = getAllItemsForFirstCatBooksFromDatabase()
+            _secondCatBooksAllItems.value = getAllItemsForSecondCatBooksFromDatabase()
             Log.i(Keys.LOG_NAME, "uiScope.launch")
         }
     }
 
-    private suspend fun getNososBookFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getNososBookFromDatabase")
+    private suspend fun getAllItemsForFirstCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getAllItemsForFirstCatBooksFromDatabase")
 
         return withContext(Dispatchers.IO) {
-            val book = repository.getNososBooks()
+            val book = repository.getAllItemsForFirstCatBooks()
             book
         }
     }
 
-    private suspend fun getEjtehadBookFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getEjtehadBookFromDatabase")
+    private suspend fun getAllItemsForSecondCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getAllItemsForSecondCatBooksFromDatabase")
 
         return withContext(Dispatchers.IO) {
-            val book = repository.getEjtehadBooks()
+            val book = repository.getAllItemsForSecondCatBooks()
             book
         }
     }
@@ -66,11 +64,11 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel(
     }
 
 
-    fun openEpubAct(){
+    fun openEpubAct() {
         startEpubAct.value = true
     }
 
-    fun openLibraryFrag(){
+    fun openLibraryFrag() {
         startLibraryFrag.value = true
     }
 }
