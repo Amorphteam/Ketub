@@ -2,14 +2,13 @@ package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavAction
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
@@ -19,7 +18,9 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
+import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.search.SearchActivity
+import com.amorphteam.ketub.utility.Keys
 
 
 class LibraryFragment : Fragment() {
@@ -49,31 +50,41 @@ class LibraryFragment : Fragment() {
             if (it) Navigation.findNavController(requireView()).navigate(R.id.action_navigation_library_to_detailFragment)
         }
 
+        viewModel.readMoreToc.observe(viewLifecycleOwner) {
+            handleReadMore(it)
+        }
+
+        viewModel.errorMoreToc.observe(viewLifecycleOwner) {
+            Log.i(Keys.LOG_NAME, it)
+        }
+
+        viewModel.recommendedToc.observe(viewLifecycleOwner) {
+            handleRecommanded(it)
+        }
+
+        viewModel.errorRecommendedToc.observe(viewLifecycleOwner) {
+            Log.i(Keys.LOG_NAME, it)
+        }
+
         handleBooksRecyclerView()
-        handleMainTocsRecyclerView()
         return binding.root
     }
 
-    private fun handleMainTocsRecyclerView() {
-        handleReadMore()
-        handleRecommanded()
-    }
-
-    private fun handleRecommanded() {
+    private fun handleRecommanded(list: List<MainToc>) {
         val recommandedToc = MainTocAdapter(MainTocClickListener {
             viewModel.openEpubAct()
         })
-        recommandedToc.submitList(viewModel.getRecommandedToc().value)
+        recommandedToc.submitList(list)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.tocRecommanded.recyclerView.layoutManager = layoutManager
         binding.tocRecommanded.recyclerView.adapter = recommandedToc
     }
 
-    private fun handleReadMore() {
+    private fun handleReadMore(list: List<MainToc>) {
         val readMoreToc = MainTocAdapter(MainTocClickListener {
             viewModel.openEpubAct()
         })
-        readMoreToc.submitList(viewModel.getReadMoreMainToc().value)
+        readMoreToc.submitList(list)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.tocReadMore.recyclerView.layoutManager = layoutManager
         binding.tocReadMore.recyclerView.adapter = readMoreToc
