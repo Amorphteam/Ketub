@@ -1,6 +1,7 @@
 package com.amorphteam.ketub.utility
 
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 
@@ -24,6 +25,17 @@ class TempData {
             MainToc(7, "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر")
         )
 
+        var bookIndex = arrayListOf(
+            IndexModel(1,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة"),
+            IndexModel(2,"مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر","الاجتهاد والتجديد"),
+            IndexModel(3,"قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني","نصوص معاصرة"),
+            IndexModel(4,"إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة","الاجتهاد والتجديد"),
+            IndexModel(5,"الوَحْي الإلهيّ عند الفارابي","نصوص معاصرة"),
+            IndexModel(6,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+            IndexModel(7,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة"),
+            IndexModel(8,"الوَحْي الإلهيّ عند الفارابي","الاجتهاد والتجديد"),
+            IndexModel(9,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة")
+        )
 
     }
 }

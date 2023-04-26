@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListFirstViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.main.tabs.index.tabLayout.IndexListFirstFragment"
+        >
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:layout_marginLeft="@dimen/normal_margin"
+            android:layout_margin="@dimen/normal_margin"
+            android:background="@drawable/card_border"
+            app:closeIcon="@drawable/ic_close"
+            app:iconifiedByDefault="false"
+            android:theme="@style/AppSearchView"
+            app:queryBackground="@android:color/transparent"
+            app:queryHint="@string/query_hint_search_index"
+            app:searchIcon="@drawable/ic_search_home"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:layout_marginLeft="@dimen/normal_margin"
+            tools:listitem="@layout/item_index"
+            tools:orientation="vertical"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:clipToPadding="false" />
+    </LinearLayout>
+</layout>
