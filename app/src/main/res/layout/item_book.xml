@@ -28,10 +28,7 @@
             android:layout_height="match_parent"
             android:background="@color/primary1"
             android:scaleType="centerCrop"
-            bind:image="@{item.bookCover}"
-            bind:item="@{item}"
-            bind:placeholder="@{@drawable/ejtehad_cover}"
-
+            bind:loadImage="@{item}"
             />
     </androidx.cardview.widget.CardView>
 </layout>

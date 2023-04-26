@@ -3,6 +3,7 @@ package com.amorphteam.ketub.ui.main.tabs.library
 import android.util.Log
 import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
+import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.utility.Keys

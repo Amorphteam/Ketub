@@ -5,21 +5,16 @@ import android.net.Uri
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.utility.Keys
 import com.bumptech.glide.Glide
 
 
-@BindingAdapter("image", "placeholder", "item")
-fun setImage(image: ImageView, url: String?, placeHolder: Drawable, item: BookModel?) {
-
-    if (!url.isNullOrEmpty()) {
-        Log.i(Keys.LOG_NAME, "url$url")
+@BindingAdapter("loadImage")
+fun setImage(image: ImageView, item: BookModel?) {
         Glide.with(image.context)
             .load(Uri.parse("file:///android_asset/cover/${item!!.bookCover}"))
+            .placeholder(R.drawable.ejtehad_cover)
             .into(image)
-    } else {
-        image.setImageDrawable(placeHolder)
-    }
-
 }

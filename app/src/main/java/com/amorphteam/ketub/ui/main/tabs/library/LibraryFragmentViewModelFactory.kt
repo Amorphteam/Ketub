@@ -12,7 +12,7 @@ class LibraryFragmentViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     @Suppress("unckecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LibraryFragmentViewModel::class.java)) {
             return LibraryFragmentViewModel(dataSource) as T
         }
