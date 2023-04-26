@@ -1,11 +1,9 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 
-//TODO: IT MUST LEARNING
 
 class LibraryFragmentViewModelFactory(
     private val dataSource: BookDatabaseDao

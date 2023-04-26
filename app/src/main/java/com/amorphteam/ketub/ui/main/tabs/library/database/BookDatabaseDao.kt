@@ -10,7 +10,12 @@ import kotlinx.coroutines.selects.select
 @Dao
 interface BookDatabaseDao {
 
-@Query("select * from Book")
-fun getAllBooks(): List<BookModel>
+    @Query("select * from Book")
+    fun getAllBooks(): List<BookModel>
 
+    @Query("select * from Book")
+    fun getEjtehadBooks(): List<BookModel>
+
+    @Query("select * from Book")
+    fun getNososBooks(): List<BookModel>
 }

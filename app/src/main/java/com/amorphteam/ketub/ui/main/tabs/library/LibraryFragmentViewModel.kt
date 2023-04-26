@@ -16,22 +16,33 @@ class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : V
     var startSearchAct = MutableLiveData<Boolean>()
     var startDetailFrag = MutableLiveData<Boolean>()
 
-    private var _allBooks = MutableLiveData<List<BookModel>>()
-    val allBooks: LiveData<List<BookModel>>
-        get() = _allBooks
-
     private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
     var viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    private var _allBooks = MutableLiveData<List<BookModel>>()
+    val allBooks: LiveData<List<BookModel>>
+        get() = _allBooks
+
+    private var _nososBooks = MutableLiveData<List<BookModel>>()
+    val nososBooks: LiveData<List<BookModel>>
+        get() = _nososBooks
+
+    private var _ejtehadBooks = MutableLiveData<List<BookModel>>()
+    val ejtehadBooks: LiveData<List<BookModel>>
+        get() = _ejtehadBooks
+
+
     init {
-        initializeBook()
+        initializeBooks()
     }
 
-    private fun initializeBook() {
+    private fun initializeBooks() {
         uiScope.launch {
             _allBooks.value = getAllBookFromDatabase()
+            _ejtehadBooks.value = getEjtehadBookFromDatabase()
+            _nososBooks.value = getNososBookFromDatabase()
             Log.i(Keys.LOG_NAME, "uiScope.launch")
         }
     }
@@ -41,6 +52,24 @@ class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : V
 
         return withContext(Dispatchers.IO) {
             val book = repository.getAllBooks()
+            book
+        }
+    }
+
+    private suspend fun getNososBookFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getNososBookFromDatabase")
+
+        return withContext(Dispatchers.IO) {
+            val book = repository.getNososBooks()
+            book
+        }
+    }
+
+    private suspend fun getEjtehadBookFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getEjtehadBookFromDatabase")
+
+        return withContext(Dispatchers.IO) {
+            val book = repository.getEjtehadBooks()
             book
         }
     }

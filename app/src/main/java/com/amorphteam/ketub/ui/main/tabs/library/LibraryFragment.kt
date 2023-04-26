@@ -2,6 +2,7 @@ package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.search.SearchActivity
+import com.amorphteam.ketub.utility.Keys
 
 
 class LibraryFragment : Fragment() {
@@ -62,9 +64,25 @@ class LibraryFragment : Fragment() {
 
         viewModel.allBooks.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                handleBooksRecyclerView(it)
+                Log.i(Keys.LOG_NAME, "handleAllBooks")
+
             }
         }
+
+        viewModel.nososBooks.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                Log.i(Keys.LOG_NAME, "handleNosos")
+                handleNosos(it)
+            }
+        }
+
+        viewModel.ejtehadBooks.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                Log.i(Keys.LOG_NAME, "handleEjtehad")
+                handleEjtihad(it)
+            }
+        }
+
 
         handleMainTocsRecyclerView()
         return binding.root
@@ -95,10 +113,6 @@ class LibraryFragment : Fragment() {
         binding.tocReadMore.recyclerView.adapter = readMoreToc
     }
 
-    private fun handleBooksRecyclerView(bookArrayList: List<BookModel>) {
-        handleEjtihad(bookArrayList)
-        handleNosos(bookArrayList)
-    }
 
     private fun handleNosos(bookArrayList: List<BookModel>) {
         val nososAdapter = BookAdapter(BookClickListener { bookId ->
