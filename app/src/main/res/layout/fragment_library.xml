@@ -68,7 +68,7 @@
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/ejtehad_items"
+                    android:id="@+id/first_cat_books_items"
                     layout="@layout/books_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,11 +80,11 @@
                     app:viewModel="@{viewModel}" />
 
                 <include
-                    android:id="@+id/nosos_items"
+                    android:id="@+id/second_cat_books_items"
                     layout="@layout/books_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ejtehad_items"
+                    android:layout_below="@id/first_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
 
@@ -93,7 +93,7 @@
                     layout="@layout/main_toc_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/nosos_items"
+                    android:layout_below="@+id/second_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
 

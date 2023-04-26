@@ -2,19 +2,17 @@ package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
+import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class LibraryFragmentViewModel : ViewModel() {
+class LibraryFragmentViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
     private val _startEpubAct = MutableLiveData<Boolean>()
     val startEpubAct: LiveData<Boolean>
         get() = _startEpubAct
@@ -42,28 +40,67 @@ class LibraryFragmentViewModel : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    private val repository: BookRepository = BookRepository(bookDatabaseDao)
+
+
+    private var _allBooks = MutableLiveData<List<BookModel>>()
+    val allBooks: LiveData<List<BookModel>>
+        get() = _allBooks
+
+    private var _firstCatBooksNewItems = MutableLiveData<List<BookModel>>()
+    val firstCatBooksNewItems: LiveData<List<BookModel>>
+        get() = _firstCatBooksNewItems
+
+    private var _secondCatBooksNewItems = MutableLiveData<List<BookModel>>()
+    val secondCatBooksNewItems: LiveData<List<BookModel>>
+        get() = _secondCatBooksNewItems
+
     init {
-        Log.i(Keys.LOG_NAME, "main view model created")
+        initializeBooks()
         getReadMoreMainToc()
         getRecommandedToc()
     }
 
+    private fun initializeBooks() {
+        uiScope.launch {
+            _allBooks.value = getAllBookFromDatabase()
+            _firstCatBooksNewItems.value = getNewItemsForFirstCatBooksFromDatabase()
+            _secondCatBooksNewItems.value = getNewItemsForSecondCatBooksFromDatabase()
+            Log.i(Keys.LOG_NAME, "uiScope.launch")
+        }
+    }
+
+    private suspend fun getAllBookFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getAllBookFromDatabase")
+
+        return withContext(Dispatchers.IO) {
+            val book = repository.getAllBooks()
+            book
+        }
+    }
+
+    private suspend fun getNewItemsForFirstCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getNewItemsForFirstBooksFromDatabase")
+
+        return withContext(Dispatchers.IO) {
+            val book = repository.getNewItemsForFirstCatBooks()
+            book
+        }
+    }
+
+    private suspend fun getNewItemsForSecondCatBooksFromDatabase(): List<BookModel>? {
+        Log.i(Keys.LOG_NAME, "getNewItemsForSecondBooksFromDatabase")
+
+        return withContext(Dispatchers.IO) {
+            val book = repository.getNewItemsForSecondCatBooks()
+            book
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
-        Log.i(Keys.LOG_NAME, "main view model was cleared")
         viewModelJob.cancel()
-    }
-
-    fun getEjtihadItem(): MutableLiveData<ArrayList<BookModel>> {
-        val array = MutableLiveData<ArrayList<BookModel>>()
-        array.value = TempData.bookArray
-        return array
-    }
-
-    fun getNososItem(): MutableLiveData<ArrayList<BookModel>> {
-        val array = MutableLiveData<ArrayList<BookModel>>()
-        array.value = TempData.bookArray
-        return array
+        Log.i(Keys.LOG_NAME, "main view model was cleared")
     }
 
 
