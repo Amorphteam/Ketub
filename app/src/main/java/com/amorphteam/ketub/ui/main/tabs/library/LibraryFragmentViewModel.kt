@@ -1,6 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
@@ -13,16 +14,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class LibraryFragmentViewModel: ViewModel() {
-    var startEpubAct = MutableLiveData<Boolean>()
-    var startSearchAct = MutableLiveData<Boolean>()
-    var startDetailFrag = MutableLiveData<Boolean>()
-    var readMoreToc = MutableLiveData<List<MainToc>>()
-    var recommendedToc = MutableLiveData<List<MainToc>>()
-    var errorRecommendedToc = MutableLiveData<String>()
-    var errorMoreToc = MutableLiveData<String>()
+class LibraryFragmentViewModel : ViewModel() {
+    private val _startEpubAct = MutableLiveData<Boolean>()
+    val startEpubAct: LiveData<Boolean>
+        get() = _startEpubAct
+
+    private val _startSearchAct = MutableLiveData<Boolean>()
+    val startSearchAct: LiveData<Boolean>
+        get() = _startSearchAct
+
+    private val _startDetailFrag = MutableLiveData<Boolean>()
+    val startDetailFrag: LiveData<Boolean>
+        get() = _startDetailFrag
+
+    private val _readMoreToc = MutableLiveData<List<MainToc>>()
+    val readMoreToc: LiveData<List<MainToc>>
+        get() = _readMoreToc
+
+    private val _recommendedToc = MutableLiveData<List<MainToc>>()
+    val recommendedToc: LiveData<List<MainToc>>
+        get() = _recommendedToc
+
+    private val _errorTocRecieve = MutableLiveData<String>()
+    val errorTocRecieve: LiveData<String>
+        get() = _errorTocRecieve
+
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope( Dispatchers.Main + viewModelJob)
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
     init {
         Log.i(Keys.LOG_NAME, "main view model created")
         getReadMoreMainToc()
@@ -35,54 +54,56 @@ class LibraryFragmentViewModel: ViewModel() {
         viewModelJob.cancel()
     }
 
-    fun getEjtihadItem():MutableLiveData<ArrayList<BookModel>>{
+    fun getEjtihadItem(): MutableLiveData<ArrayList<BookModel>> {
         val array = MutableLiveData<ArrayList<BookModel>>()
         array.value = TempData.bookArray
         return array
     }
 
-    fun getNososItem():MutableLiveData<ArrayList<BookModel>>{
+    fun getNososItem(): MutableLiveData<ArrayList<BookModel>> {
         val array = MutableLiveData<ArrayList<BookModel>>()
         array.value = TempData.bookArray
         return array
     }
 
 
-    fun getReadMoreMainToc(){
+    fun getReadMoreMainToc() {
         uiScope.launch {
             val getReadMoreDefferedList = TocApi.retrofitService.getMostReadToc()
             try {
                 val listResult = getReadMoreDefferedList.await()
-                readMoreToc.value = listResult
-            }catch (e:java.lang.Exception){
-                errorMoreToc.value = "Failure: ${e.message}"
+                _readMoreToc.value = listResult
+            } catch (e: java.lang.Exception) {
+                _errorTocRecieve.value = "Failure: ${e.message}"
 
             }
         }
 
     }
 
-    fun getRecommandedToc(){
+    fun getRecommandedToc() {
         uiScope.launch {
             val getRecommandedDefferedList = TocApi.retrofitService.getRecommandedToc()
             try {
                 val listResult = getRecommandedDefferedList.await()
-                recommendedToc.value = listResult
-            }catch (e:java.lang.Exception){
-                errorRecommendedToc.value = "Failure: ${e.message}"
+                _recommendedToc.value = listResult
+            } catch (e: java.lang.Exception) {
+                _errorTocRecieve.value = "Failure: ${e.message}"
 
             }
         }
     }
-    fun openEpubAct(){
-        startEpubAct.value = true
+
+    fun openEpubAct() {
+        _startEpubAct.value = true
     }
 
-    fun openDetailFrag(){
-        startDetailFrag.value = true
+    fun openDetailFrag() {
+        _startDetailFrag.value = true
     }
-    fun openSearchAct(){
-        startSearchAct.value = true
+
+    fun openSearchAct() {
+        _startSearchAct.value = true
     }
 
 

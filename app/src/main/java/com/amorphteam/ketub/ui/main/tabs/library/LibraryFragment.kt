@@ -54,7 +54,7 @@ class LibraryFragment : Fragment() {
             handleReadMore(it)
         }
 
-        viewModel.errorMoreToc.observe(viewLifecycleOwner) {
+        viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
             Log.i(Keys.LOG_NAME, it)
         }
 
@@ -62,7 +62,7 @@ class LibraryFragment : Fragment() {
             handleRecommanded(it)
         }
 
-        viewModel.errorRecommendedToc.observe(viewLifecycleOwner) {
+        viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
             Log.i(Keys.LOG_NAME, it)
         }
 
