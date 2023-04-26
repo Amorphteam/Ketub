@@ -17,10 +17,10 @@ interface BookDatabaseDao {
     @Query("select * from Book")
     fun getAllItemsForSecondCatBooks(): List<BookModel>
 
-    @Query("select * from Book")
+    @Query("select * from Book order by ID DESC limit 5")
     fun getNewItemsForFirstCatBooks(): List<BookModel>
 
-    @Query("select * from Book")
+    @Query("select * from Book order by ID DESC limit 5")
     fun getNewItemsForSecondCatBooks(): List<BookModel>
 
 
