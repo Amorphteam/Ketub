@@ -54,7 +54,7 @@ class CustomizeDiffCallback() : DiffUtil.ItemCallback<BookModel>() {
 }
 
 class BookClickListener(val clickListener: (bookId: Int) -> Unit) {
-    fun onClick(viewModel: BookModel) = clickListener(viewModel.id)
+    fun onClick(viewModel: BookModel) = clickListener(viewModel.id!!)
 
 }
 
