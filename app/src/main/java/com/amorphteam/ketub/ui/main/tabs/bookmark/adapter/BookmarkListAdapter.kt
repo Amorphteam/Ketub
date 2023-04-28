@@ -20,9 +20,6 @@ class BookmarkListAdapter(val clickListener: BookmarkClickListener) :
         fun bind(item: BookmarkModel, clickListener: BookmarkClickListener) {
             binding.item = item
             binding.bookmarkClickListener = clickListener
-            //TODO: IT MUST LOAD FROM VIEWMODEL
-            binding.bookTitle.text = item.bookTitle
-            binding.bookName.text = item.bookName
             binding.executePendingBindings()
         }
 
