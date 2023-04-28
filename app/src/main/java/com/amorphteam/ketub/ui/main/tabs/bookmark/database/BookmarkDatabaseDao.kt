@@ -22,5 +22,4 @@ interface BookmarkDatabaseDao {
     @Query("DELETE FROM bookmark_list WHERE id = :id")
     suspend fun delete(id: Int)
 
-
 }

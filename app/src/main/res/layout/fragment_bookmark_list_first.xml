@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:onClick="@{() -> viewModel.insertBookmark()}"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_bookmark"
             />
 
         <androidx.recyclerview.widget.RecyclerView

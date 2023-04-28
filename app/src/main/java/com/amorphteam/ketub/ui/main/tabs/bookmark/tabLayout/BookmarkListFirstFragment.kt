@@ -59,6 +59,7 @@ class BookmarkListFirstFragment : Fragment() {
         }, BookmarkDeleteClickListener {
             Log.i(Keys.LOG_NAME, "BookmarkDeleteClickListener$it")
             viewModel.deleteBookmark(it)
+
         })
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {

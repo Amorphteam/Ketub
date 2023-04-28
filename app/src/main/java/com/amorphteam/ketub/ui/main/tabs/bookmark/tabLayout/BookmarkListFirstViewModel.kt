@@ -35,6 +35,11 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
         initializeBookmarks()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     private fun initializeBookmarks() {
         uiScope.launch {
             _allBookmarks.value = getAllBookmarksFromDatabase()
