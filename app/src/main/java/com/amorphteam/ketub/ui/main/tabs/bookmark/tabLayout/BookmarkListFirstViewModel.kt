@@ -4,11 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkRepository
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +21,7 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
     var startEpubAct = MutableLiveData<Boolean>()
 
     private var viewModelJob = Job()
+
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val repository: BookmarkRepository = BookmarkRepository(bookmarkDatabaseDao)
@@ -32,18 +31,8 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
         get() = _allBookmarks
 
     init {
-        insertAllBookmarks()
+
         initializeBookmarks()
-    }
-
-    private suspend fun insert(bookmark: List<BookmarkModel>) {
-        repository.insertDefaultData(bookmark)
-    }
-
-    private fun insertAllBookmarks() {
-        uiScope.launch {
-            insert(TempData.bookMarkArray)
-        }
     }
 
     private fun initializeBookmarks() {
@@ -62,6 +51,25 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
         }
     }
 
+    fun deleteBookmark(id: Int) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.delete(id)
+            }
+            _allBookmarks.value = getAllBookmarksFromDatabase()
+        }
+    }
+
+    //TODO: INSERT BOOKMARK MUST COMPLETE
+
+    fun insertBookmark() {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                repository.insert(TempData.bookMarkArray[(0 until TempData.bookMarkArray.size).random()])
+            }
+            _allBookmarks.value = getAllBookmarksFromDatabase()
+        }
+    }
 
     fun openEpubAct() {
         startEpubAct.value = true

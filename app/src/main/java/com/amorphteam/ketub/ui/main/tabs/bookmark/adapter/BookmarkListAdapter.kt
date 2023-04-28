@@ -11,15 +11,16 @@ import com.amorphteam.ketub.databinding.ItemBookmarkBinding
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
 import com.amorphteam.ketub.utility.TempData
 
-class BookmarkListAdapter(val clickListener: BookmarkClickListener) :
+class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmarkDeleteclickListener: BookmarkDeleteClickListener) :
     ListAdapter<BookmarkModel, BookmarkListAdapter.ViewHolder>(DiffCallback()), Filterable {
 
     class ViewHolder private constructor(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: BookmarkModel, clickListener: BookmarkClickListener) {
+        fun bind(item: BookmarkModel, clickListener: BookmarkClickListener, bookmarkDeleteclickListener: BookmarkDeleteClickListener ) {
             binding.item = item
             binding.bookmarkClickListener = clickListener
+            binding.bookmarkDeleteClickListener = bookmarkDeleteclickListener
             binding.executePendingBindings()
         }
 
@@ -40,7 +41,7 @@ class BookmarkListAdapter(val clickListener: BookmarkClickListener) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        holder.bind(item, clickListener, bookmarkDeleteclickListener)
     }
 
     override fun getFilter(): Filter {
@@ -87,6 +88,11 @@ class DiffCallback() : DiffUtil.ItemCallback<BookmarkModel>() {
 }
 
 class BookmarkClickListener(val clickListener: (Id: Int) -> Unit) {
+    fun onClick(bookmarkData: BookmarkModel) = clickListener(bookmarkData.id)
+
+}
+
+class BookmarkDeleteClickListener(val clickListener: (Id: Int) -> Unit) {
     fun onClick(bookmarkData: BookmarkModel) = clickListener(bookmarkData.id)
 
 }

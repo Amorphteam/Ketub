@@ -15,6 +15,7 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkListFirstBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener
+import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
 import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabase
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
@@ -54,6 +55,10 @@ class BookmarkListFirstFragment : Fragment() {
 
         val adapter = BookmarkListAdapter(BookmarkClickListener {
             viewModel.openEpubAct()
+
+        }, BookmarkDeleteClickListener {
+            Log.i(Keys.LOG_NAME, "BookmarkDeleteClickListener$it")
+            viewModel.deleteBookmark(it)
         })
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {

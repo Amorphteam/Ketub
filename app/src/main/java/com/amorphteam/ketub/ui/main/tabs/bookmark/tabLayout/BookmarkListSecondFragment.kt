@@ -14,6 +14,7 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkListSecondBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener
+import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
 
 class BookmarkListSecondFragment : Fragment() {
@@ -40,7 +41,11 @@ class BookmarkListSecondFragment : Fragment() {
 
         val adapter = BookmarkListAdapter(BookmarkClickListener {
             viewModel.openEpubAct()
-        })
+        }, BookmarkDeleteClickListener {
+            it
+
+        }
+        )
 
         handleIndexRecyclerView(adapter)
         handleSearchView(binding.searchView, adapter)
