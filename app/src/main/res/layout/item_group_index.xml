@@ -22,7 +22,6 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:id="@+id/index_click_listener"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -52,12 +51,12 @@
                 />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="@dimen/small_image"
-            android:layout_height="@dimen/small_image"
-            android:layout_marginStart="@dimen/small_image"
-            android:src="@drawable/index_polygon" />
+<!--        <ImageView-->
+<!--            android:id="@+id/image"-->
+<!--            android:layout_width="@dimen/small_image"-->
+<!--            android:layout_height="@dimen/small_image"-->
+<!--            android:layout_marginStart="@dimen/small_image"-->
+<!--            android:src="@drawable/index_polygon" />-->
 
     </LinearLayout>
 </layout>

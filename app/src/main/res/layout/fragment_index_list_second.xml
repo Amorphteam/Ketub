@@ -31,15 +31,15 @@
             app:queryHint="@string/query_hint_search_index"
             app:searchIcon="@drawable/ic_search_home" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <ExpandableListView
+            android:id="@+id/expandable_list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/normal_margin"
-            android:layout_marginRight="@dimen/normal_margin"
-            android:clipToPadding="false"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_index"
-            tools:orientation="vertical" />
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:childDivider="@android:color/transparent"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_margin"
+            />
     </LinearLayout>
 </layout>

@@ -74,7 +74,7 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         val groupItem = getGroup(groupPosition) as IndexGroupItem
 
         binding.item = groupItem
-        binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(groupPosition) }
+        binding.bookTitle.setOnClickListener { clickListener.onGroupClick(groupPosition) }
         binding.executePendingBindings()
 
         return binding.root
@@ -97,7 +97,7 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
         val childItem = getChild(groupPosition, childPosition) as IndexFirstChildItem
 
-        binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(childPosition) }
+        binding.bookTitle.setOnClickListener { clickListener.onGroupClick(childPosition) }
         binding.item = childItem
         binding.executePendingBindings()
 
