@@ -1,12 +1,10 @@
 package com.amorphteam.ketub.utility
 
-import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexModel
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.ui.main.tabs.index.model.ChildItem
-import com.amorphteam.ketub.ui.main.tabs.index.model.ChildItem2
-import com.amorphteam.ketub.ui.main.tabs.index.model.GroupItem
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexFirstChildItem
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexSecondChildItem
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 
 class TempData {
@@ -54,63 +52,63 @@ class TempData {
         )
 
         val indexItems = listOf(
-            GroupItem(
+            IndexGroupItem(
                 1,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة",
                 listOf(
-                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد", listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد", listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     ))
                 )
             ),
-            GroupItem(
+            IndexGroupItem(
                 2,"مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر","الاجتهاد والتجديد",
                 listOf(
-                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     ))
                 )
             ),
-            GroupItem(
+            IndexGroupItem(
                 3,"قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني","نصوص معاصرة",
                 listOf(
-                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     )),
-                    ChildItem(4,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
-                        ChildItem2(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
-                        ChildItem2(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                    IndexFirstChildItem(4,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد",listOf(
+                        IndexSecondChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                        IndexSecondChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
                     ))
                 )
             )

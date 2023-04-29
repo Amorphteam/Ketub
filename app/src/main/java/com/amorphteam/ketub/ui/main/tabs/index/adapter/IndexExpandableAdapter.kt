@@ -6,19 +6,23 @@ import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.databinding.BaseObservable
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ItemChildIndexBinding
 import com.amorphteam.ketub.databinding.ItemGroupIndexBinding
-import com.amorphteam.ketub.ui.main.tabs.index.model.ChildItem
-import com.amorphteam.ketub.ui.main.tabs.index.model.GroupItem
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexFirstChildItem
+import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
 import com.amorphteam.ketub.utility.TempData
 
-class ExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
-    private var items = listOf<GroupItem>()
 
-    fun submitList(items: List<GroupItem>) {
+class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
+     val clickListener = ClickListener()
+
+    private var items = listOf<IndexGroupItem>()
+
+    fun submitList(items: List<IndexGroupItem>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -66,7 +70,9 @@ class ExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         )
 
         // Get a reference to the group item for this position
-        val groupItem = getGroup(groupPosition) as GroupItem
+        val groupItem = getGroup(groupPosition) as IndexGroupItem
+
+        binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(groupPosition) }
 
         // Bind the group item to the view
         binding.bookTitle.text = groupItem.bookTitle
@@ -89,7 +95,9 @@ class ExpandableAdapter : BaseExpandableListAdapter(), Filterable {
             false
         )
 
-        val childItem = getChild(groupPosition, childPosition) as ChildItem
+        val childItem = getChild(groupPosition, childPosition) as IndexFirstChildItem
+
+        binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(childPosition) }
 
         binding.bookTitle.text = childItem.bookTitle
         binding.bookName.text = childItem.bookName
@@ -117,17 +125,30 @@ class ExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                (results?.values as? List<GroupItem>)?.let { submitList(it) }
+                (results?.values as? List<IndexGroupItem>)?.let { submitList(it) }
 
             }
         }
     }
 
-    fun onFilter(list: List<GroupItem>, constraint: String): List<GroupItem> {
+    fun onFilter(list: List<IndexGroupItem>, constraint: String): List<IndexGroupItem> {
         val filteredList = list.filter {
             //TODO: IT MUST SEARCH BOOK NAME TOO
             it.bookTitle.lowercase().contains(constraint.lowercase())
         }
         return filteredList
+    }
+}
+
+class ClickListener : BaseObservable() {
+    private var listener: ((Int) -> Unit)? = null
+
+    fun setOnGroupClickListener(listener: (Int) -> Unit) {
+        this.listener = listener
+        notifyChange()
+    }
+
+    fun onGroupClick(position: Int) {
+        listener?.invoke(position)
     }
 }

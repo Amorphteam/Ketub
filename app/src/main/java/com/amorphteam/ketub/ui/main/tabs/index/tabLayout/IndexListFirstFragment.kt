@@ -9,13 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexListFirstBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.ExpandableAdapter
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexClickListener
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexListAdapter
+import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexExpandableAdapter
+
 
 class IndexListFirstFragment : Fragment() {
 
@@ -40,16 +38,21 @@ class IndexListFirstFragment : Fragment() {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
         }
 
-        val adapter = IndexListAdapter(IndexClickListener {
-            viewModel.openEpubAct()
-        })
+//        val adapter = IndexListAdapter(IndexClickListener {
+//            viewModel.openEpubAct()
+//        })
 
-        val adapterExpandable = ExpandableAdapter()
-        adapterExpandable.submitList(viewModel.items.value!!)
-        binding.expandableListView.setAdapter(adapterExpandable)
+        val adapter = IndexExpandableAdapter()
+        adapter.submitList(viewModel.items.value!!)
+        binding.expandableListView.setAdapter(adapter)
+
+        adapter.clickListener.setOnGroupClickListener {
+                   viewModel.openEpubAct()
+
+        }
 
 
-        handleSearchView(binding.searchView, adapterExpandable)
+        handleSearchView(binding.searchView, adapter)
 
         return binding.root
     }
@@ -57,7 +60,7 @@ class IndexListFirstFragment : Fragment() {
 
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
-        index: ExpandableAdapter
+        index: IndexExpandableAdapter
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -75,7 +78,7 @@ class IndexListFirstFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: ExpandableAdapter) {
+    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
         index.filter.filter(searchString)
     }
 

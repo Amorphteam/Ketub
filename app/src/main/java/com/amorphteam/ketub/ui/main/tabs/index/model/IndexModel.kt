@@ -6,6 +6,6 @@ data class IndexModel(
     val bookName: String
 )
 
-data class GroupItem(val id :Int, val bookTitle: String, val bookName: String, val childItems: List<ChildItem>)
-data class ChildItem(val id :Int, val bookTitle: String, val bookName: String, val childItems2: List<ChildItem2>)
-data class ChildItem2(val id :Int, val bookTitle: String, val bookName: String)
+data class IndexGroupItem(val id :Int, val bookTitle: String, val bookName: String, val childItems: List<IndexFirstChildItem>)
+data class IndexFirstChildItem(val id :Int, val bookTitle: String, val bookName: String, val childItems2: List<IndexSecondChildItem>)
+data class IndexSecondChildItem(val id :Int, val bookTitle: String, val bookName: String)
