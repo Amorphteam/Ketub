@@ -45,27 +45,20 @@ class IndexListFirstFragment : Fragment() {
         })
 
         val adapterExpandable = ExpandableAdapter()
-
-        adapterExpandable.setItems(viewModel.items.value!!)
-
+        adapterExpandable.submitList(viewModel.items.value!!)
         binding.expandableListView.setAdapter(adapterExpandable)
-//        handleIndexRecyclerView(adapter)
 
-        handleSearchView(binding.searchView , adapter)
+
+        handleSearchView(binding.searchView, adapterExpandable)
 
         return binding.root
-
     }
 
 
-    private fun handleIndexRecyclerView(index: IndexListAdapter) {
-        index.submitList(viewModel.getIndexList().value)
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        binding.recyclerView.layoutManager = layoutManager
-//        binding.recyclerView.adapter = index
-    }
-
-    private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index: IndexListAdapter) {
+    private fun handleSearchView(
+        searchView: androidx.appcompat.widget.SearchView,
+        index: ExpandableAdapter
+    ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -82,7 +75,7 @@ class IndexListFirstFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: IndexListAdapter) {
+    private fun filterSearch(searchString: String, index: ExpandableAdapter) {
         index.filter.filter(searchString)
     }
 

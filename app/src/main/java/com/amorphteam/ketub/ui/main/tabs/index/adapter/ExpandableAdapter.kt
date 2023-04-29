@@ -4,18 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ItemChildIndexBinding
 import com.amorphteam.ketub.databinding.ItemGroupIndexBinding
 import com.amorphteam.ketub.ui.main.tabs.index.model.ChildItem
 import com.amorphteam.ketub.ui.main.tabs.index.model.GroupItem
+import com.amorphteam.ketub.utility.TempData
 
-class ExpandableAdapter : BaseExpandableListAdapter() {
+class ExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
     private var items = listOf<GroupItem>()
 
-    fun setItems(items: List<GroupItem>) {
+    fun submitList(items: List<GroupItem>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -48,7 +51,12 @@ class ExpandableAdapter : BaseExpandableListAdapter() {
         return true
     }
 
-    override fun getGroupView(groupPosition: Int, isExpanded: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getGroupView(
+        groupPosition: Int,
+        isExpanded: Boolean,
+        convertView: View?,
+        parent: ViewGroup?
+    ): View {
         // Inflate the group view layout
         val binding = DataBindingUtil.inflate<ItemGroupIndexBinding>(
             LayoutInflater.from(parent?.context),
@@ -66,7 +74,13 @@ class ExpandableAdapter : BaseExpandableListAdapter() {
         return binding.root
     }
 
-    override fun getChildView(groupPosition: Int, childPosition: Int, isLastChild: Boolean, convertView: View?, parent: ViewGroup?): View {
+    override fun getChildView(
+        groupPosition: Int,
+        childPosition: Int,
+        isLastChild: Boolean,
+        convertView: View?,
+        parent: ViewGroup?
+    ): View {
         // Inflate the child view layout
         val binding = DataBindingUtil.inflate<ItemChildIndexBinding>(
             LayoutInflater.from(parent?.context),
@@ -75,7 +89,7 @@ class ExpandableAdapter : BaseExpandableListAdapter() {
             false
         )
 
-        val childItem = getChild(groupPosition,childPosition) as ChildItem
+        val childItem = getChild(groupPosition, childPosition) as ChildItem
 
         binding.bookTitle.text = childItem.bookTitle
         binding.bookName.text = childItem.bookName
@@ -85,5 +99,35 @@ class ExpandableAdapter : BaseExpandableListAdapter() {
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
         return true
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                return FilterResults().apply {
+                    values = if (constraint.isNullOrEmpty())
+                    //TODO: IT MUST LOAD FROM VIEWMODEL
+
+                        TempData.indexItems
+                    else
+                        onFilter(TempData.indexItems!!, constraint.toString())
+                }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                (results?.values as? List<GroupItem>)?.let { submitList(it) }
+
+            }
+        }
+    }
+
+    fun onFilter(list: List<GroupItem>, constraint: String): List<GroupItem> {
+        val filteredList = list.filter {
+            //TODO: IT MUST SEARCH BOOK NAME TOO
+            it.bookTitle.lowercase().contains(constraint.lowercase())
+        }
+        return filteredList
     }
 }
