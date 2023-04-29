@@ -1,21 +1,17 @@
-package com.amorphteam.ketub.ui.epub
-
+package com.amorphteam.ketub.ui.epub.fragments
 
 import android.util.Log
 import android.view.View
 import android.webkit.WebView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.*
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.utility.Keys.Companion.LOG_NAME
-import com.google.android.material.chip.ChipGroup
+import com.amorphteam.ketub.utility.Keys
 
-
-class EpubViewerViewModel : ViewModel() {
-
+class EpubViewFragmentViewModel : ViewModel() {
     val webViewUrl = MutableLiveData<String>().apply { value = "file:///android_asset/sample.html" }
     val defaultStyleStatus = MutableLiveData<Boolean>().apply { value = true }
     val moreReadabilityStyleStatus = MutableLiveData<Boolean>().apply { value = false }
@@ -32,12 +28,12 @@ class EpubViewerViewModel : ViewModel() {
 
     val pageNumber = MutableLiveData<String>().apply { value = "1" }
     init {
-        Log.i(LOG_NAME, "load epub viewer view model")
+        Log.i(Keys.LOG_NAME, "load epub viewer view model")
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.i(LOG_NAME, "cleared epub viewer view model")
+        Log.i(Keys.LOG_NAME, "cleared epub viewer view model")
     }
 
     fun onClickBaseTheme() {
@@ -91,17 +87,17 @@ class EpubViewerViewModel : ViewModel() {
 
     fun updateFontSizeSeekerBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         fontSizeProgress.value = progress
-        Log.i(LOG_NAME, "fontSize$progress")
+        Log.i(Keys.LOG_NAME, "fontSize$progress")
     }
 
     fun updateVerticalSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
         pageNumber.value = progress.toString()
-        Log.i(LOG_NAME, "mainSeekBar$progress")
+        Log.i(Keys.LOG_NAME, "mainSeekBar$progress")
     }
 
     fun updateLineHightSeekerBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
         lineHightProgress.value = progress
-        Log.i(LOG_NAME, "lineHeight$progress")
+        Log.i(Keys.LOG_NAME, "lineHeight$progress")
     }
 
     fun onClickOnHighContrast() {
@@ -115,11 +111,11 @@ class EpubViewerViewModel : ViewModel() {
 
     fun onClickChipsView(view: View){
         when (view.id) {
-            R.id.font_vazir -> { Log.i(LOG_NAME, "font vazir")}
-            R.id.font_iran_sans -> { Log.i(LOG_NAME, "font iran sans")}
-            R.id.font_dubai -> { Log.i(LOG_NAME, "font dubai")}
-            R.id.font_lotus -> { Log.i(LOG_NAME, "font lotus")}
-            R.id.font_nazanin -> { Log.i(LOG_NAME, "font nazanin")}
+            R.id.font_vazir -> { Log.i(Keys.LOG_NAME, "font vazir")}
+            R.id.font_iran_sans -> { Log.i(Keys.LOG_NAME, "font iran sans")}
+            R.id.font_dubai -> { Log.i(Keys.LOG_NAME, "font dubai")}
+            R.id.font_lotus -> { Log.i(Keys.LOG_NAME, "font lotus")}
+            R.id.font_nazanin -> { Log.i(Keys.LOG_NAME, "font nazanin")}
         }
     }
 

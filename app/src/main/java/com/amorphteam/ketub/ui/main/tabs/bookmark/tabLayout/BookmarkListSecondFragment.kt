@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkListSecondBinding
-import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
@@ -48,7 +48,7 @@ class BookmarkListSecondFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubViewer::class.java))
+            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
 
         val adapter = BookmarkListAdapter(BookmarkClickListener {

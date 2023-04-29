@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
-import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
@@ -51,7 +51,7 @@ class LibraryFragment : Fragment() {
 
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubViewer::class.java))
+            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
 
         viewModel.startSearchAct.observe(viewLifecycleOwner) {

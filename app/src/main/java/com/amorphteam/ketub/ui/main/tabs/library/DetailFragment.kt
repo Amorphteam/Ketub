@@ -14,7 +14,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentDetailBinding
-import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
@@ -48,7 +48,7 @@ class DetailFragment : Fragment() {
 
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubViewer::class.java))
+            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
 
         viewModel.startLibraryFrag.observe(viewLifecycleOwner) {
