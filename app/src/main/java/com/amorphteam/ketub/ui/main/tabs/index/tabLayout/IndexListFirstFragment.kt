@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexListFirstBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.main.tabs.index.adapter.ExpandableAdapter
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexClickListener
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexListAdapter
 
@@ -43,7 +44,12 @@ class IndexListFirstFragment : Fragment() {
             viewModel.openEpubAct()
         })
 
-        handleIndexRecyclerView(adapter)
+        val adapterExpandable = ExpandableAdapter()
+
+        adapterExpandable.setItems(viewModel.items.value!!)
+
+        binding.expandableListView.setAdapter(adapterExpandable)
+//        handleIndexRecyclerView(adapter)
 
         handleSearchView(binding.searchView , adapter)
 
@@ -55,8 +61,8 @@ class IndexListFirstFragment : Fragment() {
     private fun handleIndexRecyclerView(index: IndexListAdapter) {
         index.submitList(viewModel.getIndexList().value)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = index
+//        binding.recyclerView.layoutManager = layoutManager
+//        binding.recyclerView.adapter = index
     }
 
     private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index: IndexListAdapter) {

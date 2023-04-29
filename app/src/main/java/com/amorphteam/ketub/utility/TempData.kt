@@ -3,6 +3,8 @@ package com.amorphteam.ketub.utility
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexModel
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.ui.main.tabs.index.model.ChildItem
+import com.amorphteam.ketub.ui.main.tabs.index.model.GroupItem
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 
@@ -50,5 +52,31 @@ class TempData {
             IndexModel(9,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة")
         )
 
+        val indexItems = listOf(
+            GroupItem(
+                1,"إشكالية اللغة في الخطاب الديني","نصوص معاصرة",
+                listOf(
+                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                )
+            ),
+            GroupItem(
+                2,"مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر","الاجتهاد والتجديد",
+                listOf(
+                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                )
+            ),
+            GroupItem(
+                3,"قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني","نصوص معاصرة",
+                listOf(
+                    ChildItem(1,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(2,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(3,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد"),
+                    ChildItem(4,"إشكالية اللغة في الخطاب الديني","الاجتهاد والتجديد")
+                )
+            )
+        )
     }
 }
