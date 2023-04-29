@@ -7,14 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListSecondViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.index.tabs.second.IndexListSecondViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.tabs.index.tabLayout.IndexListSecondFragment">
+        tools:context=".ui.main.tabs.index.tabs.second.IndexListSecondFragment">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"

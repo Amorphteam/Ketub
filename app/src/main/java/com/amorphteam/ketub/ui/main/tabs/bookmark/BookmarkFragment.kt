@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkBinding
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.ViewPagerBookmarkListAdapter
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout.BookmarkListFirstFragment
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout.BookmarkListSecondFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first.BookmarkListFirstFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second.BookmarkListSecondFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 

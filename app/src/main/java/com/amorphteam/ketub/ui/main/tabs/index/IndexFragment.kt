@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexBinding
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.ViewPagerIndexListAdapter
-import com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListFirstFragment
-import com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListSecondFragment
+import com.amorphteam.ketub.ui.main.tabs.index.tabs.first.IndexListFirstFragment
+import com.amorphteam.ketub.ui.main.tabs.index.tabs.second.IndexListSecondFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 

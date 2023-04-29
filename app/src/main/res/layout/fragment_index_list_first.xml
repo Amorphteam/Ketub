@@ -6,14 +6,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.tabs.index.tabLayout.IndexListFirstViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.index.tabs.first.IndexListFirstViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.tabs.index.tabLayout.IndexListFirstFragment"
+        tools:context=".ui.main.tabs.index.tabs.first.IndexListFirstFragment"
         >
 
         <androidx.appcompat.widget.SearchView

@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout
+package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -15,10 +15,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao) :
+class BookmarkListSecondViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao) :
     ViewModel() {
-
     var startEpubAct = MutableLiveData<Boolean>()
+
 
     private var viewModelJob = Job()
 
@@ -31,7 +31,6 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
         get() = _allBookmarks
 
     init {
-
         initializeBookmarks()
     }
 
@@ -39,6 +38,7 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
         super.onCleared()
         viewModelJob.cancel()
     }
+
 
     private fun initializeBookmarks() {
         uiScope.launch {
@@ -79,5 +79,4 @@ class BookmarkListFirstViewModel(private val bookmarkDatabaseDao: BookmarkDataba
     fun openEpubAct() {
         startEpubAct.value = true
     }
-
 }

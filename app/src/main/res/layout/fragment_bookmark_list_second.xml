@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout.BookmarkListSecondViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second.BookmarkListSecondViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.tabs.bookmark.tabLayout.BookmarkListSecondFragment">
+        tools:context=".ui.main.tabs.bookmark.tabs.second.BookmarkListSecondFragment">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"

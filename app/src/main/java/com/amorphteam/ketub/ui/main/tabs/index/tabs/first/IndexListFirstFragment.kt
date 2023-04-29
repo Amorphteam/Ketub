@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.index.tabLayout
+package com.amorphteam.ketub.ui.main.tabs.index.tabs.first
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
@@ -10,23 +10,24 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.databinding.FragmentIndexListSecondBinding
+import com.amorphteam.ketub.databinding.FragmentIndexListFirstBinding
 import com.amorphteam.ketub.ui.epub.EpubViewer
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexExpandableAdapter
 
-class IndexListSecondFragment : Fragment() {
 
-    private lateinit var binding: FragmentIndexListSecondBinding
-    private lateinit var viewModel: IndexListSecondViewModel
+class IndexListFirstFragment : Fragment() {
+
+    private lateinit var binding: FragmentIndexListFirstBinding
+    private lateinit var viewModel: IndexListFirstViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = ViewModelProvider(this)[IndexListSecondViewModel::class.java]
+        viewModel = ViewModelProvider(this)[IndexListFirstViewModel::class.java]
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_index_list_second, container, false
+            inflater, R.layout.fragment_index_list_first, container, false
         )
 
         binding.viewModel = viewModel
@@ -41,7 +42,7 @@ class IndexListSecondFragment : Fragment() {
         binding.expandableListView.setAdapter(adapter)
 
         adapter.clickListener.setOnGroupClickListener {
-            viewModel.openEpubAct()
+                   viewModel.openEpubAct()
         }
 
         handleSearchView(binding.searchView, adapter)
@@ -49,9 +50,10 @@ class IndexListSecondFragment : Fragment() {
         return binding.root
     }
 
-
-
-    private fun handleSearchView(searchView: androidx.appcompat.widget.SearchView, index :IndexExpandableAdapter) {
+    private fun handleSearchView(
+        searchView: androidx.appcompat.widget.SearchView,
+        index: IndexExpandableAdapter
+    ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
@@ -73,4 +75,3 @@ class IndexListSecondFragment : Fragment() {
     }
 
 }
-

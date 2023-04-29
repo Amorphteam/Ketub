@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout
+package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider

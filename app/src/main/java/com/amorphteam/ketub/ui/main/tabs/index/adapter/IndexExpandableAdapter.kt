@@ -16,6 +16,7 @@ import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
 import com.amorphteam.ketub.utility.TempData
 
 
+// TODO: NEED TO ADD INDEX SECOND CHILD ITEM
 
 class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
@@ -74,7 +75,7 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         val groupItem = getGroup(groupPosition) as IndexGroupItem
 
         binding.item = groupItem
-        binding.bookTitle.setOnClickListener { clickListener.onGroupClick(groupPosition) }
+        binding.bookName.setOnClickListener { clickListener.onGroupClick(groupPosition) }
         binding.executePendingBindings()
 
         return binding.root

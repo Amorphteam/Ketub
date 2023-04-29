@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.bookmark.tabLayout
+package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
@@ -19,9 +19,7 @@ import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickLis
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
 import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabase
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.TempData
 
 class BookmarkListFirstFragment : Fragment() {
 
