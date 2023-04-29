@@ -20,7 +20,6 @@ class IndexListFirstFragment : Fragment() {
     private lateinit var binding: FragmentIndexListFirstBinding
     private lateinit var viewModel: IndexListFirstViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,25 +37,18 @@ class IndexListFirstFragment : Fragment() {
             if (it) startActivity(Intent(activity, EpubViewer::class.java))
         }
 
-//        val adapter = IndexListAdapter(IndexClickListener {
-//            viewModel.openEpubAct()
-//        })
-
         val adapter = IndexExpandableAdapter()
-        adapter.submitList(viewModel.items.value!!)
+        adapter.submitList(viewModel.indexGroupItems.value!!)
         binding.expandableListView.setAdapter(adapter)
 
         adapter.clickListener.setOnGroupClickListener {
                    viewModel.openEpubAct()
-
         }
-
 
         handleSearchView(binding.searchView, adapter)
 
         return binding.root
     }
-
 
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,

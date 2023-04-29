@@ -18,6 +18,7 @@ import com.amorphteam.ketub.utility.TempData
 
 
 class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
+
      val clickListener = ClickListener()
 
     private var items = listOf<IndexGroupItem>()
@@ -72,11 +73,10 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         // Get a reference to the group item for this position
         val groupItem = getGroup(groupPosition) as IndexGroupItem
 
+        binding.item = groupItem
         binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(groupPosition) }
+        binding.executePendingBindings()
 
-        // Bind the group item to the view
-        binding.bookTitle.text = groupItem.bookTitle
-        binding.bookName.text = groupItem.bookName
         return binding.root
     }
 
@@ -98,9 +98,8 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         val childItem = getChild(groupPosition, childPosition) as IndexFirstChildItem
 
         binding.indexClickListener.setOnClickListener { clickListener.onGroupClick(childPosition) }
-
-        binding.bookTitle.text = childItem.bookTitle
-        binding.bookName.text = childItem.bookName
+        binding.item = childItem
+        binding.executePendingBindings()
 
         return binding.root
     }

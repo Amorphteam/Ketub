@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -29,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/nosos_title"
                 android:padding="@dimen/xsmall_margin"
+                app:bookTitleChild="@{item}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 />
 
@@ -40,6 +42,7 @@
                 android:textSize="@dimen/description_text"
                 android:visibility="invisible"
                 android:text="@string/nosos_title"
+                app:bookNameChild="@{item}"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 />
