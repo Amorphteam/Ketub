@@ -5,7 +5,6 @@ import com.amorphteam.ketub.ui.main.tabs.index.model.IndexFirstChildItem
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexSecondChildItem
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
-import com.amorphteam.ketub.ui.search.model.ChipModel
 import com.amorphteam.ketub.ui.search.model.SearchModel
 
 class TempData {
@@ -43,8 +42,6 @@ class TempData {
                 "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر"
             )
         )
-
-
 
         var bookMarkArray = arrayListOf(
             BookmarkModel(1, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة"),
