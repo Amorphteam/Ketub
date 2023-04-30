@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.epub.fragments.EpubViewFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewFragmentViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

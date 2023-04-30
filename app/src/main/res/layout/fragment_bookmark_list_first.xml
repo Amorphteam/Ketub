@@ -21,12 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_margin"
-            android:layout_marginLeft="@dimen/normal_margin"
-            android:layout_marginRight="@dimen/normal_margin"
             android:background="@drawable/card_border"
             app:closeIcon="@drawable/ic_close"
             app:iconifiedByDefault="false"
-            android:theme="@style/AppSearchView"
+            style="@style/AppSearchView"
             app:queryBackground="@android:color/transparent"
             app:queryHint="@string/query_hint_search_bookmark"
             app:searchIcon="@drawable/ic_search_home" />
@@ -35,10 +33,10 @@
             android:id="@+id/insert_bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/large_margin"
             android:onClick="@{() -> viewModel.insertBookmark()}"
             android:src="@drawable/ic_bookmark"
-            />
+            android:contentDescription="@string/insert" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

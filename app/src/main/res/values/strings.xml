@@ -53,5 +53,7 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="index_title">فهرس المحتويات</string>
     <string name="bookmark_title">المفضلة</string>
+    <string name="insert">insert</string>
+    <string name="delete">Delete</string>
 
 </resources>

@@ -16,6 +16,9 @@ interface BookmarkDatabaseDao {
     @Query("select * from bookmark_list")
     fun getAllBookmarks(): List<BookmarkModel>
 
+    @Query("select * from bookmark_list WHERE book_name = :bookName")
+    fun getAllBookmarksForSingleBook(bookName:String): List<BookmarkModel>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(bookmark: BookmarkModel)
 
