@@ -11,7 +11,7 @@ import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentIndexListSecondBinding
-import com.amorphteam.ketub.ui.epub.EpubViewer
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexExpandableAdapter
 
 class IndexListSecondFragment : Fragment() {
@@ -33,7 +33,7 @@ class IndexListSecondFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubViewer::class.java))
+            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
 
         val adapter = IndexExpandableAdapter()

@@ -28,7 +28,7 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:exported="false" />
-        <activity android:name=".ui.epub.EpubViewer" />
+        <activity android:name=".ui.epub.EpubActivity"/>
         <activity android:name=".ui.main.TabbedActivity"
             android:exported="true">
             <intent-filter>
