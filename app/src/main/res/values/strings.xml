@@ -55,5 +55,6 @@
     <string name="index_title">فهرس المحتويات</string>
     <string name="bookmark_title">المفضلة</string>
     <string name="search_all_book">الجميع</string>
+    <string name="search_toolbar">البحث</string>
 
 </resources>
