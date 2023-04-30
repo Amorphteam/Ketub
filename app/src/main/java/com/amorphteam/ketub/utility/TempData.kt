@@ -5,6 +5,7 @@ import com.amorphteam.ketub.ui.main.tabs.index.model.IndexFirstChildItem
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
 import com.amorphteam.ketub.ui.main.tabs.index.model.IndexSecondChildItem
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
+import com.amorphteam.ketub.ui.search.model.SearchModel
 
 class TempData {
     companion object {
@@ -17,6 +18,16 @@ class TempData {
             MainToc(5, "إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة"),
             MainToc(6, "الوَحْي الإلهيّ عند الفارابي"),
             MainToc(7, "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر")
+        )
+
+        var searchResult = arrayListOf(
+            SearchModel(1,29, "نصوص معاصرة",  "إشكالية اللغة في الخطاب الديني "),
+            SearchModel(2, 13,"الاجتهاد والتجديد","قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني"),
+            SearchModel(3, 43,"نصوص معاصرة","إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة"),
+            SearchModel(4,75,"الاجتهاد والتجديد", "الوَحْي الإلهيّ عند الفارابي"),
+            SearchModel(5,66,"نصوص معاصرة", "إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة"),
+            SearchModel(6,103,"الاجتهاد والتجديد", "الوَحْي الإلهيّ عند الفارابي"),
+            SearchModel(7,547,"نصوص معاصرة", "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر")
         )
 
         var bookMarkArray = arrayListOf(
