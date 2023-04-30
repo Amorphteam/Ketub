@@ -2,12 +2,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/epub_nav_graph"
-    app:startDestination="@id/searchSingleFragment">
+    app:startDestination="@id/epubViewFragment">
 
     <fragment
         android:id="@+id/epubViewFragment"
         android:name="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewFragment"
-        android:label="EpubViewFragment" />
+        android:label="EpubViewFragment" >
+        <action
+            android:id="@+id/action_epubViewFragment_to_tocSingleFragment"
+            app:destination="@id/tocSingleFragment" />
+        <action
+            android:id="@+id/action_epubViewFragment_to_bookmarkSingleFragment"
+            app:destination="@id/bookmarkSingleFragment" />
+        <action
+            android:id="@+id/action_epubViewFragment_to_searchSingleFragment"
+            app:destination="@id/searchSingleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookmarkSingleFragment"
         android:name="com.amorphteam.ketub.ui.epub.fragments.bookmark.BookmarkSingleFragment"

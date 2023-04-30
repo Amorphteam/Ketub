@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.sheet.*
@@ -20,12 +22,7 @@ class EpubViewFragment : Fragment() {
     private lateinit var viewModel: EpubViewFragmentViewModel
     var toggle: Boolean = true
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+    lateinit var navController: NavController
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -33,19 +30,50 @@ class EpubViewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_epub_view, container, false
         )
         viewModel = ViewModelProvider(this)[EpubViewFragmentViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.toolbar.title = ""
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back);
+        val toolbar = binding.toolbar
+        toolbar.inflateMenu(R.menu.menu_epub)
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            // Handle menu item clicks here
+            when (menuItem.itemId) {
+                R.id.setting -> {
+                    openStyleSheet()
+                    true
+                }
+                R.id.home -> {
+                    requireActivity().finish()
+                    true
+                }
+
+                R.id.toc -> {
+                    openTocFragment()
+                    true
+                }
+
+                R.id.bookmark -> {
+                    openBookmarkFragment()
+                    true
+                }
+                R.id.search -> {
+                    openSearchFragment()
+                    true
+                }
+
+                else -> false
+            }
+        }
 
 
         val gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
             override fun onDoubleTap(event: MotionEvent): Boolean {
                 toggleToolbar(toggle)
+
                 return true
             }
         })
@@ -55,52 +83,41 @@ class EpubViewFragment : Fragment() {
         }
 
 
+
         return binding.root
     }
 
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.setting -> {
-                openStyleSheet()
-                true
-            }
-
-            android.R.id.home -> {
-                requireActivity().finish()
-                true
-            }
-
-            R.id.search -> {
-
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+    private fun openSearchFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_epubViewFragment_to_searchSingleFragment)
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_epub, menu)
-        if (!toggle) {
-            for (i in 0 until menu.size()) menu.getItem(i).isVisible = false
-        } else {
-            for (i in 0 until menu.size()) menu.getItem(i).isVisible = true
-        }
+    private fun openBookmarkFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_epubViewFragment_to_bookmarkSingleFragment)
     }
-
     private fun toggleToolbar(status: Boolean) {
         if (status) {
             viewModel.hideToolbar.value = true
             toggle = false
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.background2)
+            binding.toolbar.visibility = View.INVISIBLE
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireContext(), R.color.background2)
         } else {
             viewModel.hideToolbar.value = false
             toggle = true
-            requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.background1)
+            binding.toolbar.visibility = View.VISIBLE
+            requireActivity().window.statusBarColor =
+                ContextCompat.getColor(requireContext(), R.color.background1)
         }
         invalidateOptionsMenu(requireActivity())
+
+    }
+
+    //TODO: SHOULD MOVE TO VIEWMODEL
+    private fun openTocFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_epubViewFragment_to_tocSingleFragment)
     }
 
 
