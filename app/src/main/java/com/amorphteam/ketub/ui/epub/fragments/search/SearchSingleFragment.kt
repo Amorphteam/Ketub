@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.epub.fragments.search
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleViewModel
+import com.amorphteam.ketub.ui.search.adapter.SearchClickListener
+import com.amorphteam.ketub.ui.search.adapter.SearchListAdapter
 
 class SearchSingleFragment : Fragment() {
 
@@ -25,7 +30,24 @@ class SearchSingleFragment : Fragment() {
         )
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        viewModel.startEpubFrag.observe(requireActivity()) {
+//            if (it) startActivity(Intent(this, EpubActivity::class.java))
+        }
+        val adapter = SearchListAdapter(SearchClickListener { id ->
+            viewModel.openEpubFrag()
+        })
+
+        handleSearchResult(adapter)
+
+
         return binding.root
+    }
+
+    private fun handleSearchResult(adapter: SearchListAdapter) {
+        adapter.submitList(viewModel.getSearchList().value)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.adapter = adapter
     }
 
 

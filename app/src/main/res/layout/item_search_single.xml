@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.amorphteam.ketub.ui.search.model.SearchModel" />
+
+        <variable
+            name="searchSingleClickListener"
+            type="com.amorphteam.ketub.ui.epub.fragments.search.adapter.SearchSingleClickListener" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:gravity="center"
+        android:onClick="@{() -> searchSingleClickListener.onClick(item)}"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/search_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/xsmall_margin"
+                android:text="@string/ejtehad_caption"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:searchResult="@{item}" />
+
+            <TextView
+                android:id="@+id/book_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/xsmall_margin"
+                android:text="@string/nosos_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textSize="@dimen/description_text"
+                app:bookName="@{item}" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>
