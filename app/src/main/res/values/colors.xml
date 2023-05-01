@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     //Custom colors
-    <color name="primary1">#202020</color>
-    <color name="primary2">#202020</color>
+    <color name="primary1">#202026</color>
+    <color name="primary2">#202026</color>
+    <color name="black">#000000</color>
 
     <color name="secondary1">#A48344</color>
     <color name="secondary2">#5A646B</color>

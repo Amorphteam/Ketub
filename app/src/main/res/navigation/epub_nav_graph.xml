@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/epubViewFragment"
-        android:name="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewFragment"
+        android:name="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewerFragment"
         android:label="EpubViewFragment" >
         <action
             android:id="@+id/action_epubViewFragment_to_tocSingleFragment"

@@ -10,10 +10,9 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ItemChildIndexBinding
-import com.amorphteam.ketub.databinding.ItemGroupIndexBinding
 import com.amorphteam.ketub.databinding.ItemGroupTocSingleBinding
-import com.amorphteam.ketub.ui.main.tabs.index.model.IndexFirstChildItem
-import com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem
+import com.amorphteam.ketub.ui.main.tabs.toc.model.TocFirstChildItem
+import com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem
 import com.amorphteam.ketub.utility.TempData
 
 
@@ -23,9 +22,9 @@ class TocSingleExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
      val clickListener = TocSingleClickListener()
 
-    private var items = listOf<IndexGroupItem>()
+    private var items = listOf<TocGroupItem>()
 
-    fun submitList(items: List<IndexGroupItem>) {
+    fun submitList(items: List<TocGroupItem>) {
         this.items = items
         notifyDataSetChanged()
     }
@@ -73,7 +72,7 @@ class TocSingleExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         )
 
         // Get a reference to the group item for this position
-        val groupItem = getGroup(groupPosition) as IndexGroupItem
+        val groupItem = getGroup(groupPosition) as TocGroupItem
 
         binding.item = groupItem
         binding.bookName.setOnClickListener { clickListener.onGroupClick(groupPosition) }
@@ -97,7 +96,7 @@ class TocSingleExpandableAdapter : BaseExpandableListAdapter(), Filterable {
             false
         )
 
-        val childItem = getChild(groupPosition, childPosition) as IndexFirstChildItem
+        val childItem = getChild(groupPosition, childPosition) as TocFirstChildItem
 
         binding.bookTitle.setOnClickListener { clickListener.onGroupClick(childPosition) }
         binding.item = childItem
@@ -126,13 +125,13 @@ class TocSingleExpandableAdapter : BaseExpandableListAdapter(), Filterable {
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                (results?.values as? List<IndexGroupItem>)?.let { submitList(it) }
+                (results?.values as? List<TocGroupItem>)?.let { submitList(it) }
 
             }
         }
     }
 
-    fun onFilter(list: List<IndexGroupItem>, constraint: String): List<IndexGroupItem> {
+    fun onFilter(list: List<TocGroupItem>, constraint: String): List<TocGroupItem> {
         val filteredList = list.filter {
             //TODO: IT MUST SEARCH BOOK NAME TOO
             it.bookTitle.lowercase().contains(constraint.lowercase())

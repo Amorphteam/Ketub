@@ -10,7 +10,6 @@
         <item name="colorSecondaryVariant">@color/secondary2</item>
         <item name="colorOnSecondary">@color/onbackground2</item>
 
-
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
@@ -137,4 +136,7 @@
         <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
+    <style name="PatternBackground">
+        <item name="android:background">@drawable/pattern_bg</item>
+    </style>
 </resources>

@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkBinding
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.ViewPagerBookmarkListAdapter
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first.BookmarkListFirstFragment
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second.BookmarkListSecondFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first.BookmarkFirstFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.second.BookmarkSecondFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -36,8 +36,8 @@ class BookmarkFragment : Fragment() {
 
     private fun handleTabViewPager(binding: FragmentBookmarkBinding) {
         val adapter = ViewPagerBookmarkListAdapter(activity)
-        adapter.addFragment(BookmarkListFirstFragment(), getString(R.string.nosos_title))
-        adapter.addFragment(BookmarkListSecondFragment(), getString(R.string.ejtehad_title))
+        adapter.addFragment(BookmarkFirstFragment(), getString(R.string.nosos_title))
+        adapter.addFragment(BookmarkSecondFragment(), getString(R.string.ejtehad_title))
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = 0

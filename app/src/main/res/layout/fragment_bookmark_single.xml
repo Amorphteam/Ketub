@@ -12,8 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        style="@style/PatternBackground"
         android:orientation="vertical"
-        tools:context=".ui.main.tabs.bookmark.tabs.first.BookmarkListFirstFragment">
+        tools:context=".ui.main.tabs.bookmark.tabs.first.BookmarkFirstFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.main.tabs.index.model.IndexGroupItem" />
+            type="com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem" />
 
         <variable
             name="indexClickListener"
-            type="com.amorphteam.ketub.ui.main.tabs.index.adapter.ClickListener" />
+            type="com.amorphteam.ketub.ui.main.tabs.toc.adapter.ClickListener" />
     </data>
 
     <LinearLayout

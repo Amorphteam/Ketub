@@ -11,16 +11,16 @@ interface BookDatabaseDao {
     @Query("select * from category_list")
     fun getAllBooks(): List<BookModel>
 
-    @Query("select * from category_list")
+    @Query("select * from category_list ORDER BY _id ASC")
     fun getAllItemsForFirstCatBooks(): List<BookModel>
 
-    @Query("select * from category_list")
+    @Query("select * from category_list ORDER BY _id ASC")
     fun getAllItemsForSecondCatBooks(): List<BookModel>
 
-    @Query("select * from category_list order by _Id DESC limit 5")
+    @Query("select * from category_list order by _Id ASC limit 5 ")
     fun getNewItemsForFirstCatBooks(): List<BookModel>
 
-    @Query("select * from category_list order by _Id DESC limit 5")
+    @Query("select * from category_list order by _Id ASC limit 5")
     fun getNewItemsForSecondCatBooks(): List<BookModel>
 
 

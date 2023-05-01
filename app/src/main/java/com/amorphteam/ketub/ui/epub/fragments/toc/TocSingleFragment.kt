@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.epub.fragments.toc
 
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.fragments.toc.adapter.TocSingleExpandableAdapter
-import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexExpandableAdapter
 
 class TocSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentTocSingleBinding
@@ -36,7 +33,7 @@ class TocSingleFragment : Fragment() {
 //            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
         val adapter = TocSingleExpandableAdapter()
-        adapter.submitList(viewModel.indexGroupItems.value!!)
+        adapter.submitList(viewModel.tocGroupItems.value!!)
         binding.expandableListView.setAdapter(adapter)
 
         adapter.clickListener.setOnGroupClickListener {

@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        style="@style/PatternBackground"
         android:orientation="vertical"
         tools:context=".ui.search.SearchActivity">
 
@@ -43,10 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_margin"
-            android:layout_marginLeft="@dimen/normal_margin"
-            android:layout_marginRight="@dimen/normal_margin"
             android:background="@drawable/card_border"
-            android:theme="@style/AppSearchView"
+            style="@style/AppSearchView"
             app:closeIcon="@drawable/ic_close"
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
