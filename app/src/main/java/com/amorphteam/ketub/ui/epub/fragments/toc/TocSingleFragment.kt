@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.fragments.toc.adapter.TocSingleExpandableAdapter
@@ -17,6 +19,7 @@ import com.amorphteam.ketub.ui.main.tabs.index.adapter.IndexExpandableAdapter
 class TocSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentTocSingleBinding
     private lateinit var viewModel: TocSingleViewModel
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +44,18 @@ class TocSingleFragment : Fragment() {
         }
 
         handleSearchView(binding.searchView, adapter)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbar.setNavigationOnClickListener {
+            openEpubFragment()
+        }
 
         return binding.root
     }
 
+    private fun openEpubFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_tocSingleFragment_to_epubViewFragment)
+    }
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
         index: TocSingleExpandableAdapter

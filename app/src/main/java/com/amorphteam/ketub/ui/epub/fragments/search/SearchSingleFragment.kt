@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.epub.EpubActivity
@@ -19,6 +21,7 @@ class SearchSingleFragment : Fragment() {
 
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentSearchSingleBinding
     private lateinit var viewModel: SearchSingleViewModel
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +41,18 @@ class SearchSingleFragment : Fragment() {
         })
 
         handleSearchResult(adapter)
-
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbar.setNavigationOnClickListener {
+            openEpubFragment()
+        }
 
         return binding.root
     }
 
+    private fun openEpubFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_searchSingleFragment_to_epubViewFragment)
+    }
     private fun handleSearchResult(adapter: SearchListAdapter) {
         adapter.submitList(viewModel.getSearchList().value)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

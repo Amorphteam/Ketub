@@ -37,6 +37,9 @@ class EpubViewFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EpubViewFragmentViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().finish()
+        }
         val toolbar = binding.toolbar
         toolbar.inflateMenu(R.menu.menu_epub)
         toolbar.setOnMenuItemClickListener { menuItem ->

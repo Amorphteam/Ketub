@@ -21,13 +21,25 @@
     <fragment
         android:id="@+id/bookmarkSingleFragment"
         android:name="com.amorphteam.ketub.ui.epub.fragments.bookmark.BookmarkSingleFragment"
-        android:label="BookmarkSingleFragment" />
+        android:label="BookmarkSingleFragment" >
+        <action
+            android:id="@+id/action_bookmarkSingleFragment_to_epubViewFragment"
+            app:destination="@id/epubViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tocSingleFragment"
         android:name="com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleFragment"
-        android:label="TocSingleFragment" />
+        android:label="TocSingleFragment" >
+        <action
+            android:id="@+id/action_tocSingleFragment_to_epubViewFragment"
+            app:destination="@id/epubViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchSingleFragment"
         android:name="com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment"
-        android:label="SearchSingleFragment" />
+        android:label="SearchSingleFragment" >
+        <action
+            android:id="@+id/action_searchSingleFragment_to_epubViewFragment"
+            app:destination="@id/epubViewFragment" />
+    </fragment>
 </navigation>

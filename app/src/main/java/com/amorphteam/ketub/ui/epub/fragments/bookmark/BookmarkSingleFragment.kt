@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkDeleteSingleClickListener
@@ -21,6 +23,7 @@ import com.amorphteam.ketub.utility.Keys
 class BookmarkSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentBookmarkSingleBinding
     private lateinit var viewModel: BookmarkSingleViewModel
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +64,17 @@ class BookmarkSingleFragment : Fragment() {
         }
         handleSearchView(binding.searchView, adapter)
 
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbar.setNavigationOnClickListener {
+            openEpubFragment()
+        }
+
         return binding.root
+    }
+
+    private fun openEpubFragment() {
+        navController = Navigation.findNavController(requireView())
+        navController.navigate(R.id.action_bookmarkSingleFragment_to_epubViewFragment)
     }
 
     private fun handleBookmarkRecyclerView(
