@@ -30,7 +30,6 @@ class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, pr
         get() = _allBookmarks
 
     init {
-
         initializeBookmarks()
     }
 

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.main.tabs.toc.tabs.first.TocFirstFragment"
+        tools:context=".ui.main.tabs.toc.tabs.first_and_second.TocFragment"
         >
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"

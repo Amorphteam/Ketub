@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/navigation_index"
-        android:name="com.amorphteam.ketub.ui.main.tabs.toc.TocFragment"
+        android:name="com.amorphteam.ketub.ui.main.tabs.toc.TocContainerFragment"
         android:label="@string/index"
-        tools:layout="@layout/fragment_toc" />
+        tools:layout="@layout/fragment_toc_container" />
 
     <fragment
         android:id="@+id/navigation_bookmark"
