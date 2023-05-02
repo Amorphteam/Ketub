@@ -11,7 +11,6 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
 import kotlinx.coroutines.*
-import java.security.Key
 
 class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
     private val _startEpubAct = MutableLiveData<Boolean>()
@@ -66,9 +65,9 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     }
 
 
-    private suspend fun getAllBooks(bookTitle:String, count:Int): List<BookModel> {
+    private suspend fun getAllBooks(catName:String, count:Int): List<BookModel> {
         return withContext(Dispatchers.IO) {
-            val book = repository.getAllBooks(bookTitle,count)
+            val book = repository.getAllBooks(catName,count)
             book
         }
     }

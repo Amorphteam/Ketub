@@ -6,12 +6,12 @@ class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
     fun getAllBooks(): List<BookModel> = bookDatabaseDao.getAllBooks()
 
-    fun getAllBooks(titleBook:String): List<BookModel> =
-        bookDatabaseDao.getAllBooks(titleBook)
+    fun getAllBooks(catName:String): List<BookModel> =
+        bookDatabaseDao.getAllBooks(catName)
 
 
-    fun getAllBooks(titleBook:String, count:Int): List<BookModel> =
-        bookDatabaseDao.getAllBooks(titleBook, count)
+    fun getAllBooks(catName:String, count:Int): List<BookModel> =
+        bookDatabaseDao.getAllBooks(catName, count)
 
 
 }

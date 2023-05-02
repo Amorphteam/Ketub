@@ -37,9 +37,9 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
         }
     }
 
-    private suspend fun getAllBooks(titleBook:String): List<BookModel> {
+    private suspend fun getAllBooks(catName:String): List<BookModel> {
         return withContext(Dispatchers.IO) {
-            val book = repository.getAllBooks(titleBook)
+            val book = repository.getAllBooks(catName)
             book
         }
     }

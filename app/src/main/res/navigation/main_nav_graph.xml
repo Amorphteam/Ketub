@@ -23,9 +23,9 @@
 
     <fragment
         android:id="@+id/navigation_bookmark"
-        android:name="com.amorphteam.nososejtehad.bookmark.BookmarkFragment"
+        android:name="com.amorphteam.nososejtehad.bookmark.BookmarkContainerFragment"
         android:label="@string/bookmark"
-        tools:layout="@layout/fragment_bookmark" />
+        tools:layout="@layout/fragment_bookmark_container" />
 
     <fragment
         android:id="@+id/navigation_info"

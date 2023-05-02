@@ -16,6 +16,10 @@ interface BookmarkDatabaseDao {
     @Query("select * from bookmark_list")
     fun getAllBookmarks(): List<BookmarkModel>
 
+    @Query("select * from bookmark_list  WHERE book_name LIKE '%' || :catName || '%'")
+    fun getAllBookmarks(catName:String): List<BookmarkModel>
+
+
     @Query("select * from bookmark_list WHERE book_name = :bookName")
     fun getAllBookmarksForSingleBook(bookName:String): List<BookmarkModel>
 

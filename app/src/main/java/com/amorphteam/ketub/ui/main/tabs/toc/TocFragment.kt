@@ -42,7 +42,7 @@ class TocFragment : Fragment() {
         adapter.addFragment(TocSecondFragment(), getString(R.string.ejtehad_title))
 
         binding.viewPager.adapter = adapter
-        binding.viewPager.currentItem = 0
+        binding.viewPager.currentItem = 1
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = adapter.getTabTitle(position)
         }.attach()

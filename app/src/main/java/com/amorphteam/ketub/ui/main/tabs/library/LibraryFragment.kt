@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -51,12 +53,12 @@ class LibraryFragment : Fragment() {
         binding.titleAndDes1 = TitleAndDes(
             resources.getString(R.string.ejtehad_title),
             resources.getString(R.string.ejtehad_caption),
-            resources.getDrawable(R.drawable.ejtihad_logo)
+            ResourcesCompat.getDrawable(resources, R.drawable.ejtihad_logo, null)!!
         )
         binding.titleAndDes2 = TitleAndDes(
             resources.getString(R.string.nosos_title),
             resources.getString(R.string.nosos_caption),
-            resources.getDrawable(R.drawable.nosos_logo)
+            ResourcesCompat.getDrawable(resources, R.drawable.nosos_logo, null)!!
         )
 
         binding.lifecycleOwner = this

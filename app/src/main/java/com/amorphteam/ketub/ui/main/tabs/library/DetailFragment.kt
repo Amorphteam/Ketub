@@ -43,7 +43,6 @@ class DetailFragment : Fragment() {
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
         val viewModelFactory = DetailViewModelFactory(dataSource, titleAndDes!!)
 
-        // Get a reference to the ViewModel associated with this fragment.
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
         binding.viewModel = viewModel
