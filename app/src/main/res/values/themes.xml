@@ -47,6 +47,7 @@
     </style>
 
     <style name="medium_font" parent="@android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">@dimen/line_hight_extra</item>
         <item name="android:fontFamily">@font/ge_dinar_one_light</item>
         <item name="fontFamily">@font/ge_dinar_one_light</item>
     </style>
@@ -139,4 +140,6 @@
     <style name="PatternBackground">
         <item name="android:background">@drawable/pattern_bg</item>
     </style>
+
+    <dimen name="line_hight_extra">4sp</dimen>
 </resources>

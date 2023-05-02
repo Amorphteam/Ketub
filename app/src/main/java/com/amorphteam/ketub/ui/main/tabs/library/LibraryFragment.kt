@@ -18,16 +18,17 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
-import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
+import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 
 
 class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
-    private lateinit var viewModel: LibraryFragmentViewModel
+    private lateinit var viewModel: LibraryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,9 +45,20 @@ class LibraryFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         viewModel =
-            ViewModelProvider(this, viewModelFactory)[LibraryFragmentViewModel::class.java]
+            ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
 
         binding.viewModel = viewModel
+        binding.titleAndDes1 = TitleAndDes(
+            resources.getString(R.string.ejtehad_title),
+            resources.getString(R.string.ejtehad_caption),
+            resources.getDrawable(R.drawable.ejtihad_logo)
+        )
+        binding.titleAndDes2 = TitleAndDes(
+            resources.getString(R.string.nosos_title),
+            resources.getString(R.string.nosos_caption),
+            resources.getDrawable(R.drawable.nosos_logo)
+        )
+
         binding.lifecycleOwner = this
 
 
@@ -59,28 +71,28 @@ class LibraryFragment : Fragment() {
         }
 
         viewModel.startDetailFrag.observe(viewLifecycleOwner) {
-            if (it) Navigation.findNavController(requireView())
-                .navigate(R.id.action_navigation_library_to_detailFragment)
+            val bundle = Bundle()
+            bundle.putSerializable("titleAndDes", it)
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_navigation_library_to_detailFragment, bundle)
         }
 
         viewModel.readMoreToc.observe(viewLifecycleOwner) {
             handleReadMore(it)
-                Log.i(Keys.LOG_NAME, "handleAllBooks")
+            Log.i(Keys.LOG_NAME, "handleAllBooks")
 
-            }
+        }
 
 
         viewModel.firstCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "firstCatBooksNewItems")
-                handleFirstCatBooks(it)
+                handleCatBooks(it, 1)
             }
         }
 
         viewModel.secondCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "secondCatBooksNewItems")
-                handleSecondCatBooks(it)
+                handleCatBooks(it, 2)
             }
         }
 
@@ -121,26 +133,28 @@ class LibraryFragment : Fragment() {
         binding.tocReadMore.recyclerView.adapter = readMoreToc
     }
 
-    private fun handleFirstCatBooks(bookArrayList: List<BookModel>) {
+
+    private fun handleCatBooks(bookArrayList: List<BookModel>, bookCat: Int) {
         val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
         adapter.submitList(bookArrayList)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.firstCatBooksItems.recyclerView.layoutManager = layoutManager
-        binding.firstCatBooksItems.recyclerView.adapter = adapter
-    }
 
-    private fun handleSecondCatBooks(bookArrayList: List<BookModel>) {
-        val adapter = BookAdapter(BookClickListener { bookId ->
-            viewModel.openEpubAct()
-        })
-        adapter.submitList(bookArrayList)
+        when (bookCat) {
+            1 -> {
+                binding.firstCatBooksItems.recyclerView.layoutManager = layoutManager
+                binding.firstCatBooksItems.recyclerView.adapter = adapter
+            }
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.secondCatBooksItems.recyclerView.layoutManager = layoutManager
-        binding.secondCatBooksItems.recyclerView.adapter = adapter
+            2 -> {
+                binding.secondCatBooksItems.recyclerView.layoutManager = layoutManager
+                binding.secondCatBooksItems.recyclerView.adapter = adapter
+            }
+        }
+
+
     }
 
 }

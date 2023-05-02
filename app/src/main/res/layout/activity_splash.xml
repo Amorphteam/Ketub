@@ -59,7 +59,7 @@
                 <ImageView
                     android:layout_width="@dimen/large_image"
                     android:layout_height="@dimen/large_image"
-                    android:src="@drawable/ejtehad_cover" />
+                    android:src="@drawable/ejtihad_logo" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,20 +81,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/ejtehad_title" />
+                        android:text="@string/nosos_title" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:textColor="?attr/colorPrimaryVariant"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:text="@string/ejtehad_caption" />
+                        android:text="@string/nosos_caption" />
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="@dimen/large_image"
                     android:layout_height="@dimen/large_image"
-                    android:src="@drawable/ejtehad_cover" />
+                    android:src="@drawable/ejtihad_logo" />
             </LinearLayout>
         </LinearLayout>
         </LinearLayout>

@@ -7,25 +7,24 @@ import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
 import kotlinx.coroutines.*
 
-class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
+class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAndDes:TitleAndDes) : ViewModel() {
     var startEpubAct = MutableLiveData<Boolean>()
     var startLibraryFrag = MutableLiveData<Boolean>()
+
 
     private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
     var viewModelJob = Job()
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _firstCatBooksAllItems = MutableLiveData<List<BookModel>>()
-    val firstCatBooksAllItems: LiveData<List<BookModel>>
-        get() = _firstCatBooksAllItems
 
-    private var _secondCatBooksAllItems = MutableLiveData<List<BookModel>>()
-    val secondCatBooksAllItems: LiveData<List<BookModel>>
-        get() = _secondCatBooksAllItems
+    private var _books = MutableLiveData<List<BookModel>>()
+    val books: LiveData<List<BookModel>>
+        get() = _books
 
     init {
         initializeBooks()
@@ -33,26 +32,14 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel(
 
     private fun initializeBooks() {
         uiScope.launch {
-            _firstCatBooksAllItems.value = getAllItemsForFirstCatBooksFromDatabase()
-            _secondCatBooksAllItems.value = getAllItemsForSecondCatBooksFromDatabase()
+            _books.value = getAllBooks(titleAndDes.title)
             Log.i(Keys.LOG_NAME, "uiScope.launch")
         }
     }
 
-    private suspend fun getAllItemsForFirstCatBooksFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getAllItemsForFirstCatBooksFromDatabase")
-
+    private suspend fun getAllBooks(titleBook:String): List<BookModel> {
         return withContext(Dispatchers.IO) {
-            val book = repository.getAllItemsForFirstCatBooks()
-            book
-        }
-    }
-
-    private suspend fun getAllItemsForSecondCatBooksFromDatabase(): List<BookModel>? {
-        Log.i(Keys.LOG_NAME, "getAllItemsForSecondCatBooksFromDatabase")
-
-        return withContext(Dispatchers.IO) {
-            val book = repository.getAllItemsForSecondCatBooks()
+            val book = repository.getAllBooks(titleBook)
             book
         }
     }

@@ -5,7 +5,10 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel" />
+        <variable
+            name="titleAndDes"
+            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
     </data>
 
     <LinearLayout
@@ -35,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@string/ejtehad_title" />
+                    android:text="@{titleAndDes.title}" />
 
                 <TextView
                     android:id="@+id/caption"
@@ -43,13 +46,13 @@
                     android:textColor="?attr/colorPrimaryVariant"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/ejtehad_caption" />
+                    android:text="@{titleAndDes.des}" />
             </LinearLayout>
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
-                android:src="@drawable/ejtehad_cover" />
+                android:src="@{titleAndDes.logo}" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -67,9 +70,9 @@
             android:layout_width="wrap_content"
             android:padding="@dimen/small_margin"
             android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.openDetailFrag(titleAndDes)}"
             android:text="@string/see_all"
             android:background="@android:color/transparent"
-            android:onClick="@{()->viewModel.openDetailFrag()}"
-             />
+            />
     </LinearLayout>
 </layout>

@@ -6,16 +6,12 @@ class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
     fun getAllBooks(): List<BookModel> = bookDatabaseDao.getAllBooks()
 
-    fun getAllItemsForFirstCatBooks(): List<BookModel> =
-        bookDatabaseDao.getAllItemsForFirstCatBooks()
+    fun getAllBooks(titleBook:String): List<BookModel> =
+        bookDatabaseDao.getAllBooks(titleBook)
 
-    fun getAllItemsForSecondCatBooks(): List<BookModel> =
-        bookDatabaseDao.getAllItemsForSecondCatBooks()
 
-    fun getNewItemsForFirstCatBooks(): List<BookModel> =
-        bookDatabaseDao.getNewItemsForFirstCatBooks()
+    fun getAllBooks(titleBook:String, count:Int): List<BookModel> =
+        bookDatabaseDao.getAllBooks(titleBook, count)
 
-    fun getNewItemsForSecondCatBooks(): List<BookModel> =
-        bookDatabaseDao.getNewItemsForSecondCatBooks()
 
 }

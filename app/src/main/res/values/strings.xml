@@ -45,7 +45,7 @@
     <string name="query_hint_search_index">ابدأ الكتابة لبدء البحث في الفهرس</string>
     <string name="ejtehad_title">الاجتهاد والتجديد</string>
     <string name="nosos_title">نصوص معاصرة</string>
-    <string name="ejtehad_caption">فصلية متخصصة بقضايا الاجتهاد والتجديد الإسلامي فصلية متخصصة بقضايا الاجتهاد والتجديد الإسلامي</string>
+    <string name="ejtehad_caption">فصلية متخصصة بقضايا الاجتهاد والتجديد الإسلامي</string>
     <string name="see_all">مشاهدة الجميع</string>
     <string name="title">عنوان</string>
     <string name="index">فهرست</string>
@@ -58,5 +58,6 @@
     <string name="delete">Delete</string>
     <string name="search_all_book">الجميع</string>
     <string name="search_toolbar">البحث</string>
+    <string name="nosos_caption">فصلية تعني بالفكر الديني المعاصر</string>
 
 </resources>

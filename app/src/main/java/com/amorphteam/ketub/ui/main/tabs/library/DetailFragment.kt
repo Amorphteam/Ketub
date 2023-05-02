@@ -1,6 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
+import android.icu.text.CaseMap.Title
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,17 +20,20 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private lateinit var viewModel: DetailViewModel
-
+    private var titleAndDes: TitleAndDes? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        if (arguments != null) {
+            titleAndDes = arguments?.getSerializable("titleAndDes") as? TitleAndDes
+        }
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false
         )
@@ -37,12 +41,11 @@ class DetailFragment : Fragment() {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = DetailViewModelFactory(dataSource)
+        val viewModelFactory = DetailViewModelFactory(dataSource, titleAndDes!!)
 
         // Get a reference to the ViewModel associated with this fragment.
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
-
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -56,19 +59,12 @@ class DetailFragment : Fragment() {
                 .navigate(R.id.action_detailFragment_to_navigation_library)
         }
 
-        viewModel.firstCatBooksAllItems.observe(viewLifecycleOwner) {
+        viewModel.books.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "handleFirstCatBooks")
-                handleFirstCatBooks(it)
+                handleCatBooks(it)
             }
         }
 
-        viewModel.secondCatBooksAllItems.observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                Log.i(Keys.LOG_NAME, "handleSecondCatBooks")
-                handleSecondCatBooks(it)
-            }
-        }
 
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
@@ -82,7 +78,7 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun handleFirstCatBooks(bookArrayList: List<BookModel>) {
+    private fun handleCatBooks(bookArrayList: List<BookModel>) {
         val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })
@@ -93,15 +89,5 @@ class DetailFragment : Fragment() {
         binding.recyclerView.adapter = adapter
     }
 
-    private fun handleSecondCatBooks(bookArrayList: List<BookModel>) {
-        val adapter = BookAdapter(BookClickListener { bookId ->
-            viewModel.openEpubAct()
-        })
-        adapter.submitList(bookArrayList)
-
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = adapter
-    }
 
 }

@@ -15,6 +15,6 @@ import com.bumptech.glide.Glide
 fun setImage(image: ImageView, item: BookModel?) {
         Glide.with(image.context)
             .load(Uri.parse("file:///android_asset/cover/${item!!.bookCover}"))
-            .placeholder(R.drawable.ejtehad_cover)
+            .placeholder(R.drawable.ejtihad_logo)
             .into(image)
 }

@@ -42,14 +42,14 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:text="@string/ejtehad_title"
+                    android:text="@{viewModel.titleAndDes.title}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/caption"
                     android:textColor="?attr/colorPrimaryVariant"
-                    android:text="@string/ejtehad_caption"
+                    android:text="@{viewModel.titleAndDes.des}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -57,7 +57,7 @@
                 android:id="@+id/vertical_category_image"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
-                android:src="@drawable/ejtehad_cover"
+                android:src="@{viewModel.titleAndDes.logo}"
                 android:layout_gravity="center_vertical"
                 />
 

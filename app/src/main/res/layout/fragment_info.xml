@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="@dimen/large_image"
             android:layout_height="@dimen/large_image"
-            android:src="@drawable/ejtehad_cover"
+            android:src="@drawable/ejtihad_logo"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/xlarge_margin"/>
 

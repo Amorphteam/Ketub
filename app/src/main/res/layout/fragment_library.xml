@@ -5,7 +5,15 @@
     <data>
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.main.tabs.library.LibraryFragmentViewModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel" />
+
+        <variable
+            name="titleAndDes1"
+            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
+
+        <variable
+            name="titleAndDes2"
+            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
     </data>
 
 
@@ -78,6 +86,7 @@
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
+                    app:titleAndDes="@{titleAndDes1}"
                     app:viewModel="@{viewModel}" />
 
                 <include
@@ -87,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/first_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
+                    app:titleAndDes="@{titleAndDes2}"
                     app:viewModel="@{viewModel}" />
 
                 <include
