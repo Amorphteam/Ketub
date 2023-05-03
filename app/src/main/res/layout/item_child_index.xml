@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/xsmall_margin"
                 android:textSize="@dimen/description_text"
-                android:visibility="invisible"
                 android:text="@string/nosos_title"
                 app:bookNameChild="@{item}"
                 android:textColor="?attr/colorPrimaryVariant"

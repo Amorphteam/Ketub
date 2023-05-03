@@ -3,6 +3,7 @@ package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickLis
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
 import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabase
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.utility.Keys
 
 class BookmarkFragment(val catName:String) : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
@@ -47,9 +49,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
         }
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
                 handleBookmarkRecyclerView(it)
-            }
         }
         return binding.root
     }
