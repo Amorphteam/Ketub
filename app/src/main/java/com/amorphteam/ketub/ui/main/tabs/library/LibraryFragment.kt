@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -43,7 +42,7 @@ class LibraryFragment : Fragment() {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = LibraryFragmentViewModelFactory(dataSource)
+        val viewModelFactory = LibraryViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
         viewModel =
