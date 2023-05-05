@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
 import kotlinx.coroutines.*
@@ -22,8 +22,8 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
     val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-    private var _books = MutableLiveData<List<BookModel>>()
-    val books: LiveData<List<BookModel>>
+    private var _books = MutableLiveData<List<CategoryModel>>()
+    val books: LiveData<List<CategoryModel>>
         get() = _books
 
     init {
@@ -37,7 +37,7 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
         }
     }
 
-    private suspend fun getAllBooks(catName:String): List<BookModel> {
+    private suspend fun getAllBooks(catName:String): List<CategoryModel> {
         return withContext(Dispatchers.IO) {
             val book = repository.getAllBooks(catName)
             book

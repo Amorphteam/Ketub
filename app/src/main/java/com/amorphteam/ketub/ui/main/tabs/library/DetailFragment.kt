@@ -19,7 +19,7 @@ import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
 
@@ -77,7 +77,7 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun handleCatBooks(bookArrayList: List<BookModel>) {
+    private fun handleCatBooks(bookArrayList: List<CategoryModel>) {
         val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })

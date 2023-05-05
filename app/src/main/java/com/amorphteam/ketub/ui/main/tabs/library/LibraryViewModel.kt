@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Keys
@@ -43,12 +43,12 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
 
-    private var _firstCatBooksNewItems = MutableLiveData<List<BookModel>>()
-    val firstCatBooksNewItems: LiveData<List<BookModel>>
+    private var _firstCatBooksNewItems = MutableLiveData<List<CategoryModel>>()
+    val firstCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _firstCatBooksNewItems
 
-    private var _secondCatBooksNewItems = MutableLiveData<List<BookModel>>()
-    val secondCatBooksNewItems: LiveData<List<BookModel>>
+    private var _secondCatBooksNewItems = MutableLiveData<List<CategoryModel>>()
+    val secondCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _secondCatBooksNewItems
 
     init {
@@ -65,7 +65,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     }
 
 
-    private suspend fun getAllBooks(catName:String, count:Int): List<BookModel> {
+    private suspend fun getAllBooks(catName:String, count:Int): List<CategoryModel> {
         return withContext(Dispatchers.IO) {
             val book = repository.getAllBooks(catName,count)
             book

@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemBookBinding
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 
 class BookAdapter(private val clickListener: BookClickListener) :
-    ListAdapter<BookModel, BookAdapter.ViewHolder>(CustomizeDiffCallback()) {
+    ListAdapter<CategoryModel, BookAdapter.ViewHolder>(CustomizeDiffCallback()) {
 
     class ViewHolder private constructor(val binding: ItemBookBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: BookModel, clickListener: BookClickListener) {
+        fun bind(item: CategoryModel, clickListener: BookClickListener) {
             binding.item = item
             binding.bookClickListener = clickListener
             binding.executePendingBindings()
@@ -41,20 +41,20 @@ class BookAdapter(private val clickListener: BookClickListener) :
     }
 }
 
-class CustomizeDiffCallback() : DiffUtil.ItemCallback<BookModel>() {
+class CustomizeDiffCallback() : DiffUtil.ItemCallback<CategoryModel>() {
 
-    override fun areItemsTheSame(p0: BookModel, p1: BookModel): Boolean {
+    override fun areItemsTheSame(p0: CategoryModel, p1: CategoryModel): Boolean {
         return p0.id == p1.id
     }
 
-    override fun areContentsTheSame(p0: BookModel, p1: BookModel): Boolean {
+    override fun areContentsTheSame(p0: CategoryModel, p1: CategoryModel): Boolean {
         return p0 == p1
     }
 
 }
 
 class BookClickListener(val clickListener: (bookId: Int) -> Unit) {
-    fun onClick(viewModel: BookModel) = clickListener(viewModel.id!!)
+    fun onClick(viewModel: CategoryModel) = clickListener(viewModel.id!!)
 
 }
 

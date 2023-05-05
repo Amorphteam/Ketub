@@ -1,13 +1,10 @@
 package com.amorphteam.ketub.ui.main.tabs.bookmark.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 
 
 @Dao

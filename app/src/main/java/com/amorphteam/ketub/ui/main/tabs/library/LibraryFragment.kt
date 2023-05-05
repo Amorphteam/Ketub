@@ -21,7 +21,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.ui.search.SearchActivity
@@ -136,7 +136,7 @@ class LibraryFragment : Fragment() {
     }
 
 
-    private fun handleCatBooks(bookArrayList: List<BookModel>, bookCat: Int) {
+    private fun handleCatBooks(bookArrayList: List<CategoryModel>, bookCat: Int) {
         val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.openEpubAct()
         })

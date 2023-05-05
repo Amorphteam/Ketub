@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.main.tabs.library.model.BookModel" />
+            type="com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel" />
 
         <variable
             name="bookClickListener"

@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
+import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.utility.Keys
 
 
-@Database(entities = [BookModel::class], version = 1, exportSchema = false)
+@Database(entities = [BookModel::class, CategoryModel::class], version = 1, exportSchema = false)
 
 abstract class BookDatabase : RoomDatabase() {
 
