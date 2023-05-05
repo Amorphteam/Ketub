@@ -4,32 +4,32 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "category_list")
+@Entity(tableName = "book_list")
 data class BookModel(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    val id: Int?,
+    val id: Int,
 
-    @ColumnInfo(name = "category_name")
-    val bookName: String,
+    @ColumnInfo(name = "cat_id")
+    val catId: Int,
 
-    @ColumnInfo(name = "cat_cover")
-    val bookCover: String,
+    @ColumnInfo(name = "book_path")
+    val bookPath: String?,
 
-    @ColumnInfo(name = "cat_field1")
-    val catField1: String?,
+    @ColumnInfo(name = "book_name")
+    val bookName: String?,
 
-    @ColumnInfo(name = "cat_field2")
-    val catField2: String?,
+    @ColumnInfo(name = "book_author")
+    val bookAuthor: String?,
 
-    @ColumnInfo(name = "cat_field3")
-    val catField3: String?,
+    @ColumnInfo(name = "book_cover")
+    val bookCover: String?,
 
-    @ColumnInfo(name = "cat_field4")
-    val catField4: String?,
+    @ColumnInfo(name = "book_style")
+    val bookStyle: String?,
 
-    @ColumnInfo(name = "cat_field5")
-    val catField5: String?
+    @ColumnInfo(name = "des")
+    val des: String?
 
 )
