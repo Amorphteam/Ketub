@@ -19,8 +19,8 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
     private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
     var viewModelJob = Job()
-    val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var _books = MutableLiveData<List<CategoryModel>>()
     val books: LiveData<List<CategoryModel>>
@@ -33,13 +33,12 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
     private fun initializeBooks() {
         uiScope.launch {
             _books.value = getAllBooks(titleAndDes.title)
-            Log.i(Keys.LOG_NAME, "uiScope.launch")
         }
     }
 
     private suspend fun getAllBooks(catName:String): List<CategoryModel> {
         return withContext(Dispatchers.IO) {
-            val book = repository.getAllBooks(catName)
+            val book = repository.getAllCats(catName)
             book
         }
     }
@@ -47,7 +46,6 @@ class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAnd
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-        Log.i(Keys.LOG_NAME, "main view model was cleared")
     }
 
 

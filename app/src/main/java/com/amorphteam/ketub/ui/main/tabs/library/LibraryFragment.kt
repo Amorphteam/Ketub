@@ -40,12 +40,10 @@ class LibraryFragment : Fragment() {
             inflater, R.layout.fragment_library, container, false
         )
 
-        // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
         val viewModelFactory = LibraryFragmentViewModelFactory(dataSource)
 
-        // Get a reference to the ViewModel associated with this fragment.
         viewModel =
             ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
 
@@ -81,10 +79,7 @@ class LibraryFragment : Fragment() {
 
         viewModel.readMoreToc.observe(viewLifecycleOwner) {
             handleReadMore(it)
-            Log.i(Keys.LOG_NAME, "handleAllBooks")
-
         }
-
 
         viewModel.firstCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
@@ -95,9 +90,18 @@ class LibraryFragment : Fragment() {
         viewModel.secondCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 handleCatBooks(it, 2)
+
             }
         }
 
+        viewModel.catBookItems.observe(viewLifecycleOwner){
+            if (it.size == 1) {
+                viewModel.openEpubAct()
+            }
+
+            //TODO THIS SECTION MUST BE COMPLETED
+
+        }
 
 
         viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
@@ -138,8 +142,9 @@ class LibraryFragment : Fragment() {
 
     private fun handleCatBooks(bookArrayList: List<CategoryModel>, bookCat: Int) {
         val adapter = BookAdapter(BookClickListener { bookId ->
-            viewModel.openEpubAct()
+            viewModel.getCatId(bookId)
         })
+
         adapter.submitList(bookArrayList)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

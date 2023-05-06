@@ -38,7 +38,6 @@ class DetailFragment : Fragment() {
             inflater, R.layout.fragment_detail, container, false
         )
 
-        // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
         val viewModelFactory = DetailViewModelFactory(dataSource, titleAndDes!!)

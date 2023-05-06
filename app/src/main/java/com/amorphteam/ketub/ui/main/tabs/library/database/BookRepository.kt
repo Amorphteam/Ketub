@@ -1,17 +1,19 @@
 package com.amorphteam.ketub.ui.main.tabs.library.database
 
+import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 
 class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
-    fun getAllBooks(): List<CategoryModel> = bookDatabaseDao.getAllBooks()
+    fun getAllCats(): List<CategoryModel> = bookDatabaseDao.getAllCats()
 
-    fun getAllBooks(catName:String): List<CategoryModel> =
-        bookDatabaseDao.getAllBooks(catName)
+    fun getAllCats(catName:String): List<CategoryModel> =
+        bookDatabaseDao.getAllCats(catName)
 
 
-    fun getAllBooks(catName:String, count:Int): List<CategoryModel> =
-        bookDatabaseDao.getAllBooks(catName, count)
+    fun getAllCats(catName:String, count:Int): List<CategoryModel> =
+        bookDatabaseDao.getAllCats(catName, count)
 
+    fun getAllBooks(catId: Int): List<BookModel> = bookDatabaseDao.getAllBooks(catId)
 
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
+import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
@@ -37,6 +38,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     val errorTocRecieve: LiveData<String>
         get() = _errorTocRecieve
 
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
@@ -51,6 +53,12 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     val secondCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _secondCatBooksNewItems
 
+    private var _catBookItems = MutableLiveData<List<BookModel>>()
+    val catBookItems: LiveData<List<BookModel>>
+        get() = _catBookItems
+
+
+
     init {
         initializeBooks()
         getReadMoreMainToc()
@@ -59,23 +67,30 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
 
     private fun initializeBooks() {
         uiScope.launch {
-            _firstCatBooksNewItems.value = getAllBooks(Keys.DB_FIRST_CAT, Keys.DB_BOOK_LIMIT_COUNT)
-            _secondCatBooksNewItems.value = getAllBooks(Keys.DB_SECOND_CAT, Keys.DB_BOOK_LIMIT_COUNT)
+            _firstCatBooksNewItems.value = getAllCats(Keys.DB_FIRST_CAT, Keys.DB_BOOK_LIMIT_COUNT)
+            _secondCatBooksNewItems.value = getAllCats(Keys.DB_SECOND_CAT, Keys.DB_BOOK_LIMIT_COUNT)
         }
     }
 
 
-    private suspend fun getAllBooks(catName:String, count:Int): List<CategoryModel> {
+    private suspend fun getAllCats(catName:String, count:Int): List<CategoryModel> {
         return withContext(Dispatchers.IO) {
-            val book = repository.getAllBooks(catName,count)
+            val book = repository.getAllCats(catName,count)
             book
         }
     }
 
+     private suspend fun getAllBooks(id: Int): List<BookModel> {
+        return withContext(Dispatchers.IO) {
+            val book = repository.getAllBooks(id)
+            book
+        }
+
+     }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-        Log.i(Keys.LOG_NAME, "main view model was cleared")
     }
 
 
@@ -118,5 +133,9 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
         _startSearchAct.value = true
     }
 
-
+     fun getCatId(id: Int) {
+         uiScope.launch {
+             _catBookItems.value = getAllBooks(id)
+         }
+    }
 }
