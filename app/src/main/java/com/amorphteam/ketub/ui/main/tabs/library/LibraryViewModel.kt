@@ -1,7 +1,11 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
+import android.net.Uri
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.*
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
 import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
@@ -12,6 +16,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
 import com.amorphteam.ketub.utility.Connection
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 
 class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
@@ -153,4 +158,18 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
              _bookItems.value = getAllBooks(id)
          }
     }
+
+
+    companion object{
+        @JvmStatic
+        @BindingAdapter("loadImage")
+        fun setImage(image: ImageView, item: CategoryModel?) {
+            Glide.with(image.context)
+                .load(Uri.parse("file:///android_asset/cover/${item!!.catCover}"))
+                .placeholder(R.drawable.ejtihad_logo)
+                .into(image)
+        }
+
+    }
+
 }
