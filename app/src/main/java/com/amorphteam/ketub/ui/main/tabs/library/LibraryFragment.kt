@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -42,7 +41,7 @@ class LibraryFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = LibraryFragmentViewModelFactory(dataSource)
+        val viewModelFactory = LibraryViewModelFactory(dataSource)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
@@ -94,13 +93,12 @@ class LibraryFragment : Fragment() {
             }
         }
 
-        viewModel.catBookItems.observe(viewLifecycleOwner){
+        viewModel.bookItems.observe(viewLifecycleOwner){
             if (it.size == 1) {
                 viewModel.openEpubAct()
+            }else{
+                //TODO THIS SECTION MUST BE COMPLETED
             }
-
-            //TODO THIS SECTION MUST BE COMPLETED
-
         }
 
 

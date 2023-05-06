@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
 
 
-class LibraryFragmentViewModelFactory(
+class LibraryViewModelFactory(
     private val dataSource: BookDatabaseDao
 ) : ViewModelProvider.Factory {
 

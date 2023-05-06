@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.*
 import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
@@ -10,7 +9,9 @@ import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
 import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
 import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
+import com.amorphteam.ketub.utility.Connection
 import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.*
 
 class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
@@ -53,16 +54,26 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     val secondCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _secondCatBooksNewItems
 
-    private var _catBookItems = MutableLiveData<List<BookModel>>()
-    val catBookItems: LiveData<List<BookModel>>
-        get() = _catBookItems
+    private var _bookItems = MutableLiveData<List<BookModel>>()
+    val bookItems: LiveData<List<BookModel>>
+        get() = _bookItems
 
 
 
     init {
         initializeBooks()
-        getReadMoreMainToc()
-        getRecommandedToc()
+        if(Connection.isInternetConnected()) {
+            getReadMoreMainToc()
+            getRecommandedToc()
+        }else {
+            getReadMoreMainTocOffline()
+            getRecommandedMainTocOffline()
+
+        }
+    }
+
+    private fun getRecommandedMainTocOffline() {
+        _recommendedToc.value = TempData.mostRead
     }
 
     private fun initializeBooks() {
@@ -96,16 +107,20 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
 
     fun getReadMoreMainToc() {
         uiScope.launch {
-            val getReadMoreDefferedList = TocApi.retrofitService.getMostReadToc()
-            try {
-                val listResult = getReadMoreDefferedList.await()
-                _readMoreToc.value = listResult
-            } catch (e: java.lang.Exception) {
-                _errorTocRecieve.value = "Failure: ${e.message}"
-
-            }
+                val getReadMoreDefferedList = TocApi.retrofitService.getMostReadToc()
+                try {
+                    val listResult = getReadMoreDefferedList.await()
+                    _readMoreToc.value = listResult
+                } catch (e: java.lang.Exception) {
+                    _errorTocRecieve.value = "Failure: ${e.message}"
+                    getReadMoreMainTocOffline()
+                }
         }
 
+    }
+
+    private fun getReadMoreMainTocOffline() {
+        _readMoreToc.value = TempData.mostRead
     }
 
     fun getRecommandedToc() {
@@ -116,7 +131,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
                 _recommendedToc.value = listResult
             } catch (e: java.lang.Exception) {
                 _errorTocRecieve.value = "Failure: ${e.message}"
-
+                getRecommandedMainTocOffline()
             }
         }
     }
@@ -125,7 +140,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
         _startEpubAct.value = true
     }
 
-    fun openDetailFrag(title:TitleAndDes) {
+    fun openDetailFrag(title: TitleAndDes) {
         _startDetailFrag.value = title
     }
 
@@ -135,7 +150,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
 
      fun getCatId(id: Int) {
          uiScope.launch {
-             _catBookItems.value = getAllBooks(id)
+             _bookItems.value = getAllBooks(id)
          }
     }
 }
