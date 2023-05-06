@@ -6,49 +6,43 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.*
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
-import com.amorphteam.ketub.ui.main.tabs.library.api.TocApi
-import com.amorphteam.ketub.ui.main.tabs.library.model.BookModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
-import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
-import com.amorphteam.ketub.utility.Connection
-import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.TempData
+import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.BookModel
+import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.utility.*
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 
-class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel() {
-    private val _startEpubAct = MutableLiveData<Boolean>()
-    val startEpubAct: LiveData<Boolean>
-        get() = _startEpubAct
-
+open class LibraryViewModel(
+    private val bookRepository: BookRepository,
+    private val referenceRepository: ReferenceRepository
+) : ViewModel() {
     private val _startSearchAct = MutableLiveData<Boolean>()
     val startSearchAct: LiveData<Boolean>
         get() = _startSearchAct
 
-    private val _startDetailFrag = MutableLiveData<TitleAndDes>()
-    val startDetailFrag: LiveData<TitleAndDes>
+    private val _startDetailFrag = MutableLiveData<CatSection>()
+    val startDetailFrag: LiveData<CatSection>
         get() = _startDetailFrag
 
-    private val _readMoreToc = MutableLiveData<List<MainToc>>()
-    val readMoreToc: LiveData<List<MainToc>>
+    private val _readMoreToc = MutableLiveData<List<ReferenceModel>>()
+    val readMoreToc: LiveData<List<ReferenceModel>>
         get() = _readMoreToc
 
-    private val _recommendedToc = MutableLiveData<List<MainToc>>()
-    val recommendedToc: LiveData<List<MainToc>>
+    private val _recommendedToc = MutableLiveData<List<ReferenceModel>>()
+    val recommendedToc: LiveData<List<ReferenceModel>>
         get() = _recommendedToc
 
     private val _errorTocRecieve = MutableLiveData<String>()
     val errorTocRecieve: LiveData<String>
         get() = _errorTocRecieve
 
+    private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
+    private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    private val repository: BookRepository = BookRepository(bookDatabaseDao)
 
 
     private var _firstCatBooksNewItems = MutableLiveData<List<CategoryModel>>()
@@ -59,93 +53,55 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
     val secondCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _secondCatBooksNewItems
 
+
+    private val _startEpubAct = MutableLiveData<Boolean>()
+    val startEpubAct: LiveData<Boolean>
+        get() = _startEpubAct
+
+
+
     private var _bookItems = MutableLiveData<List<BookModel>>()
     val bookItems: LiveData<List<BookModel>>
         get() = _bookItems
 
 
-
     init {
-        initializeBooks()
-        if(Connection.isInternetConnected()) {
-            getReadMoreMainToc()
-            getRecommandedToc()
-        }else {
-            getReadMoreMainTocOffline()
-            getRecommandedMainTocOffline()
-
-        }
+        getCatSections()
+        getReferences()
     }
 
-    private fun getRecommandedMainTocOffline() {
-        _recommendedToc.value = TempData.mostRead
+    private fun getCatSections() {
+        databaseBookHelper?.getCats(Keys.DB_FIRST_CAT, bookRepository, _firstCatBooksNewItems)
+        databaseBookHelper?.getCats(Keys.DB_SECOND_CAT, bookRepository, _secondCatBooksNewItems)
     }
 
-    private fun initializeBooks() {
-        uiScope.launch {
-            _firstCatBooksNewItems.value = getAllCats(Keys.DB_FIRST_CAT, Keys.DB_BOOK_LIMIT_COUNT)
-            _secondCatBooksNewItems.value = getAllCats(Keys.DB_SECOND_CAT, Keys.DB_BOOK_LIMIT_COUNT)
+    private fun getReferences() {
+        if (Connection.isInternetConnected()) {
+            databaseReferenceHelper?.getOnlineReference(OnlineReference.RECOMMENDED_ONLINE, referenceRepository, _recommendedToc)
+            databaseReferenceHelper?.getOnlineReference(OnlineReference.READMORE_ONLINE, referenceRepository, _readMoreToc)
         }
+        databaseReferenceHelper?.getOfflineReference(OnlineReference.RECOMMENDED_ONLINE, referenceRepository, _recommendedToc)
+        databaseReferenceHelper?.getOfflineReference(OnlineReference.READMORE_ONLINE, referenceRepository, _readMoreToc)
+
     }
 
-
-    private suspend fun getAllCats(catName:String, count:Int): List<CategoryModel> {
-        return withContext(Dispatchers.IO) {
-            val book = repository.getAllCats(catName,count)
-            book
-        }
-    }
-
-     private suspend fun getAllBooks(id: Int): List<BookModel> {
-        return withContext(Dispatchers.IO) {
-            val book = repository.getAllBooks(id)
-            book
-        }
-
-     }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
-    }
-
-
-    fun getReadMoreMainToc() {
-        uiScope.launch {
-                val getReadMoreDefferedList = TocApi.retrofitService.getMostReadToc()
-                try {
-                    val listResult = getReadMoreDefferedList.await()
-                    _readMoreToc.value = listResult
-                } catch (e: java.lang.Exception) {
-                    _errorTocRecieve.value = "Failure: ${e.message}"
-                    getReadMoreMainTocOffline()
-                }
-        }
-
-    }
-
-    private fun getReadMoreMainTocOffline() {
-        _readMoreToc.value = TempData.mostRead
-    }
-
-    fun getRecommandedToc() {
-        uiScope.launch {
-            val getRecommandedDefferedList = TocApi.retrofitService.getRecommandedToc()
-            try {
-                val listResult = getRecommandedDefferedList.await()
-                _recommendedToc.value = listResult
-            } catch (e: java.lang.Exception) {
-                _errorTocRecieve.value = "Failure: ${e.message}"
-                getRecommandedMainTocOffline()
-            }
-        }
+        databaseBookHelper = null
+        databaseReferenceHelper = null
     }
 
     fun openEpubAct() {
         _startEpubAct.value = true
     }
 
-    fun openDetailFrag(title: TitleAndDes) {
+    fun getCatId(id: Int) {
+        databaseBookHelper?.getBookItems(id, bookRepository, _bookItems)
+    }
+
+
+    fun openDetailFrag(title: CatSection) {
         _startDetailFrag.value = title
     }
 
@@ -153,14 +109,7 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
         _startSearchAct.value = true
     }
 
-     fun getCatId(id: Int) {
-         uiScope.launch {
-             _bookItems.value = getAllBooks(id)
-         }
-    }
-
-
-    companion object{
+    companion object {
         @JvmStatic
         @BindingAdapter("loadImage")
         fun setImage(image: ImageView, item: CategoryModel?) {
@@ -171,5 +120,4 @@ class LibraryViewModel(private val bookDatabaseDao: BookDatabaseDao) : ViewModel
         }
 
     }
-
 }

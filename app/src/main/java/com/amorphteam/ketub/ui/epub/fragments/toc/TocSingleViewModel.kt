@@ -3,7 +3,7 @@ package com.amorphteam.ketub.ui.epub.fragments.toc
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem
+import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.utility.TempData
 
 class TocSingleViewModel : ViewModel() {

@@ -1,59 +1,52 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabaseDao
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookRepository
-import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
-import com.amorphteam.ketub.utility.Keys
-import kotlinx.coroutines.*
+import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.model.BookModel
+import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.utility.DatabaseBookHelper
 
-class DetailViewModel(private val bookDatabaseDao: BookDatabaseDao, val titleAndDes:TitleAndDes) : ViewModel() {
-    var startEpubAct = MutableLiveData<Boolean>()
-    var startLibraryFrag = MutableLiveData<Boolean>()
+class DetailViewModel(private val bookRepository: BookRepository, var catSection: CatSection) :
+    ViewModel() {
+    private val _startEpubAct = MutableLiveData<Boolean>()
+    val startEpubAct: LiveData<Boolean>
+        get() = _startEpubAct
 
+    private val _startLibraryFrag = MutableLiveData<Boolean>()
+    val startLibraryFrag: LiveData<Boolean>
+        get() = _startLibraryFrag
 
-    private val repository: BookRepository = BookRepository(bookDatabaseDao)
+    private var _allCats = MutableLiveData<List<CategoryModel>>()
+    val allCats: LiveData<List<CategoryModel>?>
+        get() = _allCats
 
-    var viewModelJob = Job()
+    private var _bookItems = MutableLiveData<List<BookModel>>()
+    val bookItems: LiveData<List<BookModel>>
+        get() = _bookItems
 
-    val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-    private var _books = MutableLiveData<List<CategoryModel>>()
-    val books: LiveData<List<CategoryModel>>
-        get() = _books
+    private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
 
     init {
-        initializeBooks()
+        databaseBookHelper?.getCats(catSection.title, bookRepository, _allCats)
     }
 
-    private fun initializeBooks() {
-        uiScope.launch {
-            _books.value = getAllBooks(titleAndDes.title)
-        }
-    }
-
-    private suspend fun getAllBooks(catName:String): List<CategoryModel> {
-        return withContext(Dispatchers.IO) {
-            val book = repository.getAllCats(catName)
-            book
-        }
+    fun openLibraryFrag() {
+        _startLibraryFrag.value = true
     }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        databaseBookHelper = null
     }
-
 
     fun openEpubAct() {
-        startEpubAct.value = true
+        _startEpubAct.value = true
     }
 
-    fun openLibraryFrag() {
-        startLibraryFrag.value = true
+    fun getCatId(id: Int) {
+        databaseBookHelper?.getBookItems(id, bookRepository, _bookItems)
     }
 }

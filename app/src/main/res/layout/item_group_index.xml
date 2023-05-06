@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem" />
+            type="com.amorphteam.ketub.model.TocGroupItem" />
 
         <variable
             name="indexClickListener"

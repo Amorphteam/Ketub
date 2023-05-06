@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel" />
+            type="com.amorphteam.ketub.model.ReferenceModel" />
 
         <variable
             name="bookmarkClickListener"

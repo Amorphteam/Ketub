@@ -5,8 +5,8 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocFirstChildItem
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem
+import com.amorphteam.ketub.model.TocFirstChildItem
+import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.*
 

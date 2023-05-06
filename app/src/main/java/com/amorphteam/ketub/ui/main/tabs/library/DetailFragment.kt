@@ -1,9 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
 import android.content.Intent
-import android.icu.text.CaseMap.Title
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,35 +16,45 @@ import com.amorphteam.ketub.databinding.FragmentDetailBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
-import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
+import com.amorphteam.ketub.database.book.BookDatabase
+import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.model.CatSection
 import com.amorphteam.ketub.utility.Keys
 
 class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
     private lateinit var viewModel: DetailViewModel
-    private var titleAndDes: TitleAndDes? = null
+    private lateinit var catSection: CatSection
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         if (arguments != null) {
-            titleAndDes = arguments?.getSerializable("titleAndDes") as? TitleAndDes
+            catSection = (arguments?.getSerializable(Keys.NAV_CAT_SECTION) as? CatSection)!!
         }
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false
         )
 
         val application = requireNotNull(this.activity).application
-        val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = DetailViewModelFactory(dataSource, titleAndDes!!)
+        val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
+        val bookRepository = BookRepository(bookDao)
+        val viewModelFactory = DetailViewModelFactory(bookRepository, catSection)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+
+        viewModel.bookItems.observe(viewLifecycleOwner){
+            if (it.size == 1) {
+                viewModel.openEpubAct()
+            }else{
+                //TODO THIS SECTION MUST BE COMPLETED
+            }
+        }
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
             if (it) startActivity(Intent(activity, EpubActivity::class.java))
@@ -57,7 +65,7 @@ class DetailFragment : Fragment() {
                 .navigate(R.id.action_detailFragment_to_navigation_library)
         }
 
-        viewModel.books.observe(viewLifecycleOwner) {
+        viewModel.allCats.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 handleCatBooks(it)
             }
@@ -78,7 +86,7 @@ class DetailFragment : Fragment() {
 
     private fun handleCatBooks(bookArrayList: List<CategoryModel>) {
         val adapter = BookAdapter(BookClickListener { bookId ->
-            viewModel.openEpubAct()
+            viewModel.getCatId(bookId)
         })
         adapter.submitList(bookArrayList)
 

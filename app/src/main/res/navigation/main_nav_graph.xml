@@ -40,7 +40,7 @@
             android:id="@+id/action_detailFragment_to_navigation_library"
             app:destination="@id/navigation_library" />
         <argument
-            android:name="titleAndDes"
-            app:argType="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
+            android:name="catSection"
+            app:argType="com.amorphteam.ketub.model.CatSection" />
     </fragment>
 </navigation>

@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ItemChildIndexBinding
 import com.amorphteam.ketub.databinding.ItemGroupTocSingleBinding
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocFirstChildItem
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem
+import com.amorphteam.ketub.model.TocFirstChildItem
+import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.utility.TempData
 
 

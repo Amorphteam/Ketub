@@ -3,7 +3,7 @@
     <data>
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.main.tabs.library.model.MainToc" />
+            type="com.amorphteam.ketub.model.ReferenceModel" />
 
         <variable
             name="mainTocClickListener"

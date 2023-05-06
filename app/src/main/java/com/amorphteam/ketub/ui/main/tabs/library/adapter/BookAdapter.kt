@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemBookBinding
-import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
+import com.amorphteam.ketub.model.CategoryModel
 
 class BookAdapter(private val clickListener: BookClickListener) :
     ListAdapter<CategoryModel, BookAdapter.ViewHolder>(CustomizeDiffCallback()) {

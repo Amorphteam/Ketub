@@ -7,8 +7,8 @@
             name="viewModel"
             type="com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel" />
         <variable
-            name="titleAndDes"
-            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
+            name="catSection"
+            type="com.amorphteam.ketub.model.CatSection" />
     </data>
 
     <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="@{titleAndDes.title}" />
+                    android:text="@{catSection.title}" />
 
                 <TextView
                     android:id="@+id/caption"
@@ -46,13 +46,13 @@
                     android:textColor="?attr/colorPrimaryVariant"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@{titleAndDes.des}" />
+                    android:text="@{catSection.des}" />
             </LinearLayout>
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
-                android:src="@{titleAndDes.logo}" />
+                android:src="@{catSection.logo}" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:padding="@dimen/small_margin"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.openDetailFrag(titleAndDes)}"
+            android:onClick="@{()->viewModel.openDetailFrag(catSection)}"
             android:text="@string/see_all"
             android:background="@android:color/transparent"
             />

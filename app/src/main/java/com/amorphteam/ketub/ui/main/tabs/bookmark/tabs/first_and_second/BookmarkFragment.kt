@@ -3,7 +3,6 @@ package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,8 @@ import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabase
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.model.ReferenceModel
 
 class BookmarkFragment(val catName:String) : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
@@ -35,7 +33,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val dataSource = BookmarkDatabase.getInstance(application).bookmarkDatabaseDao
+        val dataSource = ReferenceDatabase.getInstance(application).referenceDatabaseDao
         val viewModelFactory = BookmarkViewModelFactory(dataSource, catName)
 
         viewModel =
@@ -55,7 +53,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
     }
 
     private fun handleBookmarkRecyclerView(
-        bookmarkArrayList: List<BookmarkModel>
+        bookmarkArrayList: List<ReferenceModel>
     ) {
         val adapter = BookmarkListAdapter(BookmarkClickListener {
             viewModel.openEpubAct()

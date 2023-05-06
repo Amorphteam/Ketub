@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemBookmarkBinding
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.TempData
 
 class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmarkDeleteclickListener: BookmarkDeleteClickListener) :
-    ListAdapter<BookmarkModel, BookmarkListAdapter.ViewHolder>(DiffCallback()), Filterable {
+    ListAdapter<ReferenceModel, BookmarkListAdapter.ViewHolder>(DiffCallback()), Filterable {
 
     class ViewHolder private constructor(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: BookmarkModel, clickListener: BookmarkClickListener, bookmarkDeleteclickListener: BookmarkDeleteClickListener ) {
+        fun bind(item: ReferenceModel, clickListener: BookmarkClickListener, bookmarkDeleteclickListener: BookmarkDeleteClickListener) {
             binding.item = item
             binding.bookmarkClickListener = clickListener
             binding.bookmarkDeleteClickListener = bookmarkDeleteclickListener
@@ -60,39 +60,39 @@ class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmark
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                submitList(results?.values as? List<BookmarkModel>)
+                submitList(results?.values as? List<ReferenceModel>)
 
             }
         }
     }
 
-    fun onFilter(list: List<BookmarkModel>, constraint: String): List<BookmarkModel> {
+    fun onFilter(list: List<ReferenceModel>, constraint: String): List<ReferenceModel> {
         val filteredList = list.filter {
-            it.bookTitle.lowercase().contains(constraint.lowercase())
+            it.title.lowercase().contains(constraint.lowercase())
         }
 
         return filteredList
     }
 }
 
-class DiffCallback() : DiffUtil.ItemCallback<BookmarkModel>() {
+class DiffCallback() : DiffUtil.ItemCallback<ReferenceModel>() {
 
-    override fun areItemsTheSame(p0: BookmarkModel, p1: BookmarkModel): Boolean {
+    override fun areItemsTheSame(p0: ReferenceModel, p1: ReferenceModel): Boolean {
         return p0.id == p1.id
     }
 
-    override fun areContentsTheSame(p0: BookmarkModel, p1: BookmarkModel): Boolean {
+    override fun areContentsTheSame(p0: ReferenceModel, p1: ReferenceModel): Boolean {
         return p0 == p1
     }
 
 }
 
 class BookmarkClickListener(val clickListener: (Id: Int) -> Unit) {
-    fun onClick(bookmarkData: BookmarkModel) = clickListener(bookmarkData.id)
+    fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData.id)
 
 }
 
 class BookmarkDeleteClickListener(val clickListener: (Id: Int) -> Unit) {
-    fun onClick(bookmarkData: BookmarkModel) = clickListener(bookmarkData.id)
+    fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData.id)
 
 }

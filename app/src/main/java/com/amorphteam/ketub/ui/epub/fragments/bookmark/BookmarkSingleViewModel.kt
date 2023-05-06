@@ -4,27 +4,27 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabaseDao
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkRepository
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
+import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.Keys
 import kotlinx.coroutines.*
 
-class BookmarkSingleViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao) : ViewModel() {
+class BookmarkSingleViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao) : ViewModel() {
     var startEpubFrag = MutableLiveData<Boolean>()
 
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val repository: BookmarkRepository = BookmarkRepository(bookmarkDatabaseDao)
+    private val repository: ReferenceRepository = ReferenceRepository(referenceDatabaseDao)
 
     private var _bookName = MutableLiveData<String>()
     val bookName: LiveData<String>
         get() = _bookName
 
-    private var _allBookmarks = MutableLiveData<List<BookmarkModel>>()
-    val allBookmarks: LiveData<List<BookmarkModel>>
+    private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
+    val allBookmarks: LiveData<List<ReferenceModel>>
         get() = _allBookmarks
 
     init {
@@ -44,9 +44,9 @@ class BookmarkSingleViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseD
         }
     }
 
-    private suspend fun getAllBookmarksForSingleBookFromDatabase(bookName:String): List<BookmarkModel> {
+    private suspend fun getAllBookmarksForSingleBookFromDatabase(bookName:String): List<ReferenceModel> {
         return withContext(Dispatchers.IO) {
-            val bookmark = repository.getAllBookmarksForSingleBook(bookName)
+            val bookmark = repository.getAllReferencesForSingleBook(bookName)
             bookmark
         }
     }

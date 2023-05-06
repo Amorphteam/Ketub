@@ -5,9 +5,9 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabaseDao
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkRepository
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
+import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, private val catName: String) :
+class BookmarkViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao, private val catName: String) :
     ViewModel() {
 
     var startEpubAct = MutableLiveData<Boolean>()
@@ -23,10 +23,10 @@ class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, pr
     private var viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val repository: BookmarkRepository = BookmarkRepository(bookmarkDatabaseDao)
+    private val repository: ReferenceRepository = ReferenceRepository(referenceDatabaseDao)
 
-    private var _allBookmarks = MutableLiveData<List<BookmarkModel>>()
-    val allBookmarks: LiveData<List<BookmarkModel>>
+    private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
+    val allBookmarks: LiveData<List<ReferenceModel>>
         get() = _allBookmarks
 
     init {
@@ -44,9 +44,9 @@ class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, pr
         }
     }
 
-    private suspend fun getAllBookmarks(catName:String): List<BookmarkModel>? {
+    private suspend fun getAllBookmarks(catName:String): List<ReferenceModel>? {
         return withContext(Dispatchers.IO) {
-            val bookmark = repository.getAllBookmarks(catName)
+            val bookmark = repository.getAllReferences(catName)
             bookmark
         }
     }
@@ -78,7 +78,7 @@ class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, pr
     companion object{
         @JvmStatic
         @BindingAdapter("bookName")
-        fun TextView.setBookName(item: BookmarkModel?) {
+        fun TextView.setBookName(item: ReferenceModel?) {
             item?.let {
                 text = item.bookName
             }
@@ -86,9 +86,9 @@ class BookmarkViewModel(private val bookmarkDatabaseDao: BookmarkDatabaseDao, pr
 
         @JvmStatic
         @BindingAdapter("bookTitle")
-        fun TextView.setBookTitle(item: BookmarkModel?) {
+        fun TextView.setBookTitle(item: ReferenceModel?) {
             item?.let {
-                text = item.bookTitle
+                text = item.title
             }
         }
     }

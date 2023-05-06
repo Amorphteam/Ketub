@@ -2,10 +2,10 @@ package com.amorphteam.ketub.ui.epub.fragments.bookmark
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabaseDao
+import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
 
 class BookmarkSingleViewModelFactory (
-    private val dataSource: BookmarkDatabaseDao
+    private val dataSource: ReferenceDatabaseDao
 ) : ViewModelProvider.Factory {
 
     @Suppress("unckecked_cast")

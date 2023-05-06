@@ -8,12 +8,12 @@
             type="com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel" />
 
         <variable
-            name="titleAndDes1"
-            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
+            name="catSection1"
+            type="com.amorphteam.ketub.model.CatSection" />
 
         <variable
-            name="titleAndDes2"
-            type="com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes" />
+            name="catSection2"
+            type="com.amorphteam.ketub.model.CatSection" />
     </data>
 
 
@@ -86,7 +86,7 @@
                     android:layout_marginTop="@dimen/small_margin"
                     android:layout_marginEnd="@dimen/small_margin"
                     android:layout_marginBottom="@dimen/small_margin"
-                    app:titleAndDes="@{titleAndDes1}"
+                    app:catSection="@{catSection1}"
                     app:viewModel="@{viewModel}" />
 
                 <include
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/first_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
-                    app:titleAndDes="@{titleAndDes2}"
+                    app:catSection="@{catSection2}"
                     app:viewModel="@{viewModel}" />
 
                 <include

@@ -2,10 +2,10 @@ package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabaseDao
+import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
 
 class BookmarkViewModelFactory (
-    private val dataSource: BookmarkDatabaseDao,
+    private val dataSource: ReferenceDatabaseDao,
     private val catName:String
 ) : ViewModelProvider.Factory {
 

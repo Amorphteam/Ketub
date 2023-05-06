@@ -16,8 +16,8 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkDeleteSingleClickListener
 import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkSingleAdapter
 import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkSingleClickListener
-import com.amorphteam.ketub.ui.main.tabs.bookmark.database.BookmarkDatabase
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
+import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.Keys
 
 class BookmarkSingleFragment : Fragment() {
@@ -31,7 +31,7 @@ class BookmarkSingleFragment : Fragment() {
     ): View {
         // Create an instance of the ViewModel Factory.
         val application = requireNotNull(this.activity).application
-        val dataSource = BookmarkDatabase.getInstance(application).bookmarkDatabaseDao
+        val dataSource = ReferenceDatabase.getInstance(application).referenceDatabaseDao
         val viewModelFactory = BookmarkSingleViewModelFactory(dataSource)
 
         // Get a reference to the ViewModel associated with this fragment.
@@ -79,7 +79,7 @@ class BookmarkSingleFragment : Fragment() {
 
     private fun handleBookmarkRecyclerView(
         index: BookmarkSingleAdapter,
-        bookmarkArrayList: List<BookmarkModel>
+        bookmarkArrayList: List<ReferenceModel>
     ) {
         index.submitList(bookmarkArrayList)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

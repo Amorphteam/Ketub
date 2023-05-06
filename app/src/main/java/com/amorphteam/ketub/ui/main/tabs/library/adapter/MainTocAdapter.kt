@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemMainTocBinding
-import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
+import com.amorphteam.ketub.model.ReferenceModel
 
-class MainTocAdapter(val clickListener: MainTocClickListener) : ListAdapter<MainToc, MainTocAdapter.ViewHolder>(DiffCallback()) {
+class MainTocAdapter(val clickListener: MainTocClickListener) : ListAdapter<ReferenceModel, MainTocAdapter.ViewHolder>(DiffCallback()) {
 
     class ViewHolder private constructor(val binding: ItemMainTocBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MainToc, clickListener: MainTocClickListener) {
+        fun bind(item: ReferenceModel, clickListener: MainTocClickListener) {
             binding.item = item
             binding.mainTocClickListener = clickListener
             binding.title.text = item.title
@@ -41,19 +41,19 @@ class MainTocAdapter(val clickListener: MainTocClickListener) : ListAdapter<Main
     }
 
 }
-class DiffCallback() : DiffUtil.ItemCallback<MainToc>() {
+class DiffCallback() : DiffUtil.ItemCallback<ReferenceModel>() {
 
-    override fun areItemsTheSame(p0: MainToc, p1: MainToc): Boolean {
+    override fun areItemsTheSame(p0: ReferenceModel, p1: ReferenceModel): Boolean {
         return p0.id == p1.id
     }
 
-    override fun areContentsTheSame(p0: MainToc, p1: MainToc): Boolean {
-        return p0 == p1
+    override fun areContentsTheSame(p0: ReferenceModel, p1: ReferenceModel): Boolean {
+        return p0.equals(p1)
     }
 
 }
 
 class MainTocClickListener(val clickListener: (Id: Int) -> Unit) {
-    fun onClick(tocData: MainToc) = clickListener(tocData.id)
+    fun onClick(tocData: ReferenceModel) = clickListener(tocData.id)
 
 }

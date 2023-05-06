@@ -1,27 +1,13 @@
 package com.amorphteam.ketub.utility
 
-import com.amorphteam.ketub.ui.main.tabs.bookmark.model.BookmarkModel
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocFirstChildItem
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocGroupItem
-import com.amorphteam.ketub.ui.main.tabs.toc.model.TocSecondChildItem
-import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
+import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.model.TocFirstChildItem
+import com.amorphteam.ketub.model.TocGroupItem
+import com.amorphteam.ketub.model.TocSecondChildItem
 import com.amorphteam.ketub.ui.search.model.SearchModel
 
 class TempData {
     companion object {
-
-        var mostRead = arrayListOf(
-            MainToc(1, "إشكالية اللغة في الخطاب الدينdddddي "),
-            MainToc(
-                2,
-                "قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أdddصول الفقه ـ القسم الثاني"
-            ),
-            MainToc(3, "إله العرفان وإله الفلسفةddd / اختلافاتٌ جوهريّة"),
-            MainToc(4, "الوَحْي الإلهdddيّ عند الفارابي"),
-            MainToc(5, "إله العرفان وإله الفلdddسفة / اختلافاتٌ جوهريّة"),
-            MainToc(6, "الوَحْيddd الإلهيّ عند الفارابي"),
-            MainToc(7, "مباني فهم النصّ / في الفكر الأdddصوليّ للسيّد محمّد باقر الصدر")
-        )
 
         var searchResult = arrayListOf(
             SearchModel(1, 29, "نصوص معاصرة", "إشكالية اللغة في الخطاب الديني "),
@@ -44,24 +30,20 @@ class TempData {
         )
 
         var bookMarkArray = arrayListOf(
-            BookmarkModel(1, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة"),
-            BookmarkModel(
-                2,
-                "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر",
-                "الاجتهاد والتجديد"
-            ),
-            BookmarkModel(
-                3,
-                "قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني",
-                "نصوص معاصرة"
-            ),
-            BookmarkModel(4, "إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة", "الاجتهاد والتجديد"),
-            BookmarkModel(5, "الوَحْي الإلهيّ عند الفارابي", "نصوص معاصرة"),
-            BookmarkModel(6, "إشكالية اللغة في الخطاب الديني", "الاجتهاد والتجديد"),
-            BookmarkModel(7, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة"),
-            BookmarkModel(8, "الوَحْي الإلهيّ عند الفارابي", "الاجتهاد والتجديد"),
-            BookmarkModel(9, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة")
-        )
+            ReferenceModel(111, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(
+                11111,
+                "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(
+                111111,
+                "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(111111111, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(1111221111, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(645, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(47, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            ReferenceModel(58, "إشكالية اللغة في الخطاب الديني", "الاجتهاد والتجديد", "", 1, "", 3F),
+            ReferenceModel(69, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "", 1, "", 3F),
+            )
 
         val indexItems = listOf(
             TocGroupItem(

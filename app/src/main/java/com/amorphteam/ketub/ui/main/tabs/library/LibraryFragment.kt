@@ -19,10 +19,13 @@ import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
 import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
-import com.amorphteam.ketub.ui.main.tabs.library.database.BookDatabase
-import com.amorphteam.ketub.ui.main.tabs.library.model.CategoryModel
-import com.amorphteam.ketub.ui.main.tabs.library.model.MainToc
-import com.amorphteam.ketub.ui.main.tabs.library.model.TitleAndDes
+import com.amorphteam.ketub.database.book.BookDatabase
+import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 
@@ -40,19 +43,23 @@ class LibraryFragment : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val dataSource = BookDatabase.getInstance(application).bookDatabaseDao
-        val viewModelFactory = LibraryViewModelFactory(dataSource)
+        val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
+        val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
+
+        val bookRepository = BookRepository(bookDao)
+        val referenceRepository = ReferenceRepository(referenceDao)
+        val viewModelFactory = LibraryViewModelFactory(bookRepository, referenceRepository)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
 
         binding.viewModel = viewModel
-        binding.titleAndDes1 = TitleAndDes(
+        binding.catSection1 = CatSection(
             resources.getString(R.string.ejtehad_title),
             resources.getString(R.string.ejtehad_caption),
             ResourcesCompat.getDrawable(resources, R.drawable.ejtihad_logo, null)!!
         )
-        binding.titleAndDes2 = TitleAndDes(
+        binding.catSection2 = CatSection(
             resources.getString(R.string.nosos_title),
             resources.getString(R.string.nosos_caption),
             ResourcesCompat.getDrawable(resources, R.drawable.nosos_logo, null)!!
@@ -70,10 +77,13 @@ class LibraryFragment : Fragment() {
         }
 
         viewModel.startDetailFrag.observe(viewLifecycleOwner) {
-            val bundle = Bundle()
-            bundle.putSerializable("titleAndDes", it)
-            Navigation.findNavController(requireView())
-                .navigate(R.id.action_navigation_library_to_detailFragment, bundle)
+            if (it !=null) {
+                val bundle = Bundle()
+
+                bundle.putSerializable(Keys.NAV_CAT_SECTION, it)
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_navigation_library_to_detailFragment, bundle)
+            }
         }
 
         viewModel.readMoreToc.observe(viewLifecycleOwner) {
@@ -110,14 +120,12 @@ class LibraryFragment : Fragment() {
             handleRecommanded(it)
         }
 
-        viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
-            Log.i(Keys.LOG_NAME, it)
-        }
+
 
         return binding.root
     }
 
-    private fun handleRecommanded(list: List<MainToc>) {
+    private fun handleRecommanded(list: List<ReferenceModel>) {
         val recommandedToc = MainTocAdapter(MainTocClickListener {
             viewModel.openEpubAct()
         })
@@ -127,7 +135,7 @@ class LibraryFragment : Fragment() {
         binding.tocRecommanded.recyclerView.adapter = recommandedToc
     }
 
-    private fun handleReadMore(list: List<MainToc>) {
+    private fun handleReadMore(list: List<ReferenceModel>) {
         val readMoreToc = MainTocAdapter(MainTocClickListener {
             viewModel.openEpubAct()
         })
