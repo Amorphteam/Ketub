@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.main.tabs.library
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -15,6 +16,7 @@ import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.*
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
+import java.security.Key
 
 open class LibraryViewModel(
     private val bookRepository: BookRepository,
@@ -119,5 +121,22 @@ open class LibraryViewModel(
                 .into(image)
         }
 
+        @SuppressLint("DiscouragedApi")
+        @JvmStatic
+        @BindingAdapter("setImage")
+        fun setImage(image: ImageView, item: ReferenceModel){
+            var drawableImage = "ejtihad_logo"
+            if (item.bookName.contains(Keys.DB_SECOND_CAT)){
+                drawableImage = "nosos_logo"
+            }
+            Glide.with(image.context)
+                .load(image.context.resources
+                    .getIdentifier(drawableImage, "drawable", image.context.packageName))
+                .placeholder(R.drawable.ejtihad_logo)
+                .into(image)
+        }
+
     }
+
+
 }

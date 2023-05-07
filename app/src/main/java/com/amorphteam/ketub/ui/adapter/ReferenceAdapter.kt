@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.bookmark.adapter
+package com.amorphteam.ketub.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,16 +11,16 @@ import com.amorphteam.ketub.databinding.ItemBookmarkBinding
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.TempData
 
-class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmarkDeleteclickListener: BookmarkDeleteClickListener) :
-    ListAdapter<ReferenceModel, BookmarkListAdapter.ViewHolder>(DiffCallback()), Filterable {
+class ReferenceAdapter(private val clickListener: ItemClickListener, private val deleteClickListener: DeleteClickListener) :
+    ListAdapter<ReferenceModel, ReferenceAdapter.ViewHolder>(DiffCallback()), Filterable {
 
     class ViewHolder private constructor(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ReferenceModel, clickListener: BookmarkClickListener, bookmarkDeleteclickListener: BookmarkDeleteClickListener) {
+        fun bind(item: ReferenceModel, clickListener: ItemClickListener, deleteClickListener: DeleteClickListener) {
             binding.item = item
-            binding.bookmarkClickListener = clickListener
-            binding.bookmarkDeleteClickListener = bookmarkDeleteclickListener
+            binding.itemClickListener = clickListener
+            binding.deleteClickListener = deleteClickListener
             binding.executePendingBindings()
         }
 
@@ -30,7 +30,6 @@ class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmark
                 val binding =
                     ItemBookmarkBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
-
             }
         }
     }
@@ -41,7 +40,7 @@ class BookmarkListAdapter(val clickListener: BookmarkClickListener, val bookmark
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener, bookmarkDeleteclickListener)
+        holder.bind(item, clickListener, deleteClickListener)
     }
 
     override fun getFilter(): Filter {
@@ -87,12 +86,12 @@ class DiffCallback() : DiffUtil.ItemCallback<ReferenceModel>() {
 
 }
 
-class BookmarkClickListener(val clickListener: (Id: Int) -> Unit) {
+class ItemClickListener(val clickListener: (Id: Int) -> Unit) {
     fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData.id)
 
 }
 
-class BookmarkDeleteClickListener(val clickListener: (Id: Int) -> Unit) {
+class DeleteClickListener(val clickListener: (Id: Int) -> Unit) {
     fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData.id)
 
 }

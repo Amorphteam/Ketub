@@ -15,10 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocAdapter
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.MainTocClickListener
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
@@ -26,8 +22,10 @@ import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.CatSection
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.ui.adapter.*
 import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.OnlineReference
 
 
 class LibraryFragment : Fragment() {
@@ -86,9 +84,7 @@ class LibraryFragment : Fragment() {
             }
         }
 
-        viewModel.readMoreToc.observe(viewLifecycleOwner) {
-            handleReadMore(it)
-        }
+
 
         viewModel.firstCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
@@ -117,32 +113,31 @@ class LibraryFragment : Fragment() {
         }
 
         viewModel.recommendedToc.observe(viewLifecycleOwner) {
-            handleRecommanded(it)
+            handleRecyclerView(it, OnlineReference.RECOMMENDED_ONLINE)
         }
 
+        viewModel.readMoreToc.observe(viewLifecycleOwner) {
+            handleRecyclerView(it, OnlineReference.READMORE_ONLINE)
+        }
 
 
         return binding.root
     }
 
-    private fun handleRecommanded(list: List<ReferenceModel>) {
-        val recommandedToc = MainTocAdapter(MainTocClickListener {
+    private fun handleRecyclerView(list: List<ReferenceModel>, onlineReference: OnlineReference) {
+        val adapter = ReferenceAdapter(ItemClickListener {
             viewModel.openEpubAct()
+        }, DeleteClickListener {
         })
-        recommandedToc.submitList(list)
+        adapter.submitList(list)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.tocRecommanded.recyclerView.layoutManager = layoutManager
-        binding.tocRecommanded.recyclerView.adapter = recommandedToc
-    }
-
-    private fun handleReadMore(list: List<ReferenceModel>) {
-        val readMoreToc = MainTocAdapter(MainTocClickListener {
-            viewModel.openEpubAct()
-        })
-        readMoreToc.submitList(list)
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.tocReadMore.recyclerView.layoutManager = layoutManager
-        binding.tocReadMore.recyclerView.adapter = readMoreToc
+        if (onlineReference == OnlineReference.RECOMMENDED_ONLINE) {
+            binding.tocRecommanded.recyclerView.layoutManager = layoutManager
+            binding.tocRecommanded.recyclerView.adapter = adapter
+        }else {
+            binding.tocReadMore.recyclerView.layoutManager = layoutManager
+            binding.tocReadMore.recyclerView.adapter = adapter
+        }
     }
 
 

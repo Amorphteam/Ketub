@@ -4,14 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivitySearchBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
 import com.amorphteam.ketub.ui.search.adapter.SearchClickListener
 import com.amorphteam.ketub.ui.search.adapter.SearchListAdapter
 import com.amorphteam.ketub.utility.Keys

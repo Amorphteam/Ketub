@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.main.tabs.toc.adapter
+package com.amorphteam.ketub.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View

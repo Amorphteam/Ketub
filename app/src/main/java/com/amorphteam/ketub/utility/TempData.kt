@@ -4,7 +4,7 @@ import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.model.TocFirstChildItem
 import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.model.TocSecondChildItem
-import com.amorphteam.ketub.ui.search.model.SearchModel
+import com.amorphteam.ketub.model.SearchModel
 
 class TempData {
     companion object {

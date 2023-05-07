@@ -10,7 +10,7 @@
 
         <variable
             name="bookClickListener"
-            type="com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener" />
+            type="com.amorphteam.ketub.ui.adapter.BookClickListener" />
 
     </data>
 

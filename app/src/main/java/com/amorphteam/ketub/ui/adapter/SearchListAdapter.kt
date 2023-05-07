@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemSearchBinding
-import com.amorphteam.ketub.ui.search.model.SearchModel
+import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.utility.TempData
 
 class SearchListAdapter(val clickListener: SearchClickListener) :

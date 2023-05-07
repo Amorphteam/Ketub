@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.amorphteam.ketub.ui.search.model.SearchModel" />
+            type="com.amorphteam.ketub.model.SearchModel" />
 
         <variable
             name="searchSingleClickListener"

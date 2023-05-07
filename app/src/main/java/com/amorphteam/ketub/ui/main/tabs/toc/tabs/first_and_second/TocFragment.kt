@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentTocBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.main.tabs.toc.adapter.IndexExpandableAdapter
+import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 import com.amorphteam.ketub.model.TocGroupItem
 
 

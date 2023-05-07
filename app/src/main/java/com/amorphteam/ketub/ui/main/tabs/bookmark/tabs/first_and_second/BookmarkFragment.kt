@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener
-import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener
-import com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkListAdapter
+import com.amorphteam.ketub.ui.adapter.ItemClickListener
+import com.amorphteam.ketub.ui.adapter.DeleteClickListener
+import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.model.ReferenceModel
 
@@ -55,10 +55,10 @@ class BookmarkFragment(val catName:String) : Fragment() {
     private fun handleBookmarkRecyclerView(
         bookmarkArrayList: List<ReferenceModel>
     ) {
-        val adapter = BookmarkListAdapter(BookmarkClickListener {
+        val adapter = ReferenceAdapter(ItemClickListener {
             viewModel.openEpubAct()
 
-        }, BookmarkDeleteClickListener {
+        }, DeleteClickListener {
             viewModel.deleteBookmark(it)
         })
         adapter.submitList(bookmarkArrayList)
@@ -70,7 +70,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
     }
 
     private fun handleSearchView(
-        index: BookmarkListAdapter
+        index: ReferenceAdapter
     ) {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -85,7 +85,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: BookmarkListAdapter) {
+    private fun filterSearch(searchString: String, index: ReferenceAdapter) {
         index.filter.filter(searchString)
     }
 

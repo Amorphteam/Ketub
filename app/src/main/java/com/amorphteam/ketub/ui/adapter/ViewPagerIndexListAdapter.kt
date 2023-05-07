@@ -1,14 +1,13 @@
-package com.amorphteam.ketub.ui.main.tabs.bookmark.adapter
+package com.amorphteam.ketub.ui.adapter
 
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class ViewPagerBookmarkListAdapter(activity: FragmentActivity?) : FragmentStateAdapter(activity!!) {
+class ViewPagerIndexListAdapter(activity: FragmentActivity?) : FragmentStateAdapter(activity!!) {
     private val mFragmentList: MutableList<Fragment> = ArrayList()
     private val mFragmentTitleList: MutableList<String> = ArrayList()
 
-    fun getTabTitle(position: Int): String {
+     fun getTabTitle(position: Int): String {
         return mFragmentTitleList[position]
     }
 
@@ -25,3 +24,5 @@ class ViewPagerBookmarkListAdapter(activity: FragmentActivity?) : FragmentStateA
         return mFragmentList[position]
     }
 }
+
+

@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.amorphteam.ketub.utility.OnlineReference"/>
+        <import type="android.view.View"/>
+        <import type="androidx.core.content.ContextCompat" />
         <variable
             name="item"
             type="com.amorphteam.ketub.model.ReferenceModel" />
 
         <variable
-            name="bookmarkClickListener"
-            type="com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkClickListener" />
+            name="itemClickListener"
+            type="com.amorphteam.ketub.ui.adapter.ItemClickListener" />
 
         <variable
-            name="BookmarkDeleteClickListener"
-            type="com.amorphteam.ketub.ui.main.tabs.bookmark.adapter.BookmarkDeleteClickListener" />
+            name="deleteClickListener"
+            type="com.amorphteam.ketub.ui.adapter.DeleteClickListener" />
 
     </data>
 
@@ -23,16 +25,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/small_margin"
         android:gravity="center"
-        android:onClick="@{() -> bookmarkClickListener.onClick(item)}"
+        android:onClick="@{() -> itemClickListener.onClick(item)}"
         android:orientation="horizontal">
 
         <ImageButton
+            android:visibility="@{item.onlineReference == OnlineReference.NONE ? View.VISIBLE : View.GONE}"
             android:id="@+id/delete_bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/small_margin"
             android:background="@null"
-            android:onClick="@{() -> BookmarkDeleteClickListener.onClick(item)}"
+            android:onClick="@{() -> deleteClickListener.onClick(item)}"
             android:src="@drawable/ic_close"
 
             />
@@ -43,14 +46,31 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/book_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/xsmall_margin"
-                android:text="@string/ejtehad_caption"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:bookTitle="@{item}" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/book_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/xsmall_margin"
+                    android:text="@string/ejtehad_caption"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:bookTitle="@{item}" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:visibility="@{item.onlineReference == OnlineReference.NONE ? View.GONE : View.VISIBLE}"
+                    android:layout_width="@dimen/normal_image"
+                    android:layout_height="@dimen/normal_image"
+                    app:setImage="@{item}"/>
+            </LinearLayout>
+
+
 
             <TextView
                 android:id="@+id/book_name"
@@ -61,6 +81,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="?attr/colorPrimaryVariant"
                 android:textSize="@dimen/description_text"
+                android:visibility="@{item.onlineReference == OnlineReference.NONE ? View.VISIBLE : View.GONE}"
                 app:bookName="@{item}" />
         </LinearLayout>
 

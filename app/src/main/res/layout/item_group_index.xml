@@ -10,7 +10,7 @@
 
         <variable
             name="indexClickListener"
-            type="com.amorphteam.ketub.ui.main.tabs.toc.adapter.ClickListener" />
+            type="com.amorphteam.ketub.ui.adapter.ClickListener" />
     </data>
 
     <LinearLayout

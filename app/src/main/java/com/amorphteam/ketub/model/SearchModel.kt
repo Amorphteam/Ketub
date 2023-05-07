@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.search.model
+package com.amorphteam.ketub.model
 
 data class SearchModel(
     val id: Int,

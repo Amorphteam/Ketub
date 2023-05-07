@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentDetailBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookAdapter
-import com.amorphteam.ketub.ui.main.tabs.library.adapter.BookClickListener
+import com.amorphteam.ketub.ui.adapter.BookAdapter
+import com.amorphteam.ketub.ui.adapter.BookClickListener
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.CategoryModel

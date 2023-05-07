@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentTocContainerBinding
-import com.amorphteam.ketub.ui.main.tabs.toc.adapter.ViewPagerIndexListAdapter
+import com.amorphteam.ketub.ui.adapter.ViewPagerIndexListAdapter
 import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.nososejtehad.index.TocContainerViewModel
