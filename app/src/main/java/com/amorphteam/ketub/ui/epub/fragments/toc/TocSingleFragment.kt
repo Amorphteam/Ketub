@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.epub.fragments.toc.adapter.TocSingleExpandableAdapter
+import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 
 class TocSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentTocSingleBinding
@@ -32,7 +32,7 @@ class TocSingleFragment : Fragment() {
         viewModel.startEpubFrag.observe(viewLifecycleOwner) {
 //            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
-        val adapter = TocSingleExpandableAdapter()
+        val adapter = IndexExpandableAdapter()
         adapter.submitList(viewModel.tocGroupItems.value!!)
         binding.expandableListView.setAdapter(adapter)
 
@@ -55,7 +55,7 @@ class TocSingleFragment : Fragment() {
     }
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
-        index: TocSingleExpandableAdapter
+        index: IndexExpandableAdapter
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -73,7 +73,7 @@ class TocSingleFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: TocSingleExpandableAdapter) {
+    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
         index.filter.filter(searchString)
     }
 

@@ -1,4 +1,4 @@
-package com.amorphteam.nososejtehad.bookmark
+package com.amorphteam.ketub.ui.main.tabs.bookmark
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkContainerBinding
-import com.amorphteam.ketub.ui.adapter.ViewPagerBookmarkListAdapter
+import com.amorphteam.ketub.ui.adapter.ViewPagerAdapter
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkFragment
+import com.amorphteam.nososejtehad.bookmark.BookmarkContainerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -34,7 +35,7 @@ class BookmarkContainerFragment : Fragment() {
     }
 
     private fun handleTabViewPager(binding: FragmentBookmarkContainerBinding) {
-        val adapter = ViewPagerBookmarkListAdapter(activity)
+        val adapter = ViewPagerAdapter(activity)
         val firsBookmarkFragment = BookmarkFragment(getString(R.string.nosos_title))
         val secondBookmarkFragment = BookmarkFragment(getString(R.string.ejtehad_title))
         adapter.addFragment(firsBookmarkFragment, getString(R.string.nosos_title))

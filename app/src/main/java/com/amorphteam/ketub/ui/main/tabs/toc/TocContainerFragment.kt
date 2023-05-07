@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentTocContainerBinding
-import com.amorphteam.ketub.ui.adapter.ViewPagerIndexListAdapter
+import com.amorphteam.ketub.ui.adapter.ViewPagerAdapter
 import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.nososejtehad.index.TocContainerViewModel
@@ -37,7 +37,7 @@ class TocContainerFragment : Fragment() {
     }
 
     private fun handleTabViewPager(binding: FragmentTocContainerBinding) {
-        val adapter = ViewPagerIndexListAdapter(activity)
+        val adapter = ViewPagerAdapter(activity)
         val firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
         val secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
 

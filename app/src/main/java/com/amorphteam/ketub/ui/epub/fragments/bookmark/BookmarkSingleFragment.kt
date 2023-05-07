@@ -13,11 +13,12 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkDeleteSingleClickListener
-import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkSingleAdapter
-import com.amorphteam.ketub.ui.epub.fragments.bookmark.adapter.BookmarkSingleClickListener
+
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.ui.adapter.DeleteClickListener
+import com.amorphteam.ketub.ui.adapter.ItemClickListener
+import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.utility.Keys
 
 class BookmarkSingleFragment : Fragment() {
@@ -48,10 +49,10 @@ class BookmarkSingleFragment : Fragment() {
 //            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
 
-        val adapter = BookmarkSingleAdapter(BookmarkSingleClickListener {
+        val adapter = ReferenceAdapter(ItemClickListener {
 //            viewModel.openEpubAct()
 
-        }, BookmarkDeleteSingleClickListener {
+        }, DeleteClickListener {
             Log.i(Keys.LOG_NAME, "BookmarkDeleteClickListener$it")
             viewModel.deleteBookmark(it)
 
@@ -78,7 +79,7 @@ class BookmarkSingleFragment : Fragment() {
     }
 
     private fun handleBookmarkRecyclerView(
-        index: BookmarkSingleAdapter,
+        index: ReferenceAdapter,
         bookmarkArrayList: List<ReferenceModel>
     ) {
         index.submitList(bookmarkArrayList)
@@ -89,7 +90,7 @@ class BookmarkSingleFragment : Fragment() {
 
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
-        index: BookmarkSingleAdapter
+        index: ReferenceAdapter
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -107,7 +108,7 @@ class BookmarkSingleFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: BookmarkSingleAdapter) {
+    private fun filterSearch(searchString: String, index: ReferenceAdapter) {
         index.filter.filter(searchString)
     }
 
