@@ -24,7 +24,8 @@ class FileManager(context: Context) {
             throw RuntimeException(context.getString(R.string.error_copy_file))
         }
 
-        BASE_OUT_ADDRESS = context.getExternalFilesDir(null)!!.absolutePath
+        BASE_OUT_ADDRESS = context.getExternalFilesDir(null)!!.getAbsolutePath()
+
         OUT_BOOK_ADDRESS = "$BASE_OUT_ADDRESS/${Keys.ASSET_BOOK_DIR}"
         OUT_COVER_ADDRESS = "$BASE_OUT_ADDRESS/${Keys.ASSET_COVER_DIR}"
 
@@ -37,7 +38,7 @@ class FileManager(context: Context) {
         cover.mkdirs()
     }
 
-    private fun isNewVersion(context: Context?): Boolean {
+    fun isNewVersion(context: Context?): Boolean {
         val pref = context?.let { PreferencesManager(it) }
         val currVersion: Int = pref!!.loadAppVersion()
 
@@ -163,7 +164,7 @@ class FileManager(context: Context) {
         return result
     }
 
-    private fun getBookAddress(booksName: String): String? {
+    fun getBookAddress(booksName: String): String? {
         return if (!booksName.contains(OUT_BOOK_ADDRESS!!)) {
             "$OUT_BOOK_ADDRESS/$booksName"
         } else booksName

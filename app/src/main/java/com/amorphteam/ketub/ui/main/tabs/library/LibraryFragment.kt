@@ -13,17 +13,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.databinding.FragmentLibraryBinding
-import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
-import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.ui.adapter.*
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.search.SearchActivity
+import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.OnlineReference
 
@@ -31,6 +32,7 @@ import com.amorphteam.ketub.utility.OnlineReference
 class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
     private lateinit var viewModel: LibraryViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +52,7 @@ class LibraryFragment : Fragment() {
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
+
 
         binding.viewModel = viewModel
         binding.catSection1 = CatSection(
@@ -101,6 +104,12 @@ class LibraryFragment : Fragment() {
 
         viewModel.bookItems.observe(viewLifecycleOwner){
             if (it.size == 1) {
+                val fileManager = FileManager(requireActivity())
+
+                val bookAddress = fileManager.getBookAddress(it[0].bookPath!!)
+
+                Log.i("ssssss", bookAddress.toString())
+
                 viewModel.openEpubAct()
             }else{
                 //TODO THIS SECTION MUST BE COMPLETED
