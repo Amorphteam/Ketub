@@ -14,7 +14,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
+import com.amorphteam.ketub.utility.Keys
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.sheet.*
 
 
@@ -91,6 +93,16 @@ class EpubViewerFragment : Fragment() {
         return binding.root
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (arguments != null) {
+//            val manifestItem = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
+            val position = requireArguments().getInt(Keys.POSITION_ITEM)
+
+            //TODO: HANDLE GETSTRING
+        }
+    }
     private fun openSearchFragment() {
         navController = Navigation.findNavController(requireView())
         navController.navigate(R.id.action_epubViewFragment_to_searchSingleFragment)
@@ -171,6 +183,22 @@ class EpubViewerFragment : Fragment() {
             }
         })
 
+
+    }
+
+    companion object {
+        fun newInstance(
+            manifestItem: ManifestItem?,
+            pos: Int
+        ): EpubViewerFragment {
+            val bundle = Bundle()
+            bundle.putParcelable(Keys.MANIFEST_ITEM, manifestItem)
+            bundle.putInt(Keys.POSITION_ITEM, pos)
+            val instance: EpubViewerFragment =
+                EpubViewerFragment()
+            instance.arguments = bundle
+            return instance
+        }
 
     }
 
