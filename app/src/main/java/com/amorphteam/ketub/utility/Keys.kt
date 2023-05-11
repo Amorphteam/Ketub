@@ -1,10 +1,5 @@
 package com.amorphteam.ketub.utility
 
-import android.app.Activity
-import android.os.Build
-import java.io.Serializable
-import java.lang.Exception
-
 class Keys {
 
     companion object {
@@ -17,8 +12,11 @@ class Keys {
         val DB_SECOND_CAT = "نصوص معاصرة"
         val DB_BOOK_LIMIT_COUNT = 5
         val NAV_CAT_SECTION = "catSection"
-
-
+        val PREFERENCES_NAME = "sam_pref"
+        val PREF_CURRENT_VERSION = "current_version"
+        val PREF_FIRST_RUN = "first_run"
+        val ASSET_BOOK_DIR = "books"
+        val ASSET_COVER_DIR = "covers"
     }
 }
 
