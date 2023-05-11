@@ -1,2 +1,3 @@
 rootProject.name = "Ketub"
 include ':app'
+include ':fineepublib'

@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'maven-publish'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig { minSdkVersion 21 }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jsoup:jsoup:1.9.2"
+    implementation "commons-io:commons-io:2.6"
+}
+
+afterEvaluate {
+    publishing{
+        publications {
+            release(MavenPublication){
+                from components.release
+                groupId = "com.amorphteam"
+                artifactId = "fine_epub_library"
+                version = "2.0.0"
+            }
+        }
+    }
+}
