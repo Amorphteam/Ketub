@@ -1,0 +1,7 @@
+R_DEF: Internal format may change without notice
+local
+anim push_left_out
+anim push_right_out
+anim slide_in_left
+anim slide_in_right
+string app_name

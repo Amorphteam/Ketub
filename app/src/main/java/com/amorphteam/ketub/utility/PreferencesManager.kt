@@ -3,17 +3,14 @@ package com.amorphteam.ketub.utility
 import android.content.Context
 import android.content.SharedPreferences
 
-class PreferencesManager(context: Context) {
+class PreferencesManager(private val context: Context) {
 
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(Keys.PREFERENCES_NAME, Context.MODE_PRIVATE)
 
-    init {
-        sharedPreferences =
-            context.getSharedPreferences(Keys.PREFERENCES_NAME, Context.MODE_PRIVATE)
-    }
 
     fun loadAppVersion(): Int {
-        return sharedPreferences.getInt(Keys.PREF_CURRENT_VERSION, 0)
+        return sharedPreferences.getInt(Keys.PREF_CURRENT_VERSION, Keys.PREF_DEFFAULT_APP_VERSION)
     }
 
     fun saveAppVersion(appVersion: Int) {

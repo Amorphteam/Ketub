@@ -17,6 +17,7 @@ class Keys {
         val PREF_FIRST_RUN = "first_run"
         val ASSET_BOOK_DIR = "books"
         val ASSET_COVER_DIR = "covers"
+        val PREF_DEFFAULT_APP_VERSION = 0
     }
 }
 
