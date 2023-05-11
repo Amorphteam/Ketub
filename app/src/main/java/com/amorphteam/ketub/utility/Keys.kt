@@ -21,6 +21,8 @@ class Keys {
         val ASSET_BOOK_DIR = "books"
         val ASSET_COVER_DIR = "covers"
         val PREF_DEFFAULT_APP_VERSION = 0
+        val BOOK_ADDRESS = "book_address"
+            val NAV_POINT = "nav_point"
     }
 }
 

@@ -56,8 +56,8 @@ open class LibraryViewModel(
         get() = _secondCatBooksNewItems
 
 
-    private val _startEpubAct = MutableLiveData<Boolean>()
-    val startEpubAct: LiveData<Boolean>
+    private val _startEpubAct = MutableLiveData<String>()
+    val startEpubAct: LiveData<String>
         get() = _startEpubAct
 
 
@@ -94,8 +94,8 @@ open class LibraryViewModel(
         databaseReferenceHelper = null
     }
 
-    fun openEpubAct() {
-        _startEpubAct.value = true
+    fun openEpubAct(bookAddress:String) {
+        _startEpubAct.value = bookAddress
     }
 
     fun getCatId(id: Int) {
@@ -115,8 +115,10 @@ open class LibraryViewModel(
         @JvmStatic
         @BindingAdapter("loadImage")
         fun setImage(image: ImageView, item: CategoryModel?) {
+            val fileManager = FileManager(image.context)
+            val imageAddress = item!!.catCover?.let { fileManager.getCoverUri(it) }
             Glide.with(image.context)
-                .load(Uri.parse("file:///android_asset/cover/${item!!.catCover}"))
+                .load(Uri.parse(imageAddress.toString()))
                 .placeholder(R.drawable.ejtihad_logo)
                 .into(image)
         }

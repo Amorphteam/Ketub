@@ -14,10 +14,10 @@ import com.amorphteam.ketub.databinding.ActivityMainBinding
 import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.Keys
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.File
 
 class TabbedActivity : AppCompatActivity() {
 
-    private val fileManager = FileManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,9 @@ class TabbedActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+         val fileManager = FileManager(this)
         if (fileManager.isNewVersion(this)) {
-            copyAppContentToUserDoc()
+            copyAppContentToUserDoc(fileManager)
         } else {
             Log.i(Keys.LOG_NAME, "fileManager is existed")
         }
@@ -38,7 +39,7 @@ class TabbedActivity : AppCompatActivity() {
     }
 
 
-    private fun copyAppContentToUserDoc() {
+    private fun copyAppContentToUserDoc(fileManager:FileManager) {
         Thread {
             fileManager.copyBooksToUserDoc(this)
             fileManager.copyCoversToUSerDoc(this)

@@ -70,7 +70,10 @@ class LibraryFragment : Fragment() {
 
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubActivity::class.java))
+            val intent = Intent(requireContext(), EpubActivity::class.java)
+            intent.putExtra(Keys.BOOK_ADDRESS, it)
+            intent.putExtra(Keys.NAV_POINT, 0)
+            startActivity(intent)
         }
 
         viewModel.startSearchAct.observe(viewLifecycleOwner) {
@@ -108,9 +111,7 @@ class LibraryFragment : Fragment() {
 
                 val bookAddress = fileManager.getBookAddress(it[0].bookPath!!)
 
-                Log.i("ssssss", bookAddress.toString())
-
-                viewModel.openEpubAct()
+                bookAddress?.let { it1 -> viewModel.openEpubAct(it1) }
             }else{
                 //TODO THIS SECTION MUST BE COMPLETED
             }
@@ -135,7 +136,7 @@ class LibraryFragment : Fragment() {
 
     private fun handleRecyclerView(list: List<ReferenceModel>, onlineReference: OnlineReference) {
         val adapter = ReferenceAdapter(ItemClickListener {
-            viewModel.openEpubAct()
+//            viewModel.openEpubAct()
         }, DeleteClickListener {
         })
         adapter.submitList(list)
