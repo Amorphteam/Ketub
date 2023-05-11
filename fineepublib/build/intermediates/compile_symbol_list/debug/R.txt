@@ -1,0 +1,5 @@
+int anim push_left_out 0x0
+int anim push_right_out 0x0
+int anim slide_in_left 0x0
+int anim slide_in_right 0x0
+int string app_name 0x0

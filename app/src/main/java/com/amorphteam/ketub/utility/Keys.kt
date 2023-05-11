@@ -15,6 +15,12 @@ class Keys {
         val MANIFEST_ITEM = "manifest_item"
         val POSITION_ITEM = "position_item"
         val MAX_SIDE_PAGE = 1
+        val PREFERENCES_NAME = "sam_pref"
+        val PREF_CURRENT_VERSION = "current_version"
+        val PREF_FIRST_RUN = "first_run"
+        val ASSET_BOOK_DIR = "books"
+        val ASSET_COVER_DIR = "covers"
+        val PREF_DEFFAULT_APP_VERSION = 0
     }
 }
 
