@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityEpubBinding
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModelFactory
 
 
 class EpubActivity : AppCompatActivity() {
