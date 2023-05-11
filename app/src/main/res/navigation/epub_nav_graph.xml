@@ -2,7 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/epub_nav_graph"
-    app:startDestination="@id/epubContainerFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/epubViewFragment">
+
 
     <fragment
         android:id="@+id/epubViewFragment"
@@ -42,8 +44,4 @@
             android:id="@+id/action_searchSingleFragment_to_epubViewFragment"
             app:destination="@id/epubViewFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/epubContainerFragment"
-        android:name="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubContainerFragment"
-        android:label="EpubContainerFragment" />
 </navigation>

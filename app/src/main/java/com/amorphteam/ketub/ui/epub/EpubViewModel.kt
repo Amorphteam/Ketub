@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
+import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import com.mehdok.fineepublib.epubviewer.jsepub.JSBook
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow

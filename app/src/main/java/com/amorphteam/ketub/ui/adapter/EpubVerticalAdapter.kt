@@ -5,9 +5,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewerFragment
+import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import java.lang.ref.WeakReference
 
-class EpubVerticalAdapter(val mSpine: ArrayList<String>, fm: FragmentManager, lifecycle: Lifecycle) :
+class EpubVerticalAdapter(val mSpine: ArrayList<ManifestItem>, fm: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fm, lifecycle) {
     private var mCurrentFragment: WeakReference<EpubViewerFragment>? = null
     fun getCurrentFragment(): EpubViewerFragment? {
@@ -21,10 +22,10 @@ class EpubVerticalAdapter(val mSpine: ArrayList<String>, fm: FragmentManager, li
     }
 
     override fun createFragment(p0: Int): Fragment {
-
+        var fragment = EpubViewerFragment.newInstance(mSpine[p0], 0)
         //TODO// HANDLE EPUBVERTICALDELEGATE
 //        EpubVerticalDelegate.get().getActivity().addStyleListeners(fragment)
-        return EpubViewerFragment()
+        return fragment
     }
 
     //TODO:// HANDLE NAVPOINT

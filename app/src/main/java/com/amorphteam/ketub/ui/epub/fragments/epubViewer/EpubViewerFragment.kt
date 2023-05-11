@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -97,9 +98,9 @@ class EpubViewerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
-//            val manifestItem = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
+            val manifestItem:ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
             val position = requireArguments().getInt(Keys.POSITION_ITEM)
-
+            Toast.makeText(requireContext(), manifestItem?.href, Toast.LENGTH_SHORT).show()
             //TODO: HANDLE GETSTRING
         }
     }
