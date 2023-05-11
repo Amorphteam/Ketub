@@ -20,9 +20,9 @@ class BookmarkViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao, 
 
     var startEpubAct = MutableLiveData<Boolean>()
 
-    private var viewModelJob = Job()
+        private var viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+        private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val repository: ReferenceRepository = ReferenceRepository(referenceDatabaseDao)
 
     private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
