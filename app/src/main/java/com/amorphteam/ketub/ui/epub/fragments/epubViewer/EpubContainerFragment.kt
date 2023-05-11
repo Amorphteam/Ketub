@@ -2,7 +2,6 @@ package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.support.v4.app.FragmentPagerAdapter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
