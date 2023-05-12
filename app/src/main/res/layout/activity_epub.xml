@@ -4,14 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.amorphteam.ketub.ui.epub.EpubViewModel" />
     </data>
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+
+            <FrameLayout
+                android:background="@color/primary2"
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/epub_vertical_view_pager"
+                android:orientation="vertical"
+                android:background="@color/error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/error"
+                android:id="@+id/app_bar"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize">
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <EditText
+                style="@style/body"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="bottom|center"
+                android:inputType="number"
+                android:gravity="center"
+                android:background="@color/error"
+                android:paddingRight="@dimen/large_margin"
+                android:paddingLeft="@dimen/large_margin"
+                android:id="@+id/page_number"
+                />
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:id="@+id/slider_countiner"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:translationZ="90dp">
+
+                <io.techery.progresshint.addition.widget.VerticalSeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:popupAlwaysShown="false"
+                    app:popupDraggable="false"
+                    style="@style/SeekBar"
+                    app:popupLayout="@layout/seekbar_layout"
+                    app:popupStyle="follow"
+                    app:seekBarRotation="CW90" />
+                <!-- Rotation: CW90 or CW270 -->
+            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:visibility="gone" />
+
+<!--        <include-->
+<!--            layout="@layout/sheet"-->
+<!--            app:viewModel="@{viewModel}" />-->
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

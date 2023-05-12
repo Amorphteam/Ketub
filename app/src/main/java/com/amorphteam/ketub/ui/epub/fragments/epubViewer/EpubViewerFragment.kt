@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -41,40 +42,8 @@ class EpubViewerFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EpubViewerViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.toolbar.setNavigationOnClickListener {
-            requireActivity().finish()
-        }
-        val toolbar = binding.toolbar
-        toolbar.inflateMenu(R.menu.menu_epub)
-        toolbar.setOnMenuItemClickListener { menuItem ->
-            // Handle menu item clicks here
-            when (menuItem.itemId) {
-                R.id.setting -> {
-                    openStyleSheet()
-                    true
-                }
-                R.id.home -> {
-                    requireActivity().finish()
-                    true
-                }
-
-                R.id.toc -> {
-                    openTocFragment()
-                    true
-                }
-
-                R.id.bookmark -> {
-                    openBookmarkFragment()
-                    true
-                }
-                R.id.search -> {
-                    openSearchFragment()
-                    true
-                }
-
-                else -> false
-            }
-        }
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "My Fragment Title"
 
 
         val gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
@@ -117,13 +86,11 @@ class EpubViewerFragment : Fragment() {
         if (status) {
             viewModel.hideToolbar.value = true
             toggle = false
-            binding.toolbar.visibility = View.INVISIBLE
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireContext(), R.color.background2)
         } else {
             viewModel.hideToolbar.value = false
             toggle = true
-            binding.toolbar.visibility = View.VISIBLE
             requireActivity().window.statusBarColor =
                 ContextCompat.getColor(requireContext(), R.color.background1)
         }
@@ -142,8 +109,8 @@ class EpubViewerFragment : Fragment() {
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet)
         bottomSheetBehavior.peekHeight = 440
         handleIconBaseOnTheme()
-        binding.bg.visibility = View.VISIBLE;
-        binding.bg.alpha = 0.3f
+//        binding.bg.visibility = View.VISIBLE;
+//        binding.bg.alpha = 0.3f
 
     }
 
@@ -173,14 +140,14 @@ class EpubViewerFragment : Fragment() {
         bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(view: View, i: Int) {
                 bottomSheetBehavior.peekHeight = 0
-                if (i == BottomSheetBehavior.STATE_COLLAPSED)
-                    binding.bg.visibility = View.GONE;
+//                if (i == BottomSheetBehavior.STATE_COLLAPSED)
+//                    binding.bg.visibility = View.GONE;
 
             }
 
             override fun onSlide(view: View, v: Float) {
-                binding.bg.visibility = View.VISIBLE;
-                binding.bg.alpha = v;
+//                binding.bg.visibility = View.VISIBLE;
+//                binding.bg.alpha = v;
             }
         })
 

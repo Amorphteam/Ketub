@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -41,8 +43,11 @@ class SearchSingleFragment : Fragment() {
         })
 
         handleSearchResult(adapter)
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
-        binding.toolbar.setNavigationOnClickListener {
+
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        toolbar.title = "Search"
+        toolbar.setNavigationIcon(R.drawable.ic_back)
+        toolbar.setNavigationOnClickListener {
             openEpubFragment()
         }
 
@@ -59,6 +64,7 @@ class SearchSingleFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
     }
+
 
 
 }
