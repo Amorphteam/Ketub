@@ -11,26 +11,11 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_epub_countiner"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/main_epub_countiner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@{viewModel.hideToolbar == true ? @color/background2 : @color/background1}"
-            android:orientation="vertical"
-            tools:context=".ui.epub.EpubViewer">
 
-
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:loadUrl="@{viewModel.webViewUrl}" />
-
-
-        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

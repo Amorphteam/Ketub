@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.epub.NavPoint
@@ -32,6 +33,7 @@ class EpubViewModel() : ViewModel() {
     private suspend fun parseBook(bookAddress: String?) {
         getBook(bookAddress).collect { book: JSBook? ->
             if (book != null) {
+                BookHolder.instance?.jsBook = book
                 _spineArray.value = book.spine
             } else {
                 Log.i(Keys.LOG_NAME, "Book is null")

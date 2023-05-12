@@ -1,9 +1,13 @@
 package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.webkit.WebView
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -16,19 +20,25 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
+import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.utility.Keys
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
+import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
+import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
+import com.mehdok.fineepublib.interfaces.EpubScrollListener
+import com.mehdok.fineepublib.interfaces.EpubTapListener
 import kotlinx.android.synthetic.main.sheet.*
 
 
-class EpubViewerFragment : Fragment() {
+class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, EpubScrollListener {
     private lateinit var binding: FragmentEpubViewBinding
     private lateinit var viewModel: EpubViewerViewModel
     var toggle: Boolean = true
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     lateinit var navController: NavController
-
+    lateinit var webView: LocalWebView
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -45,22 +55,30 @@ class EpubViewerFragment : Fragment() {
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
         toolbar.title = "My Fragment Title"
 
-
-        val gestureDetector = GestureDetector(requireContext(), object : GestureDetector.SimpleOnGestureListener() {
-            override fun onDoubleTap(event: MotionEvent): Boolean {
-                toggleToolbar(toggle)
-
-                return true
+        viewModel.htmlSourceString.observe(viewLifecycleOwner){
+            if (it != null) {
+                fillWebView(it)
             }
-        })
-
-        binding.webView.setOnTouchListener { _, event ->
-            gestureDetector.onTouchEvent(event)
         }
 
 
 
+
         return binding.root
+    }
+
+    private fun fillWebView(it: String) {
+        webView = LocalWebView(requireContext())
+        val jsPictureListener = JsPictureListener(this)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
+        webView.setPictureListener(jsPictureListener)
+        webView.setBook(BookHolder.instance?.jsBook)
+        webView.loadResourcePage(it)
+        webView.layoutParams = params
+        binding.mainEpubCountiner.addView(webView)
     }
 
 
@@ -69,8 +87,7 @@ class EpubViewerFragment : Fragment() {
         if (arguments != null) {
             val manifestItem:ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
             val position = requireArguments().getInt(Keys.POSITION_ITEM)
-            Toast.makeText(requireContext(), manifestItem?.href, Toast.LENGTH_SHORT).show()
-            //TODO: HANDLE GETSTRING
+            viewModel.getResourceString(requireContext(), Book.resourceName2Url(manifestItem?.href), "", position)
         }
     }
     private fun openSearchFragment() {
@@ -168,6 +185,45 @@ class EpubViewerFragment : Fragment() {
             return instance
         }
 
+    }
+
+    override fun onDrawingFinished() {
+        // this method calls every time anythings happens in webview that require a refresh like selecting text
+        //TODO: MUST HANDLE IT
+    }
+
+    override fun onPageScrolled(scrollY: Int) {
+
+    }
+
+    override fun onEmailTapped(email: String?) {
+        Toast.makeText(requireContext(), email, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onWebTapped(link: String?) {
+        if (!link!!.startsWith("http://localhost")) {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+            startActivity(browserIntent)
+        }
+    }
+
+    override fun onEmptySpaceTapped() {
+        Toast.makeText(requireContext(), "its empty space", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onExternalLinkCLicked(uri: Uri?) {
+        if (!uri.toString().startsWith("http://localhost")) {
+            val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(browserIntent)
+        }
+    }
+
+    override fun getHitTestResult(): WebView.HitTestResult {
+        return webView.hitTestResult
+    }
+
+    override fun onPageScrolled() {
+        Toast.makeText(requireContext(), "its scrolled", Toast.LENGTH_SHORT).show()
     }
 
 
