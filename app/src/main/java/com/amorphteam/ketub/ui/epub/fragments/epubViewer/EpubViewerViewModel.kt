@@ -41,7 +41,7 @@ class EpubViewerViewModel : ViewModel() {
 
     val pageNumber = MutableLiveData<String>().apply { value = "1" }
     init {
-        Log.i(Keys.LOG_NAME, "load epub viewer view model")
+
     }
 
     override fun onCleared() {

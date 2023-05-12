@@ -39,13 +39,13 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     lateinit var navController: NavController
     lateinit var webView: LocalWebView
+    private var jsPictureListener: JsPictureListener? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_epub_view, container, false
         )
@@ -53,27 +53,41 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = "My Fragment Title"
+        showLoadProgress(true)
 
-        viewModel.htmlSourceString.observe(viewLifecycleOwner){
+        viewModel.htmlSourceString.observe(viewLifecycleOwner) {
             if (it != null) {
                 fillWebView(it)
             }
         }
 
-
-
-
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (arguments != null) {
+            val manifestItem: ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
+            val position = requireArguments().getInt(Keys.POSITION_ITEM)
+            viewModel.getResourceString(
+                requireContext(),
+                Book.resourceName2Url(manifestItem?.href),
+                "textSizeThree",
+                position
+            )
+        }
+    }
+
+
     private fun fillWebView(it: String) {
         webView = LocalWebView(requireContext())
-        val jsPictureListener = JsPictureListener(this)
+        jsPictureListener = JsPictureListener(this)
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
         )
+        webView.setTapListener(this)
+        webView.setScrollListener(this)
         webView.setPictureListener(jsPictureListener)
         webView.setBook(BookHolder.instance?.jsBook)
         webView.loadResourcePage(it)
@@ -82,14 +96,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (arguments != null) {
-            val manifestItem:ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
-            val position = requireArguments().getInt(Keys.POSITION_ITEM)
-            viewModel.getResourceString(requireContext(), Book.resourceName2Url(manifestItem?.href), "", position)
-        }
-    }
+
     private fun openSearchFragment() {
         navController = Navigation.findNavController(requireView())
         navController.navigate(R.id.action_epubViewFragment_to_searchSingleFragment)
@@ -99,6 +106,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
         navController = Navigation.findNavController(requireView())
         navController.navigate(R.id.action_epubViewFragment_to_bookmarkSingleFragment)
     }
+
     private fun toggleToolbar(status: Boolean) {
         if (status) {
             viewModel.hideToolbar.value = true
@@ -154,7 +162,8 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
 
     private fun openStyleSheet() {
         handleStyleSheet()
-        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.setBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(view: View, i: Int) {
                 bottomSheetBehavior.peekHeight = 0
 //                if (i == BottomSheetBehavior.STATE_COLLAPSED)
@@ -169,6 +178,17 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
         })
 
 
+    }
+
+    private fun showLoadProgress(flag: Boolean) {
+        //sometimes if you scroll too fast like crazy one this might be null
+        if (flag) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.animate().setDuration(200).alpha(1f).start()
+        } else {
+            binding.progressBar.animate().setDuration(200).alpha(0f).start()
+            binding.progressBar.setVisibility(View.GONE)
+        }
     }
 
     companion object {
@@ -190,6 +210,14 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     override fun onDrawingFinished() {
         // this method calls every time anythings happens in webview that require a refresh like selecting text
         //TODO: MUST HANDLE IT
+        showLoadProgress(false)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (jsPictureListener != null) {
+            jsPictureListener?.setWebViewPictureListener(null)
+        }
     }
 
     override fun onPageScrolled(scrollY: Int) {
@@ -208,7 +236,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
     override fun onEmptySpaceTapped() {
-        Toast.makeText(requireContext(), "its empty space", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onExternalLinkCLicked(uri: Uri?) {
@@ -223,7 +251,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
     override fun onPageScrolled() {
-        Toast.makeText(requireContext(), "its scrolled", Toast.LENGTH_SHORT).show()
+
     }
 
 

@@ -10,12 +10,19 @@
             type="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewerViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:id="@+id/main_epub_countiner"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="@dimen/loader_height"
+            android:layout_height="@dimen/loader_height"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
 
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>
