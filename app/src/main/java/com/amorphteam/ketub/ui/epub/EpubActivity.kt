@@ -1,9 +1,14 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,10 +16,14 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.ActivityEpubBinding
+import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
+import io.techery.progresshint.ProgressHintDelegate.SeekBarHintAdapter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class EpubActivity : AppCompatActivity() {
@@ -39,6 +48,7 @@ class EpubActivity : AppCompatActivity() {
 
         }
 
+
     }
 
 
@@ -47,6 +57,33 @@ class EpubActivity : AppCompatActivity() {
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
         binding.epubVerticalViewPager.adapter = adapter
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
+        setUpChapterSeeker(spineItems.size, 0)
+
+    }
+
+    private fun setUpChapterSeeker(maxPage: Int, currentPage: Int) {
+        binding.seekBar.max = maxPage
+        binding.seekBar.progress = currentPage
+
+        binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
+        binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                binding.pageNumber.text = String.format(Locale.getDefault(), "%d / %d", (p0?.progress ?: 0) + 1, BookHolder.instance?.jsBook?.pageNumber)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                p0?.progress?.let { moveToPage(it) }
+            }
+
+        })
+    }
+
+    private fun moveToPage(page:Int){
+        binding.epubVerticalViewPager.setCurrentItem(page, false)
     }
 
     private fun handleFragment(newFragment: Fragment) {

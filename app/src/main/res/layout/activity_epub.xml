@@ -52,12 +52,11 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
-            <EditText
+            <TextView
                 style="@style/body"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_gravity="bottom|center"
-                android:inputType="number"
                 android:gravity="center"
                 android:background="@color/error"
                 android:paddingRight="@dimen/large_margin"
