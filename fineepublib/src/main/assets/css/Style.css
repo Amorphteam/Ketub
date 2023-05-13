@@ -255,89 +255,35 @@ html.grey {
     color: red !important;
 }
 
-/*
- *
- * Font classes
- *
- */
 
 @font-face {
-    font-family: 'andada';
-    src: url('file:///android_asset/fonts/andada/Andada-Regular.otf');
+    font-family: 'normal';
+    src: url('font/normal.ttf');
 }
 
 @font-face {
-    font-family: 'lato';
-    src: url('file:///android_asset/fonts/lato/Lato-Regular.ttf');
+    font-family: 'heading1';
+    src: url('font/heading1.ttf');
 }
 
 @font-face {
-    font-family: 'lora';
-    src: url('file:///android_asset/fonts/lora/Lora-Regular.ttf');
+    font-family: 'heading2';
+    src: url('font/heading2.ttf');
 }
 
 @font-face {
-    font-family: 'raleway';
-    src: url('file:///android_asset/fonts/raleway/Raleway-Regular.ttf');
+    font-family: 'custom1';
+    src: url('font/custom1.ttf');
 }
 
 @font-face {
-    font-family: 'vazir';
-    src: url('android_assets/font/Vazir.ttf');
+    font-family: 'custom2';
+    src: url('font/custom2.ttf');
 }
 
-@font-face {
-    font-family: 'IRANSansMobile';
-    src: url('android_assets/font/IRANSansMobile.ttf');
-}
 
-@font-face {
-    font-family: 'droidkufi';
-    src: url('android_assets/font/DroidKufi.ttf');
-}
 
-@font-face {
-    font-family: 'nazanin';
-    src: url('android_assets/font/nazanin.ttf');
-}
 
-@font-face {
-    font-family: 'mosawi';
-    src: url('android_assets/font/Mosawi.ttf');
-}
-
-.andada, .andada p, .andada span, .andada div {
-    font-family: "andada", sans-serif !important;
-}
-.lato, .lato p, .lato span, .lato div {
-    font-family: "lato", serif !important;
-}
-.lora, .lora p, .lora span, .lora div {
-    font-family: "lora", serif !important;
-}
-.raleway, .raleway p, .raleway span, .raleway div {
-    font-family: "raleway", sans-serif !important;
-}
-
-.droidkufi, .droidkufi p, .droidkufi span, .droidkufi div {
-    font-family: "droidkufi", sans-serif !important;
-}
-
-.vazir, .vazir p, .vazir span, .vazir div {
-    font-family: "vazir", sans-serif !important;
-}
-
-.IRANSansMobile, .IRANSansMobile p, .IRANSansMobile span, .IRANSansMobile div {
-    font-family: "IRANSansMobile", sans-serif !important;
-}
-
-.nazanin, .nazanin p, .nazanin span, .nazanin div {
-    font-family: "nazanin", sans-serif !important;
-}
-
-.mosawi, .mosawi p, .mosawi span, .mosawi div {
-    font-family: "mosawi", sans-serif !important;
-}
 html.textSizeOne { font-size: 1em !important; }
 html.textSizeTwo { font-size: 1.2em !important; }
 html.textSizeThree { font-size: 1.5em !important; }

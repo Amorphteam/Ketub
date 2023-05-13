@@ -2,6 +2,7 @@ package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -57,86 +58,27 @@ class LocalWebView : NormalWebView {
     }
 
     override fun onRequest(url: String): WebResourceResponse? {
+        Log.i("AJCssfff", url)
         if (url.contains("Style0001.css")) {
             return AssetUtil.instance?.getCssForName(context, STYLE_OUR)
         }
 
-        if (url.contains("Mosawi.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_MOSAWI, "application/x-font-ttf")
+        if (url.contains("normal.ttf")) {
+            return AssetUtil.instance?.getFontFroName(context, FONT_NORMAL, "application/x-font-ttf")
         }
-        if (url.contains("Vazir.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_VAZIR, "application/x-font-ttf")
+        if (url.contains("heading1.ttf")) {
+            return AssetUtil.instance?.getFontFroName(context, FONT_HEADING1, "application/x-font-ttf")
         }
-        if (url.contains("nazanin.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NAZANIN, "application/x-font-ttf")
+        if (url.contains("heading2.ttf")) {
+            return AssetUtil.instance?.getFontFroName(context, FONT_HEADING2, "application/x-font-ttf")
         }
-        if (url.contains("DroidKufi.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_DROIDKUFI, "application/x-font-ttf")
+        if (url.contains("custom1.ttf")) {
+            return AssetUtil.instance?.getFontFroName(context, FONT_CUSTOM1, "application/x-font-ttf")
         }
-        //standard fonts
-        if (url.contains("NormalAR.otf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALAR, "application/x-font-ttf")
+        if (url.contains("custom2.ttf")) {
+            return AssetUtil.instance?.getFontFroName(context, FONT_CUSTOM2, "application/x-font-ttf")
         }
-        if (url.contains("NormalAR2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALAR2, "application/x-font-ttf")
-        }
-        if (url.contains("NormalFA.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALFA, "application/x-font-ttf")
-        }
-        if (url.contains("NormalFA2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALFA2, "application/x-font-ttf")
-        }
-        if (url.contains("NormalEN.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALEN, "application/x-font-ttf")
-        }
-        if (url.contains("NormalEN2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_NARMALEN2, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingAR.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGAR, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingAR2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGAR2, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingFA.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGFA, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingFA2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGFA2, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingEN.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGEN, "application/x-font-ttf")
-        }
-        if (url.contains("HeadingEN2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HEADINGEN2, "application/x-font-ttf")
-        }
-        if (url.contains("Symbols.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_SYMBOLS, "application/x-font-ttf")
-        }
-        if (url.contains("Symbols2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_SYMBOLS2, "application/x-font-ttf")
-        }
-        if (url.contains("Hadith.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HADITH, "application/x-font-ttf")
-        }
-        if (url.contains("Hadith2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_HADITH2, "application/x-font-ttf")
-        }
-        if (url.contains("Qoran.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_QORAN, "application/x-font-ttf")
-        }
-        if (url.contains("Qoran2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_QORAN2, "application/x-font-ttf")
-        }
-        if (url.contains("Special.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_SPECIAL, "application/x-font-ttf")
-        }
-        if (url.contains("Special2.ttf")) {
-            return AssetUtil.instance?.getFontFroName(context, FONT_SPECIAL2, "application/x-font-ttf")
-        }
-        //standard fonts
 
-        // this is internal link, either with hashtag or not, so it must handle via app
         if (url.startsWith("http://localhost") && (url.contains("xhtml") || url.contains("html"))) {
 //            EpubVerticalDelegate.get().getActivity().onInternalLickClicked(correctUrlOpf(url))
 
@@ -244,33 +186,13 @@ class LocalWebView : NormalWebView {
     }
 
     companion object {
-        const val STYLE_OUR = "css/Style0001.css"
-        const val FONT_MOSAWI = "font/Mosawi.ttf"
-        const val FONT_VAZIR = "font/Vazir.ttf"
-        const val FONT_NAZANIN = "font/nazanin.ttf"
-        const val FONT_DROIDKUFI = "font/DroidKufi.ttf"
+        const val STYLE_OUR = "css/CustomStyle.css"
+        const val FONT_NORMAL = "font/normal.ttf"
+        const val FONT_HEADING1 = "font/heading1.ttf"
+        const val FONT_HEADING2 = "font/heading2.ttf"
+        const val FONT_CUSTOM1 = "font/custom1.ttf"
+        const val FONT_CUSTOM2 = "font/custom2.ttf"
 
-        //    Standard fonts
-        const val FONT_NARMALAR = "font/NormalAR.otf"
-        const val FONT_NARMALAR2 = "font/NormalAR2.ttf"
-        const val FONT_NARMALFA = "font/NormalFA.ttf"
-        const val FONT_NARMALFA2 = "font/NormalFA2.ttf"
-        const val FONT_NARMALEN = "font/NormalEN.ttf"
-        const val FONT_NARMALEN2 = "font/NormalEN2.ttf"
-        const val FONT_HEADINGAR = "font/HeadingAR.ttf"
-        const val FONT_HEADINGAR2 = "font/HeadingAR2.ttf"
-        const val FONT_HEADINGFA = "font/HeadingFA.ttf"
-        const val FONT_HEADINGFA2 = "font/HeadingAR2.ttf"
-        const val FONT_HEADINGEN = "font/HeadingEN.ttf"
-        const val FONT_HEADINGEN2 = "font/HeadingEN2.ttf"
-        const val FONT_SYMBOLS = "font/Symbols.ttf"
-        const val FONT_SYMBOLS2 = "font/Symbols2.ttf"
-        const val FONT_HADITH = "font/Hadith.ttf"
-        const val FONT_HADITH2 = "font/Hadith2.ttf"
-        const val FONT_QORAN = "font/Qoran.ttf"
-        const val FONT_QORAN2 = "font/Qoran2.ttf"
-        const val FONT_SPECIAL = "font/Special.ttf"
-        const val FONT_SPECIAL2 = "font/Special2.ttf"
         private const val REJAL_LINK = "sahifa#"
         private const val SHORT_LINK = "short#"
     }
