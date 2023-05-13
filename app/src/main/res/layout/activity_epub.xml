@@ -30,7 +30,6 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/epub_vertical_view_pager"
                 android:orientation="vertical"
-                android:background="@color/error"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

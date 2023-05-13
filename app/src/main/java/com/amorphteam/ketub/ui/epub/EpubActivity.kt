@@ -60,12 +60,11 @@ class EpubActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        isFullScreen = true
-        binding.pageNumber.setOnClickListener {
-            toggle()
-        }
-        setSupportActionBar(binding.toolbar)
 
+
+        setSupportActionBar(binding.toolbar)
+        isFullScreen = true
+        toggle()
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
 
@@ -92,6 +91,7 @@ class EpubActivity : AppCompatActivity() {
         supportActionBar?.hide()
         isFullScreen = false
         binding.seekBar.visibility = View.GONE
+        binding.pageNumber.visibility = View.GONE
         hideHandler.removeCallbacks(showRunnable)
         hideHandler.postDelayed(hideRunnable, Keys.UI_ANIMATION_DELAY.toLong())
     }
@@ -99,6 +99,7 @@ class EpubActivity : AppCompatActivity() {
     private fun show() {
         isFullScreen = true
         binding.seekBar.visibility = View.VISIBLE
+        binding.pageNumber.visibility = View.VISIBLE
 
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(showRunnable, Keys.UI_ANIMATION_DELAY.toLong())

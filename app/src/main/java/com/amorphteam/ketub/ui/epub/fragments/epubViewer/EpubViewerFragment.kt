@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -21,6 +22,7 @@ import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.utility.Keys
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.Book
@@ -236,7 +238,8 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
     override fun onEmptySpaceTapped() {
-
+        val activity = requireActivity() as EpubActivity
+        activity.toggle()
     }
 
     override fun onExternalLinkCLicked(uri: Uri?) {
