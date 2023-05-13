@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.epub.NavPoint
@@ -26,6 +27,10 @@ class EpubViewModel() : ViewModel() {
     private val _fullScreen = MutableLiveData<Boolean>()
     val fullScreen: LiveData<Boolean>
         get() = _fullScreen
+
+    private val _adapter = MutableLiveData<EpubVerticalAdapter>()
+    val adapter: LiveData<EpubVerticalAdapter>
+        get() = _adapter
 
     private val _spineArray = MutableLiveData<ArrayList<ManifestItem>>()
     val spineArray: LiveData<ArrayList<ManifestItem>>
@@ -69,6 +74,10 @@ class EpubViewModel() : ViewModel() {
 
     fun toggle(){
         _fullScreen.value = _fullScreen.value != true
+    }
+
+    fun setAdapter(adapter: EpubVerticalAdapter){
+        _adapter.value = adapter
     }
 }
 

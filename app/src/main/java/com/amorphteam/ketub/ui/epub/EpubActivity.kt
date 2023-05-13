@@ -25,6 +25,7 @@ import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.activity_epub.*
+import kotlinx.android.synthetic.main.item_group_index.*
 import java.util.*
 
 
@@ -76,12 +77,8 @@ class EpubActivity : AppCompatActivity() {
             val bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)
             val navPoint = intent.getIntExtra(Keys.NAV_POINT, 0)
             viewModel.getBookAddress(bookAddress)
-
         }
-
-
     }
-
 
     private fun hide() {
         hideHandler.removeCallbacks(showRunnable)
@@ -106,30 +103,17 @@ class EpubActivity : AppCompatActivity() {
     private fun handleViewEpubPager(spineItems: ArrayList<ManifestItem>) {
         val adapter =
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
-        binding.epubVerticalViewPager.adapter = adapter
+        viewModel.setAdapter(adapter)
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
         addPagerScrollListener(binding.epubVerticalViewPager)
         setUpChapterSeeker(spineItems.size, 0)
-
     }
 
     private fun addPagerScrollListener(pager: ViewPager2) {
         pager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
-
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.seekBar.progress = position
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                super.onPageScrollStateChanged(state)
             }
         })
     }
@@ -137,7 +121,6 @@ class EpubActivity : AppCompatActivity() {
     private fun setUpChapterSeeker(maxPage: Int, currentPage: Int) {
         binding.seekBar.max = maxPage
         binding.seekBar.progress = currentPage
-
         binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -150,13 +133,11 @@ class EpubActivity : AppCompatActivity() {
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
-
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
                 p0?.progress?.let { moveToPage(it) }
             }
-
         })
     }
 
