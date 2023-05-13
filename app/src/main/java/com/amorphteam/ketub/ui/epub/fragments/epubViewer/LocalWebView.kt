@@ -1,19 +1,12 @@
 package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
-import android.annotation.TargetApi
-import android.app.Dialog
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.widget.TextView
 import com.amorphteam.ketub.utility.AssetUtil
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mehdok.fineepublib.epubviewer.jsepub.webview.NormalWebView
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
@@ -67,9 +60,7 @@ class LocalWebView : NormalWebView {
         if (url.contains("Style0001.css")) {
             return AssetUtil.instance?.getCssForName(context, STYLE_OUR)
         }
-        if (url.contains("MehdokStyle22.css")) {
-            return AssetUtil.instance?.getCssForName(context, OVERRITED_CSS)
-        }
+
         if (url.contains("Mosawi.ttf")) {
             return AssetUtil.instance?.getFontFroName(context, FONT_MOSAWI, "application/x-font-ttf")
         }
@@ -254,7 +245,6 @@ class LocalWebView : NormalWebView {
 
     companion object {
         const val STYLE_OUR = "css/Style0001.css"
-        const val OVERRITED_CSS = "css/MehdokStyle22.css"
         const val FONT_MOSAWI = "font/Mosawi.ttf"
         const val FONT_VAZIR = "font/Vazir.ttf"
         const val FONT_NAZANIN = "font/nazanin.ttf"

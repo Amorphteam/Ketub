@@ -14,8 +14,8 @@ import java.io.InputStreamReader;
  */
 
 public class BookAssetUtil {
-    public static final String STYLE_FOLIO = "css/MehdokStyle.css";
-    public static final String JS_FOLIO = "js/MehdokBridge.js";
+    public static final String STYLE_FOLIO = "css/Style.css";
+    public static final String JS_FOLIO = "js/Bridge.js";
 
     private static BookAssetUtil Instance;
 

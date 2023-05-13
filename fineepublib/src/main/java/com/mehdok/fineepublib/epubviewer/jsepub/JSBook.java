@@ -21,8 +21,8 @@ import java.util.Locale;
 
 public class JSBook extends Book {
 
-    private String adminCssPath = "../css/MehdokStyle.css";
-    private String adminJsPath = "../js/MehdokBridge.js";
+    private String adminCssPath = "../css/Style.css";
+    private String adminJsPath = "../js/Bridge.js";
     private String additionalCssPath;
     private long bookSize = -1;
 
