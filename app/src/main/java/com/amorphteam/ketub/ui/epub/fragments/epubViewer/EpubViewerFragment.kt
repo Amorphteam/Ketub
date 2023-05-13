@@ -92,7 +92,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
         webView.setBook(BookHolder.instance?.jsBook)
         webView.loadResourcePage(it)
         webView.layoutParams = params
-        binding.mainEpubCountiner.addView(webView)
+        binding.mainEpubContainer.addView(webView)
     }
 
 
