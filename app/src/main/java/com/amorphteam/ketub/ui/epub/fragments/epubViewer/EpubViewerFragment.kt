@@ -239,7 +239,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
 
     override fun onEmptySpaceTapped() {
         val activity = requireActivity() as EpubActivity
-        activity.toggle()
+        activity.viewModel.toggle()
     }
 
     override fun onExternalLinkCLicked(uri: Uri?) {

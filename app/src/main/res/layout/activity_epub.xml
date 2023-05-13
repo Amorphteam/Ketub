@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="viewModel"
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/error"
                 android:id="@+id/app_bar"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 app:elevation="0dp">
 
                 <androidx.appcompat.widget.Toolbar
@@ -58,6 +60,7 @@
                 android:layout_gravity="bottom|center"
                 android:gravity="center"
                 android:background="@color/error"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 android:paddingRight="@dimen/large_margin"
                 android:paddingLeft="@dimen/large_margin"
                 android:id="@+id/page_number"
@@ -76,6 +79,7 @@
                     android:id="@+id/seekBar"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                     app:popupAlwaysShown="false"
                     app:popupDraggable="false"
                     style="@style/SeekBar"

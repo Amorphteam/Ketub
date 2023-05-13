@@ -30,13 +30,12 @@ import java.util.*
 
 class EpubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEpubBinding
-    private var isFullScreen = false
+    lateinit var viewModel: EpubViewModel
 
     private var hideHandler = Handler(Looper.myLooper()!!)
     private val showRunnable = Runnable {
         supportActionBar?.show()
     }
-
     private val hideRunnable = Runnable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             binding.epubVerticalViewPager.windowInsetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
@@ -56,18 +55,22 @@ class EpubActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_epub)
-        val viewModel = ViewModelProvider(this).get(EpubViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(EpubViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
-
         setSupportActionBar(binding.toolbar)
-        isFullScreen = true
-        toggle()
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
 
+        }
+
+        viewModel.fullScreen.observe(this) {
+            if (it) {
+                hide()
+            } else {
+                show()
+            }
         }
         if (intent.extras != null) {
             val bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)
@@ -79,28 +82,13 @@ class EpubActivity : AppCompatActivity() {
 
     }
 
-    fun toggle() {
-        if (isFullScreen) {
-            hide()
-        } else {
-            show()
-        }
-    }
 
     private fun hide() {
-        supportActionBar?.hide()
-        isFullScreen = false
-        binding.seekBar.visibility = View.GONE
-        binding.pageNumber.visibility = View.GONE
         hideHandler.removeCallbacks(showRunnable)
         hideHandler.postDelayed(hideRunnable, Keys.UI_ANIMATION_DELAY.toLong())
     }
 
     private fun show() {
-        isFullScreen = true
-        binding.seekBar.visibility = View.VISIBLE
-        binding.pageNumber.visibility = View.VISIBLE
-
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(showRunnable, Keys.UI_ANIMATION_DELAY.toLong())
     }

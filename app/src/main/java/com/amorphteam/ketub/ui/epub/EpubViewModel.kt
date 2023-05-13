@@ -1,7 +1,10 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.util.Log
+import android.widget.SeekBar
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.model.BookHolder
@@ -13,16 +16,26 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
+import java.util.*
+import kotlin.collections.ArrayList
 
 class EpubViewModel() : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val _fullScreen = MutableLiveData<Boolean>()
+    val fullScreen: LiveData<Boolean>
+        get() = _fullScreen
 
     private val _spineArray = MutableLiveData<ArrayList<ManifestItem>>()
     val spineArray: LiveData<ArrayList<ManifestItem>>
         get() = _spineArray
 
 
+
+    init {
+        _fullScreen.value = true
+    }
 
     fun getBookAddress(bookAddress: String?) {
         uiScope.launch {
@@ -52,4 +65,10 @@ class EpubViewModel() : ViewModel() {
         }
         emit(book)
     }
+
+
+    fun toggle(){
+        _fullScreen.value = _fullScreen.value != true
+    }
 }
+
