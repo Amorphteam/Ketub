@@ -147,12 +147,10 @@
 
 
 body {
-    color: #6f6d6e;
     font-family: 'Mosawi', arial;
 		direction: rtl;
 		text-align: justify;
 		text-decoration: none;
-		border-top: 15px solid #494949;
 		pointer-events: none;
 		cursor: default;
 		}

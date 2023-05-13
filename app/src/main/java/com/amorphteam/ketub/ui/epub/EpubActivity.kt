@@ -1,9 +1,13 @@
 package com.amorphteam.ketub.ui.epub
 
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsets
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
@@ -26,16 +30,43 @@ import java.util.*
 
 class EpubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEpubBinding
+    private var isFullScreen = false
+
+    private var hideHandler = Handler(Looper.myLooper()!!)
+    private val showRunnable = Runnable {
+        supportActionBar?.show()
+    }
+
+    private val hideRunnable = Runnable {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            binding.epubVerticalViewPager.windowInsetsController?.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        } else {
+            binding.epubVerticalViewPager.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding =
+        binding =
             DataBindingUtil.setContentView(this, R.layout.activity_epub)
         val viewModel = ViewModelProvider(this).get(EpubViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        isFullScreen = true
+        binding.pageNumber.setOnClickListener {
+            toggle()
+        }
         setSupportActionBar(binding.toolbar)
 
-        viewModel.spineArray.observe(this){
+        viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
 
         }
@@ -49,6 +80,39 @@ class EpubActivity : AppCompatActivity() {
 
     }
 
+    fun toggle() {
+        if (isFullScreen) {
+            hide()
+        } else {
+            show()
+        }
+    }
+
+    private fun hide() {
+        supportActionBar?.hide()
+        isFullScreen = false
+        binding.seekBar.visibility = View.GONE
+        hideHandler.removeCallbacks(showRunnable)
+        hideHandler.postDelayed(hideRunnable, Keys.UI_ANIMATION_DELAY.toLong())
+    }
+
+    private fun show() {
+        isFullScreen = true
+        binding.seekBar.visibility = View.VISIBLE
+
+        hideHandler.removeCallbacks(hideRunnable)
+        hideHandler.postDelayed(showRunnable, Keys.UI_ANIMATION_DELAY.toLong())
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        delayedHide(Keys.UI_ANIMATION_DELAY)
+    }
+
+    private fun delayedHide(uiAnimationDelay: Int) {
+        hideHandler.removeCallbacks(hideRunnable)
+        hideHandler.postDelayed(hideRunnable, uiAnimationDelay.toLong())
+    }
 
     private fun handleViewEpubPager(spineItems: ArrayList<ManifestItem>) {
         val adapter =
@@ -86,9 +150,14 @@ class EpubActivity : AppCompatActivity() {
         binding.seekBar.progress = currentPage
 
         binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
-        binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+        binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                binding.pageNumber.text = String.format(Locale.getDefault(), "%d / %d", (p0?.progress ?: 0) + 1, BookHolder.instance?.jsBook?.pageNumber)
+                binding.pageNumber.text = String.format(
+                    Locale.getDefault(),
+                    "%d / %d",
+                    (p0?.progress ?: 0) + 1,
+                    BookHolder.instance?.jsBook?.pageNumber
+                )
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {
@@ -102,7 +171,7 @@ class EpubActivity : AppCompatActivity() {
         })
     }
 
-    private fun moveToPage(page:Int){
+    private fun moveToPage(page: Int) {
         binding.epubVerticalViewPager.setCurrentItem(page, false)
     }
 
@@ -149,5 +218,6 @@ class EpubActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
 }
