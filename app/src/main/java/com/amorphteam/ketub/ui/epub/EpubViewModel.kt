@@ -38,17 +38,22 @@ class EpubViewModel() : ViewModel() {
         get() = _spineArray
 
 
+    private val _dismissSheet = MutableLiveData<Boolean>()
+    val dismissSheet: LiveData<Boolean>
+        get() = _dismissSheet
+
     val currentFontSize = MutableLiveData<Int>()
     val currentLineSpace = MutableLiveData<Int>()
-
-
+    lateinit var styleBookPref:StyleBookPreferences
+    lateinit var preferencesManager: PreferencesManager
 
     init {
         _fullScreen.value = true
     }
 
      fun handleSavedStyle(preferencesManager: PreferencesManager) {
-         val styleBookPref:StyleBookPreferences = preferencesManager.getStyleBookPref()
+         this.preferencesManager = preferencesManager
+         styleBookPref = preferencesManager.getStyleBookPref()
          currentLineSpace.value = styleBookPref.lineSpace.ordinal
          currentFontSize.value = styleBookPref.fontSize.ordinal
     }
@@ -92,13 +97,26 @@ class EpubViewModel() : ViewModel() {
     }
 
     fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        val fontSize = FontSize.from(progress)
+        styleBookPref.fontSize = fontSize
         currentFontSize.value = progress
     }
 
     fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        val lineSpace = LineSpace.from(progress)
+        styleBookPref.lineSpace = lineSpace
         currentLineSpace.value = progress
     }
 
+    fun onDismissSheet(){
+        _dismissSheet.value = _dismissSheet.value != true
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        preferencesManager.saveStyleBookPref(styleBookPref)
+    }
 
 
 }

@@ -6,10 +6,10 @@ import com.amorphteam.ketub.model.FontSize
 import com.amorphteam.ketub.model.LineSpace
 
 class StyleBookPreferences {
-     val fontName: FontName = FontName.NONE
-     val lastSeenIndex = 0
-     val fontSize: FontSize = FontSize.SIZE1
-     val lineSpace: LineSpace = LineSpace.SPACE1
-     val readerColor: BkColor = BkColor.NONE
-     val lastSeenPercent = 0f
+     var fontName: FontName = FontName.NONE
+     var lastSeenIndex = 0
+     var fontSize: FontSize = FontSize.SIZE1
+     var lineSpace: LineSpace = LineSpace.SPACE1
+     var readerColor: BkColor = BkColor.NONE
+     var lastSeenPercent = 0f
 }

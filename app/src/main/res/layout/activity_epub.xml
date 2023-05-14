@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -17,31 +18,28 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
+            android:layout_height="match_parent">
 
 
             <FrameLayout
-                android:background="@color/primary2"
                 android:id="@+id/fragment_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/primary2" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/epub_vertical_view_pager"
-                android:orientation="vertical"
-                android:adapter="@{viewModel.adapter}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:adapter="@{viewModel.adapter}"
+                android:orientation="vertical" />
 
 
             <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/error"
-                android:id="@+id/app_bar"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 app:elevation="0dp">
 
@@ -55,35 +53,34 @@
 
 
             <TextView
+                android:id="@+id/page_number"
                 style="@style/body"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_gravity="bottom|center"
-                android:gravity="center"
                 android:background="@color/error"
-                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
-                android:paddingRight="@dimen/large_margin"
+                android:gravity="center"
                 android:paddingLeft="@dimen/large_margin"
-                android:id="@+id/page_number"
-                />
+                android:paddingRight="@dimen/large_margin"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}" />
 
             <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                android:id="@+id/slider_countiner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:id="@+id/slider_countiner"
-                android:layout_marginBottom="?attr/actionBarSize"
                 android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginBottom="?attr/actionBarSize"
                 android:translationZ="90dp">
 
                 <io.techery.progresshint.addition.widget.VerticalSeekBar
                     android:id="@+id/seekBar"
+                    style="@style/SeekBar"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                     app:popupAlwaysShown="false"
                     app:popupDraggable="false"
-                    style="@style/SeekBar"
                     app:popupLayout="@layout/seekbar_layout"
                     app:popupStyle="follow"
                     app:seekBarRotation="CW90" />
@@ -92,11 +89,16 @@
 
         </FrameLayout>
 
-
+        <View
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:focusable="true"
+            android:layout_height="match_parent"
+            android:background="@color/black_overlay"
+            android:visibility="gone" />
 
         <include
             layout="@layout/bottom_sheet_style"
-            app:viewModel="@{viewModel}"
-             />
+            app:viewModel="@{viewModel}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

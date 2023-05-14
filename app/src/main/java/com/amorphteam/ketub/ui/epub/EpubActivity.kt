@@ -201,19 +201,21 @@ class EpubActivity : AppCompatActivity() {
     }
     private fun openStyleSheet() {
         handleStyleSheet()
+        binding.bg.visibility = View.VISIBLE;
+        binding.bg.alpha = 0.1F
         sheetBehavior?.peekHeight = 440
         sheetBehavior?.setBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(view: View, i: Int) {
                 sheetBehavior?.peekHeight = 0
-//                if (i == BottomSheetBehavior.STATE_COLLAPSED)
-//                    binding.bg.visibility = View.GONE;
+                if (i == BottomSheetBehavior.STATE_COLLAPSED)
+                    binding.bg.visibility = View.GONE;
 
             }
 
             override fun onSlide(view: View, v: Float) {
-//                binding.bg.visibility = View.VISIBLE;
-//                binding.bg.alpha = v;
+                binding.bg.visibility = View.VISIBLE;
+                binding.bg.alpha = v;
             }
         })
 

@@ -58,7 +58,6 @@ class LocalWebView : NormalWebView {
     }
 
     override fun onRequest(url: String): WebResourceResponse? {
-        Log.i("AJCssfff", url)
         if (url.contains("Style0001.css")) {
             return AssetUtil.instance?.getCssForName(context, STYLE_OUR)
         }
