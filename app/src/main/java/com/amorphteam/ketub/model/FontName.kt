@@ -17,8 +17,4 @@ enum class FontName(s: String) {
     CUSTOM3("custom3"),
     CUSTOM4("custom4"),
     CUSTOM5("custom5");
-
-    fun equalsName(otherName: String?): Boolean {
-        return otherName != null && name == otherName
-    }
 }

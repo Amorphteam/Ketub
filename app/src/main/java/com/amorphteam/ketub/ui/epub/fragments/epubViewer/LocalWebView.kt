@@ -186,7 +186,7 @@ class LocalWebView : NormalWebView {
     }
 
     companion object {
-        const val STYLE_OUR = "css/CustomStyle.css"
+        const val STYLE_OUR = "css/customStyle.css"
         const val FONT_NORMAL = "font/normal.ttf"
         const val FONT_HEADING1 = "font/heading1.ttf"
         const val FONT_HEADING2 = "font/heading2.ttf"

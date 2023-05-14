@@ -23,15 +23,16 @@ import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.utility.Keys
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
-import kotlinx.android.synthetic.main.activity_epub.*
-import kotlinx.android.synthetic.main.item_group_index.*
+import kotlinx.android.synthetic.main.bottom_sheet_style.*
 import java.util.*
 
 
 class EpubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEpubBinding
     lateinit var viewModel: EpubViewModel
+    private var sheetBehavior: BottomSheetBehavior<*>? = null
 
     private var hideHandler = Handler(Looper.myLooper()!!)
     private val showRunnable = Runnable {
@@ -59,7 +60,6 @@ class EpubActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(EpubViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
         setSupportActionBar(binding.toolbar)
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
@@ -79,6 +79,8 @@ class EpubActivity : AppCompatActivity() {
             viewModel.getBookAddress(bookAddress)
         }
     }
+
+
 
     private fun hide() {
         hideHandler.removeCallbacks(showRunnable)
@@ -163,7 +165,7 @@ class EpubActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.setting -> {
-//                openStyleSheet()
+                openStyleSheet()
                 true
             }
             R.id.home -> {
@@ -188,6 +190,30 @@ class EpubActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun handleStyleSheet() {
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet)
+    }
+    private fun openStyleSheet() {
+        handleStyleSheet()
+        sheetBehavior?.peekHeight = 440
+        sheetBehavior?.setBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(view: View, i: Int) {
+                sheetBehavior?.peekHeight = 0
+//                if (i == BottomSheetBehavior.STATE_COLLAPSED)
+//                    binding.bg.visibility = View.GONE;
+
+            }
+
+            override fun onSlide(view: View, v: Float) {
+//                binding.bg.visibility = View.VISIBLE;
+//                binding.bg.alpha = v;
+            }
+        })
+
+    }
+
 
 
 }

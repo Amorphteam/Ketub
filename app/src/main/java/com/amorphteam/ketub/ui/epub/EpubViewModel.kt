@@ -1,23 +1,18 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.util.Log
-import android.widget.SeekBar
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.utility.Keys
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
-import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import com.mehdok.fineepublib.epubviewer.jsepub.JSBook
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okio.IOException
-import java.util.*
 import kotlin.collections.ArrayList
 
 class EpubViewModel() : ViewModel() {
@@ -79,5 +74,8 @@ class EpubViewModel() : ViewModel() {
     fun setAdapter(adapter: EpubVerticalAdapter){
         _adapter.value = adapter
     }
+
+
+
 }
 

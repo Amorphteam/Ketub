@@ -31,15 +31,11 @@ import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
 import com.mehdok.fineepublib.interfaces.EpubScrollListener
 import com.mehdok.fineepublib.interfaces.EpubTapListener
-import kotlinx.android.synthetic.main.sheet.*
 
 
 class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, EpubScrollListener {
     private lateinit var binding: FragmentEpubViewBinding
     private lateinit var viewModel: EpubViewerViewModel
-    var toggle: Boolean = true
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    lateinit var navController: NavController
     lateinit var webView: LocalWebView
     private var jsPictureListener: JsPictureListener? = null
 
@@ -54,8 +50,6 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
         viewModel = ViewModelProvider(this)[EpubViewerViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        showLoadProgress(true)
 
         viewModel.htmlSourceString.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -98,101 +92,6 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
 
-
-    private fun openSearchFragment() {
-        navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_epubViewFragment_to_searchSingleFragment)
-    }
-
-    private fun openBookmarkFragment() {
-        navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_epubViewFragment_to_bookmarkSingleFragment)
-    }
-
-    private fun toggleToolbar(status: Boolean) {
-        if (status) {
-            viewModel.hideToolbar.value = true
-            toggle = false
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireContext(), R.color.background2)
-        } else {
-            viewModel.hideToolbar.value = false
-            toggle = true
-            requireActivity().window.statusBarColor =
-                ContextCompat.getColor(requireContext(), R.color.background1)
-        }
-        invalidateOptionsMenu(requireActivity())
-
-    }
-
-    //TODO: SHOULD MOVE TO VIEWMODEL
-    private fun openTocFragment() {
-        navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_epubViewFragment_to_tocSingleFragment)
-    }
-
-
-    private fun handleStyleSheet() {
-        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet)
-        bottomSheetBehavior.peekHeight = 440
-        handleIconBaseOnTheme()
-//        binding.bg.visibility = View.VISIBLE;
-//        binding.bg.alpha = 0.3f
-
-    }
-
-    private fun handleIconBaseOnTheme() {
-        when (resources.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                viewModel.darkTheme.value = true
-                viewModel.lightTheme.value = false
-                viewModel.basetTheme.value = false
-            }
-            Configuration.UI_MODE_NIGHT_NO -> {
-                viewModel.darkTheme.value = false
-                viewModel.lightTheme.value = true
-                viewModel.basetTheme.value = false
-            }
-            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
-                viewModel.darkTheme.value = false
-                viewModel.lightTheme.value = false
-                viewModel.basetTheme.value = true
-            }
-        }
-    }
-
-
-    private fun openStyleSheet() {
-        handleStyleSheet()
-        bottomSheetBehavior.setBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(view: View, i: Int) {
-                bottomSheetBehavior.peekHeight = 0
-//                if (i == BottomSheetBehavior.STATE_COLLAPSED)
-//                    binding.bg.visibility = View.GONE;
-
-            }
-
-            override fun onSlide(view: View, v: Float) {
-//                binding.bg.visibility = View.VISIBLE;
-//                binding.bg.alpha = v;
-            }
-        })
-
-
-    }
-
-    private fun showLoadProgress(flag: Boolean) {
-        //sometimes if you scroll too fast like crazy one this might be null
-        if (flag) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.progressBar.animate().setDuration(200).alpha(1f).start()
-        } else {
-            binding.progressBar.animate().setDuration(200).alpha(0f).start()
-            binding.progressBar.setVisibility(View.GONE)
-        }
-    }
-
     companion object {
         fun newInstance(
             manifestItem: ManifestItem?,
@@ -210,9 +109,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
     override fun onDrawingFinished() {
-        // this method calls every time anythings happens in webview that require a refresh like selecting text
-        //TODO: MUST HANDLE IT
-        showLoadProgress(false)
+
     }
 
     override fun onDestroyView() {
