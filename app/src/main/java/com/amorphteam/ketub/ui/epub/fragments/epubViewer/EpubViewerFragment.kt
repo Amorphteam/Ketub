@@ -24,6 +24,8 @@ import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
 import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.PreferencesHelper
+import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
@@ -68,7 +70,7 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
             viewModel.getResourceString(
                 requireContext(),
                 Book.resourceName2Url(manifestItem?.href),
-                "textSizeThree",
+                PreferencesManager(requireContext()).getStyleBookPref().getClasses().toString(),
                 position
             )
         }
@@ -76,6 +78,8 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
 
 
     private fun fillWebView(it: String) {
+        Log.i(Keys.LOG_NAME, it)
+
         webView = LocalWebView(requireContext())
         jsPictureListener = JsPictureListener(this)
         val params = FrameLayout.LayoutParams(

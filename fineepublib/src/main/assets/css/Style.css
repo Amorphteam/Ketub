@@ -199,16 +199,16 @@ body {
     background-color: transparent !important;
 }
 
-html.nightMode {
+html.BLACK {
     background-color: #131313 !important;
 }
 
-.nightMode p, .nightMode div, .nightMode span:not(.epub-media-overlay-playing) {
+.BLACK p, .BLACK div, .BLACK span:not(.epub-media-overlay-playing) {
     color: #767676 !important;
     background-color: transparent !important;
 }
 
-.nightMode h1, .nightMode h2, .nightMode h3, .nightMode h4, .nightMode h5, .nightMode h6 {
+.BLACK h1, .BLACK h2, .BLACK h3, .BLACK h4, .BLACK h5, .BLACK h6 {
     color: #848484 !important;
 }
 
@@ -222,15 +222,35 @@ html.nightMode .highlight-underline {border-bottom: 2px solid rgba(240, 40, 20, 
  * Mehdok custom bg color
  */
 
-html.cream {
+html.CREAM {
     background-color: #f9efde !important;
 
 }
-.cream p, .cream div, .cream span:not(.epub-media-overlay-playing) {
+.CREAM p, .CREAM div, .CREAM span:not(.epub-media-overlay-playing) {
     background-color: transparent !important;
 }
 
-.cream h1, .cream h2, .cream h3, .cream h4, .cream h5, .cream h6 {
+.CREAM h1, .CREAM h2, .CREAM h3, .CREAM h4, .CREAM h5, .CREAM h6 {
+}
+
+.FONT0, .FONT0 p, .FONT0 span, .FONT0 div {
+    font-family: 'normal', arial;
+}
+
+.FONT1, .FONT1 p, .FONT1 span, .FONT1 div {
+    font-family: 'heading1', arial;
+}
+
+.FONT2, .FONT2 p, .FONT2 span, .FONT2 div {
+    font-family: 'heading2', arial;
+}
+
+.FONT3, .FONT3 p, .FONT3 span, .FONT3 div {
+    font-family: 'custom1', arial;
+}
+
+.FONT4, .FONT4 p, .FONT4 span, .FONT4 div {
+    font-family: 'custom2', arial;
 }
 
 
@@ -238,18 +258,15 @@ html.cream {
 
 
 
-html.grey {
+
+
+html.GREY {
     background-color: #adadad !important;
 }
-.grey p, .grey div, .grey span:not(.epub-media-overlay-playing) {
+.GREY p, .GREY div, .GREY span:not(.epub-media-overlay-playing) {
     background-color: transparent !important;
 }
 
-
-
-/*
- search highlight class
- */
 
 .search_highlight {
     color: red !important;
@@ -284,17 +301,17 @@ html.grey {
 
 
 
-html.textSizeOne { font-size: 1em !important; }
-html.textSizeTwo { font-size: 1.2em !important; }
-html.textSizeThree { font-size: 1.5em !important; }
-html.textSizeFour { font-size: 1.7em !important; }
-html.textSizeFive { font-size: 2.0em !important; }
+html.SIZE0 { font-size: 1em !important; }
+html.SIZE1 { font-size: 1.2em !important; }
+html.SIZE2 { font-size: 1.5em !important; }
+html.SIZE3 { font-size: 1.7em !important; }
+html.SIZE4 { font-size: 2.0em !important; }
 
-html.lineHeight1 { line-height: 1.4 !important; }
-html.lineHeight2 { line-height: 1.9 !important; }
-html.lineHeight3 { line-height: 2.2 !important; }
-html.lineHeight4 { line-height: 2.5 !important; }
-html.lineHeight5 { line-height: 2.7 !important; }
+html.SPACE0 { line-height: 1.4 !important; }
+html.SPACE1 { line-height: 1.9 !important; }
+html.SPACE2 { line-height: 2.2 !important; }
+html.SPACE3 { line-height: 2.5 !important; }
+html.SPACE4 { line-height: 2.7 !important; }
 
 h1 {
     font-size: 1.5em;

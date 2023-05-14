@@ -2,6 +2,8 @@ package com.amorphteam.ketub.utility
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.amorphteam.ketub.utility.PreferencesHelper.Companion.convertStringToStyleBook
+import com.amorphteam.ketub.utility.PreferencesHelper.Companion.convertStyleBookToString
 import com.google.gson.Gson
 
 class PreferencesManager(private val context: Context) {
@@ -28,14 +30,13 @@ class PreferencesManager(private val context: Context) {
 
 
     fun saveStyleBookPref(styleBookPref: StyleBookPreferences?) {
-        val styleString:String = Gson().toJson(styleBookPref, StyleBookPreferences::class.java)
+        val styleString: String? = styleBookPref?.let { convertStyleBookToString(it) }
         sharedPreferences.edit().putString(Keys.STYLE_BOOK_PREF, styleString).apply()
-
     }
 
     fun getStyleBookPref(): StyleBookPreferences {
         val styleString = sharedPreferences.getString(Keys.STYLE_BOOK_PREF, "")
-        var styleBookPreferences:StyleBookPreferences? = Gson().fromJson(styleString, StyleBookPreferences::class.java)
+        var styleBookPreferences:StyleBookPreferences? = styleString?.let { convertStringToStyleBook(it) }
         if (styleBookPreferences == null){
             styleBookPreferences = StyleBookPreferences()
         }

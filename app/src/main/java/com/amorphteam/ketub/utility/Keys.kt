@@ -29,7 +29,7 @@ class Keys {
         val NAV_POINT = "nav_point"
         val UI_ANIMATION_DELAY = 100
         val STYLE_BOOK_PREF = "style_book_pref"
-        val FONT_ARRAY = listOf(FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4, FontName.FONT5)
+        val FONT_ARRAY = listOf(FontName.FONT0, FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4)
     }
 }
 

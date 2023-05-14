@@ -3,11 +3,11 @@ package com.amorphteam.ketub.model
 import java.lang.Exception
 
 enum class FontName(var number: Int) {
-    FONT1(0),
-    FONT2(1),
-    FONT3(2),
-    FONT4(3),
-    FONT5(4);
+    FONT0(0),
+    FONT1(1),
+    FONT2(2),
+    FONT3(3),
+    FONT4(4);
     companion object {
         fun from(findValue: Int): FontName {
             return try {
