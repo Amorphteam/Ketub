@@ -84,9 +84,11 @@ class EpubActivity : AppCompatActivity() {
         val prefManager = PreferencesManager(this)
         viewModel.handleSavedStyle(prefManager)
 
-
     }
 
+    private fun handleChipsView() {
+        viewModel.setChips(chipGroup, Keys.FONT_ARRAY)
+    }
 
 
     private fun hide() {
@@ -203,6 +205,9 @@ class EpubActivity : AppCompatActivity() {
     }
     private fun openStyleSheet() {
         handleStyleSheet()
+
+        handleChipsView()
+
         binding.bg.visibility = View.VISIBLE;
         binding.bg.alpha = 0.1F
         sheetBehavior?.peekHeight = 440

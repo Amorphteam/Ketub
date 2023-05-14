@@ -47,12 +47,10 @@ class EpubViewModel() : ViewModel() {
 
     val currentFontSize = MutableLiveData<Int>()
     val currentLineSpace = MutableLiveData<Int>()
-    val chipsArray = MutableLiveData<List<ChipsModel>>()
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
 
     init {
-        chipsArray.value = Keys.FONT_ARRAY
         _fullScreen.value = true
     }
 
@@ -123,34 +121,33 @@ class EpubViewModel() : ViewModel() {
         preferencesManager.saveStyleBookPref(styleBookPref)
     }
 
+    fun setChips(chipGroup: ChipGroup, items: List<FontName>?) {
+        chipGroup.removeAllViews()
+        val selectedChip = styleBookPref.fontName.ordinal
+        items?.let {
+            for (item in items) {
+                val chip = Chip(chipGroup.context)
+                chip.text = item.name
+                chip.tag = item.number
 
-    companion object {
-        @JvmStatic
-        @BindingAdapter("chips")
-        fun setChips(chipGroup: ChipGroup, items: List<ChipsModel>?) {
-            chipGroup.removeAllViews()
-            Log.i(Keys.LOG_NAME, items?.size.toString())
-            items?.let {
-                for (item in items) {
-                    val chip = Chip(chipGroup.context)
-                    chip.text = item.name
-                    chip.tag = item.id // Set the ID as the tag to identify the selected item
-
-                    chip.isCheckable = true
-                    chip.setOnCheckedChangeListener { _, isChecked ->
-                        if (isChecked) {
-                            // Handle chip selection
-                            val selectedItemId = chip.tag as Int
-                            Log.i(Keys.LOG_NAME, selectedItemId.toString())
-                        }
-                    }
-
-                    chipGroup.addView(chip)
+                chip.isCheckable = true
+                if (item.number == selectedChip) {
+                    chip.isChecked = true
                 }
+                chip.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        // Handle chip selection
+                        val selectedItemId = chip.tag as Int
+                        styleBookPref.fontName = FontName.from(selectedItemId)
+                    }
+                }
+
+                chipGroup.addView(chip)
             }
         }
-
-        data class ChipsModel(val id: Int, val name: String)
     }
+
+
+
 }
 
