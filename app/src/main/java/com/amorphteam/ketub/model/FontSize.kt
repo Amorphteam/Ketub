@@ -6,6 +6,8 @@ enum class FontSize(number: Int) {
     SIZE2(2),
     SIZE3(3),
     SIZE4(4);
+
+
 }
 
 

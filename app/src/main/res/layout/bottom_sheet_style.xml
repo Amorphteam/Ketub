@@ -235,7 +235,9 @@
                     android:layout_width="0dp"
                     android:layout_gravity="center_vertical"
                     style="@style/SeekBar"
-                    android:max="6"
+                    android:max="5"
+                    android:progress="@{viewModel.currentFontSize}"
+                    android:onProgressChanged="@{viewModel.updateFontSizeSeekBar}"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
@@ -264,7 +266,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     style="@style/SeekBar"
-                    android:max="6"
+                    android:progress="@{viewModel.currentLineSpace}"
+                    android:onProgressChanged="@{viewModel.updateLineSpaceSeekBar}"
+                    android:max="5"
                     android:layout_weight="1" />
 
                 <ImageView

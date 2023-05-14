@@ -23,8 +23,9 @@ class Keys {
         val ASSET_COVER_DIR = "covers"
         val PREF_DEFFAULT_APP_VERSION = 0
         val BOOK_ADDRESS = "book_address"
-            val NAV_POINT = "nav_point"
+        val NAV_POINT = "nav_point"
         val UI_ANIMATION_DELAY = 100
+        val STYLE_BOOK_PREF = "style_book_pref"
     }
 }
 

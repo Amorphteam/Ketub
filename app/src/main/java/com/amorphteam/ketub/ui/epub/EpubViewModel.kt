@@ -1,12 +1,18 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.util.Log
+import android.widget.SeekBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.model.FontName
+import com.amorphteam.ketub.model.FontSize
+import com.amorphteam.ketub.model.LineSpace
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.PreferencesManager
+import com.amorphteam.ketub.utility.StyleBookPreferences
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.jsepub.JSBook
 import kotlinx.coroutines.*
@@ -32,9 +38,19 @@ class EpubViewModel() : ViewModel() {
         get() = _spineArray
 
 
+    val currentFontSize = MutableLiveData<Int>()
+    val currentLineSpace = MutableLiveData<Int>()
+
+
 
     init {
         _fullScreen.value = true
+    }
+
+     fun handleSavedStyle(preferencesManager: PreferencesManager) {
+         val styleBookPref:StyleBookPreferences = preferencesManager.getStyleBookPref()
+         currentLineSpace.value = styleBookPref.lineSpace.ordinal
+         currentFontSize.value = styleBookPref.fontSize.ordinal
     }
 
     fun getBookAddress(bookAddress: String?) {
@@ -73,6 +89,14 @@ class EpubViewModel() : ViewModel() {
 
     fun setAdapter(adapter: EpubVerticalAdapter){
         _adapter.value = adapter
+    }
+
+    fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        currentFontSize.value = progress
+    }
+
+    fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+        currentLineSpace.value = progress
     }
 
 

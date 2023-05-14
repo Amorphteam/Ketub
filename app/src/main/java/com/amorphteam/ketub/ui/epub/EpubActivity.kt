@@ -23,9 +23,11 @@ import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
+import kotlinx.android.synthetic.main.item_group_index.*
 import java.util.*
 
 
@@ -78,6 +80,9 @@ class EpubActivity : AppCompatActivity() {
             val navPoint = intent.getIntExtra(Keys.NAV_POINT, 0)
             viewModel.getBookAddress(bookAddress)
         }
+
+        val prefManager = PreferencesManager(this)
+        viewModel.handleSavedStyle(prefManager)
     }
 
 
