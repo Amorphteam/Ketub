@@ -2,6 +2,7 @@ package com.amorphteam.ketub.ui.epub
 
 import android.util.Log
 import android.widget.SeekBar
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +14,8 @@ import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.amorphteam.ketub.utility.StyleBookPreferences
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.jsepub.JSBook
 import kotlinx.coroutines.*
@@ -44,18 +47,20 @@ class EpubViewModel() : ViewModel() {
 
     val currentFontSize = MutableLiveData<Int>()
     val currentLineSpace = MutableLiveData<Int>()
-    lateinit var styleBookPref:StyleBookPreferences
+    val chipsArray = MutableLiveData<List<ChipsModel>>()
+    lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
 
     init {
+        chipsArray.value = Keys.FONT_ARRAY
         _fullScreen.value = true
     }
 
-     fun handleSavedStyle(preferencesManager: PreferencesManager) {
-         this.preferencesManager = preferencesManager
-         styleBookPref = preferencesManager.getStyleBookPref()
-         currentLineSpace.value = styleBookPref.lineSpace.ordinal
-         currentFontSize.value = styleBookPref.fontSize.ordinal
+    fun handleSavedStyle(preferencesManager: PreferencesManager) {
+        this.preferencesManager = preferencesManager
+        styleBookPref = preferencesManager.getStyleBookPref()
+        currentLineSpace.value = styleBookPref.lineSpace.ordinal
+        currentFontSize.value = styleBookPref.fontSize.ordinal
     }
 
     fun getBookAddress(bookAddress: String?) {
@@ -88,27 +93,27 @@ class EpubViewModel() : ViewModel() {
     }
 
 
-    fun toggle(){
+    fun toggle() {
         _fullScreen.value = _fullScreen.value != true
     }
 
-    fun setAdapter(adapter: EpubVerticalAdapter){
+    fun setAdapter(adapter: EpubVerticalAdapter) {
         _adapter.value = adapter
     }
 
-    fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+    fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val fontSize = FontSize.from(progress)
         styleBookPref.fontSize = fontSize
         currentFontSize.value = progress
     }
 
-    fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean){
+    fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val lineSpace = LineSpace.from(progress)
         styleBookPref.lineSpace = lineSpace
         currentLineSpace.value = progress
     }
 
-    fun onDismissSheet(){
+    fun onDismissSheet() {
         _dismissSheet.value = _dismissSheet.value != true
     }
 
@@ -119,5 +124,33 @@ class EpubViewModel() : ViewModel() {
     }
 
 
+    companion object {
+        @JvmStatic
+        @BindingAdapter("chips")
+        fun setChips(chipGroup: ChipGroup, items: List<ChipsModel>?) {
+            chipGroup.removeAllViews()
+            Log.i(Keys.LOG_NAME, items?.size.toString())
+            items?.let {
+                for (item in items) {
+                    val chip = Chip(chipGroup.context)
+                    chip.text = item.name
+                    chip.tag = item.id // Set the ID as the tag to identify the selected item
+
+                    chip.isCheckable = true
+                    chip.setOnCheckedChangeListener { _, isChecked ->
+                        if (isChecked) {
+                            // Handle chip selection
+                            val selectedItemId = chip.tag as Int
+                            Log.i(Keys.LOG_NAME, selectedItemId.toString())
+                        }
+                    }
+
+                    chipGroup.addView(chip)
+                }
+            }
+        }
+
+        data class ChipsModel(val id: Int, val name: String)
+    }
 }
 

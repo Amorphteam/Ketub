@@ -164,53 +164,13 @@
                     android:clipToPadding="false">
 
                     <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chip_group"
+                        android:id="@+id/chipGroup"
                         android:layout_width="wrap_content"
+                        app:chips="@{viewModel.chipsArray}"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         app:singleLine="true"
                         app:singleSelection="true">
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/font_dubai"
-                            style="@style/chipStyle"
-                            android:layout_width="wrap_content"
-                            android:text="@string/font_dubai"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/font_nazanin"
-                            style="@style/chipStyle"
-                            android:layout_width="wrap_content"
-                            android:text="@string/font_nazanin"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/font_lotus"
-                            style="@style/chipStyle"
-                            android:layout_width="wrap_content"
-                            android:text="@string/font_lotus"
-                            android:layout_height="wrap_content"
-
-                            />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/font_vazir"
-                            style="@style/chipStyle"
-                            android:layout_width="wrap_content"
-                            android:text="@string/font_vazir"
-                            android:layout_height="wrap_content"
-                            />
-
-                        <com.google.android.material.chip.Chip
-                            android:id="@+id/font_iran_sans"
-                            style="@style/chipStyle"
-                            android:layout_width="wrap_content"
-                            android:text="@string/iran_sans"
-                            android:layout_height="wrap_content"
-                            />
 
                     </com.google.android.material.chip.ChipGroup>
 

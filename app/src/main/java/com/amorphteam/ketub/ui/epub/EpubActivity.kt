@@ -83,6 +83,8 @@ class EpubActivity : AppCompatActivity() {
 
         val prefManager = PreferencesManager(this)
         viewModel.handleSavedStyle(prefManager)
+
+
     }
 
 

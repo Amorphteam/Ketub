@@ -1,5 +1,7 @@
 package com.amorphteam.ketub.utility
 
+import com.amorphteam.ketub.ui.epub.EpubViewModel
+
 class Keys {
 
     companion object {
@@ -26,6 +28,12 @@ class Keys {
         val NAV_POINT = "nav_point"
         val UI_ANIMATION_DELAY = 100
         val STYLE_BOOK_PREF = "style_book_pref"
+        val FONT_ARRAY = listOf(
+            EpubViewModel.Companion.ChipsModel(0, "font1"),
+            EpubViewModel.Companion.ChipsModel(1, "font2"),
+            EpubViewModel.Companion.ChipsModel(2, "font3"),
+            EpubViewModel.Companion.ChipsModel(3, "font3")
+        )
     }
 }
 
