@@ -40,16 +40,21 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
-                    android:src="@drawable/ic_resource_default"
-/>
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:onClick="@{()-> viewModel.onClickQuickStyle(0)}"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:src="@drawable/ic_resource_default"/>
                 <TextView
                     style="@style/description"
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:textColor="@{viewModel.currentQuickStyle == 0 ? @color/secondary1 : @color/secondary2}"
+                android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/default_setting"
 />
@@ -67,12 +72,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:onClick="@{()-> viewModel.onClickQuickStyle(1)}"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_legibility" />
 
                 <TextView
                     style="@style/description"
+                    android:textColor="@{viewModel.currentQuickStyle == 1 ? @color/secondary1 : @color/secondary2}"
+                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/more_readability"
@@ -89,13 +100,19 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:onClick="@{()-> viewModel.onClickQuickStyle(2)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_dark" />
 
                 <TextView
                     style="@style/description"
+                    android:layout_marginTop="-10dp"
+                    android:textColor="@{viewModel.currentQuickStyle == 2 ? @color/secondary1 : @color/secondary2}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dark_mode"
@@ -109,17 +126,25 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:onClick="@{()-> viewModel.onClickQuickStyle(3)}"
                     android:backgroundTint="@android:color/transparent"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
-                    android:src="@drawable/ic_contrast" />
+                    android:src="@drawable/ic_contrast" >
+
+                </ImageView>
 
                 <TextView
                     style="@style/description"
+                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
+                    android:textColor="@{viewModel.currentQuickStyle == 3 ? @color/secondary1 : @color/secondary2}"
                     android:layout_height="wrap_content"
                     android:text="@string/high_contrast"
 />
@@ -259,6 +284,38 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/basetheme"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:onClick="@{()-> viewModel.onclickTheme(0)}"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:backgroundTint="@android:color/transparent"
+                    android:src="@drawable/ic_phone"
+                    />
+
+                <TextView
+                    android:id="@+id/basetheme_text"
+                    style="@style/description"
+                    android:layout_marginTop="-10dp"
+                    android:layout_width="wrap_content"
+                    android:textColor="@{viewModel.currentTheme == 0 ? @color/secondary1 : @color/secondary2}"
+                    android:layout_height="wrap_content"
+                    android:text="@string/base_phone"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/light_countiner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -271,7 +328,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:onClick="@{()-> viewModel.onclickTheme(1)}"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_light"
 />
@@ -279,6 +340,8 @@
                 <TextView
                     android:id="@+id/light_text"
                     style="@style/description"
+                    android:layout_marginTop="-10dp"
+                    android:textColor="@{viewModel.currentTheme == 1 ? @color/secondary1 : @color/secondary2}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/light"/>
@@ -293,7 +356,11 @@
                 <ImageButton
                     android:id="@+id/dark"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:onClick="@{()-> viewModel.onclickTheme(2)}"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -304,35 +371,13 @@
                     android:id="@+id/dark_text"
                     style="@style/description"
                     android:layout_width="wrap_content"
+                    android:textColor="@{viewModel.currentTheme == 2 ? @color/secondary1 : @color/secondary2}"
+                    android:layout_marginTop="-10dp"
                     android:layout_height="wrap_content"
                     android:text="@string/dark"
 />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/basetheme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="@dimen/half_margin"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_phone"
-/>
-
-                <TextView
-                    android:id="@+id/basetheme_text"
-                    style="@style/description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/base_phone"
-/>
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
 </layout>

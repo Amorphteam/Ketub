@@ -1,15 +1,16 @@
 package com.amorphteam.ketub.ui.epub
 
+import android.content.res.ColorStateList
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.model.BookHolder
-import com.amorphteam.ketub.model.FontName
-import com.amorphteam.ketub.model.FontSize
-import com.amorphteam.ketub.model.LineSpace
+import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
@@ -47,6 +48,9 @@ class EpubViewModel() : ViewModel() {
 
     val currentFontSize = MutableLiveData<Int>()
     val currentLineSpace = MutableLiveData<Int>()
+    val currentQuickStyle = MutableLiveData<Int>()
+    val currentTheme = MutableLiveData<Int>()
+
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
 
@@ -59,6 +63,7 @@ class EpubViewModel() : ViewModel() {
         styleBookPref = preferencesManager.getStyleBookPref()
         currentLineSpace.value = styleBookPref.lineSpace.ordinal
         currentFontSize.value = styleBookPref.fontSize.ordinal
+        currentQuickStyle.value = styleBookPref.quickStyle.ordinal
     }
 
     fun getBookAddress(bookAddress: String?) {
@@ -120,7 +125,17 @@ class EpubViewModel() : ViewModel() {
         super.onCleared()
         preferencesManager.saveStyleBookPref(styleBookPref)
     }
+    fun onClickQuickStyle(id: Int){
+        currentQuickStyle.value = id
+        val quickStyle = QuickStyle.from(id)
+        styleBookPref.quickStyle = quickStyle
+    }
 
+    fun onclickTheme(id: Int){
+        currentTheme.value = id
+        val theme = Theme.from(id)
+        styleBookPref.theme = theme
+    }
     fun setChips(chipGroup: ChipGroup, items: List<FontName>?) {
         chipGroup.removeAllViews()
         val selectedChip = styleBookPref.fontName.ordinal
@@ -146,7 +161,6 @@ class EpubViewModel() : ViewModel() {
             }
         }
     }
-
 
 
 }
