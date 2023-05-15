@@ -8,6 +8,7 @@ buildscript {
     ext.version_retrofit = "2.9.0"
     ext.version_moshi = "1.14.0"
     ext.version_gson = "2.7"
+
     repositories {
         google()
         mavenCentral()

@@ -212,6 +212,21 @@ html.BLACK {
     color: #848484 !important;
 }
 
+
+html.DARK {
+    background-color: #131313 !important;
+}
+
+.DARK p, .DARK div, .DARK span:not(.epub-media-overlay-playing) {
+    color: #767676 !important;
+    background-color: transparent !important;
+}
+
+.DARK h1, .DARK h2, .DARK h3, .DARK h4, .DARK h5, .DARK h6 {
+    color: #848484 !important;
+}
+
+
 html.nightMode .highlight-yellow {background:rgba(255, 235, 107, 0.9)}
 html.nightMode .highlight-green {background:rgba(192, 237, 114, 0.9)}
 html.nightMode .highlight-blue {background:rgba(173, 216, 255, 0.9)}
@@ -231,6 +246,18 @@ html.CREAM {
 }
 
 .CREAM h1, .CREAM h2, .CREAM h3, .CREAM h4, .CREAM h5, .CREAM h6 {
+}
+
+
+html.LIGHT {
+    background-color: #f9efde !important;
+
+}
+.LIGHT p, .LIGHT div, .LIGHT span:not(.epub-media-overlay-playing) {
+    background-color: transparent !important;
+}
+
+.LIGHT h1, .LIGHT h2, .LIGHT h3, .LIGHT h4, .LIGHT h5, .LIGHT h6 {
 }
 
 .FONT0, .FONT0 p, .FONT0 span, .FONT0 div {

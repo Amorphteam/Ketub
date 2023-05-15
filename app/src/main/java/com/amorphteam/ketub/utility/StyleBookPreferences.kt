@@ -16,6 +16,7 @@ class StyleBookPreferences {
           return fontSize.name + " " +
                   fontName.name + " " +
                   lineSpace.name + " " +
-                  readerColor.name
+                  readerColor.name + " " +
+                  theme.name
      }
 }

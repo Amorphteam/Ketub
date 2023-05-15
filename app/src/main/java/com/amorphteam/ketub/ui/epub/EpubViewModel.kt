@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.epub
 
+import android.graphics.fonts.Font
 import android.util.Log
 import android.widget.SeekBar
 import androidx.lifecycle.LiveData
@@ -46,6 +47,7 @@ class EpubViewModel() : ViewModel() {
     val currentLineSpace = MutableLiveData<Int>()
     val currentQuickStyle = MutableLiveData<Int>()
     val currentTheme = MutableLiveData<Int>()
+    val currentFontName = MutableLiveData<Int>()
 
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
@@ -61,6 +63,9 @@ class EpubViewModel() : ViewModel() {
         currentLineSpace.value = styleBookPref.lineSpace.ordinal
         currentFontSize.value = styleBookPref.fontSize.ordinal
         currentQuickStyle.value = styleBookPref.quickStyle.ordinal
+        currentFontName.value = styleBookPref.fontName.ordinal
+        currentTheme.value = styleBookPref.theme.ordinal
+        handleQuickStyle(QuickStyle.from(currentQuickStyle.value!!))
     }
 
     fun getBookAddress(bookAddress: String?) {
@@ -133,13 +138,61 @@ class EpubViewModel() : ViewModel() {
     fun updateQuickStyle(id: Int){
         currentQuickStyle.value = id
         val quickStyle = QuickStyle.from(id)
+        handleQuickStyle(quickStyle)
         styleBookPref.quickStyle = quickStyle
+    }
+
+    fun handleQuickStyle(quickStyle: QuickStyle){
+        when (quickStyle){
+            QuickStyle.DEFAULT -> {
+                currentFontSize.value = FontSize.SIZE1.number
+                currentLineSpace.value = LineSpace.SPACE1.number
+                currentTheme.value = Theme.BASE.number
+            }
+
+            QuickStyle.READABILITY -> {
+                currentFontSize.value = FontSize.SIZE4.number
+                currentLineSpace.value = LineSpace.SPACE4.number
+                currentTheme.value = Theme.BASE.number
+            }
+            QuickStyle.DARKMODE -> {
+                currentTheme.value = Theme.DARK.number
+
+            }
+
+            QuickStyle.HIGHCONTRAST -> {
+                //TODO: //ADD HIGH CONTRAST STYLE
+            }
+
+        }
+        handleListenerForAllTheme()
+        saveAllThemeInBookPref()
+    }
+
+    private fun saveAllThemeInBookPref() {
+        styleBookPref.quickStyle = QuickStyle.from(currentQuickStyle.value!!)
+        styleBookPref.theme = Theme.from(currentTheme.value!!)
+        styleBookPref.fontSize = FontSize.from(currentFontSize.value!!)
+        styleBookPref.lineSpace = LineSpace.from(currentLineSpace.value!!)
+        styleBookPref.fontName = FontName.from(currentFontName.value!!)
+    }
+
+    private fun handleListenerForAllTheme() {
+        for (listener in styleListener!!) {
+            listener.changeTheme(currentTheme.value)
+            listener.changeFontSize(currentFontSize.value)
+            listener.changeLineSpace(currentLineSpace.value)
+            listener.changeFontName(currentFontName.value)
+        }
     }
 
     fun updateTheme(id: Int){
         currentTheme.value = id
         val theme = Theme.from(id)
         styleBookPref.theme = theme
+        for (listener in styleListener!!){
+            listener.changeTheme(id)
+        }
     }
     fun setChips(chipGroup: ChipGroup, items: List<FontName>?) {
         chipGroup.removeAllViews()
@@ -158,6 +211,7 @@ class EpubViewModel() : ViewModel() {
                     if (isChecked) {
                         // Handle chip selection
                         val selectedItemId = chip.tag as Int
+                        currentFontName.value = selectedItemId
                         styleBookPref.fontName = FontName.from(selectedItemId)
                         for (listener in styleListener!!){
                             listener.changeFontName(selectedItemId)

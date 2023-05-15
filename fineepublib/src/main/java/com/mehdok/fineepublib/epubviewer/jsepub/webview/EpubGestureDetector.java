@@ -57,6 +57,13 @@ public class EpubGestureDetector extends GestureDetector.SimpleOnGestureListener
         return true;
     }
 
+    @Override
+    public boolean onDoubleTap(MotionEvent e) {
+        if (epubTapListener != null)
+            epubTapListener.onDoubleTap();
+        return super.onDoubleTap(e);
+    }
+
     public void setEpubTapListener(EpubTapListener epubTapListener) {
         this.epubTapListener = epubTapListener;
     }

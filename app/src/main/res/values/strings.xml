@@ -60,5 +60,6 @@
     <string name="search_toolbar">البحث</string>
     <string name="nosos_caption">فصلية تعني بالفكر الديني المعاصر</string>
     <string name="error_copy_file">WE CAN NOT COPY FILE TO YOUR PHONE</string>
+    <string name="bookmarked">Bookmarked successfully</string>
 
 </resources>

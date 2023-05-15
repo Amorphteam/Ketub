@@ -71,9 +71,9 @@ function nightMode(enable) {
 // Toggle any background
 function changeReaderColor(cls) {
     var elm = document.documentElement;
-    removeClass(elm, "cream");
-    removeClass(elm, "black");
-    removeClass(elm, "grey");
+    removeClass(elm, "BASE");
+    removeClass(elm, "LIGHT");
+    removeClass(elm, "DARK");
 
     if(cls) {
         addClass(elm, cls);

@@ -15,15 +15,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
-import com.amorphteam.ketub.model.BookHolder
-import com.amorphteam.ketub.model.FontName
-import com.amorphteam.ketub.model.FontSize
-import com.amorphteam.ketub.model.LineSpace
+import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
+import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
@@ -166,6 +164,10 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
 
     }
 
+    override fun onDoubleTap() {
+        Snackbar.make(binding.mainEpubContainer, requireContext().getText(R.string.bookmarked), Snackbar.LENGTH_SHORT).show()
+    }
+
     override fun changeFontSize(fontSize: Int?) {
         val js = String.format(Locale.US, "javascript:setFontSize('%s');", FontSize.from(fontSize!!))
         webView.exeJs(js)
@@ -181,8 +183,13 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         webView.exeJs(js)
     }
 
-    override fun changeBkColor(BkColor: Int?) {
+    override fun changeBkColor(bkColor: Int?) {
 
+    }
+
+    override fun changeTheme(theme: Int?) {
+        val js = String.format(Locale.US, "javascript:changeReaderColor('%s');", Theme.from(theme!!))
+        webView.exeJs(js)
     }
 
 

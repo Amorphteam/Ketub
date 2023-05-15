@@ -34,4 +34,6 @@ public interface EpubTapListener {
     WebView.HitTestResult getHitTestResult();
 
     void onPageScrolled();
+
+    void onDoubleTap();
 }
