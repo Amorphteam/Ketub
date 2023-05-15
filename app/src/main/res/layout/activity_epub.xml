@@ -83,6 +83,8 @@
                     app:popupDraggable="false"
                     app:popupLayout="@layout/seekbar_layout"
                     app:popupStyle="follow"
+                    android:padding="@dimen/xsmall_margin"
+
                     app:seekBarRotation="CW90" />
                 <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
@@ -94,6 +96,7 @@
             android:layout_width="match_parent"
             android:focusable="true"
             android:layout_height="match_parent"
+            android:onClick="@{() -> viewModel.onDismissSheet()}"
             android:background="@color/black_overlay"
             android:visibility="gone" />
 

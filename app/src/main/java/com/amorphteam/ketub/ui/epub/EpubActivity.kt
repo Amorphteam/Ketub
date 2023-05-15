@@ -73,6 +73,10 @@ class EpubActivity : AppCompatActivity() {
 
         }
 
+        viewModel.dismissSheet.observe(this){
+                sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+                binding.bg.visibility = View.GONE
+        }
 
         viewModel.fullScreen.observe(this) {
             if (it) {
@@ -228,27 +232,11 @@ class EpubActivity : AppCompatActivity() {
     }
     private fun openStyleSheet() {
         handleStyleSheet()
-
         handleChipsView()
-
         binding.bg.visibility = View.VISIBLE;
         binding.bg.alpha = 0.1F
         sheetBehavior?.peekHeight = 440
-        sheetBehavior?.setBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(view: View, i: Int) {
-                sheetBehavior?.peekHeight = 0
-                if (i == BottomSheetBehavior.STATE_COLLAPSED)
-                    binding.bg.visibility = View.GONE;
-
-            }
-
-            override fun onSlide(view: View, v: Float) {
-                binding.bg.visibility = View.VISIBLE;
-                binding.bg.alpha = v;
-            }
-        })
-
+        sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
 
