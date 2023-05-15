@@ -28,6 +28,7 @@ import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
+import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
 import kotlinx.android.synthetic.main.item_group_index.*
 import java.security.Key
@@ -38,7 +39,8 @@ class EpubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEpubBinding
     lateinit var viewModel: EpubViewModel
     private var sheetBehavior: BottomSheetBehavior<*>? = null
-
+    lateinit var bookAddress:String
+    var navPoint:Int = 0
     private var hideHandler = Handler(Looper.myLooper()!!)
     private val showRunnable = Runnable {
         supportActionBar?.show()
@@ -67,6 +69,9 @@ class EpubActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         setSupportActionBar(binding.toolbar)
         binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+        binding.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
@@ -85,14 +90,17 @@ class EpubActivity : AppCompatActivity() {
                 show()
             }
         }
+
         if (intent.extras != null) {
-            val bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)
-            val navPoint = intent.getIntExtra(Keys.NAV_POINT, 0)
+            bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)!!
+            navPoint = intent.getIntExtra(Keys.NAV_POINT, 0)
             viewModel.getBookAddress(bookAddress)
         }
 
         val prefManager = PreferencesManager(this)
-        viewModel.handleSavedStyle(prefManager)
+        viewModel.setPrefManage(prefManager)
+        viewModel.handleLastPageSeen(bookAddress)
+        viewModel.handleSavedStyle()
 
         EpubVerticalDelegate.subscribeOn(this)
 
@@ -141,10 +149,11 @@ class EpubActivity : AppCompatActivity() {
     private fun handleViewEpubPager(spineItems: ArrayList<ManifestItem>) {
         val adapter =
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
-        viewModel.setAdapter(adapter)
+        binding.epubVerticalViewPager.adapter = adapter
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
         addPagerScrollListener(binding.epubVerticalViewPager)
-        setUpChapterSeeker(spineItems.size, 0)
+        setUpChapterSeeker(spineItems.size)
+        viewModel.lastPageSeen.value?.let { moveToPage(it) }
     }
 
     private fun addPagerScrollListener(pager: ViewPager2) {
@@ -156,9 +165,8 @@ class EpubActivity : AppCompatActivity() {
         })
     }
 
-    private fun setUpChapterSeeker(maxPage: Int, currentPage: Int) {
+    private fun setUpChapterSeeker(maxPage: Int) {
         binding.seekBar.max = maxPage
-        binding.seekBar.progress = currentPage
         binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
@@ -168,6 +176,8 @@ class EpubActivity : AppCompatActivity() {
                     (p0?.progress ?: 0) + 1,
                     BookHolder.instance?.jsBook?.pageNumber
                 )
+                viewModel.preferencesManager.saveLastPageSeen(bookAddress,p0?.progress ?: 0)
+
             }
 
             override fun onStartTrackingTouch(p0: SeekBar?) {

@@ -43,4 +43,12 @@ class PreferencesManager(private val context: Context) {
         return styleBookPreferences
     }
 
+    fun saveLastPageSeen(bookPath:String, page:Int){
+        sharedPreferences.edit().putInt(Keys.PREF_FIRST_RUN+bookPath, page).apply()
+    }
+
+    fun getLastPageSeen(bookPath: String):Int{
+        return sharedPreferences.getInt(Keys.PREF_FIRST_RUN+bookPath, 0)
+    }
+
 }

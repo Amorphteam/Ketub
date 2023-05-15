@@ -30,6 +30,7 @@ class Keys {
         val STYLE_BOOK_PREF = "style_book_pref"
         val FONT_ARRAY = listOf(FontName.FONT0, FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4)
         val RQ_SIDELONG = 12
+        val PREF_LAST_PAGE_SEEN = "pref_last_page_seen"
 
     }
 }

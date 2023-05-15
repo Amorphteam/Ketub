@@ -34,10 +34,6 @@ class EpubViewModel() : ViewModel() {
     val fullScreen: LiveData<Boolean>
         get() = _fullScreen
 
-    private val _adapter = MutableLiveData<EpubVerticalAdapter>()
-    val adapter: LiveData<EpubVerticalAdapter>
-        get() = _adapter
-
     private val _spineArray = MutableLiveData<ArrayList<ManifestItem>>()
     val spineArray: LiveData<ArrayList<ManifestItem>>
         get() = _spineArray
@@ -52,7 +48,7 @@ class EpubViewModel() : ViewModel() {
     val currentQuickStyle = MutableLiveData<Int>()
     val currentTheme = MutableLiveData<Int>()
     val currentFontName = MutableLiveData<Int>()
-
+    val lastPageSeen = MutableLiveData<Int>()
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
     var styleListener: ArrayList<StyleListener>? = ArrayList()
@@ -61,8 +57,13 @@ class EpubViewModel() : ViewModel() {
         _fullScreen.value = true
     }
 
-    fun handleSavedStyle(preferencesManager: PreferencesManager) {
+    fun setPrefManage(preferencesManager: PreferencesManager){
         this.preferencesManager = preferencesManager
+    }
+    fun handleLastPageSeen(bookAddress: String?){
+        lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
+    }
+    fun handleSavedStyle() {
         styleBookPref = preferencesManager.getStyleBookPref()
         currentLineSpace.value = styleBookPref.lineSpace.ordinal
         currentFontSize.value = styleBookPref.fontSize.ordinal
@@ -108,10 +109,6 @@ class EpubViewModel() : ViewModel() {
 
     fun toggle() {
         _fullScreen.value = _fullScreen.value != true
-    }
-
-    fun setAdapter(adapter: EpubVerticalAdapter) {
-        _adapter.value = adapter
     }
 
     fun onDismissSheet() {
