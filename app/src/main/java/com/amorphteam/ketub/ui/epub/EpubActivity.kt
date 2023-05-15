@@ -66,6 +66,8 @@ class EpubActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         setSupportActionBar(binding.toolbar)
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
+
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
 
