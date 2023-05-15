@@ -30,6 +30,7 @@ import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
 import com.mehdok.fineepublib.interfaces.EpubScrollListener
 import com.mehdok.fineepublib.interfaces.EpubTapListener
+import kotlinx.android.synthetic.main.bottom_sheet_style.bottom_sheet
 import java.util.*
 
 

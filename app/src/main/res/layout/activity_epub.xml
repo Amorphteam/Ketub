@@ -96,6 +96,7 @@
             android:layout_width="match_parent"
             android:focusable="true"
             android:layout_height="match_parent"
+            android:onClick="@{() -> viewModel.onDismissSheet()}"
             android:background="@color/black_overlay"
             android:visibility="gone" />
 

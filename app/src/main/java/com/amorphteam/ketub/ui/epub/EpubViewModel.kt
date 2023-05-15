@@ -75,6 +75,7 @@ class EpubViewModel() : ViewModel() {
 
     private suspend fun parseBook(bookAddress: String?) {
         getBook(bookAddress).collect { book: JSBook? ->
+
             if (book != null) {
                 BookHolder.instance?.jsBook = book
                 _spineArray.value = book.spine
@@ -82,6 +83,7 @@ class EpubViewModel() : ViewModel() {
                 Log.i(Keys.LOG_NAME, "Book is null")
             }
         }
+
     }
 
     private suspend fun getBook(bookAddress: String?): Flow<JSBook?> = flow {
@@ -90,9 +92,11 @@ class EpubViewModel() : ViewModel() {
             withContext(Dispatchers.IO) {
                 book = JSBook(bookAddress)
             }
+
         } catch (e: IOException) {
             e.printStackTrace()
         }
+
         emit(book)
     }
 
@@ -104,6 +108,13 @@ class EpubViewModel() : ViewModel() {
     fun setAdapter(adapter: EpubVerticalAdapter) {
         _adapter.value = adapter
     }
+
+    fun onDismissSheet() {
+        _dismissSheet.value = true
+
+    }
+
+
 
     fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val fontSize = FontSize.from(progress)
@@ -123,9 +134,6 @@ class EpubViewModel() : ViewModel() {
         }
     }
 
-    fun onDismissSheet() {
-        _dismissSheet.value = _dismissSheet.value != true
-    }
 
 
     override fun onCleared() {
