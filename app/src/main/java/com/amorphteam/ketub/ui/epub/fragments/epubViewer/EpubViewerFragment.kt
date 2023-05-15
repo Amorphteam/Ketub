@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.fonts.Font
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -60,13 +61,14 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if (arguments != null) {
             val manifestItem: ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
             val position = requireArguments().getInt(Keys.POSITION_ITEM)
             viewModel.getResourceString(
                 requireContext(),
                 Book.resourceName2Url(manifestItem?.href),
-                PreferencesManager(requireContext()).getStyleBookPref().getClasses().toString(),
+                EpubVerticalDelegate.get()?.activity?.viewModel?.styleBookPref?.getClasses()!!,
                 position
             )
             viewModel.htmlSourceString.observe(viewLifecycleOwner) {

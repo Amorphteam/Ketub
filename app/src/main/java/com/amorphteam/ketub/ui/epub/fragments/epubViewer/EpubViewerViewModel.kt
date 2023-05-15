@@ -52,8 +52,6 @@ class EpubViewerViewModel : ViewModel() {
         ctx: Context, resourceUri: Uri,
         classes: String
     ): String? {
-        Log.i(Keys.LOG_NAME + "2", resourceUri.toString())
-
         return withContext(Dispatchers.IO) {
             val resourceString =
                 BookHolder.instance?.jsBook?.getResourceString(ctx, resourceUri, classes)
