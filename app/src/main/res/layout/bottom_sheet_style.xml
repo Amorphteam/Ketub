@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.amorphteam.ketub.ui.epub.EpubViewModel" />
@@ -11,11 +12,11 @@
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
-        android:elevation="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@drawable/rounded_edge"
+        android:elevation="16dp"
+        android:orientation="vertical"
         android:padding="@dimen/normal_margin"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
@@ -44,20 +45,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
                     android:onClick="@{()-> viewModel.updateQuickStyle(0)}"
+                    android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:state_focused="true"
+                    android:state_pressed="true"
                     android:paddingBottom="@dimen/large_margin"
-                    android:src="@drawable/ic_resource_default"/>
+                    android:src="@drawable/ic_resource_default"
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 0 ? true : false}"
+                    />
+
                 <TextView
                     style="@style/description"
-                    android:layout_marginTop="-10dp"
-                    android:textColor="@{viewModel.currentQuickStyle == 0 ? @color/secondary1 : @color/secondary2}"
-                android:layout_width="wrap_content"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/default_setting"
-/>
+                    android:textColor="@{viewModel.currentQuickStyle == 0 ? @color/secondary1 : @color/secondary2}" />
 
             </LinearLayout>
 
@@ -72,22 +77,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
-                    android:paddingTop="@dimen/half_margin"
-                    android:paddingBottom="@dimen/large_margin"
+                    android:backgroundTint="@android:color/transparent"
                     android:onClick="@{()-> viewModel.updateQuickStyle(1)}"
-                    android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_legibility" />
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:src="@drawable/ic_legibility"
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 1 ? true : false}"
+                    />
 
                 <TextView
                     style="@style/description"
-                    android:textColor="@{viewModel.currentQuickStyle == 1 ? @color/secondary1 : @color/secondary2}"
-                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/more_readability"
-/>
+                    android:textColor="@{viewModel.currentQuickStyle == 1 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,23 +106,24 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
-                    android:paddingTop="@dimen/half_margin"
-                    android:paddingBottom="@dimen/large_margin"
-                    android:onClick="@{()-> viewModel.updateQuickStyle(2)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_dark" />
+                    android:onClick="@{()-> viewModel.updateQuickStyle(2)}"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    android:src="@drawable/ic_dark"
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 2 ? true : false}"
+                    />
 
                 <TextView
                     style="@style/description"
-                    android:layout_marginTop="-10dp"
-                    android:textColor="@{viewModel.currentQuickStyle == 2 ? @color/secondary1 : @color/secondary2}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/dark_mode"
-/>
+                    android:textColor="@{viewModel.currentQuickStyle == 2 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,28 +133,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/half_margin"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:backgroundTint="@android:color/transparent"
+                    android:onClick="@{()-> viewModel.updateQuickStyle(3)}"
                     android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    android:onClick="@{()-> viewModel.updateQuickStyle(3)}"
-                    android:backgroundTint="@android:color/transparent"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_contrast" >
-
-                </ImageView>
+                    android:src="@drawable/ic_contrast"
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 3 ? true : false}"
+                    />
 
                 <TextView
                     style="@style/description"
-                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
-                    android:textColor="@{viewModel.currentQuickStyle == 3 ? @color/secondary1 : @color/secondary2}"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/high_contrast"
-/>
+                    android:textColor="@{viewModel.currentQuickStyle == 3 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
 
 
@@ -157,10 +163,10 @@
             style="@style/title4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimaryVariant"
             android:layout_marginTop="@dimen/large_margin"
-            android:text="@string/advanced_setting_style" />
+            android:gravity="center"
+            android:text="@string/advanced_setting_style"
+            android:textColor="?attr/colorPrimaryVariant" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -171,8 +177,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_margin"
-                android:gravity="center_vertical"
                 android:layout_marginBottom="@dimen/normal_margin"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -216,20 +222,20 @@
                     android:text="@string/font_size" />
 
                 <SeekBar
-                    android:layout_width="0dp"
-                    android:layout_gravity="center_vertical"
                     style="@style/SeekBar"
-                    android:max="4"
-                    android:progress="@{viewModel.currentFontSize}"
-                    android:onProgressChanged="@{viewModel.updateFontSizeSeekBar}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:max="4"
+                    android:onProgressChanged="@{viewModel.updateFontSizeSeekBar}"
+                    android:progress="@{viewModel.currentFontSize}" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_plus_small"/>
+                    android:src="@drawable/ic_plus_small" />
             </LinearLayout>
 
             <LinearLayout
@@ -246,20 +252,20 @@
                     android:text="@string/line_height" />
 
                 <SeekBar
+                    style="@style/SeekBar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    style="@style/SeekBar"
-                    android:progress="@{viewModel.currentLineSpace}"
-                    android:onProgressChanged="@{viewModel.updateLineSpaceSeekBar}"
+                    android:layout_weight="1"
                     android:max="4"
-                    android:layout_weight="1" />
+                    android:onProgressChanged="@{viewModel.updateLineSpaceSeekBar}"
+                    android:progress="@{viewModel.currentLineSpace}" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_plus_small"/>
+                    android:src="@drawable/ic_plus_small" />
             </LinearLayout>
 
         </LinearLayout>
@@ -283,6 +289,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -293,26 +300,25 @@
                 <ImageButton
                     android:id="@+id/basetheme"
                     android:layout_width="wrap_content"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.updateTheme(0)}"
-                    android:paddingTop="@dimen/half_margin"
-                    android:paddingBottom="@dimen/large_margin"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_phone"
-                    />
+                    android:onClick="@{()-> viewModel.updateTheme(0)}"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    bind:tintConditionally="@{viewModel.currentTheme == 0 ? true : false}"
+                    android:src="@drawable/ic_phone" />
 
                 <TextView
                     android:id="@+id/basetheme_text"
                     style="@style/description"
-                    android:layout_marginTop="-10dp"
                     android:layout_width="wrap_content"
-                    android:textColor="@{viewModel.currentTheme == 0 ? @color/secondary1 : @color/secondary2}"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/base_phone"
-                    />
+                    android:textColor="@{viewModel.currentTheme == 0 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
 
             <LinearLayout
@@ -328,24 +334,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.updateTheme(1)}"
-                    android:paddingTop="@dimen/half_margin"
-                    android:paddingBottom="@dimen/large_margin"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_light"
-/>
+                    android:onClick="@{()-> viewModel.updateTheme(1)}"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    bind:tintConditionally="@{viewModel.currentTheme == 1 ? true : false}"
+                    android:src="@drawable/ic_light" />
 
                 <TextView
                     android:id="@+id/light_text"
                     style="@style/description"
-                    android:layout_marginTop="-10dp"
-                    android:textColor="@{viewModel.currentTheme == 1 ? @color/secondary1 : @color/secondary2}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/light"/>
+                    android:layout_marginTop="-10dp"
+                    android:text="@string/light"
+                    android:textColor="@{viewModel.currentTheme == 1 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -355,27 +362,26 @@
 
                 <ImageButton
                     android:id="@+id/dark"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:paddingRight="@dimen/half_margin"
-                    android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.updateTheme(2)}"
-                    android:paddingTop="@dimen/half_margin"
-                    android:paddingBottom="@dimen/large_margin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:backgroundTint="@android:color/transparent"
-                    android:src="@drawable/ic_dark"
-/>
+                    android:onClick="@{()-> viewModel.updateTheme(2)}"
+                    android:paddingLeft="@dimen/half_margin"
+                    android:paddingTop="@dimen/half_margin"
+                    android:paddingRight="@dimen/half_margin"
+                    android:paddingBottom="@dimen/large_margin"
+                    bind:tintConditionally="@{viewModel.currentTheme == 2 ? true : false}"
+                    android:src="@drawable/ic_dark" />
 
                 <TextView
                     android:id="@+id/dark_text"
                     style="@style/description"
                     android:layout_width="wrap_content"
-                    android:textColor="@{viewModel.currentTheme == 2 ? @color/secondary1 : @color/secondary2}"
-                    android:layout_marginTop="-10dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
                     android:text="@string/dark"
-/>
+                    android:textColor="@{viewModel.currentTheme == 2 ? @color/secondary1 : @color/secondary2}" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

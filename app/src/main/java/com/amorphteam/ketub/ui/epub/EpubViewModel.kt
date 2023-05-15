@@ -1,10 +1,14 @@
 package com.amorphteam.ketub.ui.epub
 
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
@@ -169,7 +173,25 @@ class EpubViewModel() : ViewModel() {
             }
         }
     }
+    companion object {
+        @JvmStatic
+        @BindingAdapter("bind:tintConditionally")
+        fun setImageButtonTintConditionally(imageButton: ImageButton, colored: Boolean) {
+            var color = R.color.secondary2
 
+            if (colored) {
+                color = R.color.secondary1
+            }
 
+            val context = imageButton.context
+            val drawable = ContextCompat.getColor(context, color)
+            imageButton.setColorFilter(drawable)
+        }
+    }
 }
+
+
+
+
+
 

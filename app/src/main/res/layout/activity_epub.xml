@@ -83,6 +83,8 @@
                     app:popupDraggable="false"
                     app:popupLayout="@layout/seekbar_layout"
                     app:popupStyle="follow"
+                    android:padding="@dimen/xsmall_margin"
+
                     app:seekBarRotation="CW90" />
                 <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
