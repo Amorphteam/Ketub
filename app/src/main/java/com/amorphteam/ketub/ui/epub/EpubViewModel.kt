@@ -49,7 +49,7 @@ class EpubViewModel() : ViewModel() {
 
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
-    var styleListener: StyleListener? = null
+    var styleListener: ArrayList<StyleListener>? = ArrayList()
 
     init {
         _fullScreen.value = true
@@ -105,14 +105,18 @@ class EpubViewModel() : ViewModel() {
         val fontSize = FontSize.from(progress)
         styleBookPref.fontSize = fontSize
         currentFontSize.value = progress
-        styleListener?.changeFontSize(progress)
+        for (listener in styleListener!!) {
+            listener.changeFontSize(progress)
+        }
     }
 
     fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val lineSpace = LineSpace.from(progress)
         styleBookPref.lineSpace = lineSpace
         currentLineSpace.value = progress
-        styleListener?.changeLineSpace(progress)
+        for (listener in styleListener!!) {
+            listener.changeLineSpace(progress)
+        }
     }
 
     fun onDismissSheet() {
@@ -123,6 +127,8 @@ class EpubViewModel() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         preferencesManager.saveStyleBookPref(styleBookPref)
+
+
     }
     fun updateQuickStyle(id: Int){
         currentQuickStyle.value = id
@@ -153,7 +159,9 @@ class EpubViewModel() : ViewModel() {
                         // Handle chip selection
                         val selectedItemId = chip.tag as Int
                         styleBookPref.fontName = FontName.from(selectedItemId)
-                        styleListener?.changeFontName(selectedItemId)
+                        for (listener in styleListener!!){
+                            listener.changeFontName(selectedItemId)
+                        }
                     }
                 }
 

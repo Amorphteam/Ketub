@@ -83,51 +83,16 @@ function changeReaderColor(cls) {
 // Change font face
 function changeTypeFace(cls) {
     var elm = document.documentElement;
-    if (cls.includes("fr")){
-        removeClass(elm, "font1fr");
-        removeClass(elm, "font2fr");
-        removeClass(elm, "font3fr");
-        removeClass(elm, "font4fr");
-        removeClass(elm, "font5fr");
-        removeClass(elm, "font6fr");
-        removeClass(elm, "font7fr");
-        removeClass(elm, "font8fr");
-        removeClass(elm, "font9fr");
-        removeClass(elm, "font10fr");
-        if(cls) {
-            addClass(elm, cls);
-        }
 
-    }else if (cls.includes("pr")){
-        removeClass(elm, "font1pr");
-        removeClass(elm, "font2pr");
-        removeClass(elm, "font3pr");
-        removeClass(elm, "font4pr");
-        removeClass(elm, "font5pr");
-        removeClass(elm, "font6pr");
-        removeClass(elm, "font7pr");
-        removeClass(elm, "font8pr");
-        removeClass(elm, "font9pr");
-        removeClass(elm, "font10pr");
-        if(cls) {
-            addClass(elm, cls);
-        }
-
-    }else {
-    removeClass(elm, "font1");
-    removeClass(elm, "font2");
-    removeClass(elm, "font3");
-    removeClass(elm, "font4");
-    removeClass(elm, "font5");
-    removeClass(elm, "font6");
-    removeClass(elm, "font7");
-    removeClass(elm, "font8");
-    removeClass(elm, "font9");
-    removeClass(elm, "font10");
+    removeClass(elm, "FONT0");
+    removeClass(elm, "FONT1");
+    removeClass(elm, "FONT2");
+    removeClass(elm, "FONT3");
+    removeClass(elm, "FONT4");
     if(cls) {
         addClass(elm, cls);
     }
-    }
+
 }
 
 // Change font style
@@ -217,39 +182,23 @@ function showOrHideErab(cls) {
 
 function setFontSize(cls) {
     var elm = document.documentElement;
-        removeClass(elm, "FONT0");
-        removeClass(elm, "FONT1");
-        removeClass(elm, "FONT2");
-        removeClass(elm, "FONT3");
-        removeClass(elm, "FONT4");
+        removeClass(elm, "SIZE0");
+        removeClass(elm, "SIZE1");
+        removeClass(elm, "SIZE2");
+        removeClass(elm, "SIZE3");
+        removeClass(elm, "SIZE4");
         addClass(elm, cls);
 }
 
 // Set LineHeight
 function setLineHeight(cls) {
     var elm = document.documentElement;
-    if (cls.includes("fr")){
-        removeClass(elm, "lineHeight1fr");
-        removeClass(elm, "lineHeight2fr");
-        removeClass(elm, "lineHeight3fr");
-        removeClass(elm, "lineHeight4fr");
-        removeClass(elm, "lineHeight5fr");
-        addClass(elm, cls);
-    }else if (cls.includes("pr")){
-        removeClass(elm, "lineHeight1pr");
-        removeClass(elm, "lineHeight2pr");
-        removeClass(elm, "lineHeight3pr");
-        removeClass(elm, "lineHeight4pr");
-        removeClass(elm, "lineHeight5pr");
-        addClass(elm, cls);
-    }else {
-    removeClass(elm, "lineHeight1");
-    removeClass(elm, "lineHeight2");
-    removeClass(elm, "lineHeight3");
-    removeClass(elm, "lineHeight4");
-    removeClass(elm, "lineHeight5");
+    removeClass(elm, "SPACE0");
+    removeClass(elm, "SPACE1");
+    removeClass(elm, "SPACE2");
+    removeClass(elm, "SPACE3");
+    removeClass(elm, "SPACE4");
     addClass(elm, cls);
-    }
 }
 
 /*

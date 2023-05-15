@@ -2,9 +2,9 @@ package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.fonts.Font
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -15,8 +15,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.model.FontName
 import com.amorphteam.ketub.model.FontSize
+import com.amorphteam.ketub.model.LineSpace
 import com.amorphteam.ketub.ui.epub.EpubActivity
+import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
@@ -47,15 +50,14 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.htmlSourceString.observe(viewLifecycleOwner) {
-            if (it != null) {
-                fillWebView(it)
-            }
-        }
 
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        EpubVerticalDelegate.get()?.activity?.addStyleListener(this)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments != null) {
@@ -67,6 +69,12 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
                 PreferencesManager(requireContext()).getStyleBookPref().getClasses().toString(),
                 position
             )
+            viewModel.htmlSourceString.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    fillWebView(it)
+                }
+            }
+
         }
     }
 
@@ -113,6 +121,12 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         if (jsPictureListener != null) {
             jsPictureListener?.setWebViewPictureListener(null)
         }
+
+        try {
+            EpubVerticalDelegate.get()?.activity?.removeStyleListener(this)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun onPageScrolled(scrollY: Int) {
@@ -151,17 +165,18 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
 
     override fun changeFontSize(fontSize: Int?) {
-        Toast.makeText(requireContext(), "fontsize is = "+fontSize.toString(), Toast.LENGTH_SHORT).show()
-
+        val js = String.format(Locale.US, "javascript:setFontSize('%s');", FontSize.from(fontSize!!))
+        webView.exeJs(js)
     }
 
     override fun changeLineSpace(lineSpace: Int?) {
-        Toast.makeText(requireContext(), "linespave is = "+lineSpace.toString(), Toast.LENGTH_SHORT).show()
+        val js = String.format(Locale.US, "javascript:setLineHeight('%s');", LineSpace.from(lineSpace!!))
+        webView.exeJs(js)
     }
 
     override fun changeFontName(font: Int?) {
-        Toast.makeText(requireContext(), "font is = "+font.toString(), Toast.LENGTH_SHORT).show()
-
+        val js = String.format(Locale.US, "javascript:changeTypeFace('%s');", FontName.from(font!!))
+        webView.exeJs(js)
     }
 
     override fun changeBkColor(BkColor: Int?) {

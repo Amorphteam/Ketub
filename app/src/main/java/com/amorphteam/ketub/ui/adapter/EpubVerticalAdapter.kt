@@ -24,8 +24,6 @@ class EpubVerticalAdapter(val mSpine: ArrayList<ManifestItem>, fm: FragmentManag
 
     override fun createFragment(p0: Int): Fragment {
         val fragment = EpubViewerFragment.newInstance(mSpine[p0], 0)
-
-        EpubVerticalDelegate.get()?.activity?.addStyleListener(fragment)
         return fragment
     }
 

@@ -30,6 +30,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
 import kotlinx.android.synthetic.main.item_group_index.*
+import java.security.Key
 import java.util.*
 
 
@@ -96,7 +97,12 @@ class EpubActivity : AppCompatActivity() {
     }
 
     fun addStyleListener(styleListener: StyleListener){
-        viewModel.styleListener = styleListener
+        viewModel.styleListener!!.add(styleListener)
+    }
+
+
+    fun removeStyleListener(styleListener: StyleListener){
+        viewModel.styleListener!!.remove(styleListener)
     }
     private fun hide() {
         hideHandler.removeCallbacks(showRunnable)
@@ -120,6 +126,9 @@ class EpubActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.styleListener!!.clear()
+        viewModel.styleListener = null
+        BookHolder.instance?.jsBook = null
         EpubVerticalDelegate.unSubscribe(this)
     }
 
