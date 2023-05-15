@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,7 @@ import com.amorphteam.ketub.databinding.ActivityEpubBinding
 import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
+import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -68,6 +70,7 @@ class EpubActivity : AppCompatActivity() {
 
         }
 
+
         viewModel.fullScreen.observe(this) {
             if (it) {
                 hide()
@@ -84,13 +87,17 @@ class EpubActivity : AppCompatActivity() {
         val prefManager = PreferencesManager(this)
         viewModel.handleSavedStyle(prefManager)
 
+        EpubVerticalDelegate.subscribeOn(this)
+
     }
 
     private fun handleChipsView() {
         viewModel.setChips(chipGroup, Keys.FONT_ARRAY)
     }
 
-
+    fun addStyleListener(styleListener: StyleListener){
+        viewModel.styleListener = styleListener
+    }
     private fun hide() {
         hideHandler.removeCallbacks(showRunnable)
         hideHandler.postDelayed(hideRunnable, Keys.UI_ANIMATION_DELAY.toLong())
@@ -109,6 +116,11 @@ class EpubActivity : AppCompatActivity() {
     private fun delayedHide(uiAnimationDelay: Int) {
         hideHandler.removeCallbacks(hideRunnable)
         hideHandler.postDelayed(hideRunnable, uiAnimationDelay.toLong())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EpubVerticalDelegate.unSubscribe(this)
     }
 
     private fun handleViewEpubPager(spineItems: ArrayList<ManifestItem>) {

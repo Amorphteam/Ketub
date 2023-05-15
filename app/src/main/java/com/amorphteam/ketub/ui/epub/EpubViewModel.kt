@@ -1,17 +1,13 @@
 package com.amorphteam.ketub.ui.epub
 
-import android.content.res.ColorStateList
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import android.widget.SeekBar
-import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
+import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.amorphteam.ketub.utility.StyleBookPreferences
@@ -53,6 +49,7 @@ class EpubViewModel() : ViewModel() {
 
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
+    var styleListener: StyleListener? = null
 
     init {
         _fullScreen.value = true
@@ -108,12 +105,14 @@ class EpubViewModel() : ViewModel() {
         val fontSize = FontSize.from(progress)
         styleBookPref.fontSize = fontSize
         currentFontSize.value = progress
+        styleListener?.changeFontSize(progress)
     }
 
     fun updateLineSpaceSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         val lineSpace = LineSpace.from(progress)
         styleBookPref.lineSpace = lineSpace
         currentLineSpace.value = progress
+        styleListener?.changeLineSpace(progress)
     }
 
     fun onDismissSheet() {
@@ -125,13 +124,13 @@ class EpubViewModel() : ViewModel() {
         super.onCleared()
         preferencesManager.saveStyleBookPref(styleBookPref)
     }
-    fun onClickQuickStyle(id: Int){
+    fun updateQuickStyle(id: Int){
         currentQuickStyle.value = id
         val quickStyle = QuickStyle.from(id)
         styleBookPref.quickStyle = quickStyle
     }
 
-    fun onclickTheme(id: Int){
+    fun updateTheme(id: Int){
         currentTheme.value = id
         val theme = Theme.from(id)
         styleBookPref.theme = theme
@@ -154,6 +153,7 @@ class EpubViewModel() : ViewModel() {
                         // Handle chip selection
                         val selectedItemId = chip.tag as Int
                         styleBookPref.fontName = FontName.from(selectedItemId)
+                        styleListener?.changeFontName(selectedItemId)
                     }
                 }
 

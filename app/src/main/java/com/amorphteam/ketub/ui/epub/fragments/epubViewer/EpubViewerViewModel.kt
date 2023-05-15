@@ -27,6 +27,7 @@ class EpubViewerViewModel : ViewModel() {
         get() = _htmlSourceString
 
     init {
+        Log.i(Keys.LOG_NAME, "open epub viewer view model")
 
     }
 

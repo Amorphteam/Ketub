@@ -2,40 +2,34 @@ package com.amorphteam.ketub.ui.epub.fragments.epubViewer
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.model.FontSize
 import com.amorphteam.ketub.ui.epub.EpubActivity
+import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.PreferencesHelper
 import com.amorphteam.ketub.utility.PreferencesManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
 import com.mehdok.fineepublib.interfaces.EpubScrollListener
 import com.mehdok.fineepublib.interfaces.EpubTapListener
+import java.util.*
 
 
-class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, EpubScrollListener {
+class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, EpubTapListener, EpubScrollListener {
     private lateinit var binding: FragmentEpubViewBinding
     private lateinit var viewModel: EpubViewerViewModel
     lateinit var webView: LocalWebView
@@ -78,8 +72,6 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
 
 
     private fun fillWebView(it: String) {
-        Log.i(Keys.LOG_NAME, it)
-
         webView = LocalWebView(requireContext())
         jsPictureListener = JsPictureListener(this)
         val params = FrameLayout.LayoutParams(
@@ -155,6 +147,24 @@ class EpubViewerFragment : Fragment(), WebViewPictureListener, EpubTapListener, 
     }
 
     override fun onPageScrolled() {
+
+    }
+
+    override fun changeFontSize(fontSize: Int?) {
+        Toast.makeText(requireContext(), "fontsize is = "+fontSize.toString(), Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun changeLineSpace(lineSpace: Int?) {
+        Toast.makeText(requireContext(), "linespave is = "+lineSpace.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun changeFontName(font: Int?) {
+        Toast.makeText(requireContext(), "font is = "+font.toString(), Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun changeBkColor(BkColor: Int?) {
 
     }
 

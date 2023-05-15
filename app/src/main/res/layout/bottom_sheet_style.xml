@@ -46,7 +46,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.onClickQuickStyle(0)}"
+                    android:onClick="@{()-> viewModel.updateQuickStyle(0)}"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:src="@drawable/ic_resource_default"/>
@@ -76,7 +76,7 @@
                     android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    android:onClick="@{()-> viewModel.onClickQuickStyle(1)}"
+                    android:onClick="@{()-> viewModel.updateQuickStyle(1)}"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_legibility" />
 
@@ -104,7 +104,7 @@
                     android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    android:onClick="@{()-> viewModel.onClickQuickStyle(2)}"
+                    android:onClick="@{()-> viewModel.updateQuickStyle(2)}"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:backgroundTint="@android:color/transparent"
                     android:src="@drawable/ic_dark" />
@@ -133,7 +133,7 @@
                     android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    android:onClick="@{()-> viewModel.onClickQuickStyle(3)}"
+                    android:onClick="@{()-> viewModel.updateQuickStyle(3)}"
                     android:backgroundTint="@android:color/transparent"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_contrast" >
@@ -295,7 +295,7 @@
                     android:layout_width="wrap_content"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.onclickTheme(0)}"
+                    android:onClick="@{()-> viewModel.updateTheme(0)}"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:layout_height="wrap_content"
@@ -330,7 +330,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.onclickTheme(1)}"
+                    android:onClick="@{()-> viewModel.updateTheme(1)}"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:backgroundTint="@android:color/transparent"
@@ -358,7 +358,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingLeft="@dimen/half_margin"
-                    android:onClick="@{()-> viewModel.onclickTheme(2)}"
+                    android:onClick="@{()-> viewModel.updateTheme(2)}"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:layout_width="wrap_content"

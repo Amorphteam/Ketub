@@ -1,7 +1,6 @@
 package com.amorphteam.ketub.utility
 
 import com.amorphteam.ketub.model.FontName
-import com.amorphteam.ketub.ui.epub.EpubViewModel
 
 class Keys {
 
@@ -30,6 +29,8 @@ class Keys {
         val UI_ANIMATION_DELAY = 100
         val STYLE_BOOK_PREF = "style_book_pref"
         val FONT_ARRAY = listOf(FontName.FONT0, FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4)
+        val RQ_SIDELONG = 12
+
     }
 }
 

@@ -215,35 +215,14 @@ function showOrHideErab(cls) {
     addClass(elm, cls);
 }
 
-
-
-
-// Set font size
 function setFontSize(cls) {
     var elm = document.documentElement;
-    if (cls.includes("fr")){
-    removeClass(elm, "textSizeOnefr");
-    removeClass(elm, "textSizeTwofr");
-    removeClass(elm, "textSizeThreefr");
-    removeClass(elm, "textSizeFourfr");
-    removeClass(elm, "textSizeFivefr");
-    addClass(elm, cls);
-    }else if (cls.includes("pr")){
-        removeClass(elm, "textSizeOnepr");
-        removeClass(elm, "textSizeTwopr");
-        removeClass(elm, "textSizeThreepr");
-        removeClass(elm, "textSizeFourpr");
-        removeClass(elm, "textSizeFivepr");
+        removeClass(elm, "FONT0");
+        removeClass(elm, "FONT1");
+        removeClass(elm, "FONT2");
+        removeClass(elm, "FONT3");
+        removeClass(elm, "FONT4");
         addClass(elm, cls);
-
-    }else {
-        removeClass(elm, "textSizeOne");
-        removeClass(elm, "textSizeTwo");
-        removeClass(elm, "textSizeThree");
-        removeClass(elm, "textSizeFour");
-        removeClass(elm, "textSizeFive");
-        addClass(elm, cls);
-    }
 }
 
 // Set LineHeight
