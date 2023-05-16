@@ -63,12 +63,10 @@ class BookmarkSingleFragment : Fragment() {
                 handleBookmarkRecyclerView(adapter, it)
             }
         }
-        handleSearchView(binding.searchView, adapter)
-
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
-        binding.toolbar.setNavigationOnClickListener {
-            openEpubFragment()
+        binding.searchbar.back.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit();
         }
+        handleSearchView(binding.searchbar.searchView, adapter)
 
         return binding.root
     }

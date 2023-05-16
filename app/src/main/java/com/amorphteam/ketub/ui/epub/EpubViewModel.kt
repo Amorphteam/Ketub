@@ -111,6 +111,9 @@ class EpubViewModel() : ViewModel() {
         _fullScreen.value = _fullScreen.value != true
     }
 
+    fun setFullScreenWindow(){
+        _fullScreen.value = true
+    }
     fun onDismissSheet() {
         _dismissSheet.value = true
 

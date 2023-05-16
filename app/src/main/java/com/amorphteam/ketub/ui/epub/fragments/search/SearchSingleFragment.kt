@@ -23,7 +23,6 @@ class SearchSingleFragment : Fragment() {
 
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentSearchSingleBinding
     private lateinit var viewModel: SearchSingleViewModel
-    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,23 +40,14 @@ class SearchSingleFragment : Fragment() {
         val adapter = SearchListAdapter(SearchClickListener { id ->
             viewModel.openEpubFrag()
         })
-
-        handleSearchResult(adapter)
-
-        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        toolbar.title = "Search"
-        toolbar.setNavigationIcon(R.drawable.ic_back)
-        toolbar.setNavigationOnClickListener {
-            openEpubFragment()
+        binding.searchbar.back.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit();
         }
-
+        handleSearchResult(adapter)
         return binding.root
     }
 
-    private fun openEpubFragment() {
-        navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_searchSingleFragment_to_epubViewFragment)
-    }
+
     private fun handleSearchResult(adapter: SearchListAdapter) {
         adapter.submitList(viewModel.getSearchList().value)
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

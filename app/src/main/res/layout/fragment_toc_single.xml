@@ -9,48 +9,20 @@
             type="com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleViewModel" />
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/primary2"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
+        style="@style/PatternBackground"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.main.tabs.toc.tabs.first_and_second.TocFragment"
-        >
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/toc" />
-
-            </androidx.appcompat.widget.Toolbar>
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/normal_margin"
-            android:layout_marginLeft="@dimen/normal_margin"
-            android:layout_margin="@dimen/normal_margin"
-            android:background="@drawable/card_border"
-            app:closeIcon="@drawable/ic_close"
-            app:iconifiedByDefault="false"
-            style="@style/AppSearchView"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="@string/query_hint_search_index"
-            app:searchIcon="@drawable/ic_search_home"
-            />
+        <include
+            android:id="@+id/searchbar"
+            layout="@layout/searchbar_with_back" />
 
         <ExpandableListView
             android:id="@+id/expandable_list_view"
@@ -59,10 +31,10 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:childDivider="@android:color/transparent"
-            android:layout_margin="@dimen/small_margin"
-            android:padding="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
             />
 
     </LinearLayout>
-
+    </RelativeLayout>
 </layout>

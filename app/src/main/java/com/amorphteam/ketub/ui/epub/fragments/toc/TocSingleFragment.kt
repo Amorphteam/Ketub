@@ -39,20 +39,15 @@ class TocSingleFragment : Fragment() {
         adapter.clickListener.setOnGroupClickListener {
             viewModel.openEpubFrag()
         }
-
-        handleSearchView(binding.searchView, adapter)
-        binding.toolbar.setNavigationIcon(R.drawable.ic_back)
-        binding.toolbar.setNavigationOnClickListener {
-            openEpubFragment()
+        binding.searchbar.back.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit();
         }
+        handleSearchView(binding.searchbar.searchView, adapter)
 
         return binding.root
     }
 
-    private fun openEpubFragment() {
-        navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_tocSingleFragment_to_epubViewFragment)
-    }
+
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
         index: IndexExpandableAdapter

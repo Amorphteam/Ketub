@@ -24,6 +24,8 @@ import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
+import com.amorphteam.ketub.ui.epub.fragments.bookmark.BookmarkSingleFragment
+import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleFragment
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -195,7 +197,7 @@ class EpubActivity : AppCompatActivity() {
 
     private fun handleFragment(newFragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        binding.epubVerticalViewPager.visibility = View.GONE
+        viewModel.setFullScreenWindow()
         transaction.replace(R.id.fragment_container, newFragment)
         transaction.addToBackStack(null)
         transaction.commit()
@@ -220,12 +222,12 @@ class EpubActivity : AppCompatActivity() {
             }
 
             R.id.toc -> {
-//                openTocFragment()
+                handleFragment(TocSingleFragment())
                 true
             }
 
             R.id.bookmark -> {
-//                openBookmarkFragment()
+                handleFragment(BookmarkSingleFragment())
                 true
             }
             R.id.search -> {

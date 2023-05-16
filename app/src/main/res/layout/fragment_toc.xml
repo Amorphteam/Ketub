@@ -28,7 +28,7 @@
             app:iconifiedByDefault="false"
             style="@style/AppSearchView"
             app:queryBackground="@android:color/transparent"
-            app:queryHint="@string/query_hint_search_index"
+            app:queryHint="@string/hint_search_bar"
             app:searchIcon="@drawable/ic_search_home"
             />
 

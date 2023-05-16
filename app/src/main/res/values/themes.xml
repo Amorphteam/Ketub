@@ -21,6 +21,7 @@
 
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">@dimen/title4_text</item>
+        <item name="android:layout_margin">@dimen/normal_margin</item>
         <item name="android:textColorHint">@color/onbackground2</item>
     </style>
 
