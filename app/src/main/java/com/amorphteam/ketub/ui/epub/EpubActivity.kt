@@ -44,6 +44,7 @@ class EpubActivity : AppCompatActivity() {
     lateinit var bookAddress:String
     private var hideHandler = Handler(Looper.myLooper()!!)
     private var navIndex = -1
+    var navUri:String? = null
     private val showRunnable = Runnable {
         supportActionBar?.show()
     }
@@ -96,12 +97,15 @@ class EpubActivity : AppCompatActivity() {
         if (intent.extras != null) {
             bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)!!
             navIndex = intent.getIntExtra(Keys.NAV_INDEX, -1)
+            navUri = intent.getStringExtra(Keys.NAV_URI)
             viewModel.getBookAddress(bookAddress)
         }
 
         val prefManager = PreferencesManager(this)
         viewModel.setPrefManage(prefManager)
+
         ifFromReferences(navIndex >= 0)
+
         viewModel.handleSavedStyle()
 
         EpubVerticalDelegate.subscribeOn(this)
@@ -110,7 +114,11 @@ class EpubActivity : AppCompatActivity() {
 
     private fun ifFromReferences(status:Boolean) {
         if (status) {
-            viewModel.handleBookmarkPage(navIndex)
+            if (navUri == null) {
+                viewModel.handleBookmarkPage(navIndex)
+            }else{
+                viewModel.handleNavUriPage(navUri)
+            }
         } else {
             viewModel.handleLastPageSeen(bookAddress)
         }

@@ -18,6 +18,7 @@ import com.amorphteam.ketub.utility.PreferencesManager
 import com.amorphteam.ketub.utility.StyleBookPreferences
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.jsepub.JSBook
 import kotlinx.coroutines.*
@@ -48,7 +49,14 @@ class EpubViewModel() : ViewModel() {
     val currentQuickStyle = MutableLiveData<Int>()
     val currentTheme = MutableLiveData<Int>()
     val currentFontName = MutableLiveData<Int>()
-    val lastPageSeen = MutableLiveData<Int>()
+
+
+
+
+    private val _lastPageSeen = MutableLiveData<Int?>()
+    val lastPageSeen: LiveData<Int?>
+    get() = _lastPageSeen
+
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
     var styleListener: ArrayList<StyleListener>? = ArrayList()
@@ -61,11 +69,11 @@ class EpubViewModel() : ViewModel() {
         this.preferencesManager = preferencesManager
     }
     fun handleLastPageSeen(bookAddress: String?){
-        lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
+        _lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
     }
 
     fun handleBookmarkPage(page:Int){
-        lastPageSeen.value = page
+        _lastPageSeen.value = page
     }
 
     fun handleSavedStyle() {
@@ -240,6 +248,12 @@ class EpubViewModel() : ViewModel() {
             }
         }
     }
+
+    fun handleNavUriPage(navUri: String?) {
+        val pageIndex = BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
+        _lastPageSeen.value = pageIndex
+    }
+
     companion object {
         @JvmStatic
         @BindingAdapter("bind:tintConditionally")

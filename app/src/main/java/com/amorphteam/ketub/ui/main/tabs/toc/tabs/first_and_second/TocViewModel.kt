@@ -11,7 +11,6 @@ import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.*
 
 class TocViewModel(val catName: String) : ViewModel() {
-    var startEpubAct = MutableLiveData<Boolean>()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
@@ -42,10 +41,6 @@ class TocViewModel(val catName: String) : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-    }
-
-    fun openEpubAct() {
-        startEpubAct.value = true
     }
 
     companion object {

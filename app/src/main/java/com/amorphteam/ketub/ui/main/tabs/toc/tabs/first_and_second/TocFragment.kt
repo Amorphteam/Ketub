@@ -34,9 +34,6 @@ class TocFragment(val catName:String) : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubActivity::class.java))
-        }
 
 
 
@@ -55,7 +52,7 @@ class TocFragment(val catName:String) : Fragment() {
         binding.expandableListView.setAdapter(adapter)
 
         adapter.clickListener.setOnGroupClickListener {
-            viewModel.openEpubAct()
+                //TODO:// MUST GET BOOKNAM AND NAVURO OR NAVINDEX
         }
         handleSearchView(adapter)
     }
