@@ -16,7 +16,6 @@ import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 class TocSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentTocSingleBinding
     private lateinit var viewModel: TocSingleViewModel
-    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

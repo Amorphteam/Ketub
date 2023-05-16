@@ -18,6 +18,7 @@ import com.amorphteam.ketub.ui.adapter.DeleteClickListener
 import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.utility.EpubHelper
 
 class BookmarkFragment(val catName:String) : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
@@ -42,9 +43,6 @@ class BookmarkFragment(val catName:String) : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            if (it) startActivity(Intent(activity, EpubActivity::class.java))
-        }
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {
                 handleBookmarkRecyclerView(it)
@@ -56,7 +54,13 @@ class BookmarkFragment(val catName:String) : Fragment() {
         bookmarkArrayList: List<ReferenceModel>
     ) {
         val adapter = ReferenceAdapter(ItemClickListener {
-            viewModel.openEpubAct()
+            val bookPath = it.bookPath
+            val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
+            it.navIndex?.let { it1 ->
+                if (bookAddress != null) {
+                    EpubHelper.openEpub(bookAddress, it1, requireContext())
+                }
+            }
 
         }, DeleteClickListener {
             viewModel.deleteBookmark(it)

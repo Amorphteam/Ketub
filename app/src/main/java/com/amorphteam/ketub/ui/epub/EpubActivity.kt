@@ -42,7 +42,7 @@ class EpubActivity : AppCompatActivity() {
     lateinit var viewModel: EpubViewModel
     private var sheetBehavior: BottomSheetBehavior<*>? = null
     lateinit var bookAddress:String
-    var navPoint:Int = 0
+    private var navIndex:Int = 0
     private var hideHandler = Handler(Looper.myLooper()!!)
     private val showRunnable = Runnable {
         supportActionBar?.show()
@@ -95,7 +95,7 @@ class EpubActivity : AppCompatActivity() {
 
         if (intent.extras != null) {
             bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)!!
-            navPoint = intent.getIntExtra(Keys.NAV_POINT, 0)
+            navIndex = intent.getIntExtra(Keys.NAV_INDEX, 0)
             viewModel.getBookAddress(bookAddress)
         }
 

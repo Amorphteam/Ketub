@@ -63,6 +63,8 @@ class EpubViewModel() : ViewModel() {
     fun handleLastPageSeen(bookAddress: String?){
         lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
     }
+
+
     fun handleSavedStyle() {
         styleBookPref = preferencesManager.getStyleBookPref()
         currentLineSpace.value = styleBookPref.lineSpace.ordinal

@@ -15,14 +15,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BookmarkViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao, private val catName: String) :
+class BookmarkViewModel(
+    private val referenceDatabaseDao: ReferenceDatabaseDao,
+    private val catName: String
+) :
     ViewModel() {
 
-    var startEpubAct = MutableLiveData<Boolean>()
+    private var viewModelJob = Job()
 
-        private var viewModelJob = Job()
-
-        private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val repository: ReferenceRepository = ReferenceRepository(referenceDatabaseDao)
 
     private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
@@ -44,7 +45,7 @@ class BookmarkViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao, 
         }
     }
 
-    private suspend fun getAllBookmarks(catName:String): List<ReferenceModel>? {
+    private suspend fun getAllBookmarks(catName: String): List<ReferenceModel>? {
         return withContext(Dispatchers.IO) {
             val bookmark = repository.getAllReferences(catName)
             bookmark
@@ -71,11 +72,8 @@ class BookmarkViewModel(private val referenceDatabaseDao: ReferenceDatabaseDao, 
         }
     }
 
-    fun openEpubAct() {
-        startEpubAct.value = true
-    }
 
-    companion object{
+    companion object {
         @JvmStatic
         @BindingAdapter("bookName")
         fun TextView.setBookName(item: ReferenceModel?) {

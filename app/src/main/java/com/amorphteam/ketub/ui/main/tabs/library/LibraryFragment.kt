@@ -24,6 +24,7 @@ import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.ui.adapter.*
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.search.SearchActivity
+import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.OnlineReference
@@ -69,12 +70,7 @@ class LibraryFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-        viewModel.startEpubAct.observe(viewLifecycleOwner) {
-            val intent = Intent(requireContext(), EpubActivity::class.java)
-            intent.putExtra(Keys.BOOK_ADDRESS, it)
-            intent.putExtra(Keys.NAV_POINT, 0)
-            startActivity(intent)
-        }
+
 
         viewModel.startSearchAct.observe(viewLifecycleOwner) {
             if (it) startActivity(Intent(activity, SearchActivity::class.java))
@@ -107,11 +103,13 @@ class LibraryFragment : Fragment() {
 
         viewModel.bookItems.observe(viewLifecycleOwner){
             if (it.size == 1) {
-                val fileManager = FileManager(requireActivity())
+                it[0].bookPath?.let { it1 ->
+                    val bookAddress = EpubHelper.getBookAddressFromBookPath(it1, requireContext())
+                    if (bookAddress != null) {
+                        EpubHelper.openEpub(bookAddress, requireContext())
+                    }
+                }
 
-                val bookAddress = fileManager.getBookAddress(it[0].bookPath!!)
-
-                bookAddress?.let { it1 -> viewModel.openEpubAct(it1) }
             }else{
                 //TODO THIS SECTION MUST BE COMPLETED
             }

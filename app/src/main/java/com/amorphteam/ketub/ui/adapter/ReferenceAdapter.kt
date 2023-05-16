@@ -86,8 +86,8 @@ class DiffCallback() : DiffUtil.ItemCallback<ReferenceModel>() {
 
 }
 
-class ItemClickListener(val clickListener: (Id: Int) -> Unit) {
-    fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData.id)
+class ItemClickListener(val clickListener: (referenceModel: ReferenceModel) -> Unit) {
+    fun onClick(bookmarkData: ReferenceModel) = clickListener(bookmarkData)
 
 }
 

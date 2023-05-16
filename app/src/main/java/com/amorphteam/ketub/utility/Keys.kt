@@ -25,7 +25,8 @@ class Keys {
         val ASSET_COVER_DIR = "covers"
         val PREF_DEFFAULT_APP_VERSION = 0
         val BOOK_ADDRESS = "book_address"
-        val NAV_POINT = "nav_point"
+        val NAV_INDEX = "nav_index"
+        val NAV_URI = "nav_uri"
         val UI_ANIMATION_DELAY = 100
         val STYLE_BOOK_PREF = "style_book_pref"
         val FONT_ARRAY = listOf(FontName.FONT0, FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4)

@@ -56,10 +56,6 @@ open class LibraryViewModel(
         get() = _secondCatBooksNewItems
 
 
-    private val _startEpubAct = MutableLiveData<String>()
-    val startEpubAct: LiveData<String>
-        get() = _startEpubAct
-
 
 
     private var _bookItems = MutableLiveData<List<BookModel>>()
@@ -94,9 +90,6 @@ open class LibraryViewModel(
         databaseReferenceHelper = null
     }
 
-    fun openEpubAct(bookAddress:String) {
-        _startEpubAct.value = bookAddress
-    }
 
     fun getCatId(id: Int) {
         databaseBookHelper?.getBookItems(id, bookRepository, _bookItems)
