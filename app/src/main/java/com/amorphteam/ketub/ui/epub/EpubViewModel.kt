@@ -64,6 +64,9 @@ class EpubViewModel() : ViewModel() {
         lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
     }
 
+    fun handleBookmarkPage(page:Int){
+        lastPageSeen.value = page
+    }
 
     fun handleSavedStyle() {
         styleBookPref = preferencesManager.getStyleBookPref()

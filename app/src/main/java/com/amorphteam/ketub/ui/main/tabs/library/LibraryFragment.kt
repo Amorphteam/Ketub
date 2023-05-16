@@ -77,7 +77,7 @@ class LibraryFragment : Fragment() {
         }
 
         viewModel.startDetailFrag.observe(viewLifecycleOwner) {
-            if (it !=null) {
+            if (it != null) {
                 val bundle = Bundle()
 
                 bundle.putSerializable(Keys.NAV_CAT_SECTION, it)
@@ -101,7 +101,7 @@ class LibraryFragment : Fragment() {
             }
         }
 
-        viewModel.bookItems.observe(viewLifecycleOwner){
+        viewModel.bookItems.observe(viewLifecycleOwner) {
             if (it.size == 1) {
                 it[0].bookPath?.let { it1 ->
                     val bookAddress = EpubHelper.getBookAddressFromBookPath(it1, requireContext())
@@ -110,7 +110,7 @@ class LibraryFragment : Fragment() {
                     }
                 }
 
-            }else{
+            } else {
                 //TODO THIS SECTION MUST BE COMPLETED
             }
         }
@@ -134,7 +134,13 @@ class LibraryFragment : Fragment() {
 
     private fun handleRecyclerView(list: List<ReferenceModel>, onlineReference: OnlineReference) {
         val adapter = ReferenceAdapter(ItemClickListener {
-//            viewModel.openEpubAct()
+            val bookPath = it.bookPath
+            val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
+            it.navIndex?.let { it1 ->
+                if (bookAddress != null) {
+                    EpubHelper.openEpub(bookAddress, it1, requireContext())
+                }
+            }
         }, DeleteClickListener {
         })
         adapter.submitList(list)
@@ -142,7 +148,7 @@ class LibraryFragment : Fragment() {
         if (onlineReference == OnlineReference.RECOMMENDED_ONLINE) {
             binding.tocRecommanded.recyclerView.layoutManager = layoutManager
             binding.tocRecommanded.recyclerView.adapter = adapter
-        }else {
+        } else {
             binding.tocReadMore.recyclerView.layoutManager = layoutManager
             binding.tocReadMore.recyclerView.adapter = adapter
         }
