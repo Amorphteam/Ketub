@@ -548,26 +548,13 @@ public class Book implements IResourceSource {
     }
 
     public String getNavTitle(String uri) {
-        ArrayList<NavPoint> allPreviousNumbers = new ArrayList<>();
-
         for (NavPoint nav : getTableOfContents().getNavPoints()) {
-            Integer secNumber = Integer.valueOf(nav.getContentWithoutTag().toString().split("Text/")[1].replace(".xhtml", ""));
-            Integer uriNumber = Integer.valueOf(uri.split("Text/")[1].replace(".xhtml", ""));
-
-            if (secNumber.equals(uriNumber) && !nav.getNavLabel().contains("الجزء")){
+            if (uri.equals(nav.getContentWithoutTag().toString())) {
                 return nav.getNavLabel();
-            }else if (secNumber<uriNumber || (secNumber.equals(uriNumber) && nav.getNavLabel().contains("الجزء"))){
-                // must get last section
-                if (!nav.getNavLabel().contains("الجزء")){
-                    allPreviousNumbers.add(nav);
-
-                }
-
             }
-
         }
 
-        return allPreviousNumbers.get(allPreviousNumbers.size()-1).getNavLabel();
+        return "";
     }
 
     private void logLong(String veryLongString) {

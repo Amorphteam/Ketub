@@ -11,13 +11,16 @@ import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.FragmentBookmarkBinding
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.adapter.ItemClickListener
 import com.amorphteam.ketub.ui.adapter.DeleteClickListener
 import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModelFactory
 import com.amorphteam.ketub.utility.EpubHelper
 
 class BookmarkFragment(val catName:String) : Fragment() {
@@ -34,8 +37,9 @@ class BookmarkFragment(val catName:String) : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val dataSource = ReferenceDatabase.getInstance(application).referenceDatabaseDao
-        val viewModelFactory = BookmarkViewModelFactory(dataSource, catName)
+        val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
+        val referenceRepository = ReferenceRepository(referenceDao)
+        val viewModelFactory = BookmarkViewModelFactory(referenceRepository, catName)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[BookmarkViewModel::class.java]

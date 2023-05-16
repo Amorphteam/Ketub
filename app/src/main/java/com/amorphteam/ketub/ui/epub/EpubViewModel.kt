@@ -10,9 +10,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
+import com.amorphteam.ketub.utility.DatabaseReferenceHelper
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.amorphteam.ketub.utility.StyleBookPreferences
@@ -27,9 +30,10 @@ import kotlinx.coroutines.flow.flow
 import okio.IOException
 import kotlin.collections.ArrayList
 
-class EpubViewModel() : ViewModel() {
+class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
 
     private val _fullScreen = MutableLiveData<Boolean>()
     val fullScreen: LiveData<Boolean>
@@ -157,7 +161,7 @@ class EpubViewModel() : ViewModel() {
     override fun onCleared() {
         super.onCleared()
         preferencesManager.saveStyleBookPref(styleBookPref)
-
+        databaseReferenceHelper = null
 
     }
     fun updateQuickStyle(id: Int){
@@ -254,6 +258,10 @@ class EpubViewModel() : ViewModel() {
         _lastPageSeen.value = pageIndex
     }
 
+    fun bookmarkCurrentPage(bookPath: String, bookName: String, navIndex:Int, title:String){
+        val referenceItem = ReferenceModel(0, title, bookName, bookPath, navIndex, null, null)
+        databaseReferenceHelper?.insertBookmark(referenceRepository, referenceItem)
+    }
     companion object {
         @JvmStatic
         @BindingAdapter("bind:tintConditionally")

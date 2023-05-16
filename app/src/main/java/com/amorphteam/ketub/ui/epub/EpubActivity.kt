@@ -19,6 +19,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.database.reference.ReferenceDatabase
+import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.databinding.ActivityEpubBinding
 import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
@@ -26,9 +28,12 @@ import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.ui.epub.fragments.bookmark.BookmarkSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModel
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModelFactory
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
@@ -42,9 +47,13 @@ class EpubActivity : AppCompatActivity() {
     lateinit var viewModel: EpubViewModel
     private var sheetBehavior: BottomSheetBehavior<*>? = null
     lateinit var bookAddress:String
+    lateinit var bookName: String
+    lateinit var bookPath: String
     private var hideHandler = Handler(Looper.myLooper()!!)
     private var navIndex = -1
     var navUri:String? = null
+    var adapter:
+        EpubVerticalAdapter? = null
     private val showRunnable = Runnable {
         supportActionBar?.show()
     }
@@ -67,7 +76,16 @@ class EpubActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_epub)
-        viewModel = ViewModelProvider(this).get(EpubViewModel::class.java)
+
+
+        val application = requireNotNull(this).application
+        val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
+        val referenceRepository = ReferenceRepository(referenceDao)
+        val viewModelFactory = EpubViewModelFactory(referenceRepository)
+
+        viewModel =
+            ViewModelProvider(this, viewModelFactory)[EpubViewModel::class.java]
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         setSupportActionBar(binding.toolbar)
@@ -78,7 +96,7 @@ class EpubActivity : AppCompatActivity() {
 
         viewModel.spineArray.observe(this) {
             handleViewEpubPager(it)
-
+            handleBookNameAndBookPath()
         }
 
         viewModel.dismissSheet.observe(this){
@@ -110,6 +128,11 @@ class EpubActivity : AppCompatActivity() {
 
         EpubVerticalDelegate.subscribeOn(this)
 
+    }
+
+    private fun handleBookNameAndBookPath() {
+        bookPath = bookAddress.split("/").last()
+        bookName = BookHolder.instance?.jsBook?.bookName.toString()
     }
 
     private fun ifFromReferences(status:Boolean) {
@@ -165,7 +188,7 @@ class EpubActivity : AppCompatActivity() {
     }
 
     private fun handleViewEpubPager(spineItems: ArrayList<ManifestItem>) {
-        val adapter =
+        adapter =
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
         binding.epubVerticalViewPager.adapter = adapter
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
@@ -223,6 +246,14 @@ class EpubActivity : AppCompatActivity() {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_epub, menu)
         return true
+    }
+
+    fun bookmarkCurrentPageHelper(){
+        val firstWord = Book.resourceName2Url(adapter!!.getCurrentFragment()?.manifestItem?.href).toString()
+        val nearestTitle:String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
+        Log.i(Keys.LOG_NAME, nearestTitle!!)
+
+        viewModel.bookmarkCurrentPage(bookPath, bookName, binding.epubVerticalViewPager.currentItem, " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle")
     }
 
 

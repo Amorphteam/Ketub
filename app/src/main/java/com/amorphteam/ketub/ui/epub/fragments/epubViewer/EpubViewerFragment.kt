@@ -37,6 +37,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     private lateinit var viewModel: EpubViewerViewModel
     lateinit var webView: LocalWebView
     private var jsPictureListener: JsPictureListener? = null
+    var manifestItem: ManifestItem? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -62,7 +63,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null) {
-            val manifestItem: ManifestItem? = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
+             manifestItem = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
             val position = requireArguments().getInt(Keys.POSITION_ITEM)
             viewModel.getResourceString(
                 requireContext(),
@@ -166,6 +167,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
 
     override fun onDoubleTap() {
+        EpubVerticalDelegate.get()?.activity?.bookmarkCurrentPageHelper()
         Snackbar.make(binding.mainEpubContainer, requireContext().getText(R.string.bookmarked), Snackbar.LENGTH_SHORT).show()
     }
 

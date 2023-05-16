@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.utility.DatabaseReferenceHelper
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,60 +17,27 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class BookmarkViewModel(
-    private val referenceDatabaseDao: ReferenceDatabaseDao,
+    private val referenceRepository: ReferenceRepository,
     private val catName: String
 ) :
     ViewModel() {
-
-    private var viewModelJob = Job()
-
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private val repository: ReferenceRepository = ReferenceRepository(referenceDatabaseDao)
-
+    private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
     private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
     val allBookmarks: LiveData<List<ReferenceModel>>
         get() = _allBookmarks
 
     init {
-        initializeBookmarks()
+        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName)
     }
 
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        databaseReferenceHelper = null
     }
 
-    private fun initializeBookmarks() {
-        uiScope.launch {
-            _allBookmarks.value = getAllBookmarks(catName)
-        }
-    }
-
-    private suspend fun getAllBookmarks(catName: String): List<ReferenceModel>? {
-        return withContext(Dispatchers.IO) {
-            val bookmark = repository.getAllReferences(catName)
-            bookmark
-        }
-    }
-
-    fun deleteBookmark(id: Int) {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                repository.delete(id)
-            }
-            _allBookmarks.value = getAllBookmarks(catName)
-        }
-    }
-
-    //TODO: INSERT BOOKMARK MUST COMPLETE
-
-    fun insertBookmark() {
-        uiScope.launch {
-            withContext(Dispatchers.IO) {
-                repository.insert(TempData.bookMarkArray[(0 until TempData.bookMarkArray.size).random()])
-            }
-            _allBookmarks.value = getAllBookmarks(catName)
-        }
+    fun deleteBookmark(it: Int) {
+        databaseReferenceHelper?.deleteBookmark(it, referenceRepository)
+        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName)
     }
 
 

@@ -10,10 +10,32 @@ class DatabaseReferenceHelper {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    fun insertBookmark(referecnceRepository: ReferenceRepository, referenceModel: ReferenceModel) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                referecnceRepository.insert(referenceModel)
+            }
+        }
+    }
 
-    private suspend fun getAllReferences(onlineReference: OnlineReference, referecnceRepository: ReferenceRepository): List<ReferenceModel> {
+    fun deleteBookmark(id: Int, referecnceRepository: ReferenceRepository) {
+        uiScope.launch {
+            withContext(Dispatchers.IO) {
+                referecnceRepository.delete(id)
+            }
+        }
+    }
+
+    suspend fun getAllBookmarks(catName: String, referenceRepository: ReferenceRepository): List<ReferenceModel> {
         return withContext(Dispatchers.IO) {
-            val references = referecnceRepository.getAllReferences(onlineReference)
+            val bookmark = referenceRepository.getAllReferences(catName)
+            bookmark
+        }
+    }
+
+    private suspend fun getAllReferences(onlineReference: OnlineReference, referenceRepository: ReferenceRepository): List<ReferenceModel> {
+        return withContext(Dispatchers.IO) {
+            val references = referenceRepository.getAllReferences(onlineReference)
             references
         }
     }
@@ -31,6 +53,11 @@ class DatabaseReferenceHelper {
         }
     }
 
+    fun getOfflineReference(refrenceRepository: ReferenceRepository, arrayList: MutableLiveData<List<ReferenceModel>>, catName: String){
+        uiScope.launch {
+            arrayList.value = getAllBookmarks(catName, refrenceRepository)
+        }
+    }
     fun getOfflineReference(onlineReference: OnlineReference, referenceRepository: ReferenceRepository, arrayList: MutableLiveData<List<ReferenceModel>>) {
         uiScope.launch {
             arrayList.value = getAllReferences(onlineReference, referenceRepository)

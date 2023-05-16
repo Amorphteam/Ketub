@@ -29,14 +29,6 @@
             app:queryHint="@string/query_hint_search_bookmark"
             app:searchIcon="@drawable/ic_search_home" />
 
-        <ImageButton
-            android:id="@+id/insert_bookmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/large_margin"
-            android:onClick="@{() -> viewModel.insertBookmark()}"
-            android:src="@drawable/ic_bookmark"
-            android:contentDescription="@string/insert" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
