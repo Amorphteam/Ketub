@@ -34,8 +34,8 @@ class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
         get() = _allBooks
 
 
-    private val _results = MutableLiveData<List<SearchInfoHolder>>()
-    val results: LiveData<List<SearchInfoHolder>>
+    private val _results = MutableLiveData<ArrayList<SearchInfoHolder>>()
+    val results: LiveData<ArrayList<SearchInfoHolder>>
         get() = _results
     init {
         getAllBooks()
@@ -60,9 +60,10 @@ class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
     fun searchAllBooks(searchHelper: SearchHelper, it: List<String>, s: String) {
         uiScope.launch{
             searchHelper.searchAllBooks(it, s).collect{
-                _results.value = it
+                val currentResults = _results.value ?: ArrayList()
+                currentResults.addAll(it)
+                _results.value = currentResults
             }
-
         }
     }
 

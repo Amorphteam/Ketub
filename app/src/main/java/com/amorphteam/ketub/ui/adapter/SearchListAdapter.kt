@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.search.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -10,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemSearchBinding
 import com.amorphteam.ketub.model.SearchInfoHolder
 import com.amorphteam.ketub.model.SearchModel
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
 
 class SearchListAdapter(val clickListener: SearchClickListener) :
     ListAdapter<SearchInfoHolder, SearchListAdapter.ViewHolder>(DiffCallback()) , Filterable {
+    private var originalList: List<SearchInfoHolder> = emptyList()
 
     class ViewHolder private constructor(val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -35,6 +38,15 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
         }
     }
 
+
+
+    // ... rest of the code ...
+
+    override fun submitList(list: List<SearchInfoHolder>?) {
+        Log.i(Keys.LOG_NAME, "list size is ${list?.size}")
+        originalList = list ?: emptyList()
+        super.submitList(list)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -49,10 +61,15 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
 
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 return FilterResults().apply {
-                    values = if (constraint.isNullOrEmpty())
-                        currentList
-                    else
-                        onFilter(currentList, constraint.toString())
+                    values = if (constraint.isNullOrEmpty()) {
+                        originalList
+                        Log.i(Keys.LOG_NAME, originalList.size.toString())
+                    }
+                    else {
+                        onFilter(originalList, constraint.toString())
+                        Log.i(Keys.LOG_NAME, "onFilter: is ${originalList.size.toString()}")
+
+                    }
                 }
             }
 

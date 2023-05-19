@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.databinding.ActivitySearchBinding
 import com.amorphteam.ketub.model.SearchInfoHolder
+import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.EpubViewModelFactory
 import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel
@@ -31,6 +33,7 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
+    private var allBooksString = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,17 +47,16 @@ class SearchActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
 
         viewModel.allBooks.observe(this) {
-            val booksStringAddress = ArrayList<String>()
             for (item in it){
                 Log.i(Keys.LOG_NAME, item.bookPath.toString())
                val bookAddress = EpubHelper.getBookAddressFromBookPath(item.bookPath!!, this)
-                bookAddress?.let { it1 -> booksStringAddress.add(it1) }
+                bookAddress?.let { it1 -> allBooksString.add(it1) }
             }
-            val searchHelper = SearchHelper(this)
-            viewModel.searchAllBooks(searchHelper, booksStringAddress, "نواياه")
+            handleSearchView()
         }
 
         viewModel.results.observe(this){
+            Log.i(Keys.LOG_NAME, it.size.toString())
             handleSearchResult(it)
         }
         binding.viewModel = viewModel
@@ -65,36 +67,46 @@ class SearchActivity : AppCompatActivity() {
         viewModel.startEpubAct.observe(this) {
             if (it) startActivity(Intent(this, EpubActivity::class.java))
         }
+
+
     }
 
+    fun startSearch(query:String){
+        val searchHelper = SearchHelper(this)
+        viewModel.searchAllBooks(searchHelper, allBooksString, query)
+    }
+
+
+    private fun handleSearchView() {
+        binding.searchbar.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                startSearch(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+//                if (newText.length > 2) {
+//                    startSearch(newText)
+//                }
+                return true
+            }
+        })
+
+    }
     private fun setupChipGroup(adapter: SearchListAdapter) {
-        binding.chip1.setOnCloseIconClickListener {
-            binding.chipGroup.removeView(it)
-        }
+
         binding.chip1.setOnClickListener {
-            Log.i(Keys.LOG_NAME, "chip1")
-            adapter.filter.filter("")
-
+            adapter.filter.filter(null)
         }
 
-        binding.chip2.setOnCloseIconClickListener {
-            binding.chipGroup.removeView(it)
-            Log.i(Keys.LOG_NAME, "chip2")
 
-        }
         binding.chip2.setOnClickListener {
             adapter.filter.filter("الاجتهاد والتجديد")
-            Log.i(Keys.LOG_NAME, "chip1")
-
         }
-        binding.chip3.setOnCloseIconClickListener {
-            binding.chipGroup.removeView(it)
-            Log.i(Keys.LOG_NAME, "chip3")
 
-        }
         binding.chip3.setOnClickListener {
             adapter.filter.filter("نصوص معاصرة")
-            Log.i(Keys.LOG_NAME, "chip1")
         }
 
     }
