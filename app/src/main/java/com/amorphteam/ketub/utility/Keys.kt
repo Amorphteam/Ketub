@@ -32,7 +32,10 @@ class Keys {
         val FONT_ARRAY = listOf(FontName.FONT0, FontName.FONT1, FontName.FONT2, FontName.FONT3, FontName.FONT4)
         val RQ_SIDELONG = 12
         val PREF_LAST_PAGE_SEEN = "pref_last_page_seen"
-
+        val SEARCH_SURROUND_CHAR_NUM = 60
+        val SEARCH_UPDATE_DELAY = 1 * 1000
+        val ARG_SEARCH_WORD = "word_for_search"
+        val BOOKS = "list_of_books"
     }
 }
 

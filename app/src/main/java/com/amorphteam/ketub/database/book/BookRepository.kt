@@ -15,5 +15,6 @@ class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
         bookDatabaseDao.getAllCats(catName, count)
 
     fun getAllBooks(catId: Int): List<BookModel> = bookDatabaseDao.getAllBooks(catId)
+    fun getAllBooks(): List<BookModel> = bookDatabaseDao.getAllBooks()
 
 }

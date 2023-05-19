@@ -19,4 +19,7 @@ interface BookDatabaseDao {
 
     @Query("select * from book_list WHERE cat_id = :catId")
     fun getAllBooks(catId:Int): List<BookModel>
+
+    @Query("select * from book_list")
+    fun getAllBooks(): List<BookModel>
 }

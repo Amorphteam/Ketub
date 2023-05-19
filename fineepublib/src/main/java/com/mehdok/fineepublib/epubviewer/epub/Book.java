@@ -16,6 +16,7 @@ import com.mehdok.fineepublib.epubviewer.IResourceSource;
 import com.mehdok.fineepublib.epubviewer.ResourceResponse;
 import com.mehdok.fineepublib.epubviewer.XmlUtil;
 
+import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -26,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -575,6 +577,15 @@ public class Book implements IResourceSource {
         }
 
         return -1;
+    }
+
+    public String getPageString(InputStream in) throws IOException {
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(in, writer, "UTF-8");
+        String theString = writer.toString();
+        Document doc = Jsoup.parse(theString);
+
+        return doc.body().text();
     }
 }
 

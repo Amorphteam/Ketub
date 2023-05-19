@@ -51,9 +51,9 @@ class ReferenceAdapter(private val clickListener: ItemClickListener, private val
                     values = if (constraint.isNullOrEmpty())
                     //TODO: IT MUST LOAD FROM VIEWMODEL
 
-                        TempData.bookMarkArray
+                        currentList
                     else
-                        onFilter(TempData.bookMarkArray, constraint.toString())
+                        onFilter(currentList, constraint.toString())
                 }
             }
 

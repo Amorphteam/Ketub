@@ -49,10 +49,10 @@ class SearchSingleFragment : Fragment() {
 
 
     private fun handleSearchResult(adapter: SearchListAdapter) {
-        adapter.submitList(viewModel.getSearchList().value)
-        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = adapter
+//        adapter.submitList(viewModel.getSearchList().value)
+//        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//        binding.recyclerView.layoutManager = layoutManager
+//        binding.recyclerView.adapter = adapter
     }
 
 

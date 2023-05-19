@@ -31,6 +31,12 @@ class DatabaseBookHelper {
         }
     }
 
+    fun getAllBooks(bookRepository: BookRepository, bookItems:MutableLiveData<List<BookModel>>) {
+        uiScope.launch {
+            bookItems.value = getAllBooks(bookRepository)
+        }
+    }
+
     fun getCats(catSectionTitle:String, repository: BookRepository, allCatArray: MutableLiveData<List<CategoryModel>>) {
         uiScope.launch {
             allCatArray.value = getAllCats(catSectionTitle, repository)
@@ -45,6 +51,15 @@ class DatabaseBookHelper {
         }
 
     }
+
+    private suspend fun getAllBooks(repository: BookRepository): List<BookModel> {
+        return withContext(Dispatchers.IO) {
+            val book = repository.getAllBooks()
+            book
+        }
+
+    }
+
 
 
     companion object {
