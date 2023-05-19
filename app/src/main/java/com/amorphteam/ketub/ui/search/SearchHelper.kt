@@ -1,21 +1,15 @@
 package com.amorphteam.ketub.ui.search
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
-import android.util.Log
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.SearchIndex
 import com.amorphteam.ketub.model.SearchInfoHolder
-import com.amorphteam.ketub.ui.search.searchmode.DiacriticSensitiveSearcher
 import com.amorphteam.ketub.ui.search.searchmode.NormalSearcher
-import com.amorphteam.ketub.ui.search.searchmode.WordByWordDiacriticInSensitiveSearcher
-import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.Keys.Companion.SEARCH_SURROUND_CHAR_NUM
-import com.amorphteam.ketub.utility.Keys.Companion.SEARCH_UPDATE_DELAY
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -26,11 +20,13 @@ import java.util.*
 
 class SearchHelper(val context: Context) {
     private var searcher: BaseSearcher? = null
+    private var flag = false
 
 
     suspend fun searchAllBooks(allBooks: List<String>, word: String): Flow<ArrayList<SearchInfoHolder>> = flow {
         searcher = NormalSearcher()
         for (book in allBooks) {
+            if (flag) break
             emit(searchSingleBook(book, word))
         }
     }
@@ -46,9 +42,11 @@ class SearchHelper(val context: Context) {
             e.printStackTrace()
         }
         if (book == null) return@withContext arrayListOf()
-            bookTitle = book.metadata.title
+
+        bookTitle = book.metadata.title
 
         for (page in book.spine) {
+            if (flag) {break}
             try {
                 var searchCount = 0
                 val pageResource = book.fetch(Book.resourceName2Url(page.href))
@@ -113,4 +111,9 @@ class SearchHelper(val context: Context) {
         }
 
     }
+
+    fun stopSearch(flag: Boolean) {
+        this.flag = flag
+    }
+
 }

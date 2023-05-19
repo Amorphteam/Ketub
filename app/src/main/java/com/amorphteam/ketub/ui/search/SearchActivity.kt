@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.item_group_index.*
 
 
 class SearchActivity : AppCompatActivity() {
-
+    var searchHelper: SearchHelper? = null
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private var allBooksString = ArrayList<String>()
@@ -72,8 +72,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun startSearch(query:String){
-        val searchHelper = SearchHelper(this)
-        viewModel.searchAllBooks(searchHelper, allBooksString, query)
+        searchHelper = SearchHelper(this)
+        viewModel.searchAllBooks(searchHelper!!, allBooksString, query)
     }
 
 
@@ -97,22 +97,31 @@ class SearchActivity : AppCompatActivity() {
     private fun setupChipGroup(adapter: SearchListAdapter) {
 
         binding.chip1.setOnClickListener {
-            adapter.filter.filter(null)
+            searchHelper?.stopSearch(true)
+            adapter.filter.filter(" ")
         }
 
-
         binding.chip2.setOnClickListener {
-            adapter.filter.filter("الاجتهاد والتجديد")
+            searchHelper?.stopSearch(true)
+            adapter.filter.filter(Keys.DB_FIRST_CAT)
         }
 
         binding.chip3.setOnClickListener {
-            adapter.filter.filter("نصوص معاصرة")
+            searchHelper?.stopSearch(true)
+            adapter.filter.filter(Keys.DB_SECOND_CAT)
         }
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        searchHelper?.stopSearch(true)
+        searchHelper = null
+    }
+
     private fun handleSearchResult(arrayResult: List<SearchInfoHolder>) {
         val adapter = SearchListAdapter(SearchClickListener { id ->
+            searchHelper?.stopSearch(true)
             viewModel.openEpubAct()
         })
         adapter.submitList(arrayResult)

@@ -17,7 +17,7 @@ import com.amorphteam.ketub.utility.TempData
 class SearchListAdapter(val clickListener: SearchClickListener) :
     ListAdapter<SearchInfoHolder, SearchListAdapter.ViewHolder>(DiffCallback()) , Filterable {
     private var originalList: List<SearchInfoHolder> = emptyList()
-
+    private var firstTime = true
     class ViewHolder private constructor(val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -43,8 +43,9 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
     // ... rest of the code ...
 
     override fun submitList(list: List<SearchInfoHolder>?) {
-        Log.i(Keys.LOG_NAME, "list size is ${list?.size}")
-        originalList = list ?: emptyList()
+        if (firstTime) {
+            originalList = list ?: emptyList()
+        }
         super.submitList(list)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -67,14 +68,15 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
                     }
                     else {
                         onFilter(originalList, constraint.toString())
-                        Log.i(Keys.LOG_NAME, "onFilter: is ${originalList.size.toString()}")
-
                     }
                 }
             }
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                firstTime = false
+                Log.i(Keys.LOG_NAME, "onFilter: is ${(results?.values as? List<SearchInfoHolder>)?.size}")
+
                 submitList(results?.values as? List<SearchInfoHolder>)
 
             }
