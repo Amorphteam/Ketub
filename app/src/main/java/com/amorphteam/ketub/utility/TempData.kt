@@ -1,49 +1,9 @@
 package com.amorphteam.ketub.utility
 
-import com.amorphteam.ketub.model.ReferenceModel
-import com.amorphteam.ketub.model.TocFirstChildItem
-import com.amorphteam.ketub.model.TocGroupItem
-import com.amorphteam.ketub.model.TocSecondChildItem
-import com.amorphteam.ketub.model.SearchModel
+import com.amorphteam.ketub.model.*
 
 class TempData {
     companion object {
-
-        var searchResult = arrayListOf(
-            SearchModel(1, 29, "نصوص معاصرة", "إشكالية اللغة في الخطاب الديني "),
-            SearchModel(
-                2,
-                13,
-                "الاجتهاد والتجديد",
-                "قاعدة نفي خلوّ الوقائع من الحكم الشرعي وأثرها في علم أصول الفقه ـ القسم الثاني"
-            ),
-            SearchModel(3, 43, "نصوص معاصرة", "إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة"),
-            SearchModel(4, 75, "الاجتهاد والتجديد", "الوَحْي الإلهيّ عند الفارابي"),
-            SearchModel(5, 66, "نصوص معاصرة", "إله العرفان وإله الفلسفة / اختلافاتٌ جوهريّة"),
-            SearchModel(6, 103, "الاجتهاد والتجديد", "الوَحْي الإلهيّ عند الفارابي"),
-            SearchModel(
-                7,
-                547,
-                "نصوص معاصرة",
-                "مباني فهم النصّ / في الفكر الأصوليّ للسيّد محمّد باقر الصدر"
-            )
-        )
-
-        var bookMarkArray = arrayListOf(
-            ReferenceModel(111, "إشكالية اللغة في الخطابfffffff الديني", "نصوص معاصرة", "11.epub", 41, "", 3F),
-            ReferenceModel(
-                11111,
-                "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "11.epub", 61, "", 3F),
-            ReferenceModel(
-                111111,
-                "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "12.epub", 71, "", 3F),
-            ReferenceModel(111111111, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "11.epub", 10, "", 3F),
-            ReferenceModel(1111221111, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "01.epub", 111, "", 3F),
-            ReferenceModel(645, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "13_14.epub", 112, "", 3F),
-            ReferenceModel(47, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "47.epub", 13, "", 3F),
-            ReferenceModel(58, "إشكالية اللغة في الخطاب الديني", "الاجتهاد والتجديد", "47.epub", 21, "", 3F),
-            ReferenceModel(69, "إشكالية اللغة في الخطاب الديني", "نصوص معاصرة", "47.epub", 11, "", 3F),
-            )
 
         val indexItems = listOf(
             TocGroupItem(

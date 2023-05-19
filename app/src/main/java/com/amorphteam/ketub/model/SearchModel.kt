@@ -1,8 +1,11 @@
 package com.amorphteam.ketub.model
 
+import android.text.SpannableString
+
 data class SearchModel(
-    val id: Int,
-    var bookPage: Int,
-    val bookName: String,
-    var searchResult: String
+    val bookAddress: String?,
+    val bookTitle: String?,
+    val pageId: String?,
+    val spanna: SpannableString?,
+    val searchCount: Int
 )

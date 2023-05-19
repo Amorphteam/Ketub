@@ -7,7 +7,7 @@ import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.SearchIndex
-import com.amorphteam.ketub.model.SearchInfoHolder
+import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.ui.search.searchmode.NormalSearcher
 import com.amorphteam.ketub.utility.Keys.Companion.SEARCH_SURROUND_CHAR_NUM
 import com.mehdok.fineepublib.epubviewer.epub.Book
@@ -23,7 +23,7 @@ class SearchHelper(val context: Context) {
     private var flag = false
 
 
-    suspend fun searchAllBooks(allBooks: List<String>, word: String): Flow<ArrayList<SearchInfoHolder>> = flow {
+    suspend fun searchAllBooks(allBooks: List<String>, word: String): Flow<ArrayList<SearchModel>> = flow {
         searcher = NormalSearcher()
         for (book in allBooks) {
             if (flag) break
@@ -32,8 +32,8 @@ class SearchHelper(val context: Context) {
     }
 
 
-    private suspend fun searchSingleBook(address: String, sw: String): ArrayList<SearchInfoHolder> = withContext(Dispatchers.IO) {
-        val tempResult = ArrayList<SearchInfoHolder>()
+    private suspend fun searchSingleBook(address: String, sw: String): ArrayList<SearchModel> = withContext(Dispatchers.IO) {
+        val tempResult = ArrayList<SearchModel>()
         var book: Book? = null
         var bookTitle = ""
         try {
@@ -58,7 +58,7 @@ class SearchHelper(val context: Context) {
                 while (searchIndex.startIndex >= 0) {
                     searchCount++
                     tempResult.add(
-                        SearchInfoHolder(
+                        SearchModel(
                             address,
                             bookTitle,
                             page.href,

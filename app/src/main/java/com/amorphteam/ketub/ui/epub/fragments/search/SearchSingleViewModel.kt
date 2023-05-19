@@ -3,7 +3,6 @@ package com.amorphteam.ketub.ui.epub.fragments.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.utility.TempData
 
 class SearchSingleViewModel : ViewModel() {
@@ -12,11 +11,6 @@ class SearchSingleViewModel : ViewModel() {
         get() = _startEpubFrag
 
 
-    fun getSearchList(): MutableLiveData<ArrayList<SearchModel>> {
-        val array = MutableLiveData<ArrayList<SearchModel>>()
-        array.value = TempData.searchResult
-        return array
-    }
 
     fun openEpubFrag() {
         _startEpubFrag.value = true

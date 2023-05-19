@@ -11,22 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
-import com.amorphteam.ketub.database.reference.ReferenceDatabase
-import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.databinding.ActivitySearchBinding
-import com.amorphteam.ketub.model.SearchInfoHolder
-import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
+import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.epub.EpubViewModelFactory
-import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel
-import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModelFactory
 import com.amorphteam.ketub.ui.search.adapter.SearchClickListener
 import com.amorphteam.ketub.ui.search.adapter.SearchListAdapter
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.Keys.Companion.ARG_SEARCH_WORD
-import com.amorphteam.ketub.utility.Keys.Companion.BOOKS
-import kotlinx.android.synthetic.main.item_group_index.*
 
 
 class SearchActivity : AppCompatActivity() {
@@ -64,9 +55,7 @@ class SearchActivity : AppCompatActivity() {
         binding.searchbar.back.setOnClickListener {
             onBackPressed()
         }
-        viewModel.startEpubAct.observe(this) {
-            if (it) startActivity(Intent(this, EpubActivity::class.java))
-        }
+
 
 
     }
@@ -119,10 +108,13 @@ class SearchActivity : AppCompatActivity() {
         searchHelper = null
     }
 
-    private fun handleSearchResult(arrayResult: List<SearchInfoHolder>) {
-        val adapter = SearchListAdapter(SearchClickListener { id ->
+    private fun handleSearchResult(arrayResult: List<SearchModel>) {
+        val adapter = SearchListAdapter(SearchClickListener {
             searchHelper?.stopSearch(true)
-            viewModel.openEpubAct()
+            it.bookAddress?.let { it1 -> it.pageId?.let { it2 ->
+                EpubHelper.openEpub(it1,
+                    it2, this)
+            } }
         })
         adapter.submitList(arrayResult)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

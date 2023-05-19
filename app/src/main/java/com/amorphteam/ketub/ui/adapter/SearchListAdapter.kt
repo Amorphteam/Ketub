@@ -9,19 +9,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemSearchBinding
-import com.amorphteam.ketub.model.SearchInfoHolder
 import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.TempData
 
 class SearchListAdapter(val clickListener: SearchClickListener) :
-    ListAdapter<SearchInfoHolder, SearchListAdapter.ViewHolder>(DiffCallback()) , Filterable {
-    private var originalList: List<SearchInfoHolder> = emptyList()
+    ListAdapter<SearchModel, SearchListAdapter.ViewHolder>(DiffCallback()) , Filterable {
+    private var originalList: List<SearchModel> = emptyList()
     private var firstTime = true
     class ViewHolder private constructor(val binding: ItemSearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SearchInfoHolder, clickListener: SearchClickListener) {
+        fun bind(item: SearchModel, clickListener: SearchClickListener) {
             binding.item = item
             binding.searchClickListener = clickListener
             binding.executePendingBindings()
@@ -42,7 +40,7 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
 
     // ... rest of the code ...
 
-    override fun submitList(list: List<SearchInfoHolder>?) {
+    override fun submitList(list: List<SearchModel>?) {
         if (firstTime) {
             originalList = list ?: emptyList()
         }
@@ -75,15 +73,15 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 firstTime = false
-                Log.i(Keys.LOG_NAME, "onFilter: is ${(results?.values as? List<SearchInfoHolder>)?.size}")
+                Log.i(Keys.LOG_NAME, "onFilter: is ${(results?.values as? List<SearchModel>)?.size}")
 
-                submitList(results?.values as? List<SearchInfoHolder>)
+                submitList(results?.values as? List<SearchModel>)
 
             }
         }
     }
 
-    fun onFilter(list: List<SearchInfoHolder>, constraint: String): List<SearchInfoHolder> {
+    fun onFilter(list: List<SearchModel>, constraint: String): List<SearchModel> {
         val filteredList = list.filter {
             it.bookTitle?.lowercase()!!.contains(constraint.lowercase())
         }
@@ -93,20 +91,20 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
 
 }
 
-class DiffCallback() : DiffUtil.ItemCallback<SearchInfoHolder>() {
+class DiffCallback() : DiffUtil.ItemCallback<SearchModel>() {
 
-    override fun areItemsTheSame(p0: SearchInfoHolder, p1: SearchInfoHolder): Boolean {
+    override fun areItemsTheSame(p0: SearchModel, p1: SearchModel): Boolean {
         return p0.pageId == p1.pageId
     }
 
-    override fun areContentsTheSame(p0: SearchInfoHolder, p1: SearchInfoHolder): Boolean {
+    override fun areContentsTheSame(p0: SearchModel, p1: SearchModel): Boolean {
         return p0 == p1
     }
 
 }
 
-class SearchClickListener(val clickListener: (Id: Int) -> Unit) {
-    fun onClick(searchData: SearchInfoHolder) = clickListener(searchData.pageId!!.toInt())
+class SearchClickListener(val clickListener: (searchData: SearchModel) -> Unit) {
+    fun onClick(searchData: SearchModel) = clickListener(searchData)
 
 }
 
