@@ -12,7 +12,6 @@ import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator.getNavTree
-import com.amorphteam.ketub.utility.TempData
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import kotlinx.coroutines.*
 import okio.IOException
@@ -21,37 +20,27 @@ class TocViewModel(val catName: String, val bookRepository: BookRepository) : Vi
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _tocGroupItems = MutableLiveData<List<TocGroupItem>>()
-    val tocGroupItems: LiveData<List<TocGroupItem>>
-        get() = _tocGroupItems
+    private val _treeTocNavResult = MutableLiveData<NavResult?>()
+    val treeTocNavResult: LiveData<NavResult?>
+        get() = _treeTocNavResult
 
-    init {
-        initializeToc()
+init {
 
-    }
+    Log.i(Keys.LOG_NAME, "wwwwgetIndexList(context).navTrees.size.toString()")
 
-    private fun initializeToc() {
-        uiScope.launch {
-            _tocGroupItems.value = getToc(catName)
-        }
-
-    }
-
-    private suspend fun getToc(catName: String): List<TocGroupItem>? {
-        return withContext(Dispatchers.IO) {
-            //TODO: // SHOULD GET IT FROM EPUBS USING CATNAME
-            val toc = TempData.indexItems
-            toc
-        }
-    }
-
+}
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
-    fun getIndexList(context: Context){
+    fun getIndex(context: Context){
         uiScope.launch {
+        _treeTocNavResult.value = getIndexList(context)
+        }
+    }
+
+   private suspend fun getIndexList(context: Context):NavResult{
             val catBooks = withContext(Dispatchers.IO) {
                 bookRepository.getAllBooks()
             }
@@ -61,6 +50,7 @@ class TocViewModel(val catName: String, val bookRepository: BookRepository) : Vi
             val fileManager = FileManager(context)
 
             for (catBook in catBooks) {
+                Log.i(Keys.LOG_NAME, "catbooks is ${catBooks.size}")
                 try {
                     val book = Book(fileManager.getBookAddress(catBook.bookPath!!))
                     for (navPoint in book.tableOfContents.navPoints) {
@@ -77,6 +67,8 @@ class TocViewModel(val catName: String, val bookRepository: BookRepository) : Vi
                         book.tableOfContents.navPoints,
                         catBook.bookPath
                     )
+
+                    Log.i(Keys.LOG_NAME, "tree is: ${tree?.size}")
                     // if it's the first time
                     if (treeResult.size == 0) {
                         val treeAndPath = ArrayList<TreeAndPath>(tree!!.size)
@@ -115,17 +107,11 @@ class TocViewModel(val catName: String, val bookRepository: BookRepository) : Vi
                 }
             }
 
-            withContext(Dispatchers.Main) {
+            return withContext(Dispatchers.Main) {
                 val navResult = NavResult(result, treeResult)
-                for (item in navResult.navTrees){
-
-                        Log.i(Keys.LOG_NAME, "navResult: ${item.bookTitle}")
-
-
-
+                navResult
                 }
-            }
-        }
+
     }
 
 

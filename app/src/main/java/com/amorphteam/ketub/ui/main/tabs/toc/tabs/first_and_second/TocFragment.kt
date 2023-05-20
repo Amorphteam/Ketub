@@ -1,6 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.model.TreeBookHolder
 import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
 import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
@@ -52,15 +54,12 @@ class TocFragment(val catName:String) : Fragment() {
 
 
 
-        viewModel.tocGroupItems.observe(viewLifecycleOwner) {
-            if (!it.isNullOrEmpty()) {
-                handleTocRecyclerView(it)
+        viewModel.treeTocNavResult.observe(viewLifecycleOwner) {
+            if (it != null) {
+                setUpTree(it.navTrees)
             }
         }
 
-
-        binding.treeRoot.removeAllViews()
-        viewModel.getIndexList(requireContext())
 
         return binding.root
     }
@@ -76,6 +75,11 @@ class TocFragment(val catName:String) : Fragment() {
         handleSearchView(adapter)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.treeRoot.removeAllViews()
+        viewModel.getIndex(requireContext())
+    }
 
     private fun setUpTree(navTrees: ArrayList<TreeBookHolder>) {
         val treeView: TreeNode = NavTreeCreator.getTabNavTree(navTrees)
