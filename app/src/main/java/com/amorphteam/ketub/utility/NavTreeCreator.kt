@@ -8,6 +8,49 @@ import com.mehdok.fineepublib.epubviewer.tree.Node
 import com.unnamed.b.atv.model.TreeNode
 
 object NavTreeCreator {
+
+    fun getNavTree(
+        navPoints: java.util.ArrayList<NavPoint>,
+        bookPath: String?
+    ): java.util.ArrayList<Node<NavPointPath>>? {
+        val navTree = java.util.ArrayList<Node<NavPointPath>>()
+        for (nav in navPoints) {
+            if (nav.depth == 0) {
+                // it is top level
+                navTree.add(
+                    Node(
+                        NavPointPath(
+                            nav,
+                            bookPath!!
+                        )
+                    )
+                )
+            } else {
+                val parentPlayOrder = nav.depth
+                val parent = getLastElementWithPlayOrder(
+                    navTree[navTree.size - 1],
+                    parentPlayOrder
+                )
+                parent.addChild(NavPointPath(nav, bookPath!!))
+            }
+        }
+        return navTree
+    }
+
+    private fun getLastElementWithPlayOrder(
+        tree: Node<NavPointPath>,
+        playOrder: Int
+    ): Node<NavPointPath> {
+        return if (playOrder == tree.data.navPoint.depth.plus(1)) {
+            tree
+        } else {
+            getLastElementWithPlayOrder(
+                tree.children[tree.children.size - 1] as Node<NavPointPath>,
+                playOrder
+            )
+        }
+    }
+
     fun getNavTree(navTree: ArrayList<Node<NavPoint>>): TreeNode {
         val root = TreeNode.root()
         for (tree in navTree) {
@@ -16,6 +59,7 @@ object NavTreeCreator {
         }
         return root
     }
+
 
     fun getTabNavTree(navTrees: ArrayList<TreeBookHolder>): TreeNode {
         val root = TreeNode.root()

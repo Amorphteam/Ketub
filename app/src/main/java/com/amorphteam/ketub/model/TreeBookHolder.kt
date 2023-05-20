@@ -35,3 +35,19 @@ class TreeAndPath(
 class NavPointPath(val navPoint: NavPoint, val bookPath: String)
 
 
+class NavResult(
+    navPoints: java.util.ArrayList<IndexesInfo>,
+    navTrees: java.util.ArrayList<TreeBookHolder>
+) {
+    var navPoints: java.util.ArrayList<IndexesInfo>
+    var navTrees: java.util.ArrayList<TreeBookHolder>
+
+    init {
+        this.navPoints = navPoints
+        this.navTrees = navTrees
+    }
+}
+
+
+data class IndexesInfo(val bookTitle: String, val navPoint: NavPoint, val bookPath: String)
+
