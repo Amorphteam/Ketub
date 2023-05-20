@@ -9,110 +9,40 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.*
-import com.amorphteam.ketub.utility.FileManager
+import com.amorphteam.ketub.utility.DatabaseBookHelper
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.NavTreeCreator.getNavTree
-import com.mehdok.fineepublib.epubviewer.epub.Book
+import com.amorphteam.ketub.utility.TocHelper
 import kotlinx.coroutines.*
-import okio.IOException
 
 class TocViewModel(val catName: String, val bookRepository: BookRepository) : ViewModel() {
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
+    private var tocHelper: TocHelper? = TocHelper()
+    private var _catBooksNewItems = MutableLiveData<List<CategoryModel>>()
+    val catBooksNewItems: LiveData<List<CategoryModel>>
+        get() = _catBooksNewItems
 
     private val _treeTocNavResult = MutableLiveData<NavResult?>()
     val treeTocNavResult: LiveData<NavResult?>
         get() = _treeTocNavResult
 
 init {
-
-    Log.i(Keys.LOG_NAME, "wwwwgetIndexList(context).navTrees.size.toString()")
-
 }
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        tocHelper = null
+        databaseBookHelper = null
+    }
+
+    fun getCat(){
+            databaseBookHelper?.getCats(catName, bookRepository, _catBooksNewItems)
     }
 
     fun getIndex(context: Context){
-        uiScope.launch {
-        _treeTocNavResult.value = getIndexList(context)
-        }
+        tocHelper?.handleIndexList(context, bookRepository,
+            _catBooksNewItems.value!!, _treeTocNavResult)
     }
 
-   private suspend fun getIndexList(context: Context):NavResult{
-            val catBooks = withContext(Dispatchers.IO) {
-                bookRepository.getAllBooks()
-            }
 
-            val result = ArrayList<IndexesInfo>()
-            val treeResult = ArrayList<TreeBookHolder>()
-            val fileManager = FileManager(context)
-
-            for (catBook in catBooks) {
-                Log.i(Keys.LOG_NAME, "catbooks is ${catBooks.size}")
-                try {
-                    val book = Book(fileManager.getBookAddress(catBook.bookPath!!))
-                    for (navPoint in book.tableOfContents.navPoints) {
-                        result.add(
-                            IndexesInfo(
-                                book.bookName,
-                                navPoint,
-                                catBook.bookPath
-                            )
-                        )
-                    }
-
-                    val tree = getNavTree(
-                        book.tableOfContents.navPoints,
-                        catBook.bookPath
-                    )
-
-                    Log.i(Keys.LOG_NAME, "tree is: ${tree?.size}")
-                    // if it's the first time
-                    if (treeResult.size == 0) {
-                        val treeAndPath = ArrayList<TreeAndPath>(tree!!.size)
-                        for (t in tree) {
-                            treeAndPath.add(TreeAndPath(t))
-                        }
-                        treeResult.add(TreeBookHolder(book.bookName, treeAndPath))
-                        continue
-                    }
-
-                    for (existingTree in treeResult) {
-                        for (it in existingTree.getNavTree()) {
-                            val newTreeIter = tree?.iterator()
-                            while (newTreeIter!!.hasNext()) {
-                                val it1 = newTreeIter.next()
-                                if (it1.data.navPoint.navLabel
-                                    == it.getNode().data.navPoint.navLabel
-                                ) {
-                                    // root exists
-                                    it.getNode().children.addAll(it1.children)
-                                    newTreeIter.remove()
-                                }
-                            }
-                        }
-                    }
-
-                    if (tree!!.size > 0) {
-                        val treeAndPath = ArrayList<TreeAndPath>(tree.size)
-                        for (t in tree) {
-                            treeAndPath.add(TreeAndPath(t))
-                        }
-                        treeResult.add(TreeBookHolder(book.bookName, treeAndPath))
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            return withContext(Dispatchers.Main) {
-                val navResult = NavResult(result, treeResult)
-                navResult
-                }
-
-    }
 
 
     companion object {

@@ -41,11 +41,11 @@ class TocContainerFragment : Fragment() {
         val firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
         val secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
 
-        adapter.addFragment(firstTocFragment, getString(R.string.nosos_title))
-        adapter.addFragment(secondTocFragment, getString(R.string.ejtehad_title))
+        adapter.addFragment(firstTocFragment, getString(R.string.ejtehad_title))
+        adapter.addFragment(secondTocFragment, getString(R.string.nosos_title))
 
         binding.viewPager.adapter = adapter
-        binding.viewPager.currentItem = 1
+        binding.viewPager.currentItem = 0
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = adapter.getTabTitle(position)
         }.attach()

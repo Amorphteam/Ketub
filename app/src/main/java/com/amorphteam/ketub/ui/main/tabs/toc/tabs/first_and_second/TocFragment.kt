@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -60,6 +59,13 @@ class TocFragment(val catName:String) : Fragment() {
             }
         }
 
+        viewModel.catBooksNewItems.observe(viewLifecycleOwner){
+            if (it !=null){
+                Log.i(Keys.LOG_NAME, "list of cat is ${it.size}")
+                viewModel.getIndex(requireContext())
+            }
+        }
+
 
         return binding.root
     }
@@ -78,7 +84,7 @@ class TocFragment(val catName:String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.treeRoot.removeAllViews()
-        viewModel.getIndex(requireContext())
+        viewModel.getCat()
     }
 
     private fun setUpTree(navTrees: ArrayList<TreeBookHolder>) {
