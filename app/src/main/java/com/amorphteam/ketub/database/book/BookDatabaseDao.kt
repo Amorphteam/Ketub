@@ -17,6 +17,9 @@ interface BookDatabaseDao {
     @Query("select * from category_list WHERE cat_name LIKE '%' || :catName || '%' ORDER BY _Id ASC limit :count ")
     fun getAllCats(catName:String, count:Int): List<CategoryModel>
 
+    @Query("SELECT * FROM book_list WHERE cat_id IN (:catIds)")
+    fun getAllBooks(catIds: List<Int>): List<BookModel>
+
     @Query("select * from book_list WHERE cat_id = :catId")
     fun getAllBooks(catId:Int): List<BookModel>
 

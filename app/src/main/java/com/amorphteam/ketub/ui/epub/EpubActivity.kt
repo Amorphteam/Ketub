@@ -37,7 +37,6 @@ import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
-import kotlinx.android.synthetic.main.item_group_index.*
 import java.security.Key
 import java.util.*
 

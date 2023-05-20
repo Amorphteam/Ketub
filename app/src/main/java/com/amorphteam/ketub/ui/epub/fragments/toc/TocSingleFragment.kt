@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 
 class TocSingleFragment : Fragment() {
     private lateinit var binding: com.amorphteam.ketub.databinding.FragmentTocSingleBinding
@@ -31,17 +30,17 @@ class TocSingleFragment : Fragment() {
         viewModel.startEpubFrag.observe(viewLifecycleOwner) {
 //            if (it) startActivity(Intent(activity, EpubActivity::class.java))
         }
-        val adapter = IndexExpandableAdapter()
-        adapter.submitList(viewModel.tocGroupItems.value!!)
-        binding.expandableListView.setAdapter(adapter)
+//        val adapter = IndexExpandableAdapter()
+//        adapter.submitList(viewModel.tocGroupItems.value!!)
+//        binding.expandableListView.setAdapter(adapter)
 
-        adapter.clickListener.setOnGroupClickListener {
-            viewModel.openEpubFrag()
-        }
+//        adapter.clickListener.setOnGroupClickListener {
+//            viewModel.openEpubFrag()
+//        }
         binding.searchbar.back.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit();
         }
-        handleSearchView(binding.searchbar.searchView, adapter)
+//        handleSearchView(binding.searchbar.searchView, adapter)
 
         return binding.root
     }
@@ -49,7 +48,6 @@ class TocSingleFragment : Fragment() {
 
     private fun handleSearchView(
         searchView: androidx.appcompat.widget.SearchView,
-        index: IndexExpandableAdapter
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -59,7 +57,7 @@ class TocSingleFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                filterSearch(newText, index)
+//                filterSearch(newText, index)
 
                 return true
             }
@@ -67,9 +65,7 @@ class TocSingleFragment : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
-        index.filter.filter(searchString)
-    }
+
 
 
 }

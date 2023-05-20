@@ -23,13 +23,16 @@ class TocHelper {
 
         private suspend fun getIndexList(context: Context, bookRepository:BookRepository, categories: List<CategoryModel>): NavResult {
             var books: List<BookModel>? = null
+            var allIds = ArrayList<Int>()
             for (item in categories) {
+                allIds.add(item.id)
+            }
 
                  books = withContext(Dispatchers.IO) {
-                    bookRepository.getAllBooks(item.id)
+                    bookRepository.getAllBooks(allIds)
                 }
-            }
-            Log.i(Keys.LOG_NAME, "books size is: ${books?.size}")
+
+            Log.i(Keys.LOG_NAME, "books size is: ${categories.size}")
 
 
             val result = ArrayList<IndexesInfo>()

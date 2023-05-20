@@ -16,7 +16,6 @@ import com.amorphteam.ketub.databinding.FragmentTocBinding
 import com.amorphteam.ketub.model.NavResult
 import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.model.TreeBookHolder
-import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
@@ -70,16 +69,7 @@ class TocFragment(val catName:String) : Fragment() {
         return binding.root
     }
 
-    private fun handleTocRecyclerView(it: List<TocGroupItem>) {
-        val adapter = IndexExpandableAdapter()
-        adapter.submitList(it)
-        binding.expandableListView.setAdapter(adapter)
 
-        adapter.clickListener.setOnGroupClickListener {
-                //TODO:// MUST GET BOOKNAM AND NAVURO OR NAVINDEX
-        }
-        handleSearchView(adapter)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,7 +86,6 @@ class TocFragment(val catName:String) : Fragment() {
         binding.treeRoot.addView(tView?.view)
     }
     private fun handleSearchView(
-        index: IndexExpandableAdapter
     ) {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -106,7 +95,7 @@ class TocFragment(val catName:String) : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                filterSearch(newText, index)
+//                filterSearch(newText, index)
 
                 return true
             }
@@ -114,8 +103,8 @@ class TocFragment(val catName:String) : Fragment() {
 
     }
 
-    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
-        index.filter.filter(searchString)
-    }
+//    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
+//        index.filter.filter(searchString)
+//    }
 
 }
