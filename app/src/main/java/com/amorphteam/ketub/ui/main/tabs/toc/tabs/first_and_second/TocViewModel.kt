@@ -117,7 +117,13 @@ class TocViewModel(val catName: String, val bookRepository: BookRepository) : Vi
 
             withContext(Dispatchers.Main) {
                 val navResult = NavResult(result, treeResult)
-                Log.i(Keys.LOG_NAME, navResult.toString())
+                for (item in navResult.navTrees){
+
+                        Log.i(Keys.LOG_NAME, "navResult: ${item.bookTitle}")
+
+
+
+                }
             }
         }
     }

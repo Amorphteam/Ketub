@@ -74,8 +74,8 @@ class IndexExpandableAdapter : BaseExpandableListAdapter(), Filterable {
         // Get a reference to the group item for this position
         val groupItem = getGroup(groupPosition) as TocGroupItem
 
-        binding.item = groupItem
-        binding.bookName.setOnClickListener { clickListener.onGroupClick(groupPosition) }
+//        binding.item = groupItem
+//        binding.bookName.setOnClickListener { clickListener.onGroupClick(groupPosition) }
         binding.executePendingBindings()
 
         return binding.root

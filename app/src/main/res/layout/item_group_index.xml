@@ -6,31 +6,32 @@
 
 
     </data>
+
     <RelativeLayout
         android:id="@+id/base_tree"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layoutDirection="rtl">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_tab_nav_tree"
             android:layout_width="match_parent"
-            app:cardBackgroundColor="@color/primary2"
             android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/primary2"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
 
             >
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layoutDirection="rtl"
                 >
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/tree_icon"
@@ -43,8 +44,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/row_text"
@@ -53,19 +53,17 @@
                             android:maxLines="2"
                             android:padding="@dimen/xsmall_margin"
                             android:text="@string/nosos_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            />
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                         <TextView
                             android:id="@+id/book_name_text"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/xsmall_margin"
-                            android:textSize="@dimen/description_text"
                             android:text="@string/nosos_title"
-                            android:textColor="?attr/colorPrimaryVariant"
                             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                           />
+                            android:textColor="?attr/colorPrimaryVariant"
+                            android:textSize="@dimen/description_text" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -73,4 +71,4 @@
 
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
-    </layout>
+</layout>

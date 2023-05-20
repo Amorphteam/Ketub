@@ -81,7 +81,7 @@ class TocFragment(val catName:String) : Fragment() {
         val treeView: TreeNode = NavTreeCreator.getTabNavTree(navTrees)
         tView = AndroidTreeView(activity, treeView)
         tView?.setDefaultAnimation(false)
-        tView?.setDefaultContainerStyle(R.style.TreeNodeStyle2)
+        tView?.setDefaultContainerStyle(R.style.TreeNodeStyle)
         tView?.setDefaultViewHolder(TreeViewHolder::class.java)
         binding.treeRoot.addView(tView?.view)
     }
