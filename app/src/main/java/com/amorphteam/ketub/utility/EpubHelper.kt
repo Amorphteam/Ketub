@@ -6,7 +6,7 @@ import com.amorphteam.ketub.ui.epub.EpubActivity
 
 class EpubHelper() {
     companion object{
-        fun openEpub(bookAddress: String, context: Context,){
+        fun openEpub(bookAddress: String, context: Context){
             val intent = Intent(context, EpubActivity::class.java)
             intent.putExtra(Keys.BOOK_ADDRESS, bookAddress)
             context.startActivity(intent)
@@ -30,6 +30,16 @@ class EpubHelper() {
             val fileManager = FileManager(context)
             return fileManager.getBookAddress(bookPath)
         }
+
+        fun getContentWithoutTag(mContent: String): String {
+            val indexOf = mContent.indexOf('#')
+            var temp = mContent
+            if (0 < indexOf) {
+                temp = mContent.substring(0, indexOf)
+            }
+            return temp
+        }
+
 
     }
 }

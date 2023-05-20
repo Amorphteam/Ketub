@@ -7,6 +7,7 @@
     <dimen name="body_text">12sp</dimen>
     <dimen name="description_text">10sp</dimen>
     <dimen name="caption_text">10sp</dimen>
+    <dimen name="line_hight_extra">4sp</dimen>
 
 
     <dimen name="normal_margin">16dp</dimen>

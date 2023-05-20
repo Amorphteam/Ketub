@@ -142,5 +142,9 @@
         <item name="android:background">@drawable/pattern_bg</item>
     </style>
 
-    <dimen name="line_hight_extra">4sp</dimen>
+
+    <style name="TreeNodeStyle2">
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
 </resources>

@@ -1,24 +1,28 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentTocBinding
-import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
 import com.amorphteam.ketub.model.TocGroupItem
+import com.amorphteam.ketub.model.TreeBookHolder
+import com.amorphteam.ketub.ui.adapter.IndexExpandableAdapter
+import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
+import com.amorphteam.ketub.utility.NavTreeCreator
+import com.unnamed.b.atv.model.TreeNode
+import com.unnamed.b.atv.view.AndroidTreeView
 
 
 class TocFragment(val catName:String) : Fragment() {
     private lateinit var binding: FragmentTocBinding
     private lateinit var viewModel: TocViewModel
+    private var tView: AndroidTreeView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +61,15 @@ class TocFragment(val catName:String) : Fragment() {
         handleSearchView(adapter)
     }
 
+
+    private fun setUpTree(navTrees: ArrayList<TreeBookHolder>) {
+        val treeView: TreeNode = NavTreeCreator.getTabNavTree(navTrees)
+        tView = AndroidTreeView(activity, treeView)
+        tView?.setDefaultAnimation(false)
+        tView?.setDefaultContainerStyle(R.style.TreeNodeStyle2)
+        tView?.setDefaultViewHolder(TreeViewHolder::class.java)
+        binding.treeRoot.addView(tView?.view)
+    }
     private fun handleSearchView(
         index: IndexExpandableAdapter
     ) {

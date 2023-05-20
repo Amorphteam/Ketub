@@ -8,6 +8,7 @@ buildscript {
     ext.version_retrofit = "2.9.0"
     ext.version_moshi = "1.14.0"
     ext.version_gson = "2.7"
+    ext.version_tree_view = "1.2.+"
 
     repositories {
         google()
