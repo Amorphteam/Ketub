@@ -255,6 +255,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
 
     fun handleNavUriPage(navUri: String?) {
         val pageIndex = BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
+        Log.i(Keys.LOG_NAME, pageIndex.toString())
         _lastPageSeen.value = pageIndex
     }
 

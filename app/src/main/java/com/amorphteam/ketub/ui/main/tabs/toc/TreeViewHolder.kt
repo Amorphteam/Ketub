@@ -1,6 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.toc
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -11,6 +12,7 @@ import com.amorphteam.ketub.model.SingleTreeBookHolder
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.EpubHelper.Companion.getContentWithoutTag
 import com.amorphteam.ketub.utility.FileManager
+import com.amorphteam.ketub.utility.Keys
 import com.unnamed.b.atv.model.TreeNode
 
 class TreeViewHolder(val context: Context): TreeNode.BaseNodeViewHolder<SingleTreeBookHolder>(context), View.OnClickListener {
@@ -55,6 +57,7 @@ class TreeViewHolder(val context: Context): TreeNode.BaseNodeViewHolder<SingleTr
             if (mNode.isLeaf) {
                 val fileManager = FileManager(view.context)
                 val booksAddress: String? = fileManager.getBookAddress(nav.bookPath)
+                Log.i(Keys.LOG_NAME, getContentWithoutTag(nav.navPoint.content))
                 EpubHelper.openEpub(booksAddress.toString(), getContentWithoutTag(nav.navPoint.content), context)
             } else {
                 treeView.toggleNode(mNode)

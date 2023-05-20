@@ -41,8 +41,8 @@ class TocContainerFragment : Fragment() {
         val firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
         val secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
 
-        adapter.addFragment(firstTocFragment, getString(R.string.ejtehad_title))
-        adapter.addFragment(secondTocFragment, getString(R.string.nosos_title))
+        adapter.addFragment(firstTocFragment, Keys.DB_FIRST_CAT)
+        adapter.addFragment(secondTocFragment, Keys.DB_SECOND_CAT)
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = 0

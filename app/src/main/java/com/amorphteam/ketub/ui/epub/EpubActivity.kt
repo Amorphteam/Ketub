@@ -95,6 +95,7 @@ class EpubActivity : AppCompatActivity() {
         }
 
         viewModel.spineArray.observe(this) {
+            ifFromReferences(navIndex >= 0 || navUri !=null)
             handleViewEpubPager(it)
             handleBookNameAndBookPath()
         }
@@ -122,7 +123,6 @@ class EpubActivity : AppCompatActivity() {
         val prefManager = PreferencesManager(this)
         viewModel.setPrefManage(prefManager)
 
-        ifFromReferences(navIndex >= 0)
 
         viewModel.handleSavedStyle()
 
