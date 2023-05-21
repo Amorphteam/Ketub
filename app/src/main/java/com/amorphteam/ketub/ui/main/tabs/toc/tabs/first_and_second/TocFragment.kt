@@ -21,6 +21,9 @@ import com.amorphteam.ketub.ui.adapter.EmptyTocListener
 import com.amorphteam.ketub.ui.adapter.TocListAdapter
 import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
+import com.amorphteam.ketub.utility.EpubHelper
+import com.amorphteam.ketub.utility.FileManager
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
 import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
@@ -74,7 +77,10 @@ class TocFragment(val catName:String) : Fragment(), EmptyTocListener {
 
     private fun setupListForSearch(navPoints: ArrayList<IndexesInfo>) {
         adapter = TocListAdapter(this, TocListItemClickListener {
-
+            val fileManager = FileManager(requireContext())
+            val booksAddress: String? = fileManager.getBookAddress(it.bookPath)
+            EpubHelper.openEpub(booksAddress.toString(),
+                EpubHelper.getContentWithoutTag(it.navPoint.content), requireContext())
         })
 
         adapter?.submitList(navPoints)

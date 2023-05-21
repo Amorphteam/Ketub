@@ -20,9 +20,8 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: IndexesInfo, clickListener: TocListItemClickListener) {
-            binding.rowText.text = item.navPoint.navLabel
-            binding.bookNameText.text = item.bookTitle
-//            binding.itemClickListener = clickListener
+            binding.item = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
