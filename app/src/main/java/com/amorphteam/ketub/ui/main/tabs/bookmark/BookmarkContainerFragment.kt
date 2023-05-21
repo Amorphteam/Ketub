@@ -11,11 +11,15 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.databinding.FragmentBookmarkContainerBinding
 import com.amorphteam.ketub.ui.adapter.ViewPagerAdapter
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkFragment
+import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.nososejtehad.bookmark.BookmarkContainerViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class BookmarkContainerFragment : Fragment() {
+    private var firsBookmarkFragment:BookmarkFragment? = null
+    private var secondBookmarkFragment:BookmarkFragment? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +27,9 @@ class BookmarkContainerFragment : Fragment() {
     ): View {
 
         val viewModel = ViewModelProvider(this)[BookmarkContainerViewModel::class.java]
+
+        firsBookmarkFragment = BookmarkFragment(Keys.DB_FIRST_CAT)
+        secondBookmarkFragment = BookmarkFragment(Keys.DB_SECOND_CAT)
         val binding = DataBindingUtil.inflate<FragmentBookmarkContainerBinding>(
             inflater,
             R.layout.fragment_bookmark_container,
@@ -36,10 +43,8 @@ class BookmarkContainerFragment : Fragment() {
 
     private fun handleTabViewPager(binding: FragmentBookmarkContainerBinding) {
         val adapter = ViewPagerAdapter(activity)
-        val firsBookmarkFragment = BookmarkFragment(getString(R.string.nosos_title))
-        val secondBookmarkFragment = BookmarkFragment(getString(R.string.ejtehad_title))
-        adapter.addFragment(firsBookmarkFragment, getString(R.string.nosos_title))
-        adapter.addFragment(secondBookmarkFragment, getString(R.string.ejtehad_title))
+        firsBookmarkFragment?.let { adapter.addFragment(it, Keys.DB_FIRST_CAT) }
+        secondBookmarkFragment?.let { adapter.addFragment(it, Keys.DB_SECOND_CAT) }
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = 1

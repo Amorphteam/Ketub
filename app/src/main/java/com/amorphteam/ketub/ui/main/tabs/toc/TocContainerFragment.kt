@@ -2,6 +2,7 @@ package com.amorphteam.ketub.ui.main.tabs.toc
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +18,22 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class TocContainerFragment : Fragment() {
-
+    var firstTocFragment: TocFragment? = null
+    var secondTocFragment: TocFragment? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if (firstTocFragment == null) {
+            Log.i(Keys.LOG_NAME, "first is null")
+            firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
+        }
+        if (secondTocFragment == null) {
+            Log.i(Keys.LOG_NAME, "second is null")
+            secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
+        }
+
+
 
         val viewModel = ViewModelProvider(this)[TocContainerViewModel::class.java]
         val binding = DataBindingUtil.inflate<FragmentTocContainerBinding>(
@@ -36,13 +48,20 @@ class TocContainerFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i(Keys.LOG_NAME, "onDestrou")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i(Keys.LOG_NAME, "onDestffffrou")
+
+    }
     private fun handleTabViewPager(binding: FragmentTocContainerBinding) {
         val adapter = ViewPagerAdapter(activity)
-        val firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
-        val secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
-
-        adapter.addFragment(firstTocFragment, Keys.DB_FIRST_CAT)
-        adapter.addFragment(secondTocFragment, Keys.DB_SECOND_CAT)
+        firstTocFragment?.let { adapter.addFragment(it, Keys.DB_FIRST_CAT) }
+        secondTocFragment?.let { adapter.addFragment(it, Keys.DB_SECOND_CAT) }
 
         binding.viewPager.adapter = adapter
         binding.viewPager.currentItem = 0
