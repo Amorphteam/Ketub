@@ -1,23 +1,15 @@
 package com.amorphteam.ketub.ui.epub.fragments.search
 
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleViewModel
-import com.amorphteam.ketub.ui.search.adapter.SearchClickListener
-import com.amorphteam.ketub.ui.search.adapter.SearchListAdapter
+import com.amorphteam.ketub.ui.adapter.SearchClickListener
+import com.amorphteam.ketub.ui.adapter.SearchListAdapter
 
 class SearchSingleFragment : Fragment() {
 

@@ -41,7 +41,6 @@ class TocHelper {
 
             if (books != null) {
                 for (item in books) {
-                    Log.i(Keys.LOG_NAME, "catbooks is ${books.size}")
                     try {
                         val book = Book(fileManager.getBookAddress(item.bookPath!!))
                         for (navPoint in book.tableOfContents.navPoints) {

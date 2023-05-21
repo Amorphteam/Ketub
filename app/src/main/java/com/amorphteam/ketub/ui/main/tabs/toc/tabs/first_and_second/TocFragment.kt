@@ -9,13 +9,17 @@ import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.FragmentTocBinding
+import com.amorphteam.ketub.model.IndexesInfo
 import com.amorphteam.ketub.model.NavResult
 import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.model.TreeBookHolder
+import com.amorphteam.ketub.ui.adapter.TocListAdapter
+import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
@@ -28,8 +32,7 @@ class TocFragment(val catName:String) : Fragment() {
     private lateinit var viewModel: TocViewModel
     private var tView: AndroidTreeView? = null
     private val localNavResult: NavResult? = null
-    private var books: Array<String>? = null
-
+    var adapter: TocListAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,18 +58,30 @@ class TocFragment(val catName:String) : Fragment() {
         viewModel.treeTocNavResult.observe(viewLifecycleOwner) {
             if (it != null) {
                 setUpTree(it.navTrees)
+                setupListForSearch(it.navPoints)
+                handleSearchView()
             }
         }
 
         viewModel.catBooksNewItems.observe(viewLifecycleOwner){
             if (it !=null){
-                Log.i(Keys.LOG_NAME, "list of cat is ${it.size}")
                 viewModel.getIndex(requireContext())
             }
         }
 
 
         return binding.root
+    }
+
+    private fun setupListForSearch(navPoints: ArrayList<IndexesInfo>) {
+        adapter = TocListAdapter(TocListItemClickListener {
+
+        })
+
+        adapter?.submitList(navPoints)
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
     }
 
 
@@ -95,7 +110,7 @@ class TocFragment(val catName:String) : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-//                filterSearch(newText, index)
+                filterSearch(newText, adapter!!)
 
                 return true
             }
@@ -103,8 +118,10 @@ class TocFragment(val catName:String) : Fragment() {
 
     }
 
-//    private fun filterSearch(searchString: String, index: IndexExpandableAdapter) {
-//        index.filter.filter(searchString)
-//    }
+    private fun filterSearch(searchString: String, adapter: TocListAdapter) {
+        binding.recyclerView.visibility = View.VISIBLE
+        binding.treeRoot.visibility = View.GONE
+        adapter.filter.filter(searchString)
+    }
 
 }

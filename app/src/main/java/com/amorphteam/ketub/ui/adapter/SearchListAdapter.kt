@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.search.adapter
+package com.amorphteam.ketub.ui.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.utility.Keys
 
 class SearchListAdapter(val clickListener: SearchClickListener) :
-    ListAdapter<SearchModel, SearchListAdapter.ViewHolder>(DiffCallback()) , Filterable {
+    ListAdapter<SearchModel, SearchListAdapter.ViewHolder>(SearchDiffCallback()) , Filterable {
     private var originalList: List<SearchModel> = emptyList()
     private var firstTime = true
     class ViewHolder private constructor(val binding: ItemSearchBinding) :
@@ -91,7 +91,7 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
 
 }
 
-class DiffCallback() : DiffUtil.ItemCallback<SearchModel>() {
+class SearchDiffCallback() : DiffUtil.ItemCallback<SearchModel>() {
 
     override fun areItemsTheSame(p0: SearchModel, p1: SearchModel): Boolean {
         return p0.pageId == p1.pageId

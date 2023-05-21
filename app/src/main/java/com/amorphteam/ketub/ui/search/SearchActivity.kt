@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.search
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +12,8 @@ import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.ActivitySearchBinding
 import com.amorphteam.ketub.model.SearchModel
-import com.amorphteam.ketub.ui.epub.EpubActivity
-import com.amorphteam.ketub.ui.search.adapter.SearchClickListener
-import com.amorphteam.ketub.ui.search.adapter.SearchListAdapter
+import com.amorphteam.ketub.ui.adapter.SearchClickListener
+import com.amorphteam.ketub.ui.adapter.SearchListAdapter
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.Keys
 

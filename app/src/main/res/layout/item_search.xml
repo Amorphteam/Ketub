@@ -10,7 +10,7 @@
 
         <variable
             name="searchClickListener"
-            type="com.amorphteam.ketub.ui.search.adapter.SearchClickListener" />
+            type="com.amorphteam.ketub.ui.adapter.SearchClickListener" />
 
     </data>
 
