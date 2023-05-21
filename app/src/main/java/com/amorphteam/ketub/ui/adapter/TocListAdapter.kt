@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemTreeTocBinding
 import com.amorphteam.ketub.model.IndexesInfo
 
-class TocListAdapter (private val clickListener: TocListItemClickListener) :
+class TocListAdapter (val listener:EmptyTocListener , private val clickListener: TocListItemClickListener) :
 ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filterable {
-
 
 
     class ViewHolder private constructor(val binding: ItemTreeTocBinding) :
@@ -54,7 +54,9 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 return FilterResults().apply {
                     values = if (constraint.isNullOrEmpty())
-                        currentList
+
+                    listener.onEmptyListReceived()
+
                     else
                         onFilter(currentList, constraint.toString())
                 }
@@ -93,6 +95,12 @@ class TocListItemClickListener(val clickListener: (indexesInfo: IndexesInfo) -> 
     fun onClick(indexesInfo: IndexesInfo) = clickListener(indexesInfo)
 
 }
+
+
+interface EmptyTocListener{
+    fun onEmptyListReceived()
+}
+
 
 
 

@@ -16,18 +16,17 @@ import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.FragmentTocBinding
 import com.amorphteam.ketub.model.IndexesInfo
 import com.amorphteam.ketub.model.NavResult
-import com.amorphteam.ketub.model.TocGroupItem
 import com.amorphteam.ketub.model.TreeBookHolder
+import com.amorphteam.ketub.ui.adapter.EmptyTocListener
 import com.amorphteam.ketub.ui.adapter.TocListAdapter
 import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
-import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
 import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
 
 
-class TocFragment(val catName:String) : Fragment() {
+class TocFragment(val catName:String) : Fragment(), EmptyTocListener {
     private lateinit var binding: FragmentTocBinding
     private lateinit var viewModel: TocViewModel
     private var tView: AndroidTreeView? = null
@@ -74,7 +73,7 @@ class TocFragment(val catName:String) : Fragment() {
     }
 
     private fun setupListForSearch(navPoints: ArrayList<IndexesInfo>) {
-        adapter = TocListAdapter(TocListItemClickListener {
+        adapter = TocListAdapter(this, TocListItemClickListener {
 
         })
 
@@ -131,6 +130,11 @@ class TocFragment(val catName:String) : Fragment() {
             binding.recyclerView.visibility = View.VISIBLE
             binding.treeRoot.visibility = View.GONE
         }
+    }
+
+    override fun onEmptyListReceived() {
+        showTreeToc(true)
+
     }
 
 }
