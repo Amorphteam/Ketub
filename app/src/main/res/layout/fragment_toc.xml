@@ -46,16 +46,5 @@
             android:orientation="vertical"
             />
 
-        <ExpandableListView
-            android:id="@+id/expandable_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:layout_margin="@dimen/small_margin"
-            android:childDivider="@android:color/transparent"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="@dimen/small_margin"
-            android:padding="@dimen/small_margin" />
-
     </LinearLayout>
 </layout>

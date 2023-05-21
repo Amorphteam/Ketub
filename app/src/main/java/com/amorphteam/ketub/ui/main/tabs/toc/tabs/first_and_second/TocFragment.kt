@@ -119,9 +119,18 @@ class TocFragment(val catName:String) : Fragment() {
     }
 
     private fun filterSearch(searchString: String, adapter: TocListAdapter) {
-        binding.recyclerView.visibility = View.VISIBLE
-        binding.treeRoot.visibility = View.GONE
+        showTreeToc(false)
         adapter.filter.filter(searchString)
+    }
+
+    private fun showTreeToc(status:Boolean) {
+        if (status) {
+            binding.recyclerView.visibility = View.GONE
+            binding.treeRoot.visibility = View.VISIBLE
+        }else{
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.treeRoot.visibility = View.GONE
+        }
     }
 
 }

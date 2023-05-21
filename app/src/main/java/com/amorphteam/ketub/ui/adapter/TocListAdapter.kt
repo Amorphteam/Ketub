@@ -54,8 +54,6 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 return FilterResults().apply {
                     values = if (constraint.isNullOrEmpty())
-                    //TODO: IT MUST LOAD FROM VIEWMODEL
-
                         currentList
                     else
                         onFilter(currentList, constraint.toString())
@@ -95,4 +93,6 @@ class TocListItemClickListener(val clickListener: (indexesInfo: IndexesInfo) -> 
     fun onClick(indexesInfo: IndexesInfo) = clickListener(indexesInfo)
 
 }
+
+
 
