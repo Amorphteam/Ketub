@@ -1,6 +1,9 @@
 package com.amorphteam.ketub.model
 
 import android.graphics.drawable.Drawable
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
-data class CatSection(val title:String, val des:String, val logo:Drawable): Serializable
+@Parcelize
+data class CatSection(val title: String, val des: String, val logo: String) : Parcelable

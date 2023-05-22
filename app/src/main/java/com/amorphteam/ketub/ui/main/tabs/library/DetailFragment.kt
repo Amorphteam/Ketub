@@ -20,6 +20,7 @@ import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.Keys
 
 class DetailFragment : Fragment() {
@@ -30,9 +31,11 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         if (arguments != null) {
-            catSection = (arguments?.getSerializable(Keys.NAV_CAT_SECTION) as? CatSection)!!
+            catSection = (arguments?.getParcelable(Keys.NAV_CAT_SECTION) as? CatSection)!!
         }
+
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false
         )
@@ -48,13 +51,21 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-        viewModel.bookItems.observe(viewLifecycleOwner){
+        viewModel.bookItems.observe(viewLifecycleOwner) {
             if (it.size == 1) {
-                viewModel.openEpubAct()
-            }else{
+                it[0].bookPath?.let { it1 ->
+                    val bookAddress = EpubHelper.getBookAddressFromBookPath(it1, requireContext())
+                    if (bookAddress != null) {
+                        EpubHelper.openEpub(bookAddress, requireContext())
+                    }
+                }
+
+            } else {
                 //TODO THIS SECTION MUST BE COMPLETED
             }
         }
+
+
 
         viewModel.startEpubAct.observe(viewLifecycleOwner) {
             if (it) startActivity(Intent(activity, EpubActivity::class.java))

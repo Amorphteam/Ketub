@@ -3,16 +3,16 @@
 3    package="com.mehdok.fineepublib" >
 4
 5    <uses-sdk android:minSdkVersion="21" />
-5-->/Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+5-->/Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
 6
 7    <application
-7-->/Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:4:5-9:19
+7-->/Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:4:5-9:19
 8        android:allowBackup="true"
-8-->/Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:4:18-44
+8-->/Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:4:18-44
 9        android:label="@string/app_name"
-9-->/Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:5:9-41
+9-->/Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:5:9-41
 10        android:supportsRtl="true" >
-10-->/Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:6:9-35
+10-->/Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:6:9-35
 11    </application>
 12
 13</manifest>

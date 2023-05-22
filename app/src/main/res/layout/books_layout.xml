@@ -52,7 +52,7 @@
                 android:id="@+id/logo"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
-                android:src="@{catSection.logo}" />
+                app:setLogoImage="@{catSection.logo}" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

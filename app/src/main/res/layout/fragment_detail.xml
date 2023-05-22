@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -57,7 +58,7 @@
                 android:id="@+id/vertical_category_image"
                 android:layout_width="@dimen/large_image"
                 android:layout_height="@dimen/large_image"
-                android:src="@{viewModel.catSection.logo}"
+                app:setLogoImage="@{viewModel.catSection.logo}"
                 android:layout_gravity="center_vertical"
                 />
 
