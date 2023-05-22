@@ -25,7 +25,7 @@ import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModelFactory
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.Keys
 
-class BookmarkFragment(val catName:String) : Fragment() {
+class BookmarkFragment(val catName:String = "", val singleBookName:String = "") : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
     private lateinit var viewModel: BookmarkViewModel
 
@@ -41,7 +41,7 @@ class BookmarkFragment(val catName:String) : Fragment() {
         val application = requireNotNull(this.activity).application
         val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
         val referenceRepository = ReferenceRepository(referenceDao)
-        val viewModelFactory = BookmarkViewModelFactory(referenceRepository, catName)
+        val viewModelFactory = BookmarkViewModelFactory(referenceRepository, catName, singleBookName)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[BookmarkViewModel::class.java]

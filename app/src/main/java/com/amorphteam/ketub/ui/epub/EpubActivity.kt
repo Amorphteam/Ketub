@@ -26,8 +26,8 @@ import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
-import com.amorphteam.ketub.ui.epub.fragments.bookmark.BookmarkSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleFragment
+import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkFragment
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModel
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModelFactory
 import com.amorphteam.ketub.utility.Keys
@@ -273,7 +273,7 @@ class EpubActivity : AppCompatActivity() {
             }
 
             R.id.bookmark -> {
-                handleFragment(BookmarkSingleFragment())
+                handleFragment(BookmarkFragment(singleBookName = bookName))
                 true
             }
             R.id.search -> {

@@ -33,6 +33,13 @@ class DatabaseReferenceHelper {
         }
     }
 
+    suspend fun getAllBookmarksSingleBook(bookName: String, referenceRepository: ReferenceRepository): List<ReferenceModel> {
+        return withContext(Dispatchers.IO) {
+            val bookmark = referenceRepository.getAllReferencesForSingleBook(bookName)
+            bookmark
+        }
+    }
+
     private suspend fun getAllReferences(onlineReference: OnlineReference, referenceRepository: ReferenceRepository): List<ReferenceModel> {
         return withContext(Dispatchers.IO) {
             val references = referenceRepository.getAllReferences(onlineReference)
@@ -56,6 +63,13 @@ class DatabaseReferenceHelper {
     fun getOfflineReference(refrenceRepository: ReferenceRepository, arrayList: MutableLiveData<List<ReferenceModel>>, catName: String){
         uiScope.launch {
             arrayList.value = getAllBookmarks(catName, refrenceRepository)
+        }
+    }
+
+
+    fun getOfflineReferenceSingleBook(refrenceRepository: ReferenceRepository, arrayList: MutableLiveData<List<ReferenceModel>>, singleBook: String){
+        uiScope.launch {
+            arrayList.value = getAllBookmarksSingleBook(singleBook, refrenceRepository)
         }
     }
     fun getOfflineReference(onlineReference: OnlineReference, referenceRepository: ReferenceRepository, arrayList: MutableLiveData<List<ReferenceModel>>) {

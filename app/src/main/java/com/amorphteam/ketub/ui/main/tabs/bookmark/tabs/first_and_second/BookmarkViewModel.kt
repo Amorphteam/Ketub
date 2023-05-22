@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 
+import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -9,6 +10,7 @@ import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.DatabaseReferenceHelper
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.TempData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,8 @@ import kotlinx.coroutines.withContext
 
 class BookmarkViewModel(
     private val referenceRepository: ReferenceRepository,
-    private val catName: String
+    private val catName: String,
+    private val singleBookName:String
 ) :
     ViewModel() {
     private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
@@ -27,7 +30,35 @@ class BookmarkViewModel(
         get() = _allBookmarks
 
     init {
-        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName.split(" ").first())
+        if (bookMarkForAllBook()) {
+            getAllBookMarksForAllBooks()
+        }else {
+            getAllBookmarksForSingleBook()
+        }
+    }
+
+    private fun getAllBookmarksForSingleBook() {
+        databaseReferenceHelper?.getOfflineReferenceSingleBook(
+            referenceRepository,
+            _allBookmarks,
+            singleBookName
+        )
+    }
+
+    private fun getAllBookMarksForAllBooks() {
+        databaseReferenceHelper?.getOfflineReference(
+            referenceRepository,
+            _allBookmarks,
+            catName.split(" ").first()
+        )
+    }
+
+    private fun bookMarkForAllBook():Boolean{
+        var forAllBooks = false
+
+        if (catName.isEmpty()) forAllBooks = false
+        if (singleBookName.isEmpty()) forAllBooks = true
+        return forAllBooks
     }
 
     override fun onCleared() {
@@ -37,7 +68,12 @@ class BookmarkViewModel(
 
     fun deleteBookmark(it: Int) {
         databaseReferenceHelper?.deleteBookmark(it, referenceRepository)
-        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName)
+        if(bookMarkForAllBook()){
+            getAllBookMarksForAllBooks()
+        }else{
+            getAllBookmarksForSingleBook()
+        }
+
     }
 
 
