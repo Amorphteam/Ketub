@@ -47,7 +47,7 @@ class BookmarkContainerFragment : Fragment() {
         secondBookmarkFragment?.let { adapter.addFragment(it, Keys.DB_SECOND_CAT) }
 
         binding.viewPager.adapter = adapter
-        binding.viewPager.currentItem = 1
+        binding.viewPager.currentItem = 0
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = adapter.getTabTitle(position)
         }.attach()

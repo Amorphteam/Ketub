@@ -27,7 +27,7 @@ class BookmarkViewModel(
         get() = _allBookmarks
 
     init {
-        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName)
+        databaseReferenceHelper?.getOfflineReference(referenceRepository, _allBookmarks, catName.split(" ").first())
     }
 
     override fun onCleared() {
