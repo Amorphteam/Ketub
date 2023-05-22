@@ -59,6 +59,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun startSearch(query:String){
+        if (searchHelper != null){
+            searchHelper?.stopSearch(true)
+            viewModel.clearList()
+            searchHelper= null
+        }
         searchHelper = SearchHelper(this)
         viewModel.searchAllBooks(searchHelper!!, allBooksString, query)
     }
@@ -83,19 +88,28 @@ class SearchActivity : AppCompatActivity() {
     }
     private fun setupChipGroup(adapter: SearchListAdapter) {
 
-        binding.chip1.setOnClickListener {
+        binding.chip1.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
             searchHelper?.stopSearch(true)
+                viewModel.clearList()
             adapter.filter.filter(" ")
         }
-
-        binding.chip2.setOnClickListener {
-            searchHelper?.stopSearch(true)
-            adapter.filter.filter(Keys.DB_FIRST_CAT)
         }
 
-        binding.chip3.setOnClickListener {
-            searchHelper?.stopSearch(true)
-            adapter.filter.filter(Keys.DB_SECOND_CAT)
+        binding.chip2.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                searchHelper?.stopSearch(true)
+                viewModel.clearList()
+                adapter.filter.filter(Keys.DB_FIRST_CAT.split(" ").first())
+            }
+        }
+
+        binding.chip3.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                searchHelper?.stopSearch(true)
+                viewModel.clearList()
+                adapter.filter.filter(Keys.DB_SECOND_CAT.split(" ").first())
+            }
         }
 
     }
@@ -108,7 +122,6 @@ class SearchActivity : AppCompatActivity() {
 
     private fun handleSearchResult(arrayResult: List<SearchModel>) {
         val adapter = SearchListAdapter(SearchClickListener {
-            searchHelper?.stopSearch(true)
             it.bookAddress?.let { it1 -> it.pageId?.let { it2 ->
                 EpubHelper.openEpub(it1,
                     it2, this)

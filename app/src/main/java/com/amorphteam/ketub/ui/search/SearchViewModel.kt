@@ -45,14 +45,21 @@ class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
 
     fun searchAllBooks(searchHelper: SearchHelper, it: List<String>, s: String) {
         uiScope.launch{
+            _results.value?.clear()
+            var currentResults = ArrayList<SearchModel>()
+            currentResults.clear()
             searchHelper.searchAllBooks(it, s).collect{
-                val currentResults = _results.value ?: ArrayList()
+                currentResults = _results.value ?: ArrayList()
                 currentResults.addAll(it)
                 _results.value = currentResults
             }
         }
     }
 
+    fun clearList(){
+        _results.value?.clear()
+        _results.value = ArrayList()
+    }
     companion object {
         @JvmStatic
         @BindingAdapter("searchResult")

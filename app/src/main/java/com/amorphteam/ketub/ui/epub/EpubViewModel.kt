@@ -278,6 +278,8 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
             imageButton.setColorFilter(drawable)
         }
     }
+
+
 }
 
 
