@@ -3,6 +3,7 @@ package com.amorphteam.ketub.ui.search
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -34,10 +35,8 @@ class SearchActivity : AppCompatActivity() {
         val viewModelFactory = SearchViewModelFactory(bookRepository)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
-
         viewModel.allBooks.observe(this) {
             for (item in it){
-                Log.i(Keys.LOG_NAME, item.bookPath.toString())
                val bookAddress = EpubHelper.getBookAddressFromBookPath(item.bookPath!!, this)
                 bookAddress?.let { it1 -> allBooksString.add(it1) }
             }
@@ -57,6 +56,7 @@ class SearchActivity : AppCompatActivity() {
 
 
     }
+
 
     fun startSearch(query:String){
         if (searchHelper != null){
@@ -78,6 +78,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                binding.chipGroup.visibility = View.GONE
 //                if (newText.length > 2) {
 //                    startSearch(newText)
 //                }
@@ -91,7 +92,6 @@ class SearchActivity : AppCompatActivity() {
         binding.chip1.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
             searchHelper?.stopSearch(true)
-                viewModel.clearList()
             adapter.filter.filter(" ")
         }
         }
@@ -99,7 +99,6 @@ class SearchActivity : AppCompatActivity() {
         binding.chip2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 searchHelper?.stopSearch(true)
-                viewModel.clearList()
                 adapter.filter.filter(Keys.DB_FIRST_CAT.split(" ").first())
             }
         }
@@ -107,7 +106,6 @@ class SearchActivity : AppCompatActivity() {
         binding.chip3.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 searchHelper?.stopSearch(true)
-                viewModel.clearList()
                 adapter.filter.filter(Keys.DB_SECOND_CAT.split(" ").first())
             }
         }
@@ -128,6 +126,7 @@ class SearchActivity : AppCompatActivity() {
             } }
         })
         adapter.submitList(arrayResult)
+        binding.chipGroup.visibility = View.VISIBLE
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
