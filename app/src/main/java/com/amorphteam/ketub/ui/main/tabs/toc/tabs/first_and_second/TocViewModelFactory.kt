@@ -6,13 +6,14 @@ import com.amorphteam.ketub.database.book.BookRepository
 
 class TocViewModelFactory (
     private val catName:String,
-    private val bookRepository: BookRepository
+    private val bookRepository: BookRepository,
+    private val singleBookName:String
 ) : ViewModelProvider.Factory {
 
     @Suppress("unckecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TocViewModel::class.java)) {
-            return TocViewModel(catName, bookRepository) as T
+            return TocViewModel(catName, bookRepository, singleBookName) as T
         }
         throw IllegalThreadStateException("Unknow ViewModel class")
     }

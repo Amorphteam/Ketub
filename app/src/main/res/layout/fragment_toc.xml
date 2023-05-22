@@ -9,12 +9,16 @@
             type="com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocViewModel" />
     </data>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/primary2"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
+        style="@style/PatternBackground"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.main.tabs.toc.tabs.first_and_second.TocFragment"
-        >
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -47,4 +51,5 @@
             />
 
     </LinearLayout>
+    </RelativeLayout>
 </layout>

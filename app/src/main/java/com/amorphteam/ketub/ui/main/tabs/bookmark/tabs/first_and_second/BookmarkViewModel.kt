@@ -1,22 +1,14 @@
 package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 
-import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.amorphteam.ketub.database.reference.ReferenceDatabaseDao
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.DatabaseReferenceHelper
-import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.TempData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.amorphteam.ketub.utility.EpubHelper.Companion.isContainerForAllBooks
 
 class BookmarkViewModel(
     private val referenceRepository: ReferenceRepository,
@@ -30,7 +22,7 @@ class BookmarkViewModel(
         get() = _allBookmarks
 
     init {
-        if (bookMarkForAllBook()) {
+        if (isContainerForAllBooks(catName, singleBookName)) {
             getAllBookMarksForAllBooks()
         }else {
             getAllBookmarksForSingleBook()
@@ -53,13 +45,7 @@ class BookmarkViewModel(
         )
     }
 
-    private fun bookMarkForAllBook():Boolean{
-        var forAllBooks = false
 
-        if (catName.isEmpty()) forAllBooks = false
-        if (singleBookName.isEmpty()) forAllBooks = true
-        return forAllBooks
-    }
 
     override fun onCleared() {
         super.onCleared()
@@ -68,7 +54,7 @@ class BookmarkViewModel(
 
     fun deleteBookmark(it: Int) {
         databaseReferenceHelper?.deleteBookmark(it, referenceRepository)
-        if(bookMarkForAllBook()){
+        if(isContainerForAllBooks(catName, singleBookName)){
             getAllBookMarksForAllBooks()
         }else{
             getAllBookmarksForSingleBook()

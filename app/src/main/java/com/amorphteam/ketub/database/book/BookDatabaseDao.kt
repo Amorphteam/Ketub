@@ -11,6 +11,9 @@ interface BookDatabaseDao {
     @Query("select * from category_list")
     fun getAllCats(): List<CategoryModel>
 
+    @Query("select * from category_list WHERE _id is :catId")
+    fun getCat(catId:Int): List<CategoryModel>
+
     @Query("select * from category_list WHERE cat_name LIKE '%' || :catName || '%' ORDER BY _id ASC")
     fun getAllCats(catName:String): List<CategoryModel>
 
@@ -26,4 +29,7 @@ interface BookDatabaseDao {
 
     @Query("select * from book_list")
     fun getAllBooks(): List<BookModel>
+
+    @Query("select cat_id from book_list WHERE book_path = :bookName")
+    fun getBook(bookName:String): Int
 }

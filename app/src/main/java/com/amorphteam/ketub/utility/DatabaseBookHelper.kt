@@ -5,6 +5,7 @@ import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.BookModel
 import com.amorphteam.ketub.model.CategoryModel
 import kotlinx.coroutines.*
+import okhttp3.Dispatcher
 
 
 class DatabaseBookHelper {
@@ -37,9 +38,35 @@ class DatabaseBookHelper {
         }
     }
 
+    fun getBook(bookName:String, repository: BookRepository, catId:MutableLiveData<Int>){
+        uiScope.launch {
+            catId.value = getBookFromDB(bookName, repository)
+        }
+    }
+
+    private suspend fun getBookFromDB(bookName: String, repository: BookRepository): Int {
+        return withContext(Dispatchers.IO) {
+            val catId = repository.getBook(bookName)
+            catId
+        }
+    }
+
     fun getCats(catSectionTitle:String, repository: BookRepository, allCatArray: MutableLiveData<List<CategoryModel>>) {
         uiScope.launch {
             allCatArray.value = getAllCats(catSectionTitle, repository)
+        }
+    }
+
+    fun getCat(catId:Int, repository: BookRepository, allCatArray: MutableLiveData<List<CategoryModel>>) {
+        uiScope.launch {
+            allCatArray.value = getCat(catId, repository)
+        }
+    }
+
+    private suspend fun getCat(catId: Int, repository: BookRepository): List<CategoryModel> {
+        return withContext(Dispatchers.IO){
+            val cat = repository.getCat(catId)
+            cat
         }
     }
 

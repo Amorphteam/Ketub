@@ -6,6 +6,7 @@ import com.amorphteam.ketub.model.CategoryModel
 class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
     fun getAllCats(): List<CategoryModel> = bookDatabaseDao.getAllCats()
+    fun getCat(catId: Int): List<CategoryModel> = bookDatabaseDao.getCat(catId)
 
     fun getAllCats(catName:String): List<CategoryModel> =
         bookDatabaseDao.getAllCats(catName)
@@ -19,4 +20,5 @@ class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
     fun getAllBooks(): List<BookModel> = bookDatabaseDao.getAllBooks()
 
+    fun getBook(bookName:String):Int = bookDatabaseDao.getBook(bookName)
 }

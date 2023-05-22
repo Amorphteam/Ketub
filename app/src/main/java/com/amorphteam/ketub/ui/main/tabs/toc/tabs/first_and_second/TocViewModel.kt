@@ -1,7 +1,6 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
 import android.content.Context
-import android.util.Log
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -10,36 +9,60 @@ import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.utility.DatabaseBookHelper
-import com.amorphteam.ketub.utility.Keys
+import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.TocHelper
 import kotlinx.coroutines.*
 
-class TocViewModel(val catName: String, val bookRepository: BookRepository) : ViewModel() {
+class TocViewModel(
+    val catName: String,
+    val bookRepository: BookRepository,
+    val singleBookName: String
+) : ViewModel() {
     private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
     private var tocHelper: TocHelper? = TocHelper()
     private var _catBooksNewItems = MutableLiveData<List<CategoryModel>>()
     val catBooksNewItems: LiveData<List<CategoryModel>>
         get() = _catBooksNewItems
 
+    private var _catId = MutableLiveData<Int>()
+    val catId: LiveData<Int>
+        get() = _catId
+
     private val _treeTocNavResult = MutableLiveData<NavResult?>()
     val treeTocNavResult: LiveData<NavResult?>
         get() = _treeTocNavResult
 
-init {
-}
+    init {
+        if (EpubHelper.isContainerForAllBooks(catName, singleBookName)) {
+            getCats()
+        }else {
+            getCatForSingleBook()
+        }
+    }
+
+    private fun getCatForSingleBook() {
+        databaseBookHelper?.getBook(singleBookName, bookRepository, _catId)
+    }
+
     override fun onCleared() {
         super.onCleared()
         tocHelper = null
         databaseBookHelper = null
     }
 
-    fun getCat(){
-            databaseBookHelper?.getCats(catName, bookRepository, _catBooksNewItems)
+    private fun getCats() {
+        databaseBookHelper?.getCats(catName, bookRepository, _catBooksNewItems)
     }
-
-    fun getIndex(context: Context){
-        tocHelper?.handleIndexList(context, bookRepository,
-            _catBooksNewItems.value!!, _treeTocNavResult)
+    fun getCat(it: Int?) {
+        if (it != null) {
+            databaseBookHelper?.getCat(it, bookRepository, _catBooksNewItems)
+        }
+    }
+    fun getIndex(context: Context) {
+        tocHelper?.handleIndexList(
+            context, bookRepository,
+            _catBooksNewItems.value!!, _treeTocNavResult
+        )
     }
 
 

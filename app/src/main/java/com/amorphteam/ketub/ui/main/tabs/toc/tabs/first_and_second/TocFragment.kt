@@ -1,7 +1,6 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +22,12 @@ import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.FileManager
-import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.NavTreeCreator
 import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
 
 
-class TocFragment(val catName:String) : Fragment(), EmptyTocListener {
+class TocFragment(val catName:String = "", val singleBookName:String ="") : Fragment(), EmptyTocListener {
     private lateinit var binding: FragmentTocBinding
     private lateinit var viewModel: TocViewModel
     private var tView: AndroidTreeView? = null
@@ -47,14 +45,16 @@ class TocFragment(val catName:String) : Fragment(), EmptyTocListener {
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
         val bookRepository = BookRepository(bookDao)
 
-        val viewModelFactory = TocViewModelFactory(catName, bookRepository)
+        val viewModelFactory = TocViewModelFactory(catName, bookRepository, singleBookName)
         viewModel = ViewModelProvider(this, viewModelFactory)[TocViewModel::class.java]
 
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
+        viewModel.catId.observe(viewLifecycleOwner){
+            viewModel.getCat(it)
+        }
 
 
         viewModel.treeTocNavResult.observe(viewLifecycleOwner) {
@@ -94,7 +94,6 @@ class TocFragment(val catName:String) : Fragment(), EmptyTocListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.treeRoot.removeAllViews()
-        viewModel.getCat()
     }
 
     private fun setUpTree(navTrees: ArrayList<TreeBookHolder>) {

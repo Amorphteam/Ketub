@@ -40,6 +40,14 @@ class EpubHelper() {
             return temp
         }
 
+        fun isContainerForAllBooks(catName: String, singleBookName: String):Boolean{
+            var forAllBooks = false
+
+            if (catName.isEmpty()) forAllBooks = false
+            if (singleBookName.isEmpty()) forAllBooks = true
+            return forAllBooks
+        }
+
 
     }
 }

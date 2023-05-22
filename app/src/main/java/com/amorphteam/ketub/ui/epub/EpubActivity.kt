@@ -26,10 +26,10 @@ import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
 import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
 import com.amorphteam.ketub.ui.epub.fragments.StyleListener
-import com.amorphteam.ketub.ui.epub.fragments.toc.TocSingleFragment
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkFragment
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModel
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModelFactory
+import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -268,7 +268,7 @@ class EpubActivity : AppCompatActivity() {
             }
 
             R.id.toc -> {
-                handleFragment(TocSingleFragment())
+                handleFragment(TocFragment(singleBookName = bookPath))
                 true
             }
 
