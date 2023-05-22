@@ -20,5 +20,7 @@ class BookRepository(private val bookDatabaseDao: BookDatabaseDao) {
 
     fun getAllBooks(): List<BookModel> = bookDatabaseDao.getAllBooks()
 
-    fun getBook(bookName:String):Int = bookDatabaseDao.getBook(bookName)
+    fun getBookId(bookPath:String):Int = bookDatabaseDao.getBookId(bookPath)
+    fun getBook(bookPath:String):List<BookModel> = bookDatabaseDao.getBook(bookPath)
+
 }

@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.epub.fragments
+package com.amorphteam.ketub.ui.epub
 
 import com.amorphteam.ketub.model.Theme
 

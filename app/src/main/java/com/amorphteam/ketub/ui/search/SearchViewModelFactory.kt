@@ -6,14 +6,14 @@ import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModel
 
-class SearchViewModelFactory  (private val bookRepository: BookRepository
+class SearchViewModelFactory  (private val bookRepository: BookRepository, private val bookPath:String
 
 ) : ViewModelProvider.Factory {
 
     @Suppress("unckecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
-            return SearchViewModel(bookRepository) as T
+            return SearchViewModel(bookRepository, bookPath) as T
         }
         throw IllegalThreadStateException("Unknow ViewModel class")
     }

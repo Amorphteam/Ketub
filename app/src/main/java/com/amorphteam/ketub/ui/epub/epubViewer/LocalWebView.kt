@@ -1,4 +1,4 @@
-package com.amorphteam.ketub.ui.epub.fragments.epubViewer
+package com.amorphteam.ketub.ui.epub.epubViewer
 
 import android.content.Context
 import android.util.AttributeSet

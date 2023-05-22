@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
-import com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewerFragment
+import com.amorphteam.ketub.ui.epub.epubViewer.EpubViewerFragment
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import java.lang.ref.WeakReference
 

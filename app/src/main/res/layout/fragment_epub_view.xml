@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.amorphteam.ketub.ui.epub.fragments.epubViewer.EpubViewerViewModel" />
+            type="com.amorphteam.ketub.ui.epub.epubViewer.EpubViewerViewModel" />
     </data>
 
     <ScrollView

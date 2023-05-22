@@ -27,7 +27,7 @@ import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
 
 
-class TocFragment(val catName:String = "", val singleBookName:String ="") : Fragment(), EmptyTocListener {
+class TocFragment(val catName:String = "", val singleBookPath:String ="") : Fragment(), EmptyTocListener {
     private lateinit var binding: FragmentTocBinding
     private lateinit var viewModel: TocViewModel
     private var tView: AndroidTreeView? = null
@@ -45,7 +45,7 @@ class TocFragment(val catName:String = "", val singleBookName:String ="") : Frag
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
         val bookRepository = BookRepository(bookDao)
 
-        val viewModelFactory = TocViewModelFactory(catName, bookRepository, singleBookName)
+        val viewModelFactory = TocViewModelFactory(catName, bookRepository, singleBookPath)
         viewModel = ViewModelProvider(this, viewModelFactory)[TocViewModel::class.java]
 
 

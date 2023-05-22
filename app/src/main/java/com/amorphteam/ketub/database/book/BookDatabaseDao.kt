@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.amorphteam.ketub.model.BookModel
 import com.amorphteam.ketub.model.CategoryModel
+import com.mehdok.fineepublib.epubviewer.epub.Book
 
 
 @Dao
@@ -30,6 +31,9 @@ interface BookDatabaseDao {
     @Query("select * from book_list")
     fun getAllBooks(): List<BookModel>
 
-    @Query("select cat_id from book_list WHERE book_path = :bookName")
-    fun getBook(bookName:String): Int
+    @Query("select cat_id from book_list WHERE book_path = :bookPath")
+    fun getBookId(bookPath:String): Int
+
+    @Query("select * from book_list WHERE book_path = :bookPath")
+    fun getBook(bookPath:String): List<BookModel>
 }

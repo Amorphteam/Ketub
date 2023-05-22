@@ -9,16 +9,16 @@ import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.model.BookModel
 import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.utility.DatabaseBookHelper
+import com.amorphteam.ketub.utility.EpubHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
+class SearchViewModel(val bookRepository: BookRepository, val bookPath:String) : ViewModel() {
     private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
 
     private val _allBooks = MutableLiveData<List<BookModel>>()
     val allBooks: LiveData<List<BookModel>>
@@ -29,8 +29,17 @@ class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
     val results: LiveData<ArrayList<SearchModel>>
         get() = _results
     init {
-        getAllBooks()
+        if (bookPath.isEmpty()) {
+            getAllBooks()
+        }else {
+            getBook()
+        }
     }
+
+    private fun getBook() {
+        databaseBookHelper?.getBook(bookPath, bookRepository, _allBooks)
+    }
+
 
     private fun getAllBooks() {
         databaseBookHelper?.getAllBooks(bookRepository, _allBooks)

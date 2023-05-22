@@ -36,6 +36,7 @@ class Keys {
         val SEARCH_UPDATE_DELAY = 1 * 1000
         val ARG_SEARCH_WORD = "word_for_search"
         val BOOKS = "list_of_books"
+        val SINGLE_BOOK_PATH = "single_book_path"
     }
 }
 

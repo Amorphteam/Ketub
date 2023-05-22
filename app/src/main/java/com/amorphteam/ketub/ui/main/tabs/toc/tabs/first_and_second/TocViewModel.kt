@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
 class TocViewModel(
     val catName: String,
     val bookRepository: BookRepository,
-    val singleBookName: String
+    val singleBookPath: String
 ) : ViewModel() {
     private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
     private var tocHelper: TocHelper? = TocHelper()
@@ -33,7 +33,7 @@ class TocViewModel(
         get() = _treeTocNavResult
 
     init {
-        if (EpubHelper.isContainerForAllBooks(catName, singleBookName)) {
+        if (EpubHelper.isContainerForAllBooks(catName, singleBookPath)) {
             getCats()
         }else {
             getCatForSingleBook()
@@ -41,7 +41,7 @@ class TocViewModel(
     }
 
     private fun getCatForSingleBook() {
-        databaseBookHelper?.getBook(singleBookName, bookRepository, _catId)
+        databaseBookHelper?.getBookId(singleBookPath, bookRepository, _catId)
     }
 
     override fun onCleared() {

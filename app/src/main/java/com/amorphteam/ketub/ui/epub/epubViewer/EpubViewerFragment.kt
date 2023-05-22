@@ -1,11 +1,9 @@
-package com.amorphteam.ketub.ui.epub.fragments.epubViewer
+package com.amorphteam.ketub.ui.epub.epubViewer
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.fonts.Font
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -18,9 +16,8 @@ import com.amorphteam.ketub.databinding.FragmentEpubViewBinding
 import com.amorphteam.ketub.model.*
 import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
-import com.amorphteam.ketub.ui.epub.fragments.StyleListener
+import com.amorphteam.ketub.ui.epub.StyleListener
 import com.amorphteam.ketub.utility.Keys
-import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
@@ -28,7 +25,6 @@ import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
 import com.mehdok.fineepublib.interfaces.EpubScrollListener
 import com.mehdok.fineepublib.interfaces.EpubTapListener
-import kotlinx.android.synthetic.main.bottom_sheet_style.bottom_sheet
 import java.util.*
 
 

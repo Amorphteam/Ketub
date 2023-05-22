@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.epub
 
-import android.graphics.fonts.Font
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -10,11 +9,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.*
-import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
-import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.utility.DatabaseReferenceHelper
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager

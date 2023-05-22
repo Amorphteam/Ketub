@@ -24,15 +24,19 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var viewModel: SearchViewModel
     private var allBooksString = ArrayList<String>()
+    private var bookPath = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
+        if (intent.hasExtra(Keys.SINGLE_BOOK_PATH)){
+            bookPath = intent.getStringExtra(Keys.SINGLE_BOOK_PATH)!!
+        }
 
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
 
         val bookRepository = BookRepository(bookDao)
-        val viewModelFactory = SearchViewModelFactory(bookRepository)
+        val viewModelFactory = SearchViewModelFactory(bookRepository, bookPath)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
         viewModel.allBooks.observe(this) {
@@ -126,7 +130,9 @@ class SearchActivity : AppCompatActivity() {
             } }
         })
         adapter.submitList(arrayResult)
-        binding.chipGroup.visibility = View.VISIBLE
+        if (bookPath.isEmpty()) {
+            binding.chipGroup.visibility = View.VISIBLE
+        }
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter

@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.epub
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -24,20 +25,15 @@ import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.databinding.ActivityEpubBinding
 import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.ui.adapter.EpubVerticalAdapter
-import com.amorphteam.ketub.ui.epub.fragments.search.SearchSingleFragment
-import com.amorphteam.ketub.ui.epub.fragments.StyleListener
 import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkFragment
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModel
-import com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second.BookmarkViewModelFactory
 import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
+import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
-import com.mehdok.fineepublib.epubviewer.epub.NavPoint
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
-import java.security.Key
 import java.util.*
 
 
@@ -268,7 +264,7 @@ class EpubActivity : AppCompatActivity() {
             }
 
             R.id.toc -> {
-                handleFragment(TocFragment(singleBookName = bookPath))
+                handleFragment(TocFragment(singleBookPath = bookPath))
                 true
             }
 
@@ -277,12 +273,18 @@ class EpubActivity : AppCompatActivity() {
                 true
             }
             R.id.search -> {
-                handleFragment(SearchSingleFragment())
+                openSearchActivity()
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun openSearchActivity() {
+        val intent = Intent(this, SearchActivity::class.java)
+        intent.putExtra(Keys.SINGLE_BOOK_PATH, bookPath)
+        startActivity(intent)
     }
 
     private fun handleStyleSheet() {
