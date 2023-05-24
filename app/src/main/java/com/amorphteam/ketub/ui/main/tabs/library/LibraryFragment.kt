@@ -59,12 +59,12 @@ class LibraryFragment : Fragment() {
         binding.catSection1 = CatSection(
             resources.getString(R.string.ejtehad_title),
             resources.getString(R.string.ejtehad_caption),
-            ResourcesCompat.getDrawable(resources, R.drawable.ejtihad_logo, null)!!
+            Keys.EJTEHAD_LOGO
         )
         binding.catSection2 = CatSection(
             resources.getString(R.string.nosos_title),
             resources.getString(R.string.nosos_caption),
-            ResourcesCompat.getDrawable(resources, R.drawable.nosos_logo, null)!!
+            Keys.NOSOS_LOGO
         )
 
         binding.lifecycleOwner = this
@@ -80,7 +80,7 @@ class LibraryFragment : Fragment() {
             if (it != null) {
                 val bundle = Bundle()
 
-                bundle.putSerializable(Keys.NAV_CAT_SECTION, it)
+                bundle.putParcelable(Keys.NAV_CAT_SECTION, it)
                 Navigation.findNavController(requireView())
                     .navigate(R.id.action_navigation_library_to_detailFragment, bundle)
             }

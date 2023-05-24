@@ -95,4 +95,5 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
     implementation "com.google.code.gson:gson:$version_gson"
     implementation "com.github.bmelnychuk:atv:$version_tree_view"
+
 }

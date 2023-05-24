@@ -37,6 +37,9 @@ class Keys {
         val ARG_SEARCH_WORD = "word_for_search"
         val BOOKS = "list_of_books"
         val SINGLE_BOOK_PATH = "single_book_path"
+        val EJTEHAD_LOGO = "ejtihad_logo"
+        val NOSOS_LOGO = "nosos_logo"
+
     }
 }
 

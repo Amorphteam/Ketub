@@ -120,9 +120,9 @@ open class LibraryViewModel(
         @JvmStatic
         @BindingAdapter("setImage")
         fun setImage(image: ImageView, item: ReferenceModel){
-            var drawableImage = "ejtihad_logo"
+            var drawableImage = Keys.EJTEHAD_LOGO
             if (item.bookName.contains(Keys.DB_SECOND_CAT)){
-                drawableImage = "nosos_logo"
+                drawableImage = Keys.NOSOS_LOGO
             }
             Glide.with(image.context)
                 .load(image.context.resources
@@ -132,6 +132,7 @@ open class LibraryViewModel(
         }
 
     }
+
 
 
 }
