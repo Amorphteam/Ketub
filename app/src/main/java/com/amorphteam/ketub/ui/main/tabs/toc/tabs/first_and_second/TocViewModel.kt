@@ -32,7 +32,12 @@ class TocViewModel(
     val treeTocNavResult: LiveData<NavResult?>
         get() = _treeTocNavResult
 
+    private val _finishLoadToac = MutableLiveData<Boolean>()
+    val finishLoadToac:LiveData<Boolean>
+    get() = _finishLoadToac
+
     init {
+        _finishLoadToac.value = false
         if (EpubHelper.isContainerForAllBooks(catName, singleBookPath)) {
             getCats()
         }else {
@@ -65,7 +70,9 @@ class TocViewModel(
         )
     }
 
-
+    fun onFinishLoadToc(status:Boolean){
+        _finishLoadToac.value = status
+    }
 
 
     companion object {

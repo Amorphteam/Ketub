@@ -62,6 +62,7 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
                 setUpTree(it.navTrees)
                 setupListForSearch(it.navPoints)
                 handleSearchView()
+                viewModel.onFinishLoadToc(true)
             }
         }
 
@@ -74,6 +75,7 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
 
         return binding.root
     }
+
 
     private fun setupListForSearch(navPoints: ArrayList<IndexesInfo>) {
         adapter = TocListAdapter(this, TocListItemClickListener {

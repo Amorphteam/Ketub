@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/normal_margin"
-            android:background="@drawable/card_border"
+            android:background="@drawable/card_border_with_stroke"
             app:closeIcon="@drawable/ic_close"
             app:iconifiedByDefault="false"
             style="@style/AppSearchView"
