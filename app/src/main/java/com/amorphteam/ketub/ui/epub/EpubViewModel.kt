@@ -27,6 +27,8 @@ import okio.IOException
 import kotlin.collections.ArrayList
 
 class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() {
+    val pageNumber = MutableLiveData<String>()
+    val bookName = MutableLiveData<String>()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()

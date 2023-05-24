@@ -42,7 +42,6 @@ class EpubActivity : AppCompatActivity() {
     lateinit var viewModel: EpubViewModel
     private var sheetBehavior: BottomSheetBehavior<*>? = null
     lateinit var bookAddress:String
-    lateinit var bookName: String
     lateinit var bookPath: String
     private var hideHandler = Handler(Looper.myLooper()!!)
     private var navIndex = -1
@@ -127,7 +126,7 @@ class EpubActivity : AppCompatActivity() {
 
     private fun handleBookNameAndBookPath() {
         bookPath = bookAddress.split("/").last()
-        bookName = BookHolder.instance?.jsBook?.bookName.toString()
+        viewModel.bookName.value = BookHolder.instance?.jsBook?.bookName.toString()
     }
 
     private fun ifFromReferences(status:Boolean) {
@@ -206,7 +205,7 @@ class EpubActivity : AppCompatActivity() {
         binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                binding.pageNumber.text = String.format(
+                viewModel.pageNumber.value = String.format(
                     Locale.getDefault(),
                     "%d / %d",
                     (p0?.progress ?: 0) + 1,
@@ -248,7 +247,8 @@ class EpubActivity : AppCompatActivity() {
         val nearestTitle:String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
         Log.i(Keys.LOG_NAME, nearestTitle!!)
 
-        viewModel.bookmarkCurrentPage(bookPath, bookName, binding.epubVerticalViewPager.currentItem, " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle")
+        viewModel.bookmarkCurrentPage(bookPath,
+            viewModel.bookName.value.toString(), binding.epubVerticalViewPager.currentItem, " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle")
     }
 
 
@@ -269,7 +269,7 @@ class EpubActivity : AppCompatActivity() {
             }
 
             R.id.bookmark -> {
-                handleFragment(BookmarkFragment(singleBookName = bookName))
+                handleFragment(BookmarkFragment(singleBookName = viewModel.bookName.value!!))
                 true
             }
             R.id.search -> {
