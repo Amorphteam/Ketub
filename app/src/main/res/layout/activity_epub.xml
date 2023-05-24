@@ -45,38 +45,59 @@
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
-
-            <TextView
-                android:id="@+id/page_number"
-                style="@style/body"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:layout_gravity="bottom|center"
+                android:layout_gravity="bottom"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingEnd="@dimen/normal_margin"
                 android:background="@color/white"
-                android:gravity="center"
-                android:paddingLeft="@dimen/large_margin"
-                android:paddingRight="@dimen/large_margin"
-                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}" />
+                android:orientation="horizontal"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}">
+
+
+                <TextView
+                    style="@style/body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:gravity="center"
+                    android:padding="@dimen/normal_margin"
+                    android:text="@{viewModel.pageNumber}" />
+
+
+                <TextView
+                    android:id="@+id/book_name"
+                    style="@style/body"
+                    android:layout_width="0dp"
+                    android:alpha="0.5"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:padding="@dimen/normal_margin"
+                    android:text="@{viewModel.bookName}" />
+            </LinearLayout>
 
             <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                 android:id="@+id/slider_countiner"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 android:layout_gravity="end"
                 android:layout_marginTop="?attr/actionBarSize"
                 android:layout_marginBottom="?attr/actionBarSize"
-                android:translationZ="90dp">
+                android:translationZ="90dp"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}">
 
                 <io.techery.progresshint.addition.widget.VerticalSeekBar
                     android:id="@+id/seekBar"
                     style="@style/SeekBar"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:padding="@dimen/xsmall_margin"
                     app:popupAlwaysShown="false"
                     app:popupDraggable="false"
                     app:popupLayout="@layout/seekbar_layout"
-                    android:padding="@dimen/xsmall_margin"
                     app:seekBarRotation="CW90" />
                 <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
@@ -86,10 +107,10 @@
         <View
             android:id="@+id/bg"
             android:layout_width="match_parent"
-            android:focusable="true"
             android:layout_height="match_parent"
-            android:onClick="@{() -> viewModel.onDismissSheet()}"
             android:background="@color/black_overlay"
+            android:focusable="true"
+            android:onClick="@{() -> viewModel.onDismissSheet()}"
             android:visibility="gone" />
 
         <include

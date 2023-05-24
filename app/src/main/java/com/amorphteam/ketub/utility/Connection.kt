@@ -4,10 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import kotlinx.coroutines.*
 
 
 class Connection {
+
     companion object{
+        private var viewModelJob = Job()
+        private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
         private fun isNetworkAvailable(context: Context): Boolean {
             val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -27,12 +32,17 @@ class Connection {
             }
         }
 
-        fun isInternetConnected(): Boolean {
-            return try {
-                val command = "ping -c 1 google.com"
-                Runtime.getRuntime().exec(command).waitFor() == 0
-            } catch (e: Exception) {
-                false
+
+        suspend fun isInternetConnected(): Boolean {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val command = "ping -c 1 nosos.net"
+                    val process = Runtime.getRuntime().exec(command)
+                    val exitCode = process.waitFor()
+                    exitCode == 0
+                } catch (e: Exception) {
+                    false
+                }
             }
         }
     }

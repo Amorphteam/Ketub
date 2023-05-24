@@ -14,6 +14,7 @@ import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.CatSection
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.*
+import com.amorphteam.ketub.utility.Connection.Companion.isInternetConnected
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.*
 import java.security.Key
@@ -74,13 +75,34 @@ open class LibraryViewModel(
     }
 
     private fun getReferences() {
-        if (Connection.isInternetConnected()) {
-            databaseReferenceHelper?.getOnlineReference(OnlineReference.RECOMMENDED_ONLINE, referenceRepository, _recommendedToc)
-            databaseReferenceHelper?.getOnlineReference(OnlineReference.READMORE_ONLINE, referenceRepository, _readMoreToc)
-        }
-        databaseReferenceHelper?.getOfflineReference(OnlineReference.RECOMMENDED_ONLINE, referenceRepository, _recommendedToc)
-        databaseReferenceHelper?.getOfflineReference(OnlineReference.READMORE_ONLINE, referenceRepository, _readMoreToc)
+        viewModelScope.launch {
+            val isInternetConnected = withContext(Dispatchers.Default) {
+                isInternetConnected()
+            }
 
+            if (isInternetConnected) {
+                databaseReferenceHelper?.getOnlineReference(
+                    OnlineReference.RECOMMENDED_ONLINE,
+                    referenceRepository,
+                    _recommendedToc
+                )
+                databaseReferenceHelper?.getOnlineReference(
+                    OnlineReference.READMORE_ONLINE,
+                    referenceRepository,
+                    _readMoreToc
+                )
+            }
+            databaseReferenceHelper?.getOfflineReference(
+                OnlineReference.RECOMMENDED_ONLINE,
+                referenceRepository,
+                _recommendedToc
+            )
+            databaseReferenceHelper?.getOfflineReference(
+                OnlineReference.READMORE_ONLINE,
+                referenceRepository,
+                _readMoreToc
+            )
+        }
     }
 
 
