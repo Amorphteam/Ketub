@@ -24,7 +24,7 @@ class TabbedActivity : AppCompatActivity() {
 
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val viewModel = ViewModelProvider(this).get(TabbedViewModel::class.java)
+        val viewModel = ViewModelProvider(this)[TabbedViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
@@ -36,6 +36,11 @@ class TabbedActivity : AppCompatActivity() {
         }
 
         initNavigationBar()
+        saveAppVersion(fileManager)
+    }
+
+    private fun saveAppVersion(fileManager: FileManager) {
+        fileManager.saveAppVersion(this)
     }
 
 
@@ -45,6 +50,7 @@ class TabbedActivity : AppCompatActivity() {
             fileManager.copyCoversToUSerDoc(this)
 
         }.start()
+
     }
 
     private fun initNavigationBar() {

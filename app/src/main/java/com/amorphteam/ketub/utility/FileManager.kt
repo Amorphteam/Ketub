@@ -38,8 +38,8 @@ class FileManager(context: Context) {
         cover.mkdirs()
     }
 
-    fun isNewVersion(context: Context?): Boolean {
-        val pref = context?.let { PreferencesManager(it) }
+    fun isNewVersion(context: Context): Boolean {
+        val pref = PreferencesManager(context)
         val currVersion: Int = pref!!.loadAppVersion()
 
         // if 0, first run
@@ -47,7 +47,12 @@ class FileManager(context: Context) {
         return nVersion > currVersion
     }
 
-    private fun getAppCurrentVersion(context: Context): Int {
+    fun saveAppVersion(context: Context){
+        val pref = PreferencesManager(context)
+        pref.saveAppVersion(getAppCurrentVersion(context))
+    }
+
+     private fun getAppCurrentVersion(context: Context): Int {
         var pInfo: PackageInfo? = null
         try {
             pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -65,22 +70,18 @@ class FileManager(context: Context) {
         }
     }
 
-    fun copyBooksToUserDoc(context: Context?) {
+    fun copyBooksToUserDoc(context: Context) {
         if (isNewVersion(context)) {
             if (deleteOldBook(OUT_BOOK_ADDRESS!!)) {
-                if (context != null) {
-                    copyNewBooksToUserDoc(context)
-                }
+                copyNewBooksToUserDoc(context)
             }
         }
     }
 
-    fun copyCoversToUSerDoc(context: Context?) {
+    fun copyCoversToUSerDoc(context: Context) {
         if (isNewVersion(context)) {
             if (deleteOldBook(OUT_COVER_ADDRESS!!)) {
-                if (context != null) {
-                    copyNewCoversToUserDoc(context)
-                }
+                copyNewCoversToUserDoc(context)
             }
         }
     }

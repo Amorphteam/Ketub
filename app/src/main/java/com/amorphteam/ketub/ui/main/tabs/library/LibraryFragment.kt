@@ -159,8 +159,8 @@ class LibraryFragment : Fragment() {
         val adapter = BookAdapter(BookClickListener { bookId ->
             viewModel.getCatId(bookId)
         })
-
-        adapter.submitList(bookArrayList)
+        val limitedList = bookArrayList.take(Keys.DB_BOOK_LIMIT_COUNT)
+        adapter.submitList(limitedList)
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 

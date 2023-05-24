@@ -90,7 +90,7 @@ class DetailFragment : Fragment() {
         })
         adapter.submitList(bookArrayList)
 
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(requireContext().resources.getInteger(R.integer.coloumn), StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter
     }
