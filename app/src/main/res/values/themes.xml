@@ -16,13 +16,17 @@
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/medium_font</item>
         <item name="android:buttonStyle">@style/medium_font</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
         <item name="buttonStyle">@style/medium_font</item>
     </style>
 
-    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
-        <item name="android:textSize">@dimen/title4_text</item>
-        <item name="android:layout_margin">@dimen/normal_margin</item>
-        <item name="android:textColorHint">@color/onbackground2</item>
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView.ActionBar">
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="searchIcon">@drawable/ic_search_home</item>
+        <item name="android:background">@drawable/card_border_with_stroke</item>
+        <item name="queryHint">@string/hint_search_bar</item>
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="iconifiedByDefault">false</item>
     </style>
 
     <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
