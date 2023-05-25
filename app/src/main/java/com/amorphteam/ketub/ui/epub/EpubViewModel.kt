@@ -136,7 +136,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
 
 
 
-    fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+    fun updateFontSizeSeekBar(seekBar: SeekBar?, progress: Int, fromUser: Boolean?) {
         val fontSize = FontSize.from(progress)
         styleBookPref.fontSize = fontSize
         currentFontSize.value = progress

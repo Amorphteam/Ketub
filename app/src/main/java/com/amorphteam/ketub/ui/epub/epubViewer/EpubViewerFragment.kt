@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -25,6 +26,7 @@ import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener
 import com.mehdok.fineepublib.epubviewer.jsepub.client.JsPictureListener.WebViewPictureListener
 import com.mehdok.fineepublib.interfaces.EpubScrollListener
 import com.mehdok.fineepublib.interfaces.EpubTapListener
+import java.security.Key
 import java.util.*
 
 
@@ -34,7 +36,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     lateinit var webView: LocalWebView
     private var jsPictureListener: JsPictureListener? = null
     var manifestItem: ManifestItem? = null
-
+    private lateinit var scaleGestureDetector: ScaleGestureDetector
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,9 +49,23 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-
+        // Initialize the ScaleGestureDetector
+        scaleGestureDetector = ScaleGestureDetector(requireContext(), object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                val scaleFactor = detector.scaleFactor
+                Log.i(Keys.LOG_NAME, scaleFactor.toString())
+                if (scaleFactor > 1.0){
+                    EpubVerticalDelegate.get()?.activity?.viewModel?.updateFontSizeSeekBar(null, 3, null)
+                }else if (scaleFactor < 1.0){
+                    EpubVerticalDelegate.get()?.activity?.viewModel?.updateFontSizeSeekBar(null, 1, null)
+                }
+                return true
+            }
+        })
         return binding.root
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +75,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments != null) {
-             manifestItem = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
+            manifestItem = requireArguments().getParcelable(Keys.MANIFEST_ITEM)
             val position = requireArguments().getInt(Keys.POSITION_ITEM)
             viewModel.getResourceString(
                 requireContext(),
@@ -77,6 +93,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun fillWebView(it: String) {
         webView = LocalWebView(requireContext())
         jsPictureListener = JsPictureListener(this)
@@ -86,6 +103,10 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         )
         webView.setTapListener(this)
         webView.setScrollListener(this)
+        webView.setOnTouchListener { _, event ->
+            scaleGestureDetector.onTouchEvent(event)
+            false
+        }
         webView.setPictureListener(jsPictureListener)
         webView.setBook(BookHolder.instance?.jsBook)
         webView.loadResourcePage(it)
