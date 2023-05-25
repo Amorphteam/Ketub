@@ -31,7 +31,8 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     val bookName = MutableLiveData<String>()
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
+    private var databaseReferenceHelper: DatabaseReferenceHelper? =
+        DatabaseReferenceHelper.getInstance()
 
     private val _fullScreen = MutableLiveData<Boolean>()
     val fullScreen: LiveData<Boolean>
@@ -52,12 +53,14 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     val currentTheme = MutableLiveData<Int>()
     val currentFontName = MutableLiveData<Int>()
 
-
+    private val _bookmarkSelected = MutableLiveData<Boolean>()
+    val bookmarkSelected: LiveData<Boolean>
+        get() = _bookmarkSelected
 
 
     private val _lastPageSeen = MutableLiveData<Int?>()
     val lastPageSeen: LiveData<Int?>
-    get() = _lastPageSeen
+        get() = _lastPageSeen
 
     lateinit var styleBookPref: StyleBookPreferences
     lateinit var preferencesManager: PreferencesManager
@@ -67,14 +70,15 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
         _fullScreen.value = true
     }
 
-    fun setPrefManage(preferencesManager: PreferencesManager){
+    fun setPrefManage(preferencesManager: PreferencesManager) {
         this.preferencesManager = preferencesManager
     }
-    fun handleLastPageSeen(bookAddress: String?){
+
+    fun handleLastPageSeen(bookAddress: String?) {
         _lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
     }
 
-    fun handleBookmarkPage(page:Int){
+    fun handleBookmarkPage(page: Int) {
         _lastPageSeen.value = page
     }
 
@@ -126,14 +130,14 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
         _fullScreen.value = _fullScreen.value != true
     }
 
-    fun setFullScreenWindow(){
+    fun setFullScreenWindow() {
         _fullScreen.value = true
     }
+
     fun onDismissSheet() {
         _dismissSheet.value = true
 
     }
-
 
 
     fun updateFontSizeSeekBar(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -155,22 +159,22 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     }
 
 
-
     override fun onCleared() {
         super.onCleared()
         preferencesManager.saveStyleBookPref(styleBookPref)
         databaseReferenceHelper = null
 
     }
-    fun updateQuickStyle(id: Int){
+
+    fun updateQuickStyle(id: Int) {
         currentQuickStyle.value = id
         val quickStyle = QuickStyle.from(id)
         handleQuickStyle(quickStyle)
         styleBookPref.quickStyle = quickStyle
     }
 
-    fun handleQuickStyle(quickStyle: QuickStyle){
-        when (quickStyle){
+    private fun handleQuickStyle(quickStyle: QuickStyle) {
+        when (quickStyle) {
             QuickStyle.DEFAULT -> {
                 currentFontSize.value = FontSize.SIZE1.number
                 currentLineSpace.value = LineSpace.SPACE1.number
@@ -182,6 +186,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
                 currentLineSpace.value = LineSpace.SPACE4.number
                 currentTheme.value = Theme.BASE.number
             }
+
             QuickStyle.DARKMODE -> {
                 currentTheme.value = Theme.DARK.number
 
@@ -213,14 +218,15 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
         }
     }
 
-    fun updateTheme(id: Int){
+    fun updateTheme(id: Int) {
         currentTheme.value = id
         val theme = Theme.from(id)
         styleBookPref.theme = theme
-        for (listener in styleListener!!){
+        for (listener in styleListener!!) {
             listener.changeTheme(id)
         }
     }
+
     fun setChips(chipGroup: ChipGroup, items: List<FontName>?) {
         chipGroup.removeAllViews()
         val selectedChip = styleBookPref.fontName.ordinal
@@ -240,7 +246,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
                         val selectedItemId = chip.tag as Int
                         currentFontName.value = selectedItemId
                         styleBookPref.fontName = FontName.from(selectedItemId)
-                        for (listener in styleListener!!){
+                        for (listener in styleListener!!) {
                             listener.changeFontName(selectedItemId)
                         }
                     }
@@ -252,15 +258,29 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     }
 
     fun handleNavUriPage(navUri: String?) {
-        val pageIndex = BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
+        val pageIndex =
+            BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
         Log.i(Keys.LOG_NAME, pageIndex.toString())
         _lastPageSeen.value = pageIndex
     }
 
-    fun bookmarkCurrentPage(bookPath: String, bookName: String, navIndex:Int, title:String){
+    fun bookmarkCurrentPage(bookPath: String, bookName: String, navIndex: Int, title: String) {
+
         val referenceItem = ReferenceModel(0, title, bookName, bookPath, navIndex, null, null)
+
         databaseReferenceHelper?.insertBookmark(referenceRepository, referenceItem)
+
     }
+
+    fun checkBookmark(bookName: String, navIndex: Int) {
+        databaseReferenceHelper?.getSelected(
+            bookName,
+            navIndex,
+            referenceRepository,
+            _bookmarkSelected
+        )
+    }
+
     companion object {
         @JvmStatic
         @BindingAdapter("bind:tintConditionally")

@@ -13,6 +13,7 @@ import android.view.WindowInsets
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -31,6 +32,7 @@ import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
@@ -41,13 +43,13 @@ class EpubActivity : AppCompatActivity() {
     lateinit var binding: ActivityEpubBinding
     lateinit var viewModel: EpubViewModel
     private var sheetBehavior: BottomSheetBehavior<*>? = null
-    lateinit var bookAddress:String
+    lateinit var bookAddress: String
     lateinit var bookPath: String
     private var hideHandler = Handler(Looper.myLooper()!!)
     private var navIndex = -1
-    var navUri:String? = null
+    var navUri: String? = null
     var adapter:
-        EpubVerticalAdapter? = null
+            EpubVerticalAdapter? = null
     private val showRunnable = Runnable {
         supportActionBar?.show()
     }
@@ -89,14 +91,22 @@ class EpubActivity : AppCompatActivity() {
         }
 
         viewModel.spineArray.observe(this) {
-            ifFromReferences(navIndex >= 0 || navUri !=null)
+            ifFromReferences(navIndex >= 0 || navUri != null)
             handleViewEpubPager(it)
             handleBookNameAndBookPath()
         }
 
-        viewModel.dismissSheet.observe(this){
-                sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
-                binding.bg.visibility = View.GONE
+        viewModel.dismissSheet.observe(this) {
+            sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            binding.bg.visibility = View.GONE
+        }
+
+        viewModel.bookmarkSelected.observe(this) {
+
+            if (it == false) {
+                addBookmark()
+            }
+
         }
 
         viewModel.fullScreen.observe(this) {
@@ -124,16 +134,31 @@ class EpubActivity : AppCompatActivity() {
 
     }
 
+    private fun addBookmark() {
+        val firstWord =
+            Book.resourceName2Url(adapter!!.getCurrentFragment()?.manifestItem?.href).toString()
+        val nearestTitle: String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
+        Log.i(Keys.LOG_NAME, nearestTitle!!)
+
+
+        viewModel.bookmarkCurrentPage(
+            bookPath,
+            viewModel.bookName.value.toString(),
+            binding.epubVerticalViewPager.currentItem,
+            " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle"
+        )
+    }
+
     private fun handleBookNameAndBookPath() {
         bookPath = bookAddress.split("/").last()
         viewModel.bookName.value = BookHolder.instance?.jsBook?.bookName.toString()
     }
 
-    private fun ifFromReferences(status:Boolean) {
+    private fun ifFromReferences(status: Boolean) {
         if (status) {
             if (navUri == null) {
                 viewModel.handleBookmarkPage(navIndex)
-            }else{
+            } else {
                 viewModel.handleNavUriPage(navUri)
             }
         } else {
@@ -145,14 +170,15 @@ class EpubActivity : AppCompatActivity() {
         viewModel.setChips(chipGroup, Keys.FONT_ARRAY)
     }
 
-    fun addStyleListener(styleListener: StyleListener){
+    fun addStyleListener(styleListener: StyleListener) {
         viewModel.styleListener!!.add(styleListener)
     }
 
 
-    fun removeStyleListener(styleListener: StyleListener){
+    fun removeStyleListener(styleListener: StyleListener) {
         viewModel.styleListener!!.remove(styleListener)
     }
+
     private fun hide() {
         hideHandler.removeCallbacks(showRunnable)
         hideHandler.postDelayed(hideRunnable, Keys.UI_ANIMATION_DELAY.toLong())
@@ -211,7 +237,7 @@ class EpubActivity : AppCompatActivity() {
                     (p0?.progress ?: 0) + 1,
                     BookHolder.instance?.jsBook?.pageNumber
                 )
-                viewModel.preferencesManager.saveLastPageSeen(bookAddress,p0?.progress ?: 0)
+                viewModel.preferencesManager.saveLastPageSeen(bookAddress, p0?.progress ?: 0)
 
             }
 
@@ -242,13 +268,13 @@ class EpubActivity : AppCompatActivity() {
         return true
     }
 
-    fun bookmarkCurrentPageHelper(){
-        val firstWord = Book.resourceName2Url(adapter!!.getCurrentFragment()?.manifestItem?.href).toString()
-        val nearestTitle:String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
-        Log.i(Keys.LOG_NAME, nearestTitle!!)
+    fun bookmarkCurrentPageHelper() {
 
-        viewModel.bookmarkCurrentPage(bookPath,
-            viewModel.bookName.value.toString(), binding.epubVerticalViewPager.currentItem, " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle")
+        viewModel.checkBookmark(
+            viewModel.bookName.value.toString(),
+            binding.epubVerticalViewPager.currentItem
+        )
+
     }
 
 
@@ -258,6 +284,7 @@ class EpubActivity : AppCompatActivity() {
                 openStyleSheet()
                 true
             }
+
             R.id.home -> {
                 onBackPressed()
                 true
@@ -272,6 +299,7 @@ class EpubActivity : AppCompatActivity() {
                 handleFragment(BookmarkFragment(singleBookName = viewModel.bookName.value!!))
                 true
             }
+
             R.id.search -> {
                 openSearchActivity()
                 true
@@ -290,6 +318,7 @@ class EpubActivity : AppCompatActivity() {
     private fun handleStyleSheet() {
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet)
     }
+
     private fun openStyleSheet() {
         handleStyleSheet()
         handleChipsView()
@@ -298,7 +327,6 @@ class EpubActivity : AppCompatActivity() {
         sheetBehavior?.peekHeight = 440
         sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
-
 
 
 }

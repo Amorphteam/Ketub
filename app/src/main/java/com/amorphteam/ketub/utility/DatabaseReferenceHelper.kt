@@ -2,7 +2,9 @@ package com.amorphteam.ketub.utility
 
 import androidx.lifecycle.MutableLiveData
 import com.amorphteam.ketub.api.TocApi
+import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.ReferenceModel
 import kotlinx.coroutines.*
 
@@ -47,6 +49,20 @@ class DatabaseReferenceHelper {
         }
     }
 
+
+    private suspend fun getBookmarkSelected(bookName: String, navIndex: Int, referenceRepository: ReferenceRepository): Boolean {
+        return withContext(Dispatchers.IO) {
+            val references = referenceRepository.getBookmarkSelected(bookName,navIndex)
+            references
+        }
+    }
+
+    fun getSelected(bookName: String, navIndex: Int,referenceRepository: ReferenceRepository, item: MutableLiveData<Boolean>){
+        uiScope.launch {
+             item.value = getBookmarkSelected(bookName, navIndex, referenceRepository)
+
+        }
+    }
 
     private suspend fun insertToDatabase(
         listResult: List<ReferenceModel>,
