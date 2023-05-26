@@ -5,10 +5,12 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
+import android.util.Log
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.SearchIndex
 import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.ui.search.searchmode.NormalSearcher
+import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.Keys.Companion.SEARCH_SURROUND_CHAR_NUM
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import kotlinx.coroutines.Dispatchers
@@ -66,7 +68,12 @@ class SearchHelper(val context: Context) {
                             searchCount
                         )
                     )
+                    if (searchCount == 0){
+
+                    }
+
                     searchIndex = searchInString(pageString, sw, searchIndex.lastIndex + 1)
+
                 }
 
             } catch (e: IOException) {

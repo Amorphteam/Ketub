@@ -61,5 +61,6 @@
     <string name="nosos_caption">فصلية تعني بالفكر الديني المعاصر</string>
     <string name="error_copy_file">WE CAN NOT COPY FILE TO YOUR PHONE</string>
     <string name="bookmarked">Bookmarked successfully</string>
+    <string name="empty_search_result">empty Search Result</string>
 
 </resources>

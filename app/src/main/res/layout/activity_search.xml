@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="viewModel"
@@ -11,9 +12,9 @@
     </data>
 
     <LinearLayout
+        style="@style/PatternBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/PatternBackground"
         android:orientation="vertical"
         tools:context=".ui.search.SearchActivity">
 
@@ -21,14 +22,16 @@
             android:id="@+id/searchbar"
             layout="@layout/searchbar_with_back" />
 
+
+
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/large_margin"
             android:layout_marginRight="@dimen/large_margin"
             android:layoutDirection="rtl"
+            android:visibility="gone"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -42,8 +45,8 @@
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip2"
                 android:layout_width="wrap_content"
-                android:checkable="true"
                 android:layout_height="wrap_content"
+                android:checkable="true"
                 android:text="@string/ejtehad_title" />
 
             <com.google.android.material.chip.Chip
@@ -55,16 +58,28 @@
 
         </com.google.android.material.chip.ChipGroup>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/normal_margin"
-            android:layout_marginRight="@dimen/normal_margin"
-            android:clipToPadding="false"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_search"
-            tools:orientation="vertical" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/normal_margin"
+                android:layout_marginRight="@dimen/normal_margin"
+                android:clipToPadding="false"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_search"
+                tools:orientation="vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text= "@string/empty_search_result"
+                android:visibility="@{viewModel.results.size() == 0 ? View.VISIBLE : View.GONE}"
+                />
+        </FrameLayout>
     </LinearLayout>
 </layout>
