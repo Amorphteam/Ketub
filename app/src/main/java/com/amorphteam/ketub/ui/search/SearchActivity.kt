@@ -29,7 +29,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
-        if (intent.hasExtra(Keys.SINGLE_BOOK_PATH)){
+        if (intent.hasExtra(Keys.SINGLE_BOOK_PATH)) {
             bookPath = intent.getStringExtra(Keys.SINGLE_BOOK_PATH)!!
         }
 
@@ -39,17 +39,23 @@ class SearchActivity : AppCompatActivity() {
         val viewModelFactory = SearchViewModelFactory(bookRepository, bookPath)
 
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
+
         viewModel.allBooks.observe(this) {
-            for (item in it){
-               val bookAddress = EpubHelper.getBookAddressFromBookPath(item.bookPath!!, this)
+            for (item in it) {
+                val bookAddress = EpubHelper.getBookAddressFromBookPath(item.bookPath!!, this)
                 bookAddress?.let { it1 -> allBooksString.add(it1) }
+
             }
+
             handleSearchView()
         }
 
-        viewModel.results.observe(this){
+        viewModel.results.observe(this) {
             Log.i(Keys.LOG_NAME, it.size.toString())
+            //TODO HANDLE BUG LOAD AND EMPTY RESULT
+            viewModel.onFinishLoadSearch(true)
             handleSearchResult(it)
+
         }
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
@@ -58,18 +64,20 @@ class SearchActivity : AppCompatActivity() {
         }
 
 
-
     }
 
 
-    fun startSearch(query:String){
-        if (searchHelper != null){
+    fun startSearch(query: String) {
+
+        if (searchHelper != null) {
             searchHelper?.stopSearch(true)
             viewModel.clearList()
-            searchHelper= null
+            searchHelper = null
+
         }
         searchHelper = SearchHelper(this)
         viewModel.searchAllBooks(searchHelper!!, allBooksString, query)
+
     }
 
 
@@ -77,12 +85,16 @@ class SearchActivity : AppCompatActivity() {
         binding.searchbar.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
+
+                viewModel.onFinishLoadSearch(false)
+
                 startSearch(query)
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
                 binding.chipGroup.visibility = View.GONE
+
 //                if (newText.length > 2) {
 //                    startSearch(newText)
 //                }
@@ -91,13 +103,14 @@ class SearchActivity : AppCompatActivity() {
         })
 
     }
+
     private fun setupChipGroup(adapter: SearchListAdapter) {
 
         binding.chip1.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-            searchHelper?.stopSearch(true)
-            adapter.filter.filter(" ")
-        }
+            if (isChecked) {
+                searchHelper?.stopSearch(true)
+                adapter.filter.filter(" ")
+            }
         }
 
         binding.chip2.setOnCheckedChangeListener { _, isChecked ->
@@ -123,16 +136,25 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun handleSearchResult(arrayResult: List<SearchModel>) {
+
         val adapter = SearchListAdapter(SearchClickListener {
-            it.bookAddress?.let { it1 -> it.pageId?.let { it2 ->
-                EpubHelper.openEpub(it1,
-                    it2, this)
-            } }
+            it.bookAddress?.let { it1 ->
+                it.pageId?.let { it2 ->
+                    EpubHelper.openEpub(
+                        it1,
+                        it2, this
+                    )
+                }
+            }
         })
+
         adapter.submitList(arrayResult)
         if (bookPath.isEmpty()) {
             binding.chipGroup.visibility = View.VISIBLE
+
         }
+
+
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter

@@ -25,10 +25,18 @@ class SearchViewModel(val bookRepository: BookRepository, val bookPath:String) :
         get() = _allBooks
 
 
+    private val _finishLoadSearch = MutableLiveData<Boolean>()
+    val finishLoadSearch:LiveData<Boolean>
+        get() = _finishLoadSearch
+
     private val _results = MutableLiveData<ArrayList<SearchModel>>()
     val results: LiveData<ArrayList<SearchModel>>
         get() = _results
+
+
     init {
+        _finishLoadSearch.value = true
+
         if (bookPath.isEmpty()) {
             getAllBooks()
         }else {
@@ -50,6 +58,10 @@ class SearchViewModel(val bookRepository: BookRepository, val bookPath:String) :
         super.onCleared()
         databaseBookHelper = null
         viewModelJob.cancel()
+    }
+
+    fun onFinishLoadSearch(status:Boolean){
+        _finishLoadSearch.value = status
     }
 
     fun searchAllBooks(searchHelper: SearchHelper, it: List<String>, s: String) {
