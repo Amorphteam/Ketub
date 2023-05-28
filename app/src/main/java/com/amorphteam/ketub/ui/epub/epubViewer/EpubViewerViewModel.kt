@@ -30,13 +30,11 @@ class EpubViewerViewModel : ViewModel() {
         get() = _htmlSourceString
 
     init {
-        Log.i(Keys.LOG_NAME, "open epub viewer view model")
 
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.i(Keys.LOG_NAME, "cleared epub viewer view model")
     }
 
 
@@ -55,7 +53,6 @@ class EpubViewerViewModel : ViewModel() {
                 }
                 _htmlSourceString.value = resourceString
             } catch (t: Throwable) {
-                Log.e(Keys.LOG_NAME, t.message.toString())
             }
         }
     }

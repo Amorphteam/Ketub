@@ -49,7 +49,6 @@ class SearchActivity : AppCompatActivity() {
         }
 
         viewModel.results.observe(this){
-            Log.i(Keys.LOG_NAME, it.size.toString())
             handleSearchResult(it)
         }
         binding.viewModel = viewModel

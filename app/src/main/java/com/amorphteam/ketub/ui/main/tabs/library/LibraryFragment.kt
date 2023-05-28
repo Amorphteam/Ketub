@@ -117,7 +117,6 @@ class LibraryFragment : Fragment() {
 
 
         viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
-            Log.i(Keys.LOG_NAME, it)
         }
 
         viewModel.recommendedToc.observe(viewLifecycleOwner) {

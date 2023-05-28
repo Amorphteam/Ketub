@@ -101,7 +101,6 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
                 BookHolder.instance?.jsBook = book
                 _spineArray.value = book.spine
             } else {
-                Log.i(Keys.LOG_NAME, "Book is null")
             }
         }
 
@@ -253,7 +252,6 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
 
     fun handleNavUriPage(navUri: String?) {
         val pageIndex = BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
-        Log.i(Keys.LOG_NAME, pageIndex.toString())
         _lastPageSeen.value = pageIndex
     }
 

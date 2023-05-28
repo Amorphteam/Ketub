@@ -256,7 +256,6 @@ class EpubActivity : AppCompatActivity() {
     fun bookmarkCurrentPageHelper(){
         val firstWord = Book.resourceName2Url(adapter!!.getCurrentFragment()?.manifestItem?.href).toString()
         val nearestTitle:String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
-        Log.i(Keys.LOG_NAME, nearestTitle!!)
 
         viewModel.bookmarkCurrentPage(bookPath,
             viewModel.bookName.value.toString(), binding.epubVerticalViewPager.currentItem, " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle")

@@ -25,11 +25,9 @@ class TocContainerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (firstTocFragment == null) {
-            Log.i(Keys.LOG_NAME, "first is null")
             firstTocFragment = TocFragment(Keys.DB_FIRST_CAT)
         }
         if (secondTocFragment == null) {
-            Log.i(Keys.LOG_NAME, "second is null")
             secondTocFragment = TocFragment(Keys.DB_SECOND_CAT)
         }
 
@@ -50,12 +48,10 @@ class TocContainerFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.i(Keys.LOG_NAME, "onDestrou")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.i(Keys.LOG_NAME, "onDestffffrou")
 
     }
     private fun handleTabViewPager(binding: FragmentTocContainerBinding) {

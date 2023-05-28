@@ -39,7 +39,6 @@ class TocHelper {
             bookRepository.getAllBooks(allIds)
         }
 
-        Log.i(Keys.LOG_NAME, "books size is: ${categories.size}")
 
         val result = ArrayList<IndexesInfo>()
         val treeResult = ArrayList<TreeBookHolder>()
@@ -63,7 +62,6 @@ class TocHelper {
                     item.bookPath
                 )
 
-                Log.i(Keys.LOG_NAME, "tree is: ${tree?.size}")
                 // if it's the first time
                 if (treeResult.isEmpty()) {
                     val treeAndPath = ArrayList<TreeAndPath>(tree!!.size)

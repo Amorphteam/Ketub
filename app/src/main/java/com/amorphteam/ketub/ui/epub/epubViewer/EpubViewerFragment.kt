@@ -53,7 +53,6 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         scaleGestureDetector = ScaleGestureDetector(requireContext(), object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
                 val scaleFactor = detector.scaleFactor
-                Log.i(Keys.LOG_NAME, scaleFactor.toString())
                 if (scaleFactor > 1.0){
                     EpubVerticalDelegate.get()?.activity?.viewModel?.updateFontSizeSeekBar(null, 3, null)
                 }else if (scaleFactor < 1.0){

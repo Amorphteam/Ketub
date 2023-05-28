@@ -62,7 +62,6 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
                 return FilterResults().apply {
                     values = if (constraint.isNullOrEmpty()) {
                         originalList
-                        Log.i(Keys.LOG_NAME, originalList.size.toString())
                     }
                     else {
                         onFilter(originalList, constraint.toString())
@@ -73,7 +72,6 @@ class SearchListAdapter(val clickListener: SearchClickListener) :
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 firstTime = false
-                Log.i(Keys.LOG_NAME, "onFilter: is ${(results?.values as? List<SearchModel>)?.size}")
 
                 submitList(results?.values as? List<SearchModel>)
 
