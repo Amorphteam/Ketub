@@ -9,7 +9,9 @@ buildscript {
     ext.version_moshi = "1.14.0"
     ext.version_gson = "2.7"
     ext.version_tree_view = "1.2.+"
-
+    ext.version_jsoup = "1.9.2"
+    ext.version_apacheCommonIo = "2.6"
+    ext.version_apacheCommonLan3 = "3.4"
     repositories {
         google()
         mavenCentral()

@@ -26,6 +26,15 @@ class EpubHelper() {
             context.startActivity(intent)
         }
 
+
+        fun openEpub(bookAddress: String, pageUri: String, searchWord:String, context: Context){
+            val intent = Intent(context, EpubActivity::class.java)
+            intent.putExtra(Keys.BOOK_ADDRESS, bookAddress)
+            intent.putExtra(Keys.NAV_URI, pageUri)
+            intent.putExtra(Keys.SEARCH_WORD, searchWord)
+            context.startActivity(intent)
+        }
+
         fun getBookAddressFromBookPath(bookPath: String, context: Context): String? {
             val fileManager = FileManager(context)
             return fileManager.getBookAddress(bookPath)

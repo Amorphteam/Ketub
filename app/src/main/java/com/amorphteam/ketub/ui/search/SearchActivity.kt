@@ -25,6 +25,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var viewModel: SearchViewModel
     private var allBooksString = ArrayList<String>()
     private var bookPath = ""
+    private var searchWord:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,6 +64,7 @@ class SearchActivity : AppCompatActivity() {
 
 
     fun startSearch(query:String){
+        searchWord = query
         if (searchHelper != null){
             searchHelper?.stopSearch(true)
             viewModel.clearList()
@@ -126,7 +128,7 @@ class SearchActivity : AppCompatActivity() {
         val adapter = SearchListAdapter(SearchClickListener {
             it.bookAddress?.let { it1 -> it.pageId?.let { it2 ->
                 EpubHelper.openEpub(it1,
-                    it2, this)
+                    it2, searchWord, this)
             } }
         })
         adapter.submitList(arrayResult)
