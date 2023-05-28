@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import android.util.Log
 import com.amorphteam.ketub.R
+import com.amorphteam.ketub.model.SearchHighlight
 import com.amorphteam.ketub.model.SearchIndex
 import com.amorphteam.ketub.model.SearchModel
 import com.amorphteam.ketub.ui.search.searchmode.NormalSearcher
@@ -18,11 +19,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 import okio.IOException
+import org.apache.commons.lang3.StringEscapeUtils
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
+import org.jsoup.select.Elements
 import java.util.*
 
 class SearchHelper(val context: Context) {
     private var searcher: BaseSearcher? = null
     private var flag = false
+    private var mSearchCount = 0
 
 
     suspend fun searchAllBooks(allBooks: List<String>, word: String): Flow<ArrayList<SearchModel>> = flow {
@@ -121,6 +129,78 @@ class SearchHelper(val context: Context) {
 
     fun stopSearch(flag: Boolean) {
         this.flag = flag
+    }
+
+
+    suspend fun searchAndHighlight(resource: String, sw: String): Flow<String> = flow {
+        searcher = NormalSearcher()
+
+        if (sw.isNullOrEmpty() && resource.isNullOrEmpty()) {
+            emit("")
+            return@flow
+        }
+
+        val doc: Document = Jsoup.parse(resource)
+        val tags: Elements = doc.select("*")
+
+        mSearchCount = 0
+        for (tag: Element in tags) {
+            for (tn: TextNode in tag.textNodes()) {
+                var tagText = tn.text().trim()
+                if (tagText.isNotEmpty()) {
+                    tn.text(searchAndHighlightNode(tagText, sw))
+                }
+            }
+        }
+
+        emit(StringEscapeUtils.unescapeHtml4(doc.html()))
+    }
+
+    private fun searchAndHighlightNode(mNode: String, sw: String): String {
+
+        var node = mNode
+        try {
+            var searchIndex = searchInString(node, sw, 0)
+
+            while (searchIndex.startIndex >= 0) {
+                val swReplacement = node.substring(searchIndex.startIndex, searchIndex.lastIndex)
+
+                ++mSearchCount
+
+                val searchHighlight = addHighlightClass(node, swReplacement, searchIndex, mSearchCount)
+                node = searchHighlight.searchHighlight
+                searchIndex = searchHighlight.index
+                searchIndex = searchInString(node, sw, searchIndex.lastIndex + 1)
+            }
+            return " $node "
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return " $node "
+        }
+    }
+
+    private fun addHighlightClass(resource: String, sw: String, index: SearchIndex, searchCount: Int): SearchHighlight {
+
+        val highlight = getHighlightClass(sw, searchCount)
+        val nIndex = SearchIndex(index.startIndex, index.startIndex + highlight.length)
+
+        return SearchHighlight(
+            String.format(
+                Locale.getDefault(), "%s%s%s",
+                resource.substring(0, index.startIndex),
+                highlight,
+                resource.substring(index.lastIndex, resource.length)
+            ),
+            nIndex
+        )
+    }
+
+    private fun getHighlightClass(sw: String, searchCount: Int): String {
+
+        return String.format(
+            Locale.getDefault(), "<span class=\"search_highlight\" id=\"search_%d\">%s</span>",
+            searchCount, sw
+        )
     }
 
 }

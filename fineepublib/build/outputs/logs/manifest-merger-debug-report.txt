@@ -1,33 +1,33 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
+ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:1:1-11:12
 	package
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:1:11-43
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:1:11-43
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:2:5-63
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:2:5-63
 application
-ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:4:5-9:19
+ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:4:5-9:19
 	android:supportsRtl
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:6:9-35
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:6:9-35
 	android:label
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:5:9-41
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:5:9-41
 	android:allowBackup
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml:4:18-44
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml:4:18-44
 uses-sdk
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-		ADDED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
-		INJECTED from /Users/samano/AndroidProjects/Ketub/fineepublib/src/main/AndroidManifest.xml
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+		ADDED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml
+		INJECTED from /Users/alibayati/Works/Programming/Android/Ketub/fineepublib/src/main/AndroidManifest.xml

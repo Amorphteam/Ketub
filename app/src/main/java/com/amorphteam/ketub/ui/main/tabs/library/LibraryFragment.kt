@@ -117,7 +117,6 @@ class LibraryFragment : Fragment() {
 
 
         viewModel.errorTocRecieve.observe(viewLifecycleOwner) {
-            Log.i(Keys.LOG_NAME, it)
         }
 
         viewModel.recommendedToc.observe(viewLifecycleOwner) {
@@ -151,6 +150,10 @@ class LibraryFragment : Fragment() {
         } else {
             binding.tocReadMore.recyclerView.layoutManager = layoutManager
             binding.tocReadMore.recyclerView.adapter = adapter
+        }
+        if (adapter.currentList.isEmpty()){
+            binding.tocReadMore.countainer.visibility = View.GONE
+            binding.tocRecommanded.countainer.visibility = View.GONE
         }
     }
 

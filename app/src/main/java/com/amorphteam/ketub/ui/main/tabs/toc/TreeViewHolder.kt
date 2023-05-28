@@ -56,7 +56,6 @@ class TreeViewHolder(val context: Context): TreeNode.BaseNodeViewHolder<SingleTr
             if (mNode.isLeaf) {
                 val fileManager = FileManager(view.context)
                 val booksAddress: String? = fileManager.getBookAddress(nav.bookPath)
-                Log.i(Keys.LOG_NAME, getContentWithoutTag(nav.navPoint.content))
                 EpubHelper.openEpub(booksAddress.toString(), getContentWithoutTag(nav.navPoint.content), context)
             } else {
                 treeView.toggleNode(mNode)

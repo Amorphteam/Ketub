@@ -59,7 +59,6 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
     private fun handleBookmarkRecyclerView(
         bookmarkArrayList: List<ReferenceModel>
     ) {
-        Log.i(Keys.LOG_NAME, bookmarkArrayList.size.toString())
         val adapter = ReferenceAdapter(ItemClickListener {
             val bookPath = it.bookPath
             val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())

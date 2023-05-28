@@ -106,7 +106,6 @@ class FileManager(context: Context) {
         try {
             files = assetManager.list(assetPath)
         } catch (e: IOException) {
-            Log.e(Keys.LOG_NAME, "Failed to get asset file list: $assetPath", e)
         }
 
         val dir = File(outAddress)
@@ -123,7 +122,6 @@ class FileManager(context: Context) {
                     out.close()
                     out = null
                 } catch (e: IOException) {
-                    Log.e(Keys.LOG_NAME, "Failed to copy asset file: $filename", e)
                     return
                 }
             }

@@ -5,6 +5,7 @@ import com.amorphteam.ketub.model.FontName
 class Keys {
 
     companion object {
+        val SEARCH_WORD = "search_word"
         val SPINE = "spine"
         var LOG_NAME = "AJC KETUB"
         var URL_BASE_ADDRESS = "http://nosos.net/api/"

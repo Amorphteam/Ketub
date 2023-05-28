@@ -12,13 +12,14 @@
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:background="@color/custom_black"
         android:layout_height="match_parent">
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        style="@style/PatternBackground"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SearchView

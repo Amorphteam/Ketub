@@ -1,4 +1,6 @@
-
+.search_highlight {
+    color: red !important;
+}
 
 body {
     font-family: 'normal', arial;

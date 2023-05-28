@@ -32,7 +32,6 @@ class TabbedActivity : AppCompatActivity() {
         if (fileManager.isNewVersion(this)) {
             copyAppContentToUserDoc(fileManager)
         } else {
-            Log.i(Keys.LOG_NAME, "fileManager is existed")
         }
 
         initNavigationBar()

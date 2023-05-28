@@ -12,6 +12,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
@@ -45,9 +46,11 @@ class EpubActivity : AppCompatActivity() {
     private var sheetBehavior: BottomSheetBehavior<*>? = null
     lateinit var bookAddress: String
     lateinit var bookPath: String
+    var searchWord: String? = null
     private var hideHandler = Handler(Looper.myLooper()!!)
     private var navIndex = -1
     var navUri: String? = null
+    var isFromSearch = false
     var adapter:
             EpubVerticalAdapter? = null
     private val showRunnable = Runnable {
@@ -121,8 +124,16 @@ class EpubActivity : AppCompatActivity() {
             bookAddress = intent.getStringExtra(Keys.BOOK_ADDRESS)!!
             navIndex = intent.getIntExtra(Keys.NAV_INDEX, -1)
             navUri = intent.getStringExtra(Keys.NAV_URI)
+            searchWord = intent.getStringExtra(Keys.SEARCH_WORD)
+
+            // If searchWord not null; then its coming from search activity
+            if (searchWord != null){
+                isFromSearch = true
+            }
             viewModel.getBookAddress(bookAddress)
         }
+
+
 
         val prefManager = PreferencesManager(this)
         viewModel.setPrefManage(prefManager)

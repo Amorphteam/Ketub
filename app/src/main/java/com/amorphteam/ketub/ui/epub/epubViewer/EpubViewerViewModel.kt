@@ -13,8 +13,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.BookHolder
+import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
+import com.amorphteam.ketub.ui.search.SearchHelper
 import com.amorphteam.ketub.utility.Keys
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import java.security.Key
 
 class EpubViewerViewModel : ViewModel() {
@@ -27,23 +30,29 @@ class EpubViewerViewModel : ViewModel() {
         get() = _htmlSourceString
 
     init {
-        Log.i(Keys.LOG_NAME, "open epub viewer view model")
 
     }
 
     override fun onCleared() {
         super.onCleared()
-        Log.i(Keys.LOG_NAME, "cleared epub viewer view model")
     }
 
 
     fun getResourceString(ctx: Context, resourceUri: Uri, classes: String, pos: Int) {
+        val searchHelper = SearchHelper(ctx)
+        val searchWord = EpubVerticalDelegate.get()?.activity?.searchWord
         uiScope.launch {
             try {
-                val resourceString = getResourceAsString(ctx, resourceUri, classes)
+                var resourceString = getResourceAsString(ctx, resourceUri, classes)
+               if (EpubVerticalDelegate.get()?.activity?.isFromSearch == true) {
+                   if (resourceString != null && searchWord != null) {
+                           searchHelper.searchAndHighlight(resourceString, searchWord).collect{
+                               resourceString = it
+                           }
+                   }
+                }
                 _htmlSourceString.value = resourceString
             } catch (t: Throwable) {
-                Log.e(Keys.LOG_NAME, t.message.toString())
             }
         }
     }
