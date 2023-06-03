@@ -22,12 +22,10 @@
         style="@style/PatternBackground"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/normal_margin"
-            />
+<include
+    android:id="@+id/searchbar"
+    layout="@layout/searchbar_with_back"
+    />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

@@ -45,15 +45,24 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[BookmarkViewModel::class.java]
-
+        if (singleBookName.isEmpty()){
+            binding.searchbar.back.visibility = View.GONE
+        }
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.searchbar.back.setOnClickListener {
+            handleBackPressed()
 
+        }
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {
                 handleBookmarkRecyclerView(it)
         }
         return binding.root
+    }
+
+    private fun handleBackPressed() {
+        requireActivity().onBackPressed()
     }
 
     private fun handleBookmarkRecyclerView(
@@ -82,7 +91,7 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
     private fun handleSearchView(
         index: ReferenceAdapter
     ) {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchbar.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false

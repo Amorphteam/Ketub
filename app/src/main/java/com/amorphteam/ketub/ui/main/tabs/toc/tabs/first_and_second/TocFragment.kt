@@ -44,14 +44,19 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
         val application = requireNotNull(this.activity).application
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
         val bookRepository = BookRepository(bookDao)
-
+        if (singleBookPath.isEmpty()){
+            binding.searchbar.back.visibility = View.GONE
+        }
         val viewModelFactory = TocViewModelFactory(catName, bookRepository, singleBookPath)
         viewModel = ViewModelProvider(this, viewModelFactory)[TocViewModel::class.java]
 
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.searchbar.back.setOnClickListener {
+            handleBackPressed()
 
+        }
         viewModel.catId.observe(viewLifecycleOwner){
             viewModel.getCat(it)
         }
@@ -74,6 +79,10 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
 
 
         return binding.root
+    }
+
+    private fun handleBackPressed() {
+        requireActivity().onBackPressed()
     }
 
 
@@ -108,7 +117,7 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
     }
     private fun handleSearchView(
     ) {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        binding.searchbar.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
 
