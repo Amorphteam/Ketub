@@ -134,7 +134,7 @@ open class LibraryViewModel(
             val imageAddress = item!!.catCover?.let { fileManager.getCoverUri(it) }
             Glide.with(image.context)
                 .load(Uri.parse(imageAddress.toString()))
-                .placeholder(R.drawable.ejtihad_logo)
+                .placeholder(R.drawable.nosos_logo)
                 .into(image)
         }
 

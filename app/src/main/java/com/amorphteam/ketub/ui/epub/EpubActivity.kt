@@ -148,15 +148,16 @@ class EpubActivity : AppCompatActivity() {
     private fun addBookmark() {
         val firstWord =
             Book.resourceName2Url(adapter!!.getCurrentFragment()?.manifestItem?.href).toString()
-        val nearestTitle: String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
-        Log.i(Keys.LOG_NAME, nearestTitle!!)
-
+        var nearestTitle: String? = BookHolder.instance?.jsBook?.getNavTitle(firstWord)
+        if (nearestTitle.isNullOrEmpty()){
+            nearestTitle = getString(R.string.bookmark_item_title) + " " + (binding.epubVerticalViewPager.currentItem+1)
+        }
 
         viewModel.bookmarkCurrentPage(
             bookPath,
             viewModel.bookName.value.toString(),
             binding.epubVerticalViewPager.currentItem,
-            " علامة مرجعية ${binding.epubVerticalViewPager.currentItem} $nearestTitle"
+            nearestTitle
         )
     }
 

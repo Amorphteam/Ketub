@@ -9,6 +9,7 @@
     </data>
 
     <ScrollView
+        android:padding="@dimen/normal_margin"
         style="@style/PatternBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,7 +17,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-    <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/large_image"
+                android:layout_height="@dimen/large_image"
+                android:src="@drawable/nosos_logo"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/xlarge_margin"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nosos_title"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nosos_caption"
+                android:textColor="@color/secondary1"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nosos_large_caption"
+                android:lineSpacingExtra="10dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -50,40 +86,6 @@
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="@dimen/large_image"
-            android:layout_height="@dimen/large_image"
-            android:src="@drawable/nosos_logo"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/xlarge_margin"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nosos_title"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nosos_caption"
-            android:textColor="@color/secondary1"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nosos_large_caption"
-            android:lineSpacingExtra="10dp"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,26 +93,26 @@
             android:layout_marginBottom="@dimen/xlarge_margin"
             android:orientation="horizontal">
             <ImageView
+                android:id="@+id/privacy"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:focusable="true"
-                android:onClick="@{viewModel.openPrivacyPage}"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_privacy"/>
 
             <ImageView
+                android:id="@+id/open_website"
                 android:layout_width="0dp"
                 android:focusable="true"
                 android:layout_weight="1"
-                android:onClick="@{viewModel.openWebsite}"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_site"/>
 
             <ImageView
+                android:id="@+id/send_mail"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:focusable="true"
-                android:onClick="@{viewModel.sendMail}"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_mail"/>
         </LinearLayout>

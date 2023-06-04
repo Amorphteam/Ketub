@@ -6,19 +6,19 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="search">بحث</string>
-    <string name="fast_setting_style">Quick text settings</string>
-    <string name="default_setting">Default</string>
-    <string name="more_readability">More readability</string>
-    <string name="dark_mode">Dark mode</string>
-    <string name="high_contrast">High contrast</string>
-    <string name="advanced_setting_style">Advanced text settings</string>
-    <string name="font">Font</string>
-    <string name="font_size">Font size</string>
-    <string name="line_height">Line height</string>
-    <string name="status">Status</string>
-    <string name="light">Light</string>
-    <string name="dark">Dark</string>
-    <string name="base_phone">Base phone</string>
+    <string name="fast_setting_style">إعدادات سريعة</string>
+    <string name="default_setting">الحالة الافتراضية</string>
+    <string name="more_readability">حجم كبير</string>
+    <string name="dark_mode">الحالة الليلية</string>
+    <string name="high_contrast">تباين حاد</string>
+    <string name="advanced_setting_style">إعدادات متقدمة</string>
+    <string name="font">الخط</string>
+    <string name="font_size">حجم الخط</string>
+    <string name="line_height">فاصلة الخطوط</string>
+    <string name="status">الوضع</string>
+    <string name="light">المضيء</string>
+    <string name="dark">المظلم</string>
+    <string name="base_phone">تابع للنظام</string>
     <string name="font_dubai">Dubai</string>
     <string name="font_vazir">Vazir</string>
     <string name="font_nazanin">Nazanin</string>
@@ -26,19 +26,19 @@
     <string name="iran_sans">Iran sans</string>
     <string name="style_setting">Style setting</string>
     <string name="bookmark">المفضلة</string>
-    <string name="toc">Toc</string>
-    <string name="book_name">Three cats which one of them is clever</string>
-    <string name="toc_list">Toc list</string>
+    <string name="toc">الفهرست</string>
+    <string name="book_name">كتاب بلا عنوان</string>
+    <string name="toc_list">الفهرست</string>
     <string name="library">قائمة الكتب</string>
-    <string name="all_tab">All</string>
-    <string name="cat_tab">Categories</string>
-    <string name="titles">Titles</string>
+    <string name="all_tab">الجميع</string>
+    <string name="cat_tab">التصنيفات</string>
+    <string name="titles">العناوين</string>
     <string name="bookmarks">المفضلة</string>
-    <string name="author_tab">Authores</string>
+    <string name="author_tab">الكتّاب</string>
 
-    <style name="visible">visible</style>
+    <style name="visible">ظاهر</style>
 
-    <style name="gone">gone</style>
+    <style name="gone">مخفي</style>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="query_hint_search">ابحث عن كلمة أو جملة في كلا المجلتين</string>
@@ -51,17 +51,18 @@
     <string name="index">فهرست</string>
     <string name="query_hint_search_bookmark">ابدأ الكتابة لبدء البحث في المفضلة</string>
     <string name="info">حول التطبيق</string>
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">صفحة الترحيب</string>
     <string name="index_title">فهرس المحتويات</string>
     <string name="bookmark_title">المفضلة</string>
-    <string name="insert">insert</string>
-    <string name="delete">Delete</string>
+    <string name="insert">إضافة</string>
+    <string name="delete">حذف</string>
     <string name="search_all_book">الجميع</string>
     <string name="search_toolbar">البحث</string>
     <string name="nosos_caption">فصلية تعني بالفكر الديني المعاصر</string>
-    <string name="error_copy_file">WE CAN NOT COPY FILE TO YOUR PHONE</string>
-    <string name="bookmarked">Bookmarked successfully</string>
-    <string name="empty_search_result">empty Search Result</string>
+    <string name="error_copy_file">عذراً، لا يمكن نسخ الملفات لجهازك</string>
+    <string name="bookmarked">تم إضافة هذه الصفحة للمفضلة</string>
+    <string name="empty_search_result">بدون نتيجة</string>
+    <string name="bookmark_item_title">علامة مرجعية </string>
     <string name="ejtehad_large_caption">\n
         مجلّة (الاجتهاد والتجديد) مجلّةٌ فصليّة، تصدر عن مركز البحوث المعاصرة في بيروت، وهي تعنى بمجال التجديد في الاجتهاد الشرعي والقانوني.
 \n\n

@@ -76,35 +76,34 @@
                 android:layout_margin="@dimen/small_margin"
                 android:orientation="vertical">
 
-                <include
-                    android:id="@+id/first_cat_books_items"
-                    layout="@layout/books_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:layout_marginTop="@dimen/small_margin"
-                    android:layout_marginEnd="@dimen/small_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    app:catSection="@{catSection1}"
-                    app:viewModel="@{viewModel}" />
+
 
                 <include
                     android:id="@+id/second_cat_books_items"
                     layout="@layout/books_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/first_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
                     app:catSection="@{catSection2}"
                     app:viewModel="@{viewModel}" />
-
+                <include
+                    android:id="@+id/first_cat_books_items"
+                    layout="@layout/books_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/second_cat_books_items"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    app:catSection="@{catSection1}"
+                    app:viewModel="@{viewModel}" />
                 <include
                     android:id="@+id/toc_read_more"
                     layout="@layout/main_toc_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/second_cat_books_items"
+                    android:layout_below="@+id/first_cat_books_items"
                     android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
 

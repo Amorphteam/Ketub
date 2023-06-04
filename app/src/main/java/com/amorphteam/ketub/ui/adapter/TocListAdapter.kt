@@ -53,9 +53,7 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 return FilterResults().apply {
                     values = if (constraint.isNullOrEmpty())
-
                     listener.onEmptyListReceived()
-
                     else
                         onFilter(currentList, constraint.toString())
                 }
