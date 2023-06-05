@@ -75,6 +75,7 @@ class ReferenceAdapter(
     fun onFilter(list: List<ReferenceModel>, constraint: String): List<ReferenceModel> {
         val filteredList = list.filter {
             it.title.lowercase().contains(constraint.lowercase())
+
         }
         Log.d("Filter", "Before: ${list.size}, After: ${filteredList.size}")
         return filteredList

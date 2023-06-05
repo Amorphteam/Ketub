@@ -13,6 +13,7 @@
     </data>
 
     <RelativeLayout
+        android:layoutDirection="rtl"
         android:id="@+id/base_tree"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
