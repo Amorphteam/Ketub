@@ -20,12 +20,17 @@ class DatabaseReferenceHelper {
         }
     }
 
-    fun deleteBookmark(id: Int, referecnceRepository: ReferenceRepository) {
+    fun deleteBookmark(id: Int, referecnceRepository: ReferenceRepository, deleteStatus: MutableLiveData<Int>) {
         uiScope.launch {
-            withContext(Dispatchers.IO) {
-                referecnceRepository.delete(id)
-            }
+            deleteStatus.value = delete(id, referecnceRepository)
         }
+    }
+
+    suspend fun delete(id: Int, referecnceRepository: ReferenceRepository): Int{
+            return withContext(Dispatchers.IO) {
+                val status = referecnceRepository.delete(id)
+                status
+            }
     }
 
     suspend fun getAllBookmarks(catName: String, referenceRepository: ReferenceRepository): List<ReferenceModel> {

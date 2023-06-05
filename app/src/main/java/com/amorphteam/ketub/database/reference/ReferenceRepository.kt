@@ -20,7 +20,7 @@ class ReferenceRepository(private val referenceDatabaseDao: ReferenceDatabaseDao
     suspend fun insert(reference: ReferenceModel) =
         referenceDatabaseDao.insert(reference)
 
-    suspend fun delete(id: Int) = referenceDatabaseDao.delete(id)
+    suspend fun delete(id: Int):Int = referenceDatabaseDao.delete(id)
 
     fun getBookmarkSelected(bookName: String, navIndex: Int): Boolean =
         referenceDatabaseDao.getBookmarkSelected(bookName, navIndex)

@@ -1,6 +1,5 @@
 package com.amorphteam.ketub.ui.main.tabs.bookmark.tabs.first_and_second
 
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -12,18 +11,14 @@ import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
-import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.FragmentBookmarkBinding
-import com.amorphteam.ketub.ui.epub.EpubActivity
 import com.amorphteam.ketub.ui.adapter.ItemClickListener
 import com.amorphteam.ketub.ui.adapter.DeleteClickListener
 import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.ReferenceModel
-import com.amorphteam.ketub.ui.main.tabs.library.LibraryViewModelFactory
 import com.amorphteam.ketub.utility.EpubHelper
-import com.amorphteam.ketub.utility.Keys
 
 class BookmarkFragment(val catName:String = "", val singleBookName:String = "") : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
@@ -53,6 +48,12 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
         binding.searchbar.back.setOnClickListener {
             handleBackPressed()
 
+        }
+
+        viewModel.deleteStatus.observe(viewLifecycleOwner){
+            if (it > 0) {
+                viewModel.getAllBookmarksFromDB()
+            }
         }
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {
@@ -108,6 +109,11 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
 
     private fun filterSearch(searchString: String, index: ReferenceAdapter) {
         index.filter.filter(searchString)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllBookmarksFromDB()
     }
 
 }

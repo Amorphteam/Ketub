@@ -20,13 +20,9 @@ class BookmarkViewModel(
     private var _allBookmarks = MutableLiveData<List<ReferenceModel>>()
     val allBookmarks: LiveData<List<ReferenceModel>>
         get() = _allBookmarks
-
+    var deleteStatus = MutableLiveData<Int>().apply { value = -1 }
     init {
-        if (isContainerForAllBooks(catName, singleBookName)) {
-            getAllBookMarksForAllBooks()
-        }else {
-            getAllBookmarksForSingleBook()
-        }
+        getAllBookmarksFromDB()
     }
 
     private fun getAllBookmarksForSingleBook() {
@@ -53,15 +49,16 @@ class BookmarkViewModel(
     }
 
     fun deleteBookmark(it: Int) {
-        databaseReferenceHelper?.deleteBookmark(it, referenceRepository)
+        databaseReferenceHelper?.deleteBookmark(it, referenceRepository, deleteStatus)
+    }
+
+    fun getAllBookmarksFromDB(){
         if(isContainerForAllBooks(catName, singleBookName)){
             getAllBookMarksForAllBooks()
         }else{
             getAllBookmarksForSingleBook()
         }
-
     }
-
 
     companion object {
         @JvmStatic
