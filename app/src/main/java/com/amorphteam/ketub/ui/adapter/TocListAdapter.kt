@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.amorphteam.ketub.databinding.ItemTreeTocBinding
 import com.amorphteam.ketub.model.IndexesInfo
 
-class TocListAdapter (val listener:EmptyTocListener , private val clickListener: TocListItemClickListener) :
-ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filterable {
+class TocListAdapter(
+    val listener: EmptyTocListener,
+    private val clickListener: TocListItemClickListener
+) :
+    ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filterable {
 
+    private var originalList: List<IndexesInfo> = emptyList()
 
     class ViewHolder private constructor(val binding: ItemTreeTocBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -24,8 +28,6 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
-
-
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
@@ -41,7 +43,6 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
         return ViewHolder.from(parent)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, clickListener)
@@ -53,30 +54,38 @@ ListAdapter<IndexesInfo, TocListAdapter.ViewHolder>(TocListDiffCallback()), Filt
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 return FilterResults().apply {
                     values = if (constraint.isNullOrEmpty())
-                    listener.onEmptyListReceived()
+                        listener.onEmptyListReceived()
                     else
-                        onFilter(currentList, constraint.toString())
+                        onFilter(originalList, constraint.toString())
                 }
             }
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                submitList(results?.values as? List<IndexesInfo>)
-
+                val filteredList = results?.values as? List<IndexesInfo> ?: emptyList()
+                if (filteredList.isEmpty()) {
+                    listener.onEmptyListReceived()
+                }
+                submitList(filteredList)
             }
         }
     }
 
-    fun onFilter(list: List<IndexesInfo>, constraint: String): List<IndexesInfo> {
+    fun setData(data: List<IndexesInfo>) {
+        originalList = data
+        submitList(data)
+    }
+
+    private fun onFilter(list: List<IndexesInfo>, constraint: String): List<IndexesInfo> {
         val filteredList = list.filter {
             it.navPoint.navLabel.lowercase().contains(constraint.lowercase())
         }
-
+        Log.d("Filter", "Before: ${list.size}, After: ${filteredList.size}")
         return filteredList
     }
 }
 
-class TocListDiffCallback() : DiffUtil.ItemCallback<IndexesInfo>() {
+class TocListDiffCallback : DiffUtil.ItemCallback<IndexesInfo>() {
 
     override fun areItemsTheSame(p0: IndexesInfo, p1: IndexesInfo): Boolean {
         return p0 == p1
@@ -90,11 +99,9 @@ class TocListDiffCallback() : DiffUtil.ItemCallback<IndexesInfo>() {
 
 class TocListItemClickListener(val clickListener: (indexesInfo: IndexesInfo) -> Unit) {
     fun onClick(indexesInfo: IndexesInfo) = clickListener(indexesInfo)
-
 }
 
-
-interface EmptyTocListener{
+interface EmptyTocListener {
     fun onEmptyListReceived()
 }
 

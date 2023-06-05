@@ -1,5 +1,7 @@
 package com.amorphteam.ketub.ui.adapter
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -11,13 +13,21 @@ import com.amorphteam.ketub.databinding.ItemBookmarkBinding
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.TempData
 
-class ReferenceAdapter(private val clickListener: ItemClickListener, private val deleteClickListener: DeleteClickListener) :
-    ListAdapter<ReferenceModel, ReferenceAdapter.ViewHolder>(DiffCallback()), Filterable {
+class ReferenceAdapter(
+    private val clickListener: ItemClickListener,
+    private val deleteClickListener: DeleteClickListener
+) : ListAdapter<ReferenceModel, ReferenceAdapter.ViewHolder>(DiffCallback()), Filterable {
+
+    private var originalList: List<ReferenceModel> = emptyList()
 
     class ViewHolder private constructor(val binding: ItemBookmarkBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ReferenceModel, clickListener: ItemClickListener, deleteClickListener: DeleteClickListener) {
+        fun bind(
+            item: ReferenceModel,
+            clickListener: ItemClickListener,
+            deleteClickListener: DeleteClickListener
+        ) {
             binding.item = item
             binding.itemClickListener = clickListener
             binding.deleteClickListener = deleteClickListener
@@ -27,8 +37,7 @@ class ReferenceAdapter(private val clickListener: ItemClickListener, private val
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    ItemBookmarkBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemBookmarkBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }
@@ -45,22 +54,20 @@ class ReferenceAdapter(private val clickListener: ItemClickListener, private val
 
     override fun getFilter(): Filter {
         return object : Filter() {
-
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                return FilterResults().apply {
-                    values = if (constraint.isNullOrEmpty())
-                    //TODO: IT MUST LOAD FROM VIEWMODEL
-
-                        currentList
-                    else
-                        onFilter(currentList, constraint.toString())
+                val results = FilterResults()
+                if (constraint.isNullOrEmpty()) {
+                    results.values = originalList.toList()
+                } else {
+                    results.values = onFilter(originalList, constraint.toString())
                 }
+                return results
             }
 
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                submitList(results?.values as? List<ReferenceModel>)
-
+                val filteredList = results?.values as? List<ReferenceModel> ?: emptyList()
+                submitList(filteredList)
             }
         }
     }
@@ -69,8 +76,13 @@ class ReferenceAdapter(private val clickListener: ItemClickListener, private val
         val filteredList = list.filter {
             it.title.lowercase().contains(constraint.lowercase())
         }
-
+        Log.d("Filter", "Before: ${list.size}, After: ${filteredList.size}")
         return filteredList
+    }
+
+    fun setData(data: List<ReferenceModel>) {
+        originalList = data
+        submitList(data)
     }
 }
 

@@ -80,7 +80,9 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
         }, DeleteClickListener {
             viewModel.deleteBookmark(it)
         })
+
         adapter.submitList(bookmarkArrayList)
+        adapter.setData(bookmarkArrayList)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = adapter

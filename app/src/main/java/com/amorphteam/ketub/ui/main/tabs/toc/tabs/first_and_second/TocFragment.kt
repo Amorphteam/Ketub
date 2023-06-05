@@ -95,6 +95,8 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
         })
 
         adapter?.submitList(navPoints)
+        adapter?.setData(navPoints)
+
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
