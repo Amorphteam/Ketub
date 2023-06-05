@@ -35,19 +35,15 @@ class TabbedActivity : AppCompatActivity() {
         }
 
         initNavigationBar()
-        saveAppVersion(fileManager)
     }
 
-    private fun saveAppVersion(fileManager: FileManager) {
-        fileManager.saveAppVersion(this)
-    }
+
 
 
     private fun copyAppContentToUserDoc(fileManager:FileManager) {
         Thread {
-            fileManager.copyBooksToUserDoc(this)
             fileManager.copyCoversToUSerDoc(this)
-
+            fileManager.copyBooksToUserDoc(this)
         }.start()
 
     }

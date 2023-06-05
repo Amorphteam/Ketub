@@ -151,10 +151,7 @@ class LibraryFragment : Fragment() {
             binding.tocReadMore.recyclerView.layoutManager = layoutManager
             binding.tocReadMore.recyclerView.adapter = adapter
         }
-        if (adapter.currentList.isEmpty()){
-            binding.tocReadMore.countainer.visibility = View.GONE
-            binding.tocRecommanded.countainer.visibility = View.GONE
-        }
+
     }
 
 

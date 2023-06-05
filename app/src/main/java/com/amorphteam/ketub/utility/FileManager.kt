@@ -40,19 +40,20 @@ class FileManager(context: Context) {
 
     fun isNewVersion(context: Context): Boolean {
         val pref = PreferencesManager(context)
-        val currVersion: Int = pref!!.loadAppVersion()
+        val currVersion: Int = pref.loadAppVersion()
 
         // if 0, first run
         val nVersion: Int = getAppCurrentVersion(context)
+        Log.i(Keys.LOG_NAME, "nVersion is: $nVersion    and currentVertison is $currVersion")
         return nVersion > currVersion
     }
 
-    fun saveAppVersion(context: Context){
+    fun saveAppVersion(context: Context) {
         val pref = PreferencesManager(context)
         pref.saveAppVersion(getAppCurrentVersion(context))
     }
 
-     private fun getAppCurrentVersion(context: Context): Int {
+    private fun getAppCurrentVersion(context: Context): Int {
         var pInfo: PackageInfo? = null
         try {
             pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -88,6 +89,7 @@ class FileManager(context: Context) {
 
     private fun copyNewBooksToUserDoc(context: Context) {
         OUT_BOOK_ADDRESS?.let { copyAllFileFromAssetToUserDoc(context, Keys.ASSET_BOOK_DIR, it) }
+        saveAppVersion(context)
     }
 
     private fun copyNewCoversToUserDoc(context: Context) {
