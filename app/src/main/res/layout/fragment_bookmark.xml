@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="viewModel"
@@ -25,6 +26,10 @@
                 android:id="@+id/searchbar"
                 layout="@layout/searchbar_with_back" />
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
@@ -35,6 +40,16 @@
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_bookmark"
                 tools:orientation="vertical" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text= "@string/empty_bookmark"
+                    android:visibility="@{viewModel.allBookmarks.size() == 0 ? View.VISIBLE : View.GONE}"
+                    />
+            </FrameLayout>
+
         </LinearLayout>
     </RelativeLayout>
 </layout>

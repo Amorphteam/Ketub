@@ -62,6 +62,8 @@
     <string name="error_copy_file">عذراً، لا يمكن نسخ الملفات لجهازك</string>
     <string name="bookmarked">تم إضافة هذه الصفحة للمفضلة</string>
     <string name="empty_search_result">بدون نتيجة</string>
+    <string name="empty_bookmark">المفضلة فارغة</string>
+
     <string name="bookmark_item_title">علامة مرجعية </string>
     <string name="ejtehad_large_caption">\n
         مجلّة (الاجتهاد والتجديد) مجلّةٌ فصليّة، تصدر عن مركز البحوث المعاصرة في بيروت، وهي تعنى بمجال التجديد في الاجتهاد الشرعي والقانوني.
