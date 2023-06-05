@@ -1,5 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +35,7 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
     private var tView: AndroidTreeView? = null
     private val localNavResult: NavResult? = null
     var adapter: TocListAdapter? = null
+    lateinit var dialog: AlertDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,12 +44,14 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
             inflater, R.layout.fragment_toc, container, false
         )
 
+
         val application = requireNotNull(this.activity).application
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
         val bookRepository = BookRepository(bookDao)
         if (singleBookPath.isEmpty()){
             binding.searchbar.back.visibility = View.GONE
         }
+        showCopyContentDialog()
         val viewModelFactory = TocViewModelFactory(catName, bookRepository, singleBookPath)
         viewModel = ViewModelProvider(this, viewModelFactory)[TocViewModel::class.java]
 
@@ -67,7 +72,7 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
                 setUpTree(it.navTrees)
                 setupListForSearch(it.navPoints)
                 handleSearchView()
-                viewModel.onFinishLoadToc(true)
+                dialog.dismiss()
             }
         }
 
@@ -102,7 +107,16 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
         binding.recyclerView.adapter = adapter
     }
 
+    private fun showCopyContentDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_copy_content, null)
+        dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
 
+
+        dialog.show()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
