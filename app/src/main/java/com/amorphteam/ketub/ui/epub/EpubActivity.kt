@@ -323,6 +323,7 @@ class EpubActivity : AppCompatActivity() {
     }
 
     private fun openSearchActivity() {
+        viewModel.saveStyles()
         val intent = Intent(this, SearchActivity::class.java)
         intent.putExtra(Keys.SINGLE_BOOK_PATH, bookPath)
         startActivity(intent)
