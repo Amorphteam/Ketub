@@ -213,6 +213,7 @@ class EpubActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.saveStyles()
         viewModel.styleListener!!.clear()
         viewModel.styleListener = null
         BookHolder.instance?.jsBook = null

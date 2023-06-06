@@ -89,7 +89,12 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
         currentQuickStyle.value = styleBookPref.quickStyle.ordinal
         currentFontName.value = styleBookPref.fontName.ordinal
         currentTheme.value = styleBookPref.theme.ordinal
+
+        Log.i("AJc", currentFontSize.value.toString())
+
         handleQuickStyle(QuickStyle.from(currentQuickStyle.value!!))
+
+        Log.i("AJc", currentFontSize.value.toString())
     }
 
     fun getBookAddress(bookAddress: String?) {
@@ -160,9 +165,13 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
 
     override fun onCleared() {
         super.onCleared()
-        preferencesManager.saveStyleBookPref(styleBookPref)
+        saveStyles()
         databaseReferenceHelper = null
 
+    }
+
+    fun saveStyles() {
+        preferencesManager.saveStyleBookPref(styleBookPref)
     }
 
     fun updateQuickStyle(id: Int) {
@@ -175,9 +184,8 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     private fun handleQuickStyle(quickStyle: QuickStyle) {
         when (quickStyle) {
             QuickStyle.DEFAULT -> {
-                currentFontSize.value = FontSize.SIZE1.number
-                currentLineSpace.value = LineSpace.SPACE1.number
-                currentTheme.value = Theme.BASE.number
+
+
             }
 
             QuickStyle.READABILITY -> {
