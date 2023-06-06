@@ -17,10 +17,13 @@ import com.amorphteam.ketub.ui.adapter.DeleteClickListener
 import com.amorphteam.ketub.ui.adapter.ReferenceAdapter
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.model.ReferenceModel
+import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
 import com.amorphteam.ketub.utility.EpubHelper
+import com.mehdok.fineepublib.epubviewer.epub.Book
 
-class BookmarkFragment(val catName:String = "", val singleBookName:String = "") : Fragment() {
+class BookmarkFragment(val catName: String = "", val singleBookName: String = "") : Fragment() {
     private lateinit var binding: FragmentBookmarkBinding
     private lateinit var viewModel: BookmarkViewModel
 
@@ -36,11 +39,12 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
         val application = requireNotNull(this.activity).application
         val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
         val referenceRepository = ReferenceRepository(referenceDao)
-        val viewModelFactory = BookmarkViewModelFactory(referenceRepository, catName, singleBookName)
+        val viewModelFactory =
+            BookmarkViewModelFactory(referenceRepository, catName, singleBookName)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[BookmarkViewModel::class.java]
-        if (singleBookName.isEmpty()){
+        if (singleBookName.isEmpty()) {
             binding.searchbar.back.visibility = View.GONE
         }
         binding.viewModel = viewModel
@@ -50,34 +54,41 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
 
         }
 
-        viewModel.deleteStatus.observe(viewLifecycleOwner){
+        viewModel.deleteStatus.observe(viewLifecycleOwner) {
             if (it > 0) {
                 viewModel.getAllBookmarksFromDB()
             }
         }
 
         viewModel.allBookmarks.observe(viewLifecycleOwner) {
-                handleBookmarkRecyclerView(it)
+            handleBookmarkRecyclerView(it)
         }
         return binding.root
     }
 
     private fun handleBackPressed() {
-        requireActivity().onBackPressed()
+        parentFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 
     private fun handleBookmarkRecyclerView(
         bookmarkArrayList: List<ReferenceModel>
     ) {
         val adapter = ReferenceAdapter(ItemClickListener {
-            val bookPath = it.bookPath
-            val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
-            it.navIndex?.let { it1 ->
-                if (bookAddress != null) {
-                    EpubHelper.openEpub(bookAddress, it1, requireContext())
+            if (singleBookName.isNotEmpty()) {
+                val pageIndex = it.navIndex
+                if (pageIndex != null) { EpubVerticalDelegate.get()?.activity?.binding?.epubVerticalViewPager?.setCurrentItem(pageIndex, false) }
+                handleBackPressed()
+            } else {
+                val bookPath = it.bookPath
+                val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
+                it.navIndex?.let { it1 ->
+                    if (bookAddress != null) {
+                        EpubHelper.openEpub(bookAddress, it1, requireContext())
+                    }
                 }
             }
-
         }, DeleteClickListener {
             viewModel.deleteBookmark(it)
         })
@@ -99,6 +110,7 @@ class BookmarkFragment(val catName:String = "", val singleBookName:String = "") 
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 filterSearch(newText, index)
                 return true

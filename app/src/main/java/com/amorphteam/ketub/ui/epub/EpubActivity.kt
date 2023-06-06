@@ -269,10 +269,10 @@ class EpubActivity : AppCompatActivity() {
     private fun handleFragment(newFragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         viewModel.setFullScreenWindow()
-        transaction.replace(R.id.fragment_container, newFragment)
-        transaction.addToBackStack(null)
+        transaction.add(R.id.fragment_container, newFragment)
         transaction.commit()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater

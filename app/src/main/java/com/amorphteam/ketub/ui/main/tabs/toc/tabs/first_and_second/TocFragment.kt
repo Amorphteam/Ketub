@@ -3,6 +3,7 @@ package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +16,19 @@ import com.amorphteam.ketub.R
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
 import com.amorphteam.ketub.databinding.FragmentTocBinding
+import com.amorphteam.ketub.model.BookHolder
 import com.amorphteam.ketub.model.IndexesInfo
 import com.amorphteam.ketub.model.NavResult
 import com.amorphteam.ketub.model.TreeBookHolder
 import com.amorphteam.ketub.ui.adapter.EmptyTocListener
 import com.amorphteam.ketub.ui.adapter.TocListAdapter
 import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
+import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
 import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.NavTreeCreator
+import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.unnamed.b.atv.model.TreeNode
 import com.unnamed.b.atv.view.AndroidTreeView
 
@@ -87,16 +91,30 @@ class TocFragment(val catName:String = "", val singleBookPath:String ="") : Frag
     }
 
     private fun handleBackPressed() {
-        requireActivity().onBackPressed()
+        parentFragmentManager.beginTransaction()
+            .remove(this)
+            .commit()
     }
 
 
     private fun setupListForSearch(navPoints: ArrayList<IndexesInfo>) {
         adapter = TocListAdapter(this, TocListItemClickListener {
-            val fileManager = FileManager(requireContext())
-            val booksAddress: String? = fileManager.getBookAddress(it.bookPath)
-            EpubHelper.openEpub(booksAddress.toString(),
-                EpubHelper.getContentWithoutTag(it.navPoint.content), requireContext())
+            if (singleBookPath.isNotEmpty()){
+                val navUri = EpubHelper.getContentWithoutTag(it.navPoint.content)
+                val pageIndex =
+                    BookHolder.instance?.jsBook?.getResourceNumber(Book.resourceName2Url(navUri))
+                if (pageIndex != null) {
+                    EpubVerticalDelegate.get()?.activity?.binding?.epubVerticalViewPager?.setCurrentItem(pageIndex, false)
+                }
+                handleBackPressed()
+            }else {
+                val fileManager = FileManager(requireContext())
+                val booksAddress: String? = fileManager.getBookAddress(it.bookPath)
+                EpubHelper.openEpub(
+                    booksAddress.toString(),
+                    EpubHelper.getContentWithoutTag(it.navPoint.content), requireContext()
+                )
+            }
         })
 
         adapter?.submitList(navPoints)
