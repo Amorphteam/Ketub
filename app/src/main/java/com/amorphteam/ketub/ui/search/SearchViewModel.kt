@@ -24,6 +24,7 @@ class SearchViewModel(val bookRepository: BookRepository, val bookPath:String) :
     val allBooks: LiveData<List<BookModel>>
         get() = _allBooks
 
+     val bookNameSearching = MutableLiveData<String>()
 
     private val _finishLoadSearch = MutableLiveData<Boolean>()
     val finishLoadSearch:LiveData<Boolean>
@@ -69,7 +70,7 @@ class SearchViewModel(val bookRepository: BookRepository, val bookPath:String) :
             _results.value?.clear()
             var currentResults = ArrayList<SearchModel>()
             currentResults.clear()
-            searchHelper.searchAllBooks(it, s).collect{
+            searchHelper.searchAllBooks(it, s, bookNameSearching).collect{
                 currentResults = _results.value ?: ArrayList()
                 currentResults.addAll(it)
                 _results.value = currentResults

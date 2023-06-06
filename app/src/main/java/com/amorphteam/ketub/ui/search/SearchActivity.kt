@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
@@ -26,6 +27,8 @@ class SearchActivity : AppCompatActivity() {
     private var allBooksString = ArrayList<String>()
     private var bookPath = ""
     private var searchWord:String = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,16 +71,15 @@ class SearchActivity : AppCompatActivity() {
 
 
     fun startSearch(query: String) {
-
         searchWord = query
         if (searchHelper != null) {
             searchHelper?.stopSearch(true)
             viewModel.clearList()
             searchHelper = null
-
         }
         searchHelper = SearchHelper(this)
         viewModel.searchAllBooks(searchHelper!!, allBooksString, query)
+        binding.searchTitle.visibility = View.VISIBLE
 
     }
 
@@ -94,7 +96,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                binding.chipGroup.visibility = View.GONE
+//                binding.chipGroup.visibility = View.GONE
 
 //                if (newText.length > 2) {
 //                    startSearch(newText)
@@ -107,26 +109,26 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupChipGroup(adapter: SearchListAdapter) {
 
-        binding.chip1.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                searchHelper?.stopSearch(true)
-                adapter.filter.filter(" ")
-            }
-        }
+//        binding.chip1.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                searchHelper?.stopSearch(true)
+//                adapter.filter.filter(" ")
+//            }
+//        }
 
-        binding.chip2.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                searchHelper?.stopSearch(true)
-                adapter.filter.filter(Keys.DB_FIRST_CAT.split(" ").first())
-            }
-        }
+//        binding.chip2.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                searchHelper?.stopSearch(true)
+//                adapter.filter.filter(Keys.DB_FIRST_CAT.split(" ").first())
+//            }
+//        }
 
-        binding.chip3.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                searchHelper?.stopSearch(true)
-                adapter.filter.filter(Keys.DB_SECOND_CAT.split(" ").first())
-            }
-        }
+//        binding.chip3.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                searchHelper?.stopSearch(true)
+//                adapter.filter.filter(Keys.DB_SECOND_CAT.split(" ").first())
+//            }
+//        }
 
     }
 
@@ -148,7 +150,7 @@ class SearchActivity : AppCompatActivity() {
 
         adapter.submitList(arrayResult)
         if (bookPath.isEmpty()) {
-            binding.chipGroup.visibility = View.VISIBLE
+//            binding.chipGroup.visibility = View.VISIBLE
 
         }
 

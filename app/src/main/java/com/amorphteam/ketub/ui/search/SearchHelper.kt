@@ -6,6 +6,7 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.BackgroundColorSpan
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.model.SearchHighlight
 import com.amorphteam.ketub.model.SearchIndex
@@ -33,16 +34,19 @@ class SearchHelper(val context: Context) {
     private var mSearchCount = 0
 
 
-    suspend fun searchAllBooks(allBooks: List<String>, word: String): Flow<ArrayList<SearchModel>> = flow {
+    suspend fun searchAllBooks(allBooks: List<String>, word: String, bookNameSearching:MutableLiveData<String>): Flow<ArrayList<SearchModel>> = flow {
         searcher = NormalSearcher()
         for (book in allBooks) {
-            if (flag) break
-            emit(searchSingleBook(book, word))
+//            val bookName = book.split("/").last().split(".").first()
+//            if (bookName.contains("e")) {
+                if (flag) break
+                emit(searchSingleBook(book, word, bookNameSearching))
+//            }
         }
     }
 
 
-    private suspend fun searchSingleBook(address: String, sw: String): ArrayList<SearchModel> = withContext(Dispatchers.IO) {
+    private suspend fun searchSingleBook(address: String, sw: String, bookNameSearching: MutableLiveData<String>): ArrayList<SearchModel> = withContext(Dispatchers.IO) {
         val tempResult = ArrayList<SearchModel>()
         var book: Book? = null
         var bookTitle = ""
@@ -54,15 +58,19 @@ class SearchHelper(val context: Context) {
         if (book == null) return@withContext arrayListOf()
 
         bookTitle = book.metadata.title
-
+        bookNameSearching.postValue(bookTitle) // Use postValue instead of value
         for (page in book.spine) {
-            if (flag) {break}
+            if (flag) {
+                break
+            }
             try {
                 var searchCount = 0
                 val pageResource = book.fetch(Book.resourceName2Url(page.href))
                 val pageString = book.getPageString(pageResource.data)
 
-                if (TextUtils.isEmpty(pageString)) { continue }
+                if (TextUtils.isEmpty(pageString)) {
+                    continue
+                }
                 var searchIndex = searchInString(pageString, sw, 0)
 
                 while (searchIndex.startIndex >= 0) {
@@ -76,7 +84,7 @@ class SearchHelper(val context: Context) {
                             searchCount
                         )
                     )
-                    if (searchCount == 0){
+                    if (searchCount == 0) {
 
                     }
 

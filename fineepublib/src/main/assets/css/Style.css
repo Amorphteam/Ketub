@@ -217,10 +217,13 @@ html.DARK {
     background-color: #131313 !important;
 }
 
-.DARK p, .DARK div, .DARK span:not(.epub-media-overlay-playing) {
+.DARK p:not(.search_highlight),
+.DARK div:not(.search_highlight),
+.DARK span:not(.search_highlight):not(.epub-media-overlay-playing) {
     color: #767676 !important;
     background-color: transparent !important;
 }
+
 
 .DARK h1, .DARK h2, .DARK h3, .DARK h4, .DARK h5, .DARK h6 {
     color: #848484 !important;
