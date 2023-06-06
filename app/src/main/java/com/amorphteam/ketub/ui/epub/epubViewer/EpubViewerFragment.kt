@@ -163,6 +163,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
 
     override fun onEmptySpaceTapped() {
+        Log.i("AJC", "OKKK")
         val activity = requireActivity() as EpubActivity
         activity.viewModel.toggle()
     }
