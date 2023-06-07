@@ -75,7 +75,9 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     }
 
     fun handleLastPageSeen(bookAddress: String?) {
-        _lastPageSeen.value = bookAddress?.let { preferencesManager.getLastPageSeen(it) }
+        _lastPageSeen.value = bookAddress?.let {
+            preferencesManager.getLastPageSeen(it)
+        }
     }
 
     fun handleBookmarkPage(page: Int) {

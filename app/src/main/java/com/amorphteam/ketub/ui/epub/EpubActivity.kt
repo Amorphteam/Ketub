@@ -37,6 +37,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import kotlinx.android.synthetic.main.bottom_sheet_style.*
+import java.security.Key
 import java.util.*
 
 
@@ -225,32 +226,32 @@ class EpubActivity : AppCompatActivity() {
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
         binding.epubVerticalViewPager.adapter = adapter
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
+        viewModel.lastPageSeen.value?.let { moveToPage(it) }
         addPagerScrollListener(binding.epubVerticalViewPager)
         setUpChapterSeeker(spineItems.size)
-        viewModel.lastPageSeen.value?.let { moveToPage(it) }
     }
 
     private fun addPagerScrollListener(pager: ViewPager2) {
         pager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.seekBar.progress = position
+                binding.seekBar.progress = position+1
             }
         })
     }
 
     private fun setUpChapterSeeker(maxPage: Int) {
-        binding.seekBar.max = maxPage
-        binding.seekBar.hintDelegate.setHintAdapter { p0, p1 -> "$p1" }
+        binding.seekBar.max = maxPage-1
+        binding.seekBar.hintDelegate.setHintAdapter { _, p1 -> "$p1" }
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 viewModel.pageNumber.value = String.format(
                     Locale.getDefault(),
                     "%d / %d",
-                    (p0?.progress ?: 0) + 1,
-                    BookHolder.instance?.jsBook?.pageNumber
+                    p0?.progress?.plus(1),
+                    maxPage
                 )
-                viewModel.preferencesManager.saveLastPageSeen(bookAddress, p0?.progress ?: 0)
+                viewModel.preferencesManager.saveLastPageSeen(bookAddress, p0?.progress?.plus(1) ?: 1)
 
             }
 

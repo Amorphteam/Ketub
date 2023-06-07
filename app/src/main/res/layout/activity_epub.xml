@@ -92,6 +92,7 @@
                 <io.techery.progresshint.addition.widget.VerticalSeekBar
                     android:id="@+id/seekBar"
                     style="@style/SeekBar"
+                    android:min="1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:padding="@dimen/xsmall_margin"
