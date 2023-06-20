@@ -14,6 +14,7 @@ class Keys {
         val DB_REFERENCE_NAME = "reference_database.db"
         val DB_FIRST_CAT = "الاجتهاد والتجديد"
         val DB_SECOND_CAT = "نصوص معاصرة"
+        val DB_THIRD_CAT = "كتب المجلة"
         val DB_BOOK_LIMIT_COUNT = 5
         val NAV_CAT_SECTION = "catSection"
         val MANIFEST_ITEM = "manifest_item"

@@ -45,6 +45,7 @@
     <string name="hint_search_bar">ابدأ الكتابة لبدء البحث</string>
     <string name="ejtehad_title">الاجتهاد والتجديد</string>
     <string name="nosos_title">نصوص معاصرة</string>
+    <string name="books_title">كتب المجلة</string>
     <string name="ejtehad_caption">فصلية متخصصة بقضايا الاجتهاد والتجديد الإسلامي</string>
     <string name="see_all">مشاهدة الجميع</string>
     <string name="title">عنوان</string>
@@ -88,4 +89,5 @@
     <string name="dialogTitle">جاري تهئية الفهارس</string>
     <string name="dialogDes">يرجى الانتظار حتى إتمام تهيئة الفهارس</string>
     <string name="searching_title">"جاري البحث في: "</string>
+    <string name="books_caption">كتب مجلتي الاجتهاد والتجديد ونصوص معاصرة</string>
 </resources>

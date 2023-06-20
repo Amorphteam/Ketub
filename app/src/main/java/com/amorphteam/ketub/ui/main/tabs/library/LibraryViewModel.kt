@@ -56,6 +56,9 @@ open class LibraryViewModel(
     val secondCatBooksNewItems: LiveData<List<CategoryModel>>
         get() = _secondCatBooksNewItems
 
+    private var _thirdCatBooksNewItems = MutableLiveData<List<CategoryModel>>()
+    val thirdCatBooksNewItems: LiveData<List<CategoryModel>>
+        get() = _thirdCatBooksNewItems
 
 
 
@@ -72,6 +75,8 @@ open class LibraryViewModel(
     private fun getCatSections() {
         databaseBookHelper?.getCats(Keys.DB_FIRST_CAT, bookRepository, _firstCatBooksNewItems)
         databaseBookHelper?.getCats(Keys.DB_SECOND_CAT, bookRepository, _secondCatBooksNewItems)
+        databaseBookHelper?.getCats(Keys.DB_THIRD_CAT, bookRepository, _thirdCatBooksNewItems)
+
     }
 
     private fun getReferences() {

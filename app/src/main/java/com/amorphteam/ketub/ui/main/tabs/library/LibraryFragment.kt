@@ -66,7 +66,11 @@ class LibraryFragment : Fragment() {
             resources.getString(R.string.nosos_caption),
             Keys.NOSOS_LOGO
         )
-
+        binding.catSection3 = CatSection(
+            resources.getString(R.string.books_title),
+            resources.getString(R.string.books_caption),
+            Keys.NOSOS_LOGO
+        )
         binding.lifecycleOwner = this
 
 
@@ -97,7 +101,12 @@ class LibraryFragment : Fragment() {
         viewModel.secondCatBooksNewItems.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 handleCatBooks(it, 2)
+            }
+        }
 
+        viewModel.thirdCatBooksNewItems.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                handleCatBooks(it, 3)
             }
         }
 
@@ -173,6 +182,11 @@ class LibraryFragment : Fragment() {
             2 -> {
                 binding.secondCatBooksItems.recyclerView.layoutManager = layoutManager
                 binding.secondCatBooksItems.recyclerView.adapter = adapter
+            }
+
+            3 -> {
+                binding.thirdCatBooksItems.recyclerView.layoutManager = layoutManager
+                binding.thirdCatBooksItems.recyclerView.adapter = adapter
             }
         }
 
