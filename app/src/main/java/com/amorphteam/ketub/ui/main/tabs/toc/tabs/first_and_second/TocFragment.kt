@@ -1,9 +1,7 @@
 package com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +22,7 @@ import com.amorphteam.ketub.ui.adapter.EmptyTocListener
 import com.amorphteam.ketub.ui.adapter.TocListAdapter
 import com.amorphteam.ketub.ui.adapter.TocListItemClickListener
 import com.amorphteam.ketub.ui.epub.EpubVerticalDelegate
-import com.amorphteam.ketub.ui.main.tabs.toc.TreeViewHolder
+import com.amorphteam.ketub.ui.adapter.TreeViewHolder
 import com.amorphteam.ketub.utility.EpubHelper
 import com.amorphteam.ketub.utility.FileManager
 import com.amorphteam.ketub.utility.NavTreeCreator

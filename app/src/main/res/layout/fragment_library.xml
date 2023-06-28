@@ -118,6 +118,7 @@
                     app:viewModel="@{viewModel}" />
                 <include
                     android:id="@+id/toc_read_more"
+                    android:visibility="gone"
                     layout="@layout/main_toc_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -130,6 +131,7 @@
                     android:id="@+id/toc_recommanded"
                     layout="@layout/main_toc_layout"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/toc_read_more"
                     android:layout_marginBottom="@dimen/normal_margin"

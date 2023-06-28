@@ -186,14 +186,14 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
     private fun handleQuickStyle(quickStyle: QuickStyle) {
         when (quickStyle) {
             QuickStyle.DEFAULT -> {
-
-
+                currentFontSize.value = FontSize.SIZE2.number
+                currentLineSpace.value = LineSpace.SPACE2.number
+                currentTheme.value = Theme.BASE.number
             }
 
             QuickStyle.READABILITY -> {
                 currentFontSize.value = FontSize.SIZE4.number
                 currentLineSpace.value = LineSpace.SPACE4.number
-                currentTheme.value = Theme.BASE.number
             }
 
             QuickStyle.DARKMODE -> {
