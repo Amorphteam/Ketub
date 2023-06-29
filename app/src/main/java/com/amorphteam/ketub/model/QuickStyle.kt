@@ -7,6 +7,7 @@ enum class QuickStyle(var number: Int) {
     READABILITY(1),
     DARKMODE(2),
     HIGHCONTRAST(3);
+
     companion object {
         fun from(findValue: Int): QuickStyle {
             return try {

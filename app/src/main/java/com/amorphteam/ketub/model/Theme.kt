@@ -5,7 +5,8 @@ import java.lang.Exception
 enum class Theme(var number: Int) {
     BASE(0),
     LIGHT(1),
-    DARK(2);
+    DARK(2),
+    CONTRAST(3);
 
     companion object {
         fun from(findValue: Int): Theme {

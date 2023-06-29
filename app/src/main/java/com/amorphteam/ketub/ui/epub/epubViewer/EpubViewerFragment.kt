@@ -3,12 +3,14 @@ package com.amorphteam.ketub.ui.epub.epubViewer
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -70,6 +72,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         super.onCreate(savedInstanceState)
         EpubVerticalDelegate.get()?.activity?.addStyleListener(this)
     }
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -87,6 +90,8 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
                     fillWebView(it)
                 }
             }
+
+
 
         }
     }

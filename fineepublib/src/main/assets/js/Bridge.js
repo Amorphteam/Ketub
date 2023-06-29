@@ -74,7 +74,7 @@ function changeReaderColor(cls) {
     removeClass(elm, "BASE");
     removeClass(elm, "LIGHT");
     removeClass(elm, "DARK");
-
+    removeClass(elm, "CONTRAST")
     if(cls) {
         addClass(elm, cls);
     }

@@ -11,12 +11,12 @@
     </data>
 
     <LinearLayout
-        android:layoutDirection="rtl"
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edge"
         android:elevation="16dp"
+        android:layoutDirection="rtl"
         android:orientation="vertical"
         android:padding="@dimen/normal_margin"
         app:behavior_hideable="true"
@@ -50,12 +50,11 @@
                     android:paddingLeft="@dimen/half_margin"
                     android:paddingTop="@dimen/half_margin"
                     android:paddingRight="@dimen/half_margin"
-                    android:state_focused="true"
-                    android:state_pressed="true"
                     android:paddingBottom="@dimen/large_margin"
                     android:src="@drawable/ic_resource_default"
-                    bind:tintConditionally="@{viewModel.currentQuickStyle == 0 ? true : false}"
-                    />
+                    android:state_focused="true"
+                    android:state_pressed="true"
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 0 ? true : false}" />
 
                 <TextView
                     style="@style/description"
@@ -85,8 +84,7 @@
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:src="@drawable/ic_legibility"
-                    bind:tintConditionally="@{viewModel.currentQuickStyle == 1 ? true : false}"
-                    />
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 1 ? true : false}" />
 
                 <TextView
                     style="@style/description"
@@ -115,8 +113,7 @@
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:src="@drawable/ic_dark"
-                    bind:tintConditionally="@{viewModel.currentQuickStyle == 2 ? true : false}"
-                    />
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 2 ? true : false}" />
 
                 <TextView
                     style="@style/description"
@@ -145,8 +142,7 @@
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
                     android:src="@drawable/ic_contrast"
-                    bind:tintConditionally="@{viewModel.currentQuickStyle == 3 ? true : false}"
-                    />
+                    bind:tintConditionally="@{viewModel.currentQuickStyle == 3 ? true : false}" />
 
                 <TextView
                     style="@style/description"
@@ -274,9 +270,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:alpha="0.3"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/normal_margin"
+            android:alpha="0.3"
             android:background="@color/onbackground1" />
 
         <TextView
@@ -310,8 +306,8 @@
                     android:paddingTop="@dimen/half_margin"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    bind:tintConditionally="@{viewModel.currentTheme == 0 ? true : false}"
-                    android:src="@drawable/ic_phone" />
+                    android:src="@drawable/ic_phone"
+                    bind:tintConditionally="@{viewModel.currentTheme == 0 ? true : false}" />
 
                 <TextView
                     android:id="@+id/basetheme_text"
@@ -342,8 +338,8 @@
                     android:paddingTop="@dimen/half_margin"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    bind:tintConditionally="@{viewModel.currentTheme == 1 ? true : false}"
-                    android:src="@drawable/ic_light" />
+                    android:src="@drawable/ic_light"
+                    bind:tintConditionally="@{viewModel.currentTheme == 1 ? true : false}" />
 
                 <TextView
                     android:id="@+id/light_text"
@@ -373,8 +369,8 @@
                     android:paddingTop="@dimen/half_margin"
                     android:paddingRight="@dimen/half_margin"
                     android:paddingBottom="@dimen/large_margin"
-                    bind:tintConditionally="@{viewModel.currentTheme == 2 ? true : false}"
-                    android:src="@drawable/ic_dark" />
+                    android:src="@drawable/ic_dark"
+                    bind:tintConditionally="@{viewModel.currentTheme == 2 ? true : false}" />
 
                 <TextView
                     android:id="@+id/dark_text"

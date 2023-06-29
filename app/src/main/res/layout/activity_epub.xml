@@ -33,7 +33,7 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@{viewModel.currentTheme == 0 ? @color/white : @color/onbackground3}"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 app:elevation="0dp">
 
@@ -49,10 +49,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:layout_gravity="bottom"
+                android:background="@{viewModel.currentTheme == 0 ? @color/white : @color/onbackground3}"
+                android:orientation="horizontal"
                 android:paddingStart="@dimen/normal_margin"
                 android:paddingEnd="@dimen/normal_margin"
-                android:background="@color/white"
-                android:orientation="horizontal"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}">
 
 
@@ -61,48 +61,59 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:alpha="0.5"
+                    android:alpha="0.4"
                     android:gravity="center"
                     android:padding="@dimen/normal_margin"
-                    android:text="@{viewModel.pageNumber}" />
+                    android:text="@{viewModel.pageNumber}"
+                    android:textColor="@{viewModel.currentTheme == 0 ? @color/onbackground3 : @color/white}" />
 
 
                 <TextView
                     android:id="@+id/book_name"
                     style="@style/body"
                     android:layout_width="0dp"
-                    android:alpha="0.5"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:alpha="0.4"
                     android:padding="@dimen/normal_margin"
-                    android:text="@{viewModel.bookName}" />
+                    android:text="@{viewModel.bookName}"
+                    android:textColor="@{viewModel.currentTheme == 0 ? @color/onbackground3 : @color/white}" />
             </LinearLayout>
 
-            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
-                android:id="@+id/slider_countiner"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="?attr/actionBarSize"
-                android:layout_marginBottom="?attr/actionBarSize"
-                android:translationZ="90dp"
-                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}">
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginBottom="120dp"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
+                app:cardBackgroundColor="@{viewModel.currentTheme == 0 ? @color/white : @color/onbackground3}"
+                app:cardCornerRadius="@dimen/normal_margin"
+                app:cardElevation="0dp">
 
-                <io.techery.progresshint.addition.widget.VerticalSeekBar
-                    android:id="@+id/seekBar"
-                    style="@style/SeekBar"
-                    android:min="1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:padding="@dimen/xsmall_margin"
-                    app:popupAlwaysShown="false"
-                    app:popupDraggable="false"
-                    app:popupLayout="@layout/seekbar_layout"
-                    app:seekBarRotation="CW90" />
-                <!-- Rotation: CW90 or CW270 -->
-            </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:id="@+id/slider_countiner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:translationZ="90dp">
 
+                    <io.techery.progresshint.addition.widget.VerticalSeekBar
+                        android:id="@+id/seekBar"
+                        style="@style/SeekBar"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:min="1"
+                        android:padding="@dimen/xsmall_margin"
+                        app:popupAlwaysShown="false"
+                        app:popupDraggable="false"
+                        app:popupLayout="@layout/seekbar_layout"
+                        app:seekBarRotation="CW90" />
+                    <!-- Rotation: CW90 or CW270 -->
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+            </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
 
         <View

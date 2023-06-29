@@ -213,8 +213,26 @@ html.BLACK {
 }
 
 
+html.CONTRAST {
+    background-color: #000000 !important;
+}
+
+.CONTRAST p:not(.search_highlight),
+.CONTRAST div:not(.search_highlight),
+.CONTRAST span:not(.search_highlight):not(.epub-media-overlay-playing) {
+    color: #FFFFFF !important;
+    background-color: transparent !important;
+}
+
+
+.CONTRAST h1, .CONTRAST h2, .CONTRAST h3, .CONTRAST h4, .CONTRAST h5, .CONTRAST h6 {
+    color: #FFFFFF !important;
+}
+
+
+
 html.DARK {
-    background-color: #131313 !important;
+    background-color: #202020 !important;
 }
 
 .DARK p:not(.search_highlight),

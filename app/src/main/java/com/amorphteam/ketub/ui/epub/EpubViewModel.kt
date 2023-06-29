@@ -1,5 +1,6 @@
 package com.amorphteam.ketub.ui.epub
 
+import android.graphics.Typeface
 import android.util.Log
 import android.widget.ImageButton
 import android.widget.SeekBar
@@ -202,7 +203,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
             }
 
             QuickStyle.HIGHCONTRAST -> {
-                //TODO: //ADD HIGH CONTRAST STYLE
+                currentTheme.value = Theme.CONTRAST.number
             }
 
         }
@@ -242,7 +243,7 @@ class EpubViewModel(val referenceRepository: ReferenceRepository) : ViewModel() 
         items?.let {
             for (item in items) {
                 val chip = Chip(chipGroup.context)
-                chip.text = item.name
+                chip.text = item.name.replace("FONT", "الخط ")
                 chip.tag = item.number
 
                 chip.isCheckable = true
