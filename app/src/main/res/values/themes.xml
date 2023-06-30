@@ -118,9 +118,9 @@
     <style name="SeekBar" parent="Base.Widget.AppCompat.SeekBar.Discrete">
         <item name="android:progressBackgroundTint">@color/secondary1</item>
         <item name="android:progressTint">@color/secondary1</item>
-        <item name="android:colorControlActivated">@color/secondary1</item>
+        <item name="android:colorControlActivated">@android:color/transparent</item>
         <item name="android:thumbTint">@color/secondary1</item>
-        <item name="tickMark">@drawable/light_tick_mark</item>
+        <item name="tickMark">@android:color/transparent</item>
     </style>
 
     <style name="Theme.Ketub.Fullscreen" parent="Theme.Ketub">
