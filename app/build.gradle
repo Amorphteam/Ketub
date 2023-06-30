@@ -98,4 +98,5 @@ dependencies {
     implementation "org.jsoup:jsoup:$version_jsoup"
     implementation "commons-io:commons-io:$version_apacheCommonIo"
     implementation "org.apache.commons:commons-lang3:$version_apacheCommonLan3"
+    implementation "io.alterac.blurkit:blurkit:$version_blurkit"
 }
