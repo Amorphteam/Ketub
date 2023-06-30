@@ -71,7 +71,7 @@
         </FrameLayout>
 
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -137,6 +137,6 @@
                     android:layout_marginBottom="@dimen/normal_margin"
                     app:viewModel="@{viewModel}" />
             </RelativeLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

@@ -103,7 +103,7 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
         jsPictureListener = JsPictureListener(this)
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
+            FrameLayout.LayoutParams.WRAP_CONTENT
         )
         webView.setTapListener(this)
         webView.setScrollListener(this)
@@ -153,7 +153,6 @@ class EpubViewerFragment : Fragment(), StyleListener, WebViewPictureListener, Ep
     }
 
     override fun onPageScrolled(scrollY: Int) {
-
     }
 
     override fun onEmailTapped(email: String?) {

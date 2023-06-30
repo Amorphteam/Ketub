@@ -10,11 +10,15 @@
             type="com.amorphteam.ketub.ui.epub.epubViewer.EpubViewerViewModel" />
     </data>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
 
         <FrameLayout
             android:id="@+id/main_epub_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
 
             <ProgressBar
@@ -26,4 +30,5 @@
                 android:visibility="gone" />
 
         </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
