@@ -80,19 +80,23 @@
                     android:text="@{viewModel.bookName}"
                     android:textColor="@{viewModel.currentTheme == 0 ? @color/onbackground3 : @color/white}" />
             </LinearLayout>
-            <io.alterac.blurkit.BlurLayout xmlns:blurkit="http://schemas.android.com/apk/res-auto"                android:layout_width="30dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
                 android:layout_marginTop="120dp"
                 android:layout_marginEnd="@dimen/small_margin"
+                app:cardBackgroundColor="@color/grey_overlay"
                 android:layout_marginBottom="120dp"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
-                blurkit:blk_cornerRadius="150dp"
-                blurkit:blk_downscaleFactor="0.12">
+
+                >
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
                     android:id="@+id/slider_countiner"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:translationZ="90dp">
@@ -112,7 +116,7 @@
                         app:seekBarRotation="CW90" />
                     <!-- Rotation: CW90 or CW270 -->
                 </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
-            </io.alterac.blurkit.BlurLayout>
+            </androidx.cardview.widget.CardView>
         </FrameLayout>
 
         <View

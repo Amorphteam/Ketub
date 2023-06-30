@@ -9,10 +9,13 @@
             name="viewModel"
             type="com.amorphteam.ketub.ui.epub.epubViewer.EpubViewerViewModel" />
     </data>
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
 >
 
         <FrameLayout
@@ -30,5 +33,6 @@
                 android:visibility="gone" />
 
         </FrameLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
