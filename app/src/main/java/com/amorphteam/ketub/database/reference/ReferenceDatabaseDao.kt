@@ -25,10 +25,10 @@ interface ReferenceDatabaseDao {
     fun getAllReferencesForSingleBook(bookName: String): List<ReferenceModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(reference: ReferenceModel)
+    fun insert(reference: ReferenceModel)
 
     @Query("DELETE FROM reference_table WHERE id = :id")
-    suspend fun delete(id: Int): Int
+    fun delete(id: Int): Int
 
     @Query("SELECT * FROM reference_table WHERE book_name = :bookName AND nav_index = :navIndex")
     fun getBookmarkSelected(bookName: String, navIndex: Int): Boolean

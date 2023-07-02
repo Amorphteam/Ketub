@@ -2,6 +2,15 @@
     color: red !important;
 }
 
+.book_name {
+		text-align: center;
+		font-family: 'heading1', arial;
+}
+.book_description {
+		text-align: center;
+}
+
+
 body {
     font-family: 'normal', arial;
 		direction: rtl;

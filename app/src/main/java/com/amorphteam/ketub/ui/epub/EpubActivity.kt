@@ -36,8 +36,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
-import kotlinx.android.synthetic.main.bottom_sheet_style.*
-import java.security.Key
 import java.util.*
 
 
@@ -181,7 +179,7 @@ class EpubActivity : AppCompatActivity() {
     }
 
     private fun handleChipsView() {
-        viewModel.setChips(chipGroup, Keys.FONT_ARRAY)
+        viewModel.setChips(binding.sheet.chipGroup, Keys.FONT_ARRAY)
     }
 
     fun addStyleListener(styleListener: StyleListener) {
@@ -332,7 +330,7 @@ class EpubActivity : AppCompatActivity() {
     }
 
     private fun handleStyleSheet() {
-        sheetBehavior = BottomSheetBehavior.from(bottom_sheet)
+        sheetBehavior = BottomSheetBehavior.from(binding.sheet.bottomSheet)
     }
 
     private fun openStyleSheet() {
