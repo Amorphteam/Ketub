@@ -101,6 +101,6 @@ dependencies {
     implementation "commons-io:commons-io:$version_apacheCommonIo"
     implementation "org.apache.commons:commons-lang3:$version_apacheCommonLan3"
     implementation "io.alterac.blurkit:blurkit:$version_blurkit"
-    implementation "com.github.techery.progresshint:library-addition:$version_progresshint"
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
 
 }

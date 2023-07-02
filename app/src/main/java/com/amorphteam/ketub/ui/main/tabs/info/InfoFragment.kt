@@ -51,7 +51,7 @@ class InfoFragment : Fragment() {
     }
 
     fun sendMail() {
-        val recipient = "info@nosos.net"
+        val recipient = "mdohayni@hotmail.com"
         val subject = " من تطبيق نصوص معاصرة والاجتهاد والتجديد"
         val body = "Your email body"
 

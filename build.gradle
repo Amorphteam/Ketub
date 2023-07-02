@@ -13,7 +13,6 @@ buildscript {
     ext.version_apacheCommonIo = "2.6"
     ext.version_apacheCommonLan3 = "3.4"
     ext.version_blurkit = "1.1.0"
-    ext.version_progresshint = "0.4.1"
     repositories {
         google()
         mavenCentral()
