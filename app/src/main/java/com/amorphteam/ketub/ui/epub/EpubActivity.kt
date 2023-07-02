@@ -241,7 +241,6 @@ class EpubActivity : AppCompatActivity() {
 
     private fun setUpChapterSeeker(maxPage: Int) {
         binding.seekBar.max = maxPage-1
-        binding.seekBar.hintDelegate.setHintAdapter { _, p1 -> "$p1" }
         binding.seekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 viewModel.pageNumber.value = String.format(
