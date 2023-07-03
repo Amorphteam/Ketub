@@ -14,11 +14,13 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
+        android:background="@{viewModel.currentTheme == 0 ? @color/light_grey : @color/onbackground3}"
         android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
 
 
@@ -33,27 +35,45 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@{viewModel.currentTheme == 0 ? @color/white : @color/onbackground3}"
+                android:background="@android:color/transparent"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
                 app:elevation="0dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/large_margin"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="?actionBarSize"
+                    app:cardBackgroundColor="@{viewModel.currentTheme == 0 ? @color/light_grey : @color/onbackground3}"
+                    android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
+                    android:background="@android:color/transparent"
                     android:layout_height="?actionBarSize">
 
+
                 </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.card.MaterialCardView>
             </com.google.android.material.appbar.AppBarLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/large_margin"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="?actionBarSize"
+                app:cardBackgroundColor="@{viewModel.currentTheme == 0 ? @color/light_grey : @color/onbackground3}"
+                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
+                android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_gravity="bottom"
-                android:background="@{viewModel.currentTheme == 0 ? @color/white : @color/onbackground3}"
+                android:layout_height="42dp"
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/normal_margin"
                 android:paddingEnd="@dimen/normal_margin"
-                android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}">
+                >
 
 
                 <TextView
@@ -63,7 +83,7 @@
                     android:layout_gravity="center"
                     android:alpha="0.4"
                     android:gravity="center"
-                    android:padding="@dimen/normal_margin"
+                    android:padding="@dimen/small_margin"
                     android:text="@{viewModel.pageNumber}"
                     android:textColor="@{viewModel.currentTheme == 0 ? @color/onbackground3 : @color/white}" />
 
@@ -76,19 +96,19 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:alpha="0.4"
-                    android:padding="@dimen/normal_margin"
+                    android:padding="@dimen/small_margin"
                     android:text="@{viewModel.bookName}"
                     android:textColor="@{viewModel.currentTheme == 0 ? @color/onbackground3 : @color/white}" />
             </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
             <androidx.cardview.widget.CardView
-                android:layout_width="30dp"
+                android:layout_width="16dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
                 android:layout_marginTop="120dp"
-                android:layout_marginEnd="@dimen/small_margin"
-                app:cardBackgroundColor="@color/grey_overlay"
+                app:cardBackgroundColor="@android:color/transparent"
                 android:layout_marginBottom="120dp"
                 android:visibility="@{viewModel.fullScreen == true ? View.GONE : View.VISIBLE}"
 
@@ -107,7 +127,6 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:min="1"
-                        android:padding="@dimen/small_margin"
                         android:progressDrawable="@drawable/my_progressbar"
                         android:thumb="@color/primary2"
                         app:seekBarRotation="CW90" />
