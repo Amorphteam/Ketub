@@ -5,16 +5,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -32,8 +29,10 @@ import com.amorphteam.ketub.ui.main.tabs.toc.tabs.first_and_second.TocFragment
 import com.amorphteam.ketub.ui.search.SearchActivity
 import com.amorphteam.ketub.utility.Keys
 import com.amorphteam.ketub.utility.PreferencesManager
+import com.codeboy.pager2_transformers.Pager2_DepthTransformer
+import com.codeboy.pager2_transformers.Pager2_PopTransformer
+import com.codeboy.pager2_transformers.Pager2_ZoomInTransformer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import com.mehdok.fineepublib.epubviewer.epub.Book
 import com.mehdok.fineepublib.epubviewer.epub.ManifestItem
 import java.util.*
@@ -224,11 +223,13 @@ class EpubActivity : AppCompatActivity() {
         adapter =
             EpubVerticalAdapter(spineItems, this.supportFragmentManager, lifecycle)
         binding.epubVerticalViewPager.adapter = adapter
+        binding.epubVerticalViewPager.setPageTransformer(Pager2_ZoomInTransformer())
         binding.epubVerticalViewPager.offscreenPageLimit = Keys.MAX_SIDE_PAGE
         viewModel.lastPageSeen.value?.let { moveToPage(it) }
         addPagerScrollListener(binding.epubVerticalViewPager)
         setUpChapterSeeker(spineItems.size)
     }
+
 
     private fun addPagerScrollListener(pager: ViewPager2) {
         pager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
