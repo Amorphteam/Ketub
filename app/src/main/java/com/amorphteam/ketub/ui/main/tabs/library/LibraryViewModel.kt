@@ -154,7 +154,7 @@ open class LibraryViewModel(
             Glide.with(image.context)
                 .load(image.context.resources
                     .getIdentifier(drawableImage, "drawable", image.context.packageName))
-                .placeholder(R.drawable.ejtihad_logo)
+                .placeholder(R.drawable.ejtehad_cover)
                 .into(image)
         }
 

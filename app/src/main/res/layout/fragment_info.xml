@@ -60,7 +60,7 @@
         <ImageView
             android:layout_width="@dimen/large_image"
             android:layout_height="@dimen/large_image"
-            android:src="@drawable/ejtihad_logo"
+            android:src="@drawable/ejtehad_cover"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/xlarge_margin"/>
 
@@ -90,6 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/xlarge_margin"
+            android:layoutDirection="rtl"
             android:layout_marginBottom="@dimen/xlarge_margin"
             android:orientation="horizontal">
             <ImageView
