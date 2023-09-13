@@ -3,15 +3,18 @@ package com.amorphteam.ketub.ui.main.tabs.library
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.*
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.database.recommanded_toc.RecommandedTocRepository
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.model.BookModel
 import com.amorphteam.ketub.model.CategoryModel
 import com.amorphteam.ketub.model.CatSection
+import com.amorphteam.ketub.model.RecommandedTocModel
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.*
 import com.amorphteam.ketub.utility.Connection.Companion.isInternetConnected
@@ -21,7 +24,9 @@ import java.security.Key
 
 open class LibraryViewModel(
     private val bookRepository: BookRepository,
-    private val referenceRepository: ReferenceRepository
+    private val referenceRepository: ReferenceRepository,
+    private val recommandedTocRepository: RecommandedTocRepository
+
 ) : ViewModel() {
     private val _startSearchAct = MutableLiveData<Boolean>()
     val startSearchAct: LiveData<Boolean>
@@ -31,12 +36,12 @@ open class LibraryViewModel(
     val startDetailFrag: LiveData<CatSection>
         get() = _startDetailFrag
 
-    private val _readMoreToc = MutableLiveData<List<ReferenceModel>>()
-    val readMoreToc: LiveData<List<ReferenceModel>>
+    private val _readMoreToc = MutableLiveData<List<RecommandedTocModel>>()
+    val readMoreToc: LiveData<List<RecommandedTocModel>>
         get() = _readMoreToc
 
-    private val _recommendedToc = MutableLiveData<List<ReferenceModel>>()
-    val recommendedToc: LiveData<List<ReferenceModel>>
+    private val _recommendedToc = MutableLiveData<List<RecommandedTocModel>>()
+    val recommendedToc: LiveData<List<RecommandedTocModel>>
         get() = _recommendedToc
 
     private val _errorTocRecieve = MutableLiveData<String>()
@@ -45,6 +50,7 @@ open class LibraryViewModel(
 
     private var databaseBookHelper: DatabaseBookHelper? = DatabaseBookHelper.getInstance()
     private var databaseReferenceHelper: DatabaseReferenceHelper? = DatabaseReferenceHelper.getInstance()
+    private var databaseRecommadedHelper: DatabaseRecommadedHelper? = DatabaseRecommadedHelper.getInstance()
 
 
 
@@ -81,30 +87,28 @@ open class LibraryViewModel(
 
     private fun getReferences() {
         viewModelScope.launch {
-            val isInternetConnected = withContext(Dispatchers.Default) {
-                isInternetConnected()
-            }
-
-            if (isInternetConnected) {
-                databaseReferenceHelper?.getOnlineReference(
-                    OnlineReference.RECOMMENDED_ONLINE,
-                    referenceRepository,
-                    _recommendedToc
-                )
-                databaseReferenceHelper?.getOnlineReference(
-                    OnlineReference.READMORE_ONLINE,
-                    referenceRepository,
-                    _readMoreToc
-                )
-            }
-            databaseReferenceHelper?.getOfflineReference(
-                OnlineReference.RECOMMENDED_ONLINE,
-                referenceRepository,
+//            val isInternetConnected = withContext(Dispatchers.Default) {
+//                isInternetConnected()
+//            }
+//
+//            if (isInternetConnected) {
+//                databaseReferenceHelper?.getOnlineReference(
+//                    OnlineReference.RECOMMENDED_ONLINE,
+//                    referenceRepository,
+//                    _recommendedToc
+//                )
+//                databaseReferenceHelper?.getOnlineReference(
+//                    OnlineReference.READMORE_ONLINE,
+//                    referenceRepository,
+//                    _readMoreToc
+//                )
+//            }
+            databaseRecommadedHelper?.getOfflineRecommandedToc(
+                recommandedTocRepository,
                 _recommendedToc
             )
-            databaseReferenceHelper?.getOfflineReference(
-                OnlineReference.READMORE_ONLINE,
-                referenceRepository,
+            databaseRecommadedHelper?.getOfflineRecommandedToc(
+                recommandedTocRepository,
                 _readMoreToc
             )
         }
@@ -143,10 +147,18 @@ open class LibraryViewModel(
                 .into(image)
         }
 
+        @JvmStatic
+        @BindingAdapter("bookTitle")
+        fun TextView.setBookTitle(item: ReferenceModel?) {
+            item?.let {
+                text = item.title
+            }
+        }
+
         @SuppressLint("DiscouragedApi")
         @JvmStatic
         @BindingAdapter("setImage")
-        fun setImage(image: ImageView, item: ReferenceModel){
+        fun setImage(image: ImageView, item: RecommandedTocModel){
             var drawableImage = Keys.EJTEHAD_LOGO
             if (item.bookName.contains(Keys.DB_SECOND_CAT)){
                 drawableImage = Keys.NOSOS_LOGO

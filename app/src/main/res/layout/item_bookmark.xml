@@ -53,12 +53,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:bookTitle="@{item}" />
 
-                <ImageView
-                    android:id="@+id/image"
-                    android:visibility="@{item.onlineReference == OnlineReference.NONE ? View.GONE : View.VISIBLE}"
-                    android:layout_width="@dimen/normal_image"
-                    android:layout_height="@dimen/normal_image"
-                    app:setImage="@{item}"/>
+
             </LinearLayout>
 
 

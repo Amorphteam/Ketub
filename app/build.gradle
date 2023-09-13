@@ -100,7 +100,7 @@ dependencies {
     implementation "org.jsoup:jsoup:$version_jsoup"
     implementation "commons-io:commons-io:$version_apacheCommonIo"
     implementation "org.apache.commons:commons-lang3:$version_apacheCommonLan3"
-    implementation "io.alterac.blurkit:blurkit:$version_blurkit"
+//    implementation "io.alterac.blurkit:blurkit:$version_blurkit"
     implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0'
     implementation 'com.github.CodeBoy722:ViewPager2_Transformers:1.0.0'
 

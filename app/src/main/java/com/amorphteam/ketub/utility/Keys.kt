@@ -11,6 +11,8 @@ class Keys {
         var URL_BASE_ADDRESS = "http://nosos.net/api/"
         val DB_BOOK_ADDRESS = "database/book_list.db"
         val DB_BOOK_NAME = "book_list.db"
+        val DB_RECOMMANDED_ADDRESS = "database/sections_list.db"
+        val DB_RECOMMANDED_NAME = "sections_list.db"
         val DB_REFERENCE_NAME = "reference_database.db"
         val DB_FIRST_CAT = "الاجتهاد والتجديد"
         val DB_SECOND_CAT = "نصوص معاصرة"

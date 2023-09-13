@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.amorphteam.ketub.database.reference.ReferenceRepository
+import com.amorphteam.ketub.model.RecommandedTocModel
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.utility.DatabaseReferenceHelper
 import com.amorphteam.ketub.utility.EpubHelper.Companion.isContainerForAllBooks
@@ -71,11 +72,13 @@ class BookmarkViewModel(
 
         @JvmStatic
         @BindingAdapter("bookTitle")
-        fun TextView.setBookTitle(item: ReferenceModel?) {
+        fun TextView.setBookTitle(item: RecommandedTocModel?) {
             item?.let {
                 text = item.title
             }
         }
+
+
     }
 
 }

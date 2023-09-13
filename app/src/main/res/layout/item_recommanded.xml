@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="androidx.core.content.ContextCompat" />
+        <variable
+            name="item"
+            type="com.amorphteam.ketub.model.RecommandedTocModel" />
+
+        <variable
+            name="itemClickListener"
+            type="com.amorphteam.ketub.ui.adapter.RecItemClickListener" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layoutDirection="rtl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
+        android:gravity="center"
+        android:onClick="@{() -> itemClickListener.onClick(item)}"
+        android:orientation="horizontal">
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/book_title"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/xsmall_margin"
+                    android:text="@string/ejtehad_caption"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:bookTitle="@{item}" />
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="@dimen/normal_image"
+                    android:layout_height="@dimen/normal_image"
+                    app:setImage="@{item}"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

@@ -15,11 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.amorphteam.ketub.R
 import com.amorphteam.ketub.database.book.BookDatabase
 import com.amorphteam.ketub.database.book.BookRepository
+import com.amorphteam.ketub.database.recommanded_toc.RecommandedTocDatabase
+import com.amorphteam.ketub.database.recommanded_toc.RecommandedTocRepository
 import com.amorphteam.ketub.database.reference.ReferenceDatabase
 import com.amorphteam.ketub.database.reference.ReferenceRepository
 import com.amorphteam.ketub.databinding.FragmentLibraryBinding
 import com.amorphteam.ketub.model.CatSection
 import com.amorphteam.ketub.model.CategoryModel
+import com.amorphteam.ketub.model.RecommandedTocModel
 import com.amorphteam.ketub.model.ReferenceModel
 import com.amorphteam.ketub.ui.adapter.*
 import com.amorphteam.ketub.ui.epub.EpubActivity
@@ -46,10 +49,12 @@ class LibraryFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val bookDao = BookDatabase.getInstance(application).bookDatabaseDao
         val referenceDao = ReferenceDatabase.getInstance(application).referenceDatabaseDao
+        val recommandedTocDao = RecommandedTocDatabase.getInstance(application).recommandedTocDatabaseDao
 
         val bookRepository = BookRepository(bookDao)
         val referenceRepository = ReferenceRepository(referenceDao)
-        val viewModelFactory = LibraryViewModelFactory(bookRepository, referenceRepository)
+        val recommandedTocRepository = RecommandedTocRepository(recommandedTocDao)
+        val viewModelFactory = LibraryViewModelFactory(bookRepository, referenceRepository, recommandedTocRepository)
 
         viewModel =
             ViewModelProvider(this, viewModelFactory)[LibraryViewModel::class.java]
@@ -140,8 +145,8 @@ class LibraryFragment : Fragment() {
         return binding.root
     }
 
-    private fun handleRecyclerView(list: List<ReferenceModel>, onlineReference: OnlineReference) {
-        val adapter = ReferenceAdapter(ItemClickListener {
+    private fun handleRecyclerView(list: List<RecommandedTocModel>, onlineReference: OnlineReference) {
+        val adapter = RecommandedAdapter(RecItemClickListener {
             val bookPath = it.bookPath
             val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
             it.navIndex?.let { it1 ->
@@ -149,7 +154,6 @@ class LibraryFragment : Fragment() {
                     EpubHelper.openEpub(bookAddress, it1, requireContext())
                 }
             }
-        }, DeleteClickListener {
         })
         adapter.submitList(list)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
