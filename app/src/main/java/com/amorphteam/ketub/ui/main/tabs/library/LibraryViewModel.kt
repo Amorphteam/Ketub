@@ -160,7 +160,7 @@ open class LibraryViewModel(
         @BindingAdapter("setImage")
         fun setImage(image: ImageView, item: RecommandedTocModel){
             var drawableImage = Keys.EJTEHAD_LOGO
-            if (item.bookName.contains(Keys.DB_SECOND_CAT)){
+            if (item.bookName!!.contains(Keys.DB_SECOND_CAT)){
                 drawableImage = Keys.NOSOS_LOGO
             }
             Glide.with(image.context)

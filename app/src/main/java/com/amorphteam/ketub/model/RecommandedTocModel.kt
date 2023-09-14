@@ -13,13 +13,13 @@ class RecommandedTocModel (
     val id :Int,
 
     @ColumnInfo(name = "title")
-    val title: String,
+    val title: String?,
 
     @ColumnInfo(name = "book_path")
-    val bookPath: String,
+    val bookPath: String?,
 
     @ColumnInfo(name = "book_name")
-    val bookName: String,
+    val bookName: String?,
 
     @ColumnInfo(name = "section_index")
     val navIndex: Int?,

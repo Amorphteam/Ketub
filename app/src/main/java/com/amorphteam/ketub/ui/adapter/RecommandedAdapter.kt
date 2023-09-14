@@ -70,7 +70,7 @@ class RecommandedAdapter(
 
     fun onFilter(list: List<RecommandedTocModel>, constraint: String): List<RecommandedTocModel> {
         val filteredList = list.filter {
-            it.title.lowercase().contains(constraint.lowercase()) || it.bookName.lowercase().contains(constraint.lowercase())
+            it.title!!.lowercase().contains(constraint.lowercase()) || it.bookName!!.lowercase().contains(constraint.lowercase())
         }
         return filteredList
     }

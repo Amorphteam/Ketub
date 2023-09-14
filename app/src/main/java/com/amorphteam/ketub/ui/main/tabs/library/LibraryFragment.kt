@@ -148,7 +148,7 @@ class LibraryFragment : Fragment() {
     private fun handleRecyclerView(list: List<RecommandedTocModel>, onlineReference: OnlineReference) {
         val adapter = RecommandedAdapter(RecItemClickListener {
             val bookPath = it.bookPath
-            val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath, requireContext())
+            val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath!!, requireContext())
             it.navIndex?.let { it1 ->
                 if (bookAddress != null) {
                     EpubHelper.openEpub(bookAddress, it1, requireContext())
