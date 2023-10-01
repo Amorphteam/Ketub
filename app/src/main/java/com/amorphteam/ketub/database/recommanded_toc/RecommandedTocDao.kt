@@ -6,6 +6,6 @@ import com.amorphteam.ketub.model.RecommandedTocModel
 
 @Dao
 interface RecommandedTocDao {
-    @Query("select * from sections_list")
+    @Query("SELECT * FROM sections_list ORDER BY RANDOM() LIMIT 15")
     fun getAllToc(): List<RecommandedTocModel>
 }

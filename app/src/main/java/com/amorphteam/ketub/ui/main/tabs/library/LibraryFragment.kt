@@ -151,7 +151,7 @@ class LibraryFragment : Fragment() {
             val bookAddress = EpubHelper.getBookAddressFromBookPath(bookPath!!, requireContext())
             it.navIndex?.let { it1 ->
                 if (bookAddress != null) {
-                    EpubHelper.openEpub(bookAddress, it1, requireContext())
+                    EpubHelper.openEpub(bookAddress, it1-1, requireContext())
                 }
             }
         })

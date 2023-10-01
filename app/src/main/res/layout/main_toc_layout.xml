@@ -17,7 +17,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title" />
+            android:text="@string/main_toc_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
